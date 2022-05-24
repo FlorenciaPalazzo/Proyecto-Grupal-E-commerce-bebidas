@@ -5,7 +5,8 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('usuario', {
     id: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,     
    },
     nombre: {
