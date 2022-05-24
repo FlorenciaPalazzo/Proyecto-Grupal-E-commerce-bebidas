@@ -5,34 +5,32 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('cliente', {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.FLOAT,
       primaryKey: true,     
    },
     nombre: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
       unique: true,
     },
-    imagen: {
+    contraseña: {
       type: DataTypes.STRING,
     },
-    marca: {
+    nacimiento: {
+      type: DataTypes.DATEONLY,
+    },
+    direccion: {
       type: DataTypes.STRING,
     },
-    ml: {
+    telefono: {
       type: DataTypes.FLOAT,
     },
-    graduacion: {
-      type: DataTypes.FLOAT,
-    },
-    precio: {
-      type: DataTypes.FLOAT,
-    },
-    stock: {
-      type: DataTypes.FLOAT,
-    }
-
-
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: "false"
+  },
   });
 };
