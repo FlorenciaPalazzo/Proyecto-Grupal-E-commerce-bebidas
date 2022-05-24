@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import FilterBy from "../FilterBy";
 import SearchBar from "../SearchBar";
 export default function NavBar() {
   return (
@@ -10,6 +11,7 @@ export default function NavBar() {
       <Link to="/contact">
         <button className="button">Contact</button>
       </Link>
+      <FilterBy />
       <SearchBar />
     </div>
   );
