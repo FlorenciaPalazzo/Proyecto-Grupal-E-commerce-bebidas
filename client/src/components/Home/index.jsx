@@ -26,6 +26,7 @@ function Home() {
       <NavBar />
       {isAuthenticated && (
         <div>
+
           <span>
             Hi, {user.name}{" "}
             <img width={50} height={50} src={user.picture} alt={user.name} />
@@ -35,6 +36,7 @@ function Home() {
           <div>Is Admin: {String(admin)}</div>
         </div>
       )}
+
       <Login />
       {product &&
         product.map((e) => {
