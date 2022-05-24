@@ -26,7 +26,7 @@ export const getProductByName = (name) => {
       let result = await axios.get(
         `http://localhost:3001/bebidas?nombre=${name}`
       );
-      console.log(result.data);
+      //.
       return dispatch({
         type: GET_PRODUCT_NAME,
         payload: result.data,
