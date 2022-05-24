@@ -4,8 +4,11 @@ import SearchBar from "../SearchBar";
 export default function NavBar() {
   return (
     <div>
-      <Link to="/home">
-        <button>Home</button>
+      <Link to="/">
+        <button className="button">Home</button>
+      </Link>
+      <Link to="/contact">
+        <button className="button">Contact</button>
       </Link>
       <SearchBar />
     </div>

@@ -31,7 +31,6 @@ function Home(){
                     <div>Is Admin: {String(admin)}</div>
                 </div>
             }
-            <Login/>
             
       <Login />
       </div>
