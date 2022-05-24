@@ -49,7 +49,6 @@ function Home() {
               precio={e.precio}
             />
           );
-          console.log(e.nombre);
         })}
     </div>
   );
