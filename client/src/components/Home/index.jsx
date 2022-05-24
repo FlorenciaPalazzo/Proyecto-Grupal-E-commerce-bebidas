@@ -4,9 +4,11 @@ import Login from "../Login";
 import { useDispatch, useSelector } from "react-redux";
 import { isAdmin } from "../../redux/actions";
 import NavBar from "../NavBar";
+import Card from "../Card";
 function Home() {
   const { isAuthenticated, user } = useAuth0();
   const dispatch = useDispatch();
+  const product = useSelector((state) => state.products);
   const admin = useSelector((state) => state.isAdmin);
   function adminHandler() {
     if (isAuthenticated && user) {
@@ -17,7 +19,7 @@ function Home() {
   useEffect(() => {
     console.log("effect");
     adminHandler();
-  }, [user]);
+  }, [user, product]);
   console.log(user, admin);
   return (
     <div>
@@ -36,6 +38,20 @@ function Home() {
       )}
 
       <Login />
+      {product &&
+        product.map((e) => {
+          return (
+            <Card
+              nombre={e.nombre}
+              imagen={e.imagen}
+              id={e.id}
+              marca={e.marca}
+              ml={e.ml}
+              graduacion={e.graduacion}
+              precio={e.precio}
+            />
+          );
+        })}
     </div>
   );
 }

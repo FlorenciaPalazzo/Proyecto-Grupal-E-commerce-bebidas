@@ -38,7 +38,7 @@ export default function FilterBy() {
         </select>
       </div>
       <div>
-        <select onChange={handleType} defaultValue="all">
+        <select onChange={handleType} defaultValue="Type">
           <option value="">Type</option>
           <option value="all">All</option>
           {/* puede sacarse */}
@@ -49,7 +49,12 @@ export default function FilterBy() {
         </select>
       </div>
       <div>
-        <select name="" id="" onChange={handleGraduation} defaultValue="all">
+        <select
+          name=""
+          id=""
+          onChange={handleGraduation}
+          defaultValue="Graduation"
+        >
           <option value="">Graduation</option>
           <option value="all">All</option>
           {/* puede sacarse */}
@@ -59,7 +64,7 @@ export default function FilterBy() {
         </select>
       </div>
       <div>
-        <select name="" id="" onChange={handleML} defaultValue="all">
+        <select name="" id="" onChange={handleML} defaultValue="ML">
           <option value="">ML</option>
           <option value="all">All</option>
           {/* puede sacarse */}
@@ -70,7 +75,7 @@ export default function FilterBy() {
         </select>
       </div>
       <div>
-        <select name="" id="" onChange={handlePrice} defaultValue="all">
+        <select name="" id="" onChange={handlePrice} defaultValue="Price">
           <option value="">Price</option>
           <option value="all">All</option>
           {/* puede sacarse */}
@@ -85,7 +90,7 @@ export default function FilterBy() {
         </select>
       </div>
       <div>
-        <select name="" id="" onChange={handleAZ} defaultValue="all">
+        <select name="" id="" onChange={handleAZ} defaultValue="ABC">
           <option value="all">ABC</option>
           <option value="az">A-Z</option>
           <option value="za">Z-A</option>
