@@ -1,8 +1,10 @@
-import { ADMIN_HANDLER } from "../actions/actionsTypes";
+import { ADMIN_HANDLER, GET_PRODUCT_NAME } from "../actions/actionsTypes";
 
 const initialState = {
   isAdmin: false,
   brands: [],
+  products: [],
+  productsSort: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -13,6 +15,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
         return { ...state, isAdmin: true };
       } else return { ...state, isAdmin: false };
     }
+    case GET_PRODUCT_NAME:
+      return { ...state, products: payload };
     default:
       return state;
   }
