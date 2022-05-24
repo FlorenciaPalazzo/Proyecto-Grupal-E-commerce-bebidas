@@ -3,6 +3,7 @@ import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import Login from '../Login'
 import { useDispatch, useSelector } from 'react-redux';
 import { isAdmin } from '../../redux/actions';
+import NavBar from "../NavBar";
 function Home(){
     const { isAuthenticated, user } = useAuth0();
     const dispatch = useDispatch()
@@ -20,6 +21,7 @@ function Home(){
     console.log(user,admin);
     return (
         <div>
+            <NavBar />
             {
                 isAuthenticated && 
                 <div>
@@ -31,10 +33,12 @@ function Home(){
             }
             <Login/>
             
-        </div>
-    );
-};
+      <Login />
+      </div>
+      
+  );
+}
 
-export default Home
+export default Home;
 // front-alcaraz
 // ultima
