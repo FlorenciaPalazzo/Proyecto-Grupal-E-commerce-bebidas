@@ -1,14 +1,15 @@
-import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Home from './components/Home';
 
 function App() {
   return (
     <div className="App">
-      <h1>Henry Bebidas!!!</h1>
+      <Routes>
+        <Route path='/' exact element={<Home/>}/>        
+      </Routes>
     </div>
   );
 }
 
-export default App;
-
-
-// front-alcaraz
+// base
+export default App
