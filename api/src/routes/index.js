@@ -2,11 +2,10 @@ const { Router } = require('express');
 
 const axios = require ('axios')
 
-const {Bebida}= require ('../db')
+const {Producto}= require ('../db')
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 //cambiominimo
-
 
 const router = Router();
 
@@ -14,19 +13,15 @@ const router = Router();
 // router.use('./bebidas' , bebidas)
 
 const getDataBase = async()=>{
-    return await Bebida.findAll() 
+    return await Producto.findAll() 
 }
 router.get('/bebidasApi', async (req, res, next) => {
     
-    try {
-        
-        
-     const bebidasInfo = await axios.get(`https://bebidas-efc61-default-rtdb.firebaseio.com/results.json`)
-       
+    try { 
+     const bebidasInfo = await axios.get(`https://bebidas-efc61-default-rtdb.firebaseio.com/results.json`)   
      const allBebidas = await bebidasInfo.data.map(e => { return e })
-     
      const allBebidasDb = await allBebidas.map(e => {
-         Bebida.create(e)
+      Producto.create(e)
       }
       )
    
@@ -35,6 +30,9 @@ router.get('/bebidasApi', async (req, res, next) => {
        next(error)
     } 
   });
+
+
+
   router.get('/bebidas', async (req, res, next) => {
      try {
          
@@ -55,6 +53,18 @@ router.get('/bebidasApi', async (req, res, next) => {
      }
   })
 
+  router.get('/bebidas/:id', async (req, res) => {
+     let { id } = req.params
+
+     try{
+         let bebida = await Producto.findByPk(id)
+         res.status(200).json(bebida)
+         console.log(bebida)
+         
+      }catch(err){
+         res.status(404)
+   }
+  })
 
 
 module.exports = router;
