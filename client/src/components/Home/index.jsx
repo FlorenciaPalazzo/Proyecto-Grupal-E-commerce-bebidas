@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Login from "../Login";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { isAdmin } from "../../redux/actions";
 import NavBar from "../NavBar";
 import Card from "../Card";
@@ -41,7 +42,9 @@ function Home() {
       {product &&
         product.map((e) => {
           return (
-            <Card
+            <div key={e.id}>
+              <Link to={"/bebida/" + e.id}>
+                <Card
               nombre={e.nombre}
               imagen={e.imagen}
               id={e.id}
@@ -49,7 +52,10 @@ function Home() {
               ml={e.ml}
               graduacion={e.graduacion}
               precio={e.precio}
-            />
+                />
+            </Link>
+            </div>
+            
           );
         })}
     </div>
