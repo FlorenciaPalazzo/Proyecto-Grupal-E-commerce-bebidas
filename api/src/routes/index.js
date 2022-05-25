@@ -68,3 +68,15 @@ router.get('/bebidasApi', async (req, res, next) => {
 
 
 module.exports = router;
+
+
+// router.delete('/:id', async(req, res) => {
+//   const {id} = req.params;
+
+//   const del = await Videogame.destroy({
+//       where:{
+//           id: id
+//       }
+//   })
+//   return res.status(200).send('AL LOBBY');
+// })
