@@ -130,7 +130,7 @@ router.get('/bebidasApi', async (req, res, next) => {
         }    
        
     })
-    res.json(usuarioCreado)
+    return res.json(usuarioCreado)
   })
 
   router.post('/usuario/login',  async (req, res) => {
@@ -144,6 +144,37 @@ router.get('/bebidasApi', async (req, res, next) => {
 
   })
 
+  router.post('/usuario/posts', verifyToken, async (req, res) => {
+
+   jwt.verify(req.token, 'secretkey',(error,authData) =>{
+       if(error){
+           res.sendStatus(403)
+       }else{
+           res.json({
+               mensaje:"Post fue creado",
+               authData
+           })
+       }
+
+   })
+
+  })
+
+//Authorization: Bearer <token>
+  function verifyToken(req, res, next){
+      const bearerHeader = req.headers['authorization']
+
+      if(typeof bearerHeader !== 'undefined'){
+          const bearerToken = bearerHeader.split(" ")[1];
+          req.token =bearerToken;
+          next();
+      }else{
+          res.sendStatus(403)
+      }
+  }
+
+  
+
   router.delete('/bebida/:id', async(req, res) => {
     const {id} = req.params;
   
@@ -154,18 +185,31 @@ router.get('/bebidasApi', async (req, res, next) => {
     })
     return res.status(200).send('AL LOBBY');
   })
+
+
+
+  router.get('/usuario', async (req,res) => {
+      try {
+          let usuarios = await Usuario.findAll()
+          res.status(200).json(usuarios)
+          
+      } catch (e) {
+          res.status(404).send(e.message)
+      }
+  })
   
   // FALTA GET DE USUARIO PARA PROBAR DELETE
-  // router.delete('/usuario/:id', async(req, res) => {
-  //   const {id} = req.params;
+  router.delete('/usuario/:id', async(req, res) => {
+    const {id} = req.params;
   
-  //   const del = await Usuario.destroy({
-  //       where:{
-  //           id: id
-  //       }
-  //   })
-  //   return res.status(200).send('AL LOBBY');
-  // })
+    const del = await Usuario.destroy({
+        where:{
+            id: id
+        }
+    })
+    return res.status(200).send('AL LOBBY');
+  })
+
 
   router.put('/usuario', async (req, res) => {
 
