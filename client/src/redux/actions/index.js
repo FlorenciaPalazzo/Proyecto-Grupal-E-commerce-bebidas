@@ -7,7 +7,7 @@ import {
   FILTER_BY_ML,
   FILTER_BY_PRICE,
   FILTER_BY_AZ,
-  FILTER_BY_ZA,
+  GET_BRANDS,
 } from "./actionsTypes";
 import axios from "axios";
 
@@ -36,6 +36,19 @@ export const getProductByName = (name) => {
     }
   };
 };
+export const getBrands = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: GET_BRANDS,
+        //payload:
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
 //filtro por marca
 export const filterByBrand = (filter) => {
   return async function (dispatch) {

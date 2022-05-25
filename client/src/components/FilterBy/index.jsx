@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   filterByAZ,
   filterByBrand,
@@ -7,11 +7,16 @@ import {
   filterByML,
   filterByPrice,
   filterByType,
+  getBrands,
 } from "../../redux/actions";
 
 export default function FilterBy() {
   const dispatch = useDispatch();
+  const brands = useSelector((state) => state.brands);
 
+  useEffect(() => {
+    dispatch(getBrands());
+  }, [dispatch]);
   const handleBrand = (e) => {
     dispatch(filterByBrand(e.target.value));
   };
@@ -30,11 +35,19 @@ export default function FilterBy() {
   const handleAZ = (e) => {
     dispatch(filterByAZ(e.target.value));
   };
+
   return (
     <div>
       <div>
         <select name="" id="" onChange={handleBrand}>
-          <option>esperando rutas...</option>
+          <option>Brands</option>
+          <option value="all">All</option>
+          {brands &&
+            brands.map((e) => (
+              <option key={e} name={e} value={e}>
+                {e}
+              </option>
+            ))}
         </select>
       </div>
       <div>
@@ -42,10 +55,10 @@ export default function FilterBy() {
           <option value="">Type</option>
           <option value="all">All</option>
           {/* puede sacarse */}
-          <option value="Cerveza">Beer</option>
-          <option value="Vino">Wine</option>
-          <option value="Espumante">Sparkling Wine</option>
-          <option value="Destilados">Destilled</option>
+          <option value="cerveza">Beer</option>
+          <option value="vino">Wine</option>
+          <option value="espumante">Sparkling Wine</option>
+          <option value="destilados">Destilled</option>
         </select>
       </div>
       <div>
@@ -83,10 +96,9 @@ export default function FilterBy() {
           <option value="price_2">$500-$2000</option>
           <option value="price_3">$2000-$5000</option>
           <option value="price_4">$5000-$10000</option>
-          <option value="price_5">$5000-$10000</option>
-          <option value="price_6">$10000-$20000</option>
-          <option value="price_7">$20000-$35000</option>
-          <option value="price_8">+$35000</option>
+          <option value="price_5">$10000-$20000</option>
+          <option value="price_6">$20000-$35000</option>
+          <option value="price_7">+$35000</option>
         </select>
       </div>
       <div>

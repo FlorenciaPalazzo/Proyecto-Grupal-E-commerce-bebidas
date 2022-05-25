@@ -26,7 +26,6 @@ function Home() {
       <NavBar />
       {isAuthenticated && (
         <div>
-
           <span>
             Hi, {user.name}{" "}
             <img width={50} height={50} src={user.picture} alt={user.name} />
@@ -42,6 +41,7 @@ function Home() {
         product.map((e) => {
           return (
             <Card
+              key={e.id}
               nombre={e.nombre}
               imagen={e.imagen}
               id={e.id}
