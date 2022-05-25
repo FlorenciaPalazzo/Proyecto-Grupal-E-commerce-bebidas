@@ -109,6 +109,31 @@ router.get('/bebidasApi', async (req, res, next) => {
   })
 
 
+  router.put('/usuario', async (req, res) => {
+
+    let { nombre, email, contraseña , nacimiento , direccion , telefono } = req.body
+    let { id } = req.body
+
+
+      try {
+          const usuarioPut = await Usuario.findOne({ where: { id: id } })
+
+
+          await usuarioPut.update({
+              id: id,
+              nombre: nombre,
+              email: email,
+              contraseña: contraseña ,
+              nacimiento: nacimiento,
+              direccion: direccion,
+              telefono: telefono
+          })
+          res.json(usuarioPut)
+      } catch (err) {
+          console.log('error usuarios')
+      }
+  })
+
 
 
 module.exports = router;
