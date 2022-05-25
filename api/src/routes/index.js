@@ -135,4 +135,33 @@ router.get('/bebidasApi', async (req, res, next) => {
     res.json(usuarioCreado)
   })
 
+<<<<<<< HEAD
+  router.delete('/bebida/:id', async(req, res) => {
+    const {id} = req.params;
+  
+    const del = await Producto.destroy({
+        where:{
+            id: id
+        }
+    })
+    return res.status(200).send('AL LOBBY');
+  })
+  
+  // FALTA GET DE USUARIO PARA PROBAR DELETE
+  // router.delete('/usuario/:id', async(req, res) => {
+  //   const {id} = req.params;
+  
+  //   const del = await Usuario.destroy({
+  //       where:{
+  //           id: id
+  //       }
+  //   })
+  //   return res.status(200).send('AL LOBBY');
+  // })
+
+
 module.exports = router;
+
+=======
+module.exports = router;
+>>>>>>> 415e7356d7aba13ee0ab8365a71091e6a85c12c4
