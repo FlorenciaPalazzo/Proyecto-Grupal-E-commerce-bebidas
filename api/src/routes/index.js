@@ -132,10 +132,9 @@ router.get('/bebidasApi', async (req, res, next) => {
         }    
        
     })
-    res.json(usuarioCreado)
+    return res.json(usuarioCreado)
   })
 
-<<<<<<< HEAD
   router.delete('/bebida/:id', async(req, res) => {
     const {id} = req.params;
   
@@ -146,18 +145,31 @@ router.get('/bebidasApi', async (req, res, next) => {
     })
     return res.status(200).send('AL LOBBY');
   })
+
+
+
+  router.get('/usuario', async (req,res) => {
+      try {
+          let usuarios = await Usuario.findAll()
+          res.status(200).json(usuarios)
+          
+      } catch (e) {
+          res.status(404).send(e.message)
+      }
+  })
   
   // FALTA GET DE USUARIO PARA PROBAR DELETE
-  // router.delete('/usuario/:id', async(req, res) => {
-  //   const {id} = req.params;
+  router.delete('/usuario/:id', async(req, res) => {
+    const {id} = req.params;
   
-  //   const del = await Usuario.destroy({
-  //       where:{
-  //           id: id
-  //       }
-  //   })
-  //   return res.status(200).send('AL LOBBY');
-  // })
+    const del = await Usuario.destroy({
+        where:{
+            id: id
+        }
+    })
+    return res.status(200).send('AL LOBBY');
+  })
+
 
   router.put('/usuario', async (req, res) => {
 
@@ -187,6 +199,3 @@ router.get('/bebidasApi', async (req, res, next) => {
 
 module.exports = router;
 
-=======
-module.exports = router;
->>>>>>> 415e7356d7aba13ee0ab8365a71091e6a85c12c4
