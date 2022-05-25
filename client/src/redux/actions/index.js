@@ -41,10 +41,10 @@ export const getProductByName = (name) => {
 export const getProductById = (id) => {
         return async function(dispatch) {
             try {
-                const json = await axios.get('http://localhost:3001/bebida/' + id);
+                let result = await axios.get('http://localhost:3001/bebida/' + id);
                 return dispatch({
                     type: GET_PRODUCT_ID,
-                    payload: json.data,
+                    payload: result.data,
                 })
             } catch (err) {
                 console.log("Error desde el catch de getProductById", err);
