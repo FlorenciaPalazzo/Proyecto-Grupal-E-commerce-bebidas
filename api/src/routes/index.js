@@ -108,19 +108,28 @@ router.get('/bebidasApi', async (req, res, next) => {
     res.json(usuarioCreado)
   })
 
-
+  router.delete('/:id', async(req, res) => {
+    const {id} = req.params;
+  
+    const del = await Producto.destroy({
+        where:{
+            id: id
+        }
+    })
+    return res.status(200).send('AL LOBBY');
+  })
+  
+  router.delete('/:id', async(req, res) => {
+    const {id} = req.params;
+  
+    const del = await Usuario.destroy({
+        where:{
+            id: id
+        }
+    })
+    return res.status(200).send('AL LOBBY');
+  })
 
 
 module.exports = router;
 
-
-// router.delete('/:id', async(req, res) => {
-//   const {id} = req.params;
-
-//   const del = await Videogame.destroy({
-//       where:{
-//           id: id
-//       }
-//   })
-//   return res.status(200).send('AL LOBBY');
-// })
