@@ -1,4 +1,5 @@
 import {
+  ADMIN_HANDLER,
   GET_PRODUCT_NAME,
   FILTER_BY_BRAND,
   FILTER_BY_TYPE,
@@ -8,21 +9,30 @@ import {
   FILTER_BY_AZ,
   FILTER_BY_ZA,
 } from "./actionsTypes";
-
 import axios from "axios";
+
+export function isAdmin(email) {
+  return async (dispatch) => {
+    return dispatch({ type: ADMIN_HANDLER, payload: email });
+  };
+}
 
 //busqueda por nombre
 export const getProductByName = (name) => {
   // ruta del searchbar
   return async function (dispatch) {
     try {
-      let result; // falta la ruta
+      //http://localhost:3001/bebidas?nombre
+      let result = await axios.get(
+        `http://localhost:3001/bebidas?nombre=${name}`
+      );
+      //.
       return dispatch({
         type: GET_PRODUCT_NAME,
         payload: result.data,
       });
     } catch (err) {
-      console.log(err);
+      console.log("Error desde el catch de getProductByName", err);
     }
   };
 };
