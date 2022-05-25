@@ -20,6 +20,11 @@ module.exports = (sequelize) => {
     marca: {
       type: DataTypes.STRING,
     },
+
+    descripcion:{
+      type: DataTypes.TEXT,
+    },
+    
     ml: {
       type: DataTypes.FLOAT,
     },

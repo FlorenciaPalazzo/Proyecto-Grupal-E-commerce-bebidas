@@ -63,12 +63,12 @@ router.get('/bebidasApi', async (req, res, next) => {
          res.status(404)
    }
   })
+
   
   router.post('/bebida',  async (req, res) => {
     let  ={ 
         nombre,imagen,marca,ml,graduacion,descripcion,precio,stock
     }= req.body
-
 
     let [bebidaCreada, created] = await Producto.findOrCreate({
         where:{ 
@@ -80,10 +80,37 @@ router.get('/bebidasApi', async (req, res, next) => {
             graduacion:graduacion,
             precio: precio,
             stock:stock
-        }    
-       
+        }     
     })
     res.json(bebidaCreada)
+  })
+
+
+
+  router.put('/bebida',  async (req, res) => {
+    let {nombre,imagen,marca,ml,graduacion,descripcion,precio,stock}= req.body
+    let {id} = req.body
+
+
+    try{
+        const bebidaPut= await Producto.findOne({where:{id:id}})
+        
+        
+         await bebidaPut.update({
+                id:id,
+                nombre:nombre,
+                imagen:imagen,
+                marca:marca,
+                descripcion:descripcion,
+                ml: ml,
+                graduacion:graduacion,
+                precio: precio,
+                stock:stock           
+        })
+        res.json(bebidaPut)
+    }catch(err){
+        console.log('error del glorioso catch. Amen')
+    }
   })
 
 
@@ -107,8 +134,5 @@ router.get('/bebidasApi', async (req, res, next) => {
     })
     res.json(usuarioCreado)
   })
-
-
-
 
 module.exports = router;
