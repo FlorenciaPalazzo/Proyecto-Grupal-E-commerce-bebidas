@@ -62,6 +62,18 @@ router.get('/bebidasApi', async (req, res, next) => {
    }
   })
 
+  router.get('/usuario/:id', async(req, res) => {
+    let { id } = req.params
+
+    try{
+      let usuario = await Usuario.findByPk(id)
+      res.status(200).json(usuario)
+    }
+    catch(e){
+      res.status(400)
+    }
+  })
+
   
   router.post('/bebida',  async (req, res) => {
     let  ={ 
@@ -144,36 +156,21 @@ router.get('/bebidasApi', async (req, res, next) => {
 
   })
 
-  router.post('/usuario/posts', verifyToken, async (req, res) => {
+  // router.post('/usuario/posts', verifyToken, async (req, res) => {
 
-   jwt.verify(req.token, 'secretkey',(error,authData) =>{
-       if(error){
-           res.sendStatus(403)
-       }else{
-           res.json({
-               mensaje:"Post fue creado",
-               authData
-           })
-       }
+  //  jwt.verify(req.token, 'secretkey',(error,authData) =>{
+  //      if(error){
+  //          res.sendStatus(403)
+  //      }else{
+  //          res.json({
+  //              mensaje:"Post fue creado",
+  //              authData
+  //          })
+  //      }
 
-   })
+  //  })
 
-  })
-
-//Authorization: Bearer <token>
-  function verifyToken(req, res, next){
-      const bearerHeader = req.headers['authorization']
-
-      if(typeof bearerHeader !== 'undefined'){
-          const bearerToken = bearerHeader.split(" ")[1];
-          req.token =bearerToken;
-          next();
-      }else{
-          res.sendStatus(403)
-      }
-  }
-
-  
+  // })
 
   router.delete('/bebida/:id', async(req, res) => {
     const {id} = req.params;
