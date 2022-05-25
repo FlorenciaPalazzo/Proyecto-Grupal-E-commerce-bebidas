@@ -133,6 +133,17 @@ router.get('/bebidasApi', async (req, res, next) => {
     res.json(usuarioCreado)
   })
 
+  router.post('/usuario/login',  async (req, res) => {
+      const user ={
+          id,nombre,email
+      }=req.body
+
+      jwt.sign({user},'secretkey',(err,token)=>{
+          res.json({token})
+      })
+
+  })
+
   router.delete('/bebida/:id', async(req, res) => {
     const {id} = req.params;
   
