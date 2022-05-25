@@ -20,10 +20,7 @@ router.get('/bebidasApi', async (req, res, next) => {
     try { 
      const bebidasInfo = await axios.get(`https://bebidas-efc61-default-rtdb.firebaseio.com/results.json`)   
      const allBebidas = await bebidasInfo.data.map(e => { return e })
-     const allBebidasDb = await allBebidas.map(e => {
-      Producto.create(e)
-      }
-      )
+     const allBebidasDb = await allBebidas.map(e => {Producto.create(e)})
    
       res.json(allBebidas)
     } catch (error) {
@@ -61,14 +58,36 @@ router.get('/bebidasApi', async (req, res, next) => {
      try{
          let bebida = await Producto.findByPk(id)
          res.status(200).json(bebida)
-         console.log(bebida)
          
       }catch(err){
          res.status(404)
    }
   })
+  
+  router.post('/bebida',  async (req, res) => {
+    let  ={ 
+        nombre,imagen,marca,ml,graduacion,descripcion,precio,stock
+    }= req.body
 
 
+    let [bebidaCreada, created] = await Producto.findOrCreate({
+        where:{ 
+            nombre:nombre,
+            imagen:imagen,
+            marca:marca,
+            descripcion:descripcion,
+            ml: ml,
+            graduacion:graduacion,
+            precio: precio,
+            stock:stock
+        }    
+       
+    })
+    res.json(bebidaCreada)
+  })
+
+
+  
   router.post('/usuario',  async (req, res) => {
     let  ={ 
         nombre,email,contraseña,nacimiento,direccion,telefono
@@ -88,6 +107,8 @@ router.get('/bebidasApi', async (req, res, next) => {
     })
     res.json(usuarioCreado)
   })
+
+
 
 
 module.exports = router;
