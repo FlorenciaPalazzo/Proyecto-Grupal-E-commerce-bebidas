@@ -135,7 +135,6 @@ router.get('/bebidasApi', async (req, res, next) => {
     res.json(usuarioCreado)
   })
 
-<<<<<<< HEAD
   router.delete('/bebida/:id', async(req, res) => {
     const {id} = req.params;
   
@@ -162,6 +161,3 @@ router.get('/bebidasApi', async (req, res, next) => {
 
 module.exports = router;
 
-=======
-module.exports = router;
->>>>>>> 415e7356d7aba13ee0ab8365a71091e6a85c12c4
