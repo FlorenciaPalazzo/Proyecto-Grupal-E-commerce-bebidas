@@ -1,16 +1,14 @@
 const { Router } = require('express');
-
 const axios = require ('axios')
+const jwt = require("jsonwebtoken")
 
 const {Producto, Usuario}= require ('../db')
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
-//cambiominimo
-
 const router = Router();
 
 
 // router.use('./bebidas' , bebidas)
+
+///////////////////////////////////////////////////////////////////////////////////
 
 const getDataBase = async()=>{
     return await Producto.findAll() 
@@ -134,6 +132,48 @@ router.get('/bebidasApi', async (req, res, next) => {
     })
     return res.json(usuarioCreado)
   })
+
+  router.post('/usuario/login',  async (req, res) => {
+      const user ={
+          id,nombre,email
+      }=req.body
+
+      jwt.sign({user},'secretkey',(err,token)=>{
+          res.json({token})
+      })
+
+  })
+
+  router.post('/usuario/posts', verifyToken, async (req, res) => {
+
+   jwt.verify(req.token, 'secretkey',(error,authData) =>{
+       if(error){
+           res.sendStatus(403)
+       }else{
+           res.json({
+               mensaje:"Post fue creado",
+               authData
+           })
+       }
+
+   })
+
+  })
+
+//Authorization: Bearer <token>
+  function verifyToken(req, res, next){
+      const bearerHeader = req.headers['authorization']
+
+      if(typeof bearerHeader !== 'undefined'){
+          const bearerToken = bearerHeader.split(" ")[1];
+          req.token =bearerToken;
+          next();
+      }else{
+          res.sendStatus(403)
+      }
+  }
+
+  
 
   router.delete('/bebida/:id', async(req, res) => {
     const {id} = req.params;
