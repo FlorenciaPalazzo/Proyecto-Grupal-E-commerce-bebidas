@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Login from "../Login";
 import { useDispatch, useSelector } from "react-redux";
-import { isAdmin } from "../../redux/actions";
+import { Link } from "react-router-dom";
+import { getBrands, getProducts, isAdmin } from "../../redux/actions";
 import NavBar from "../NavBar";
 import Card from "../Card";
 function Home() {
@@ -19,14 +20,15 @@ function Home() {
   useEffect(() => {
     console.log("effect");
     adminHandler();
-  }, [user, product]);
+    dispatch(getProducts());
+    dispatch(getBrands());
+  }, [user, dispatch]);
   console.log(user, admin);
   return (
     <div>
       <NavBar />
       {isAuthenticated && (
         <div>
-
           <span>
             Hi, {user.name}{" "}
             <img width={50} height={50} src={user.picture} alt={user.name} />
@@ -41,15 +43,19 @@ function Home() {
       {product &&
         product.map((e) => {
           return (
-            <Card
-              nombre={e.nombre}
-              imagen={e.imagen}
-              id={e.id}
-              marca={e.marca}
-              ml={e.ml}
-              graduacion={e.graduacion}
-              precio={e.precio}
-            />
+            <div key={e.id}>
+              <Link to={"/bebida/" + e.id}>
+                <Card
+                  nombre={e.nombre}
+                  imagen={e.imagen}
+                  id={e.id}
+                  marca={e.marca}
+                  ml={e.ml}
+                  graduacion={e.graduacion}
+                  precio={e.precio}
+                />
+              </Link>
+            </div>
           );
         })}
     </div>
