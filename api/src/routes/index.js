@@ -62,6 +62,18 @@ router.get('/bebidasApi', async (req, res, next) => {
    }
   })
 
+  router.get('/usuario/:id', async(req, res) => {
+    let { id } = req.params
+
+    try{
+      let usuario = await Usuario.findByPk(id)
+      res.status(200).json(usuario)
+    }
+    catch(e){
+      res.status(400)
+    }
+  })
+
   
   router.post('/bebida',  async (req, res) => {
     let  ={ 
@@ -133,6 +145,7 @@ router.get('/bebidasApi', async (req, res, next) => {
     return res.json(usuarioCreado)
   })
 
+<<<<<<< HEAD
 
   
   //////AQUI YACEN LOS RESTOS DE AUTENTICACION----RIP-AUTENTICACION----GRACIAS JONA </3----//////
@@ -181,6 +194,34 @@ router.get('/bebidasApi', async (req, res, next) => {
 //#endregion  //////////////////////////////////////////////////////////////////////
 
 
+=======
+  router.post('/usuario/login',  async (req, res) => {
+      const user ={
+          id,nombre,email
+      }=req.body
+
+      jwt.sign({user},'secretkey',(err,token)=>{
+          res.json({token})
+      })
+
+  })
+
+  // router.post('/usuario/posts', verifyToken, async (req, res) => {
+
+  //  jwt.verify(req.token, 'secretkey',(error,authData) =>{
+  //      if(error){
+  //          res.sendStatus(403)
+  //      }else{
+  //          res.json({
+  //              mensaje:"Post fue creado",
+  //              authData
+  //          })
+  //      }
+
+  //  })
+
+  // })
+>>>>>>> 0946b53aae764c3e3bd9d16af3c0f77124012193
 
   router.delete('/bebida/:id', async(req, res) => {
     const {id} = req.params;
