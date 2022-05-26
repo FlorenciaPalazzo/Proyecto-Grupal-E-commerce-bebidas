@@ -36,20 +36,11 @@ module.exports = (sequelize) => {
     stock: {
       type: DataTypes.FLOAT,
     },
-<<<<<<< HEAD
     
     tipo:{
       type: DataTypes.TEXT,
     },
     
 
-=======
-    descripcion: {
-      type: DataTypes.TEXT,
-    },
-    tipo: {
-      type: DataTypes.TEXT,
-    },
->>>>>>> 739fc68ffaa942a180a3b7e3b0b167dfb7afa03a
   });
 };
