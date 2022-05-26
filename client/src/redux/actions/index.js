@@ -13,6 +13,7 @@ import {
   GET_PRODUCT_ID,
   GET_BRANDS,
   GET_PRODUCTS,
+  ADD_CARRITO,
 } from "./actionsTypes";
 import axios from "axios";
 
