@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   filterByAZ,
   filterByBrand,
@@ -7,34 +7,50 @@ import {
   filterByML,
   filterByPrice,
   filterByType,
+  getBrands,
 } from "../../redux/actions";
 
 export default function FilterBy() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); ///ver si lo dejo aca o lo saco
+  const brands = useSelector((state) => state.brands); //ver esto
 
   const handleBrand = (e) => {
+    e.preventDefault(); ///agregar a todos.
     dispatch(filterByBrand(e.target.value));
   };
   const handleType = (e) => {
+    e.preventDefault();
     dispatch(filterByType(e.target.value));
   };
   const handleGraduation = (e) => {
+    e.preventDefault();
     dispatch(filterByGraduation(e.target.value));
   };
   const handleML = (e) => {
+    e.preventDefault();
     dispatch(filterByML(e.target.value));
   };
   const handlePrice = (e) => {
+    e.preventDefault();
     dispatch(filterByPrice(e.target.value));
   };
   const handleAZ = (e) => {
+    e.preventDefault();
     dispatch(filterByAZ(e.target.value));
   };
+
   return (
     <div>
       <div>
         <select name="" id="" onChange={handleBrand}>
-          <option>esperando rutas...</option>
+          <option>Brands</option>
+          <option value="all">All</option>
+          {brands &&
+            brands.map((b) => (
+              <option key={b} name={b} value={b}>
+                {b}
+              </option>
+            ))}
         </select>
       </div>
       <div>
@@ -42,10 +58,10 @@ export default function FilterBy() {
           <option value="">Type</option>
           <option value="all">All</option>
           {/* puede sacarse */}
-          <option value="Cerveza">Beer</option>
-          <option value="Vino">Wine</option>
-          <option value="Espumante">Sparkling Wine</option>
-          <option value="Destilados">Destilled</option>
+          <option value="cerveza">Beer</option>
+          <option value="vino">Wine</option>
+          <option value="espumante">Sparkling Wine</option>
+          <option value="destilado">Destilled</option>
         </select>
       </div>
       <div>
@@ -83,10 +99,9 @@ export default function FilterBy() {
           <option value="price_2">$500-$2000</option>
           <option value="price_3">$2000-$5000</option>
           <option value="price_4">$5000-$10000</option>
-          <option value="price_5">$5000-$10000</option>
-          <option value="price_6">$10000-$20000</option>
-          <option value="price_7">$20000-$35000</option>
-          <option value="price_8">+$35000</option>
+          <option value="price_5">$10000-$20000</option>
+          <option value="price_6">$20000-$35000</option>
+          <option value="price_7">+$35000</option>
         </select>
       </div>
       <div>
