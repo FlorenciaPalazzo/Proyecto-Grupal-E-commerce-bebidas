@@ -7,17 +7,33 @@ import {
   FILTER_BY_ML,
   FILTER_BY_PRICE,
   FILTER_BY_AZ,
+  FILTER_BY_ZA,
+  SET_USER,
+  SET_LOADING,
   GET_PRODUCT_ID,
   GET_BRANDS,
-  GET_PRODUCTS,
+  GET_PRODUCTS
 } from "./actionsTypes";
 import axios from "axios";
 
+//-------------------------------AUTH-------------------------------//
 export function isAdmin(email) {
   return async (dispatch) => {
     return dispatch({ type: ADMIN_HANDLER, payload: email });
   };
 }
+
+export function setUser(user) {
+  return async (dispatch) => {
+    return dispatch({ type: SET_USER, payload: user });
+  };
+}
+export function setLoading(bool) {
+  return async (dispatch) => {
+    return dispatch({ type: SET_LOADING, payload: bool });
+  };
+}
+//------------------------------------------------------------------//
 
 //trae todos los productos
 export const getProducts = () => {
