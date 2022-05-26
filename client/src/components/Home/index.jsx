@@ -3,18 +3,30 @@ import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Login from "../Login";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getBrands, getProducts, isAdmin } from "../../redux/actions";
+import { getBrands, getProducts, isAdmin, setUser, setLoading} from "../../redux/actions";
 import NavBar from "../NavBar";
 import Card from "../Card";
+import { app, auth } from "../../fb";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import Loading from "../Loading";
+
 function Home() {
   const { isAuthenticated, user } = useAuth0();
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
   const admin = useSelector((state) => state.isAdmin);
-  function adminHandler() {
-    if (isAuthenticated && user) {
-      dispatch(isAdmin(user.email));
-    }
+  const loading = useSelector((state) => state.isLoading);
+  
+   function out(){
+    signOut(auth).then(() => {
+      console.log("logout");
+      //dispatch(setLoading(true))
+      dispatch(setUser(null))
+      //dispatch(setLoading(false))
+    }).catch((error) => {
+        // An error happened.
+        console.log(error);
+    });
   }
 
   useEffect(() => {
@@ -22,23 +34,14 @@ function Home() {
     adminHandler();
     dispatch(getProducts());
     dispatch(getBrands());
-  }, [user, dispatch]);
+  }, [user, dispatch,loading]);
   console.log(user, admin);
   return (
     <div>
+     { loading ?
+            <Loading/>
+            :
       <NavBar />
-      {isAuthenticated && (
-        <div>
-          <span>
-            Hi, {user.name}{" "}
-            <img width={50} height={50} src={user.picture} alt={user.name} />
-          </span>
-          <div>Logged: {String(isAuthenticated)}</div>
-          <div>Verified: {String(user.email_verified)}</div>
-          <div>Is Admin: {String(admin)}</div>
-        </div>
-      )}
-
       <Login />
       {product &&
         product.map((e) => {
