@@ -9,8 +9,10 @@ import {
   FILTER_BY_AZ,
   FILTER_BY_ZA,
   SET_USER,
-  SET_MESSAGE,
   SET_LOADING,
+  GET_PRODUCT_ID,
+  GET_BRANDS,
+  GET_PRODUCTS
 } from "./actionsTypes";
 import axios from "axios";
 
@@ -32,14 +34,14 @@ export function setLoading(bool) {
   };
 }
 //------------------------------------------------------------------//
-//busqueda por nombre
-export const getProductByName = (name) => {
-  // ruta del searchbar
+
+//trae todos los productos
+export const getProducts = () => {
   return async function (dispatch) {
     try {
-      let result; // falta la ruta
+      let result = await axios.get(`http://localhost:3001/bebidas`);
       return dispatch({
-        type: GET_PRODUCT_NAME,
+        type: GET_PRODUCTS,
         payload: result.data,
       });
     } catch (err) {
@@ -47,7 +49,52 @@ export const getProductByName = (name) => {
     }
   };
 };
-//filtro por marca
+
+//busqueda por nombre
+export const getProductByName = (name) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.get(
+        `http://localhost:3001/bebidas?nombre=${name}`
+      );
+      //.
+      return dispatch({
+        type: GET_PRODUCT_NAME,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log("Error desde el catch de getProductByName", err);
+    }
+  };
+};
+
+//busqueda por id
+export const getProductById = (id) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.get("http://localhost:3001/bebida/" + id);
+      return dispatch({
+        type: GET_PRODUCT_ID,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log("Error desde el catch de getProductById", err);
+    }
+  };
+};
+//trae las marcas
+export const getBrands = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: GET_BRANDS,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+//filtra por marca
 export const filterByBrand = (filter) => {
   return async function (dispatch) {
     try {
@@ -60,10 +107,11 @@ export const filterByBrand = (filter) => {
     }
   };
 };
-//filtro por tipo
+//filtra por tipo
 export const filterByType = (filter) => {
   return async function (dispatch) {
     try {
+      console.log("ACTION DISPARADA");
       return dispatch({
         type: FILTER_BY_TYPE,
         payload: filter,
@@ -73,7 +121,7 @@ export const filterByType = (filter) => {
     }
   };
 };
-//filtro por graduacion
+//filtra por graduacion
 export const filterByGraduation = (filter) => {
   return async function (dispatch) {
     try {
@@ -86,7 +134,7 @@ export const filterByGraduation = (filter) => {
     }
   };
 };
-
+//filtra por milipilis
 export const filterByML = (filter) => {
   return async function (dispatch) {
     try {
@@ -99,7 +147,7 @@ export const filterByML = (filter) => {
     }
   };
 };
-
+//filtra por precio
 export const filterByPrice = (filter) => {
   return async function (dispatch) {
     try {
@@ -112,6 +160,7 @@ export const filterByPrice = (filter) => {
     }
   };
 };
+//filtra por orden alfabetico asc y desc
 export const filterByAZ = (filter) => {
   return async function (dispatch) {
     try {
