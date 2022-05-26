@@ -3,6 +3,7 @@ import { auth, currentUser } from "../../fb";
 import {
   ADMIN_HANDLER,
   SET_USER,
+  RESET_USER,
   SET_LOADING,
   FILTER_BY_AZ,
   FILTER_BY_BRAND,
@@ -17,9 +18,9 @@ import {
 } from "../actions/actionsTypes";
 
 const initialState = {
-  currentUser : null,
-  isAdmin : null,
-  loged: false,
+  currentUser: null,
+  isAdmin: null,
+  isLoged: false,
   isLoading: true,
   brands: [],
   products: [],
@@ -35,19 +36,18 @@ export default function rootReducer(state = initialState, { type, payload }) {
         products: payload,
         productsSort: payload,
       };
-     case SET_USER: return {...state, currentUser : payload}
-       case SET_MESSAGE: return {...state, message : true}
-       case SET_LOADING: return {...state, isLoading : payload}
-       case ADMIN_HANDLER: {
-       console.log(process.env.REACT_APP_ADMIN_EMAIL, payload);
-        if(process.env.REACT_APP_ADMIN_EMAIL === payload ){
-          return {...state, isAdmin: true}
-        } 
-        else return {...state, isAdmin: false}
-        
-        }
-    case GET_PRODUCT_NAME:
-      return { ...state, products: payload };
+    case SET_USER:
+      return { ...state, currentUser: payload, isLoged: true  };
+    case RESET_USER:
+      return { ...state, currentUser: {}, isLoged: false };
+    case SET_LOADING:
+      return { ...state, isLoading: payload };
+    case ADMIN_HANDLER: {
+      console.log(process.env.REACT_APP_ADMIN_EMAIL, payload);
+      if (process.env.REACT_APP_ADMIN_EMAIL === payload) {
+        return { ...state, isAdmin: true };
+      } else return { ...state, isAdmin: false };
+    }
 
     case GET_PRODUCT_ID:
       return { ...state, detail: payload };

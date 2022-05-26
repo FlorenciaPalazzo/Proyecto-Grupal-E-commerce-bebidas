@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
-import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import Login from "../Login";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getBrands, getProducts, isAdmin, setUser, setLoading} from "../../redux/actions";
+import { getBrands, getProducts, isAdmin, setUser, setLoading, resetUser} from "../../redux/actions";
 import NavBar from "../NavBar";
 import Card from "../Card";
 import { app, auth } from "../../fb";
@@ -11,38 +9,27 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import Loading from "../Loading";
 
 function Home() {
-  const { isAuthenticated, user } = useAuth0();
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
+  const user = useSelector((state) => state.currentUser);
   const admin = useSelector((state) => state.isAdmin);
   const loading = useSelector((state) => state.isLoading);
-  
-   function out(){
-    signOut(auth).then(() => {
-      console.log("logout");
-      //dispatch(setLoading(true))
-      dispatch(setUser(null))
-      //dispatch(setLoading(false))
-    }).catch((error) => {
-        // An error happened.
-        console.log(error);
-    });
-  }
-
   useEffect(() => {
     console.log("effect");
-    adminHandler();
     dispatch(getProducts());
     dispatch(getBrands());
-  }, [user, dispatch,loading]);
-  console.log(user, admin);
+  }, [ dispatch,loading]);
   return (
     <div>
      { loading ?
             <Loading/>
             :
+        <div>
+
       <NavBar />
-      <Login />
+      <div>
+          {user.email}
+      </div>
       {product &&
         product.map((e) => {
           return (
@@ -62,6 +49,8 @@ function Home() {
           );
         })}
     </div>
+    }
+  </div>
   );
 }
 
