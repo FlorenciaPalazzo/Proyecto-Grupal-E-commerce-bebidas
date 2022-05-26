@@ -4,7 +4,7 @@ import SearchBar from "../SearchBar";
 export default function NavBar() {
   return (
     <div>
-      <Link to="/home">
+      <Link to="/">
         <button>Home</button>
       </Link>
       <SearchBar />

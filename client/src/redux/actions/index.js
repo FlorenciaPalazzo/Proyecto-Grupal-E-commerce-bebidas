@@ -1,5 +1,5 @@
 import {
-    ADMIN_HANDLER,
+  ADMIN_HANDLER,
   GET_PRODUCT_NAME,
   FILTER_BY_BRAND,
   FILTER_BY_TYPE,
@@ -8,15 +8,30 @@ import {
   FILTER_BY_PRICE,
   FILTER_BY_AZ,
   FILTER_BY_ZA,
+  SET_USER,
+  SET_MESSAGE,
+  SET_LOADING,
 } from "./actionsTypes";
 import axios from "axios";
 
-export function isAdmin(email){
-    return async (dispatch) => {
-        return dispatch({ type: ADMIN_HANDLER, payload: email })
-    }
+//-------------------------------AUTH-------------------------------//
+export function isAdmin(email) {
+  return async (dispatch) => {
+    return dispatch({ type: ADMIN_HANDLER, payload: email });
+  };
 }
 
+export function setUser(user) {
+  return async (dispatch) => {
+    return dispatch({ type: SET_USER, payload: user });
+  };
+}
+export function setLoading(bool) {
+  return async (dispatch) => {
+    return dispatch({ type: SET_LOADING, payload: bool });
+  };
+}
+//------------------------------------------------------------------//
 //busqueda por nombre
 export const getProductByName = (name) => {
   // ruta del searchbar
