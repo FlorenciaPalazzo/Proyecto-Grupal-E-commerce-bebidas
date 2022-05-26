@@ -10,6 +10,7 @@ import {
   GET_PRODUCT_ID,
   GET_BRANDS,
   GET_PRODUCTS,
+  ADD_CARRITO,
 } from "./actionsTypes";
 import axios from "axios";
 
@@ -151,6 +152,18 @@ export const filterByAZ = (filter) => {
       dispatch({
         type: FILTER_BY_AZ,
         payload: filter,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+export const addCart = (product) => {
+  return async function (dispatch) {
+    try {
+      dispatch({
+        type: ADD_CARRITO,
+        payload: product,
       });
     } catch (err) {
       console.log(err);

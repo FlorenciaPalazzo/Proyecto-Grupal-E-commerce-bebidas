@@ -9,5 +9,5 @@ export const FILTER_BY_ML = "FILTER_BY_ML";
 export const FILTER_BY_PRICE = "FILTER_BY_PRICE"; // precio
 export const FILTER_BY_AZ = "FILTER_BY_AZ"; // alfabetico
 export const GET_BRANDS = "GET_BRANDS";
-
 export const GET_PRODUCTS = "GET_PRODUCTS";
+export const ADD_CARRITO = "ADD_CARRITO";

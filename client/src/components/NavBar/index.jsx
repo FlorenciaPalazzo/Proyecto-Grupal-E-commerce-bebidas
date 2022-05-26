@@ -11,6 +11,9 @@ export default function NavBar() {
       <Link to="/contact">
         <button className="button">Contact</button>
       </Link>
+      <Link to="/cart">
+        <button className="button">Carrito</button>
+      </Link>
       <FilterBy />
       <SearchBar />
     </div>

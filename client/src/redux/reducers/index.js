@@ -10,6 +10,7 @@ import {
   GET_PRODUCT_ID,
   GET_PRODUCT_NAME,
   GET_PRODUCTS, //---------> prueba!!!
+  ADD_CARRITO,
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   products: [],
   productsSort: [],
   detail: [],
+  productCart: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -229,7 +231,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
           }),
         };
       }
-
+    case ADD_CARRITO:
+      return {
+        ...state,
+        productCart: [...state.productCart, payload],
+      };
     default:
       return state;
   }
