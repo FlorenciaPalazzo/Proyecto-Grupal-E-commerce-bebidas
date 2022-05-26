@@ -73,6 +73,34 @@ router.get('/bebidasApi', async (req, res, next) => {
     res.json(bebidaCreada)
   })
 
+  router.post('/producto',  async (req, res) => {
+    let {id_prod, id}= req.body
+    
+    try{
+      let usuarioFavorito = await Usuario.find({
+        where:{
+           id: id 
+        }
+        })
+        console.log(id)
+        // let productoFavorito = await Producto.find({
+        //   where:{
+        //      id: id_prod 
+        //   }
+        //   })
+
+        usuarioFavorito //.addFavorito(productoFavorito)
+
+      res.json(usuarioFavorito)
+    }catch(err){
+      console.log('Error del bendito catch')
+    }
+  })
+
+
+
+
+  
 
   router.get('/bebida/:id', async (req, res) => {
     let { id } = req.params

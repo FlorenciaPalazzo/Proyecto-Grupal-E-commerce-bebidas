@@ -25,6 +25,7 @@ const initialState = {
   products: [],
   productsSort: [],
   detail: [],
+  getFav:[],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -241,6 +242,14 @@ export default function rootReducer(state = initialState, { type, payload }) {
           }),
         };
       }
+
+      case GET_FAV:
+        return {
+          ...state,
+          getFav: state.getFav.find((p) => p.id === payload.id)
+            ? [...state.getFav]
+            : [...state.getFav, payload],
+        };
 
     default:
       return state;

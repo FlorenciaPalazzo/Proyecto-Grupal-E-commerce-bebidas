@@ -12,7 +12,8 @@ import {
   SET_LOADING,
   GET_PRODUCT_ID,
   GET_BRANDS,
-  GET_PRODUCTS
+  GET_PRODUCTS,
+  GET_FAV,
 } from "./actionsTypes";
 import axios from "axios";
 
@@ -173,3 +174,12 @@ export const filterByAZ = (filter) => {
     }
   };
 };
+
+
+
+export function getFav(payload){
+  return {
+    type: GET_FAV,
+    payload
+  }
+}
