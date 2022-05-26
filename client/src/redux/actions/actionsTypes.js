@@ -1,5 +1,8 @@
-//<<<<<<< front-alcaraz
-export const ADMIN_HANDLER = "ADMIN_HANDLER";
+
+export const ADMIN_HANDLER = "ADMIN_HANDLER"
+export const SET_MESSAGE = "SET_MESSAGE"
+export const SET_LOADING = "SET_LOADING"
+export const SET_USER = "SET_USER"
 export const GET_PRODUCT_NAME = "GET_PRODUCT_NAME";
 export const GET_PRODUCT_ID = "GET_PRODUCT_ID"; //por id
 export const FILTER_BY_BRAND = "FILTER_BY_BRAND"; //por marcas

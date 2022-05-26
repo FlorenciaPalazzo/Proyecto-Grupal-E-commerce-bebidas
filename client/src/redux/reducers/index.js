@@ -1,5 +1,9 @@
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, currentUser } from "../../fb";
 import {
   ADMIN_HANDLER,
+  SET_USER,
+  SET_LOADING,
   FILTER_BY_AZ,
   FILTER_BY_BRAND,
   FILTER_BY_GRADUATION,
@@ -9,17 +13,19 @@ import {
   GET_BRANDS,
   GET_PRODUCT_ID,
   GET_PRODUCT_NAME,
-  GET_PRODUCTS, //---------> prueba!!!
-  ADD_CARRITO,
+  GET_PRODUCTS,
+  ADD_CARRITO, //---------> prueba!!!
 } from "../actions/actionsTypes";
 
 const initialState = {
-  isAdmin: false,
+  currentUser: null,
+  isAdmin: null,
+  loged: false,
+  isLoading: true,
   brands: [],
   products: [],
   productsSort: [],
   detail: [],
-  productCart: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -30,6 +36,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
         products: payload,
         productsSort: payload,
       };
+    case SET_USER:
+      return { ...state, currentUser: payload };
+
+    case SET_LOADING:
+      return { ...state, isLoading: payload };
     case ADMIN_HANDLER: {
       console.log(process.env.REACT_APP_ADMIN_EMAIL, payload);
       if (process.env.REACT_APP_ADMIN_EMAIL === payload) {
@@ -42,8 +53,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case GET_PRODUCT_ID:
       return { ...state, detail: payload };
 
-    case GET_PRODUCT_NAME:
-      return { ...state, products: payload };
     case GET_BRANDS:
       let brandFilter = [];
       state.productsSort.filter((e) => {

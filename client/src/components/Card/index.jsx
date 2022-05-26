@@ -25,9 +25,6 @@ export default function Card({
     dispatch(addCart(productObject));
     setCarrito([...globalCart, productObject]);
   };
-  /* useEffect(() => {
-    localStorage.getItem("product", JSON.stringify(carrito));
-  }, []); */
 
   useEffect(() => {
     localStorage.setItem("product", JSON.stringify(carrito));
