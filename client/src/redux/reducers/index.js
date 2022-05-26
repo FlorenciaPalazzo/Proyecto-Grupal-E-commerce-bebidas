@@ -1,12 +1,15 @@
 import {
   ADMIN_HANDLER,
   FILTER_BY_AZ,
+  FILTER_BY_BRAND,
   FILTER_BY_GRADUATION,
   FILTER_BY_ML,
   FILTER_BY_PRICE,
   FILTER_BY_TYPE,
-  GET_PRODUCT_NAME,
   GET_BRANDS,
+  GET_PRODUCT_ID,
+  GET_PRODUCT_NAME,
+  GET_PRODUCTS, //---------> prueba!!!
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -14,67 +17,69 @@ const initialState = {
   brands: [],
   products: [],
   productsSort: [],
+  detail: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
   switch (type) {
+    case GET_PRODUCTS:
+      return {
+        ...state,
+        products: payload,
+        productsSort: payload,
+      };
     case ADMIN_HANDLER: {
       console.log(process.env.REACT_APP_ADMIN_EMAIL, payload);
       if (process.env.REACT_APP_ADMIN_EMAIL === payload) {
         return { ...state, isAdmin: true };
       } else return { ...state, isAdmin: false };
     }
-    case GET_PRODUCT_NAME: //no va andar hasta que este la ruta de getAll
+    case GET_PRODUCT_NAME:
+      return { ...state, products: payload };
+
+    case GET_PRODUCT_ID:
+      return { ...state, detail: payload };
+
+    case GET_PRODUCT_NAME:
       return { ...state, products: payload };
     case GET_BRANDS:
-      let allBrands = state.products.filter((e) => e.marca);
-      let filterBrands = allBrands.forEach((e) => {
-        if (!filterBrands.includes(e)) {
-          filterBrands.push(e);
+      let brandFilter = [];
+      state.productsSort.filter((e) => {
+        if (!brandFilter.includes(e.marca)) {
+          brandFilter.push(e.marca);
         }
       });
       return {
         ...state,
-        brands: filterBrands,
+        brands: brandFilter,
       };
     case FILTER_BY_BRAND:
       if (payload === "all") {
-        return { ...state };
+        return { ...state, products: state.productsSort };
       } else {
         return {
           ...state,
           products: state.productsSort.filter((e) => e.marca.includes(payload)),
         };
       }
-
     case FILTER_BY_TYPE:
       if (payload === "all") {
-        return { ...state, products: state.productsSort };
+        return { ...state, products: state.products };
       }
-      if (payload === "cerveza") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.tipo === "cerveza"),
-        };
-      }
-      if (payload === "vino") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.tipo === "vino"),
-        };
-      }
-      if (payload === "espumante") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.tipo === "espumante"),
-        };
-      }
-      if (payload === "destilados") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.tipo === "destilados"),
-        };
-      }
+      console.log("LLEGA A REDUCER");
+      console.log(payload);
+      let typeFilter = [];
+      state.productsSort.forEach((e) => {
+        if (e.tipo === payload) {
+          typeFilter.push(e);
+        }
+      });
+      console.log("TYPEFILTER ", typeFilter);
+      return {
+        ...state,
+        products: typeFilter,
+      };
+
     case FILTER_BY_GRADUATION:
       if (payload === "all") {
         return {
@@ -118,25 +123,24 @@ export default function rootReducer(state = initialState, { type, payload }) {
       if (payload === "ml_2") {
         return {
           ...state,
-          products: state.productsSort.filter((e) => e.ml > 400 && e.ml < 750),
+          products: state.productsSort.filter((e) => e.ml > 400 && e.ml <= 749),
         };
       }
       if (payload === "ml_3") {
         return {
           ...state,
-          products: state.productsSort.filter((e) => e.ml > 750 && e.ml < 950),
+          products: state.productsSort.filter(
+            (e) => e.ml >= 750 && e.ml <= 949
+          ),
         };
       }
-      if (payload === "ml_3") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.ml > 950 && e.ml < 1500),
-        };
-      }
+
       if (payload === "ml_4") {
         return {
           ...state,
-          products: state.productsSort.filter((e) => e.ml > 950 && e.ml < 1500),
+          products: state.productsSort.filter(
+            (e) => e.ml >= 950 && e.ml < 1500
+          ),
         };
       }
     case FILTER_BY_PRICE:

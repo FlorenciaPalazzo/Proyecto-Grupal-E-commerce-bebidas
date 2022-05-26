@@ -11,28 +11,31 @@ import {
 } from "../../redux/actions";
 
 export default function FilterBy() {
-  const dispatch = useDispatch();
-  const brands = useSelector((state) => state.brands);
+  const dispatch = useDispatch(); ///ver si lo dejo aca o lo saco
+  const brands = useSelector((state) => state.brands); //ver esto
 
-  useEffect(() => {
-    dispatch(getBrands());
-  }, [dispatch]);
   const handleBrand = (e) => {
+    e.preventDefault(); ///agregar a todos.
     dispatch(filterByBrand(e.target.value));
   };
   const handleType = (e) => {
+    e.preventDefault();
     dispatch(filterByType(e.target.value));
   };
   const handleGraduation = (e) => {
+    e.preventDefault();
     dispatch(filterByGraduation(e.target.value));
   };
   const handleML = (e) => {
+    e.preventDefault();
     dispatch(filterByML(e.target.value));
   };
   const handlePrice = (e) => {
+    e.preventDefault();
     dispatch(filterByPrice(e.target.value));
   };
   const handleAZ = (e) => {
+    e.preventDefault();
     dispatch(filterByAZ(e.target.value));
   };
 
@@ -43,9 +46,9 @@ export default function FilterBy() {
           <option>Brands</option>
           <option value="all">All</option>
           {brands &&
-            brands.map((e) => (
-              <option key={e} name={e} value={e}>
-                {e}
+            brands.map((b) => (
+              <option key={b} name={b} value={b}>
+                {b}
               </option>
             ))}
         </select>
@@ -58,7 +61,7 @@ export default function FilterBy() {
           <option value="cerveza">Beer</option>
           <option value="vino">Wine</option>
           <option value="espumante">Sparkling Wine</option>
-          <option value="destilados">Destilled</option>
+          <option value="destilado">Destilled</option>
         </select>
       </div>
       <div>
