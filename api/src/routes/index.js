@@ -14,6 +14,8 @@ const router = Router();
 
 ///////////////////////////////////////////////////////////////////////////////////
 
+//--------------------BEBIDAS-------------------------
+
 const getDataBase = async()=>{
     return await Producto.findAll() 
 }
@@ -53,19 +55,7 @@ router.get('/bebidasApi', async (req, res, next) => {
   })
 
 
-
-  router.get('/bebida/:id', async (req, res) => {
-     let { id } = req.params
-
-     try{
-         let bebida = await Producto.findByPk(id)
-         res.status(200).json(bebida)
-         
-      }catch(err){
-         res.status(404)
-   }
-  })
-
+//--------------------BEBIDA-------------------------
   
   router.post('/bebida',  async (req, res) => {
     let  ={ 
@@ -87,7 +77,46 @@ router.get('/bebidasApi', async (req, res, next) => {
     res.json(bebidaCreada)
   })
 
+  router.post('/producto',  async (req, res) => {
+    let {id_prod, id}= req.body
+    
+    try{
+      let usuarioFavorito = await Usuario.find({
+        where:{
+           id: id 
+        }
+        })
+        console.log(id)
+        // let productoFavorito = await Producto.find({
+        //   where:{
+        //      id: id_prod 
+        //   }
+        //   })
 
+        usuarioFavorito //.addFavorito(productoFavorito)
+
+      res.json(usuarioFavorito)
+    }catch(err){
+      console.log('Error del bendito catch')
+    }
+  })
+
+
+
+
+  
+
+  router.get('/bebida/:id', async (req, res) => {
+    let { id } = req.params
+
+    try{
+        let bebida = await Producto.findByPk(id)
+        res.status(200).json(bebida)
+        
+     }catch(err){
+        res.status(404)
+  }
+ })
 
   router.put('/bebida',  async (req, res) => {
     let {nombre,imagen,marca,ml,graduacion,descripcion,precio,stock}= req.body
@@ -117,6 +146,90 @@ router.get('/bebidasApi', async (req, res, next) => {
 
 
   
+  router.delete('/bebida/:id', async(req, res) => {
+    const {id} = req.params;
+  
+    const del = await Producto.destroy({
+        where:{
+            id: id
+        }
+    })
+    return res.status(200).send('AL LOBBY');
+  })
+
+
+  
+  //////AQUI YACEN LOS RESTOS DE AUTENTICACION----RIP-AUTENTICACION----GRACIAS JONA </3----//////
+//#region 
+
+//   router.post('/usuario/login',  async (req, res) => {
+//       const user ={
+//           id,nombre,email
+//       }=req.body
+
+//       jwt.sign({user},'secretkey',(err,token)=>{
+//           res.json({token})
+//       })
+
+//   })
+
+//   router.post('/usuario/posts', verifyToken, async (req, res) => {
+
+//    jwt.verify(req.token, 'secretkey',(error,authData) =>{
+//        if(error){
+//            res.sendStatus(403)
+//        }else{
+//            res.json({
+//                mensaje:"Post fue creado",
+//                authData
+//            })
+//        }
+
+//    })
+
+//   })
+
+// //Authorization: Bearer <token>
+//   function verifyToken(req, res, next){
+//       const bearerHeader = req.headers['authorization']
+
+//       if(typeof bearerHeader !== 'undefined'){
+//           const bearerToken = bearerHeader.split(" ")[1];
+//           req.token =bearerToken;
+//           next();
+//       }else{
+//           res.sendStatus(403)
+//       }
+//   }
+
+//#endregion  //////////////////////////////////////////////////////////////////////
+
+//--------------------USUARIO-------------------------
+
+
+router.get('/usuario/:id', async(req, res) => {
+  let { id } = req.params
+
+  try{
+    let usuario = await Usuario.findByPk(id)
+    res.status(200).json(usuario)
+  }
+  catch(e){
+    res.status(400)
+  }
+})
+
+  router.get('/usuario', async (req,res) => {
+      try {
+          let usuarios = await Usuario.findAll()
+          res.status(200).json(usuarios)
+          
+      } catch (e) {
+          res.status(404).send(e.message)
+      }
+  })
+  
+  
   router.post('/usuario',  async (req, res) => {
     let  ={ 
         nombre,email,contraseña,nacimiento,direccion,telefono
@@ -137,6 +250,7 @@ router.get('/bebidasApi', async (req, res, next) => {
     return res.json(usuarioCreado)
   })
 
+<<<<<<< HEAD
   router.delete('/bebida/:id', async(req, res) => {
     const {id} = req.params;
   
@@ -161,6 +275,10 @@ router.get('/bebidasApi', async (req, res, next) => {
   })
   
   // FALTA GET DE USUARIO PARA PROBAR DELETE
+=======
+  
+
+>>>>>>> 61ea81ec433846f329625a210dd46f412a67345b
   router.delete('/usuario/:id', async(req, res) => {
     const {id} = req.params;
   
@@ -171,6 +289,7 @@ router.get('/bebidasApi', async (req, res, next) => {
     })
     return res.status(200).send('AL LOBBY');
   })
+
 
 
   router.put('/usuario', async (req, res) => {
