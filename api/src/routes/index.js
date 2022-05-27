@@ -250,35 +250,8 @@ router.get('/usuario/:id', async(req, res) => {
     return res.json(usuarioCreado)
   })
 
-<<<<<<< HEAD
-  router.delete('/bebida/:id', async(req, res) => {
-    const {id} = req.params;
-  
-    const del = await Producto.destroy({
-        where:{
-            id: id
-        }
-    })
-    return res.status(200).send('AL LOBBY');
-  })
-
-
-
-  router.get('/usuario', async (req,res) => {
-      try {
-          let usuarios = await Usuario.findAll()
-          res.status(200).json(usuarios)
-          
-      } catch (e) {
-          res.status(404).send(e.message)
-      }
-  })
-  
-  // FALTA GET DE USUARIO PARA PROBAR DELETE
-=======
   
 
->>>>>>> 61ea81ec433846f329625a210dd46f412a67345b
   router.delete('/usuario/:id', async(req, res) => {
     const {id} = req.params;
   
