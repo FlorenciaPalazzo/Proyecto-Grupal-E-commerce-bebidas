@@ -42,5 +42,6 @@ module.exports = (sequelize) => {
     tipo: {
       type: DataTypes.TEXT,
     },
+    
   });
 };

@@ -15,7 +15,8 @@ import {
   GET_PRODUCT_ID,
   GET_PRODUCT_NAME,
   GET_PRODUCTS,
-  ADD_CARRITO, //---------> prueba!!!
+  ADD_CARRITO,//---------> prueba!!!
+   
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
   productsSort: [],
   detail: [],
   productCart: [],
+  
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -257,7 +259,14 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         productCart: [...state.productCart, payload],
       };
+<<<<<<< HEAD
+=======
+
+    
+>>>>>>> 2e5887af7ae3dac71ac96997d2d4c8740f3ccec8
     default:
       return state;
   }
 }
+
+

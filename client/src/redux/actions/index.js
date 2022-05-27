@@ -15,6 +15,10 @@ import {
   GET_PRODUCTS,
   ADD_CARRITO,
   RESET_USER,
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 2e5887af7ae3dac71ac96997d2d4c8740f3ccec8
 } from "./actionsTypes";
 import axios from "axios";
 
@@ -194,3 +198,10 @@ export const addCart = (product) => {
     }
   };
 };
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> 2e5887af7ae3dac71ac96997d2d4c8740f3ccec8
