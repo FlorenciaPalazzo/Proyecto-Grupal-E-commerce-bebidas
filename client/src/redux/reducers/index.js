@@ -1,8 +1,15 @@
 /* import { onAuthStateChanged } from "firebase/auth";
 import { auth, currentUser } from "../../fb"; */
 import {
+<<<<<<< HEAD
   ADMIN_HANDLER,
   SET_USER,
+=======
+
+  ADMIN_HANDLER,
+  SET_USER,
+  RESET_USER,
+>>>>>>> 1d7193d6fa321f183cfc371bdd80c4f8e983c780
   SET_LOADING,
   FILTER_BY_AZ,
   FILTER_BY_BRAND,
@@ -13,20 +20,31 @@ import {
   GET_BRANDS,
   GET_PRODUCT_ID,
   GET_PRODUCT_NAME,
+<<<<<<< HEAD
   GET_PRODUCTS,
   ADD_CARRITO, //---------> prueba!!!
+=======
+  GET_PRODUCTS, //---------> prueba!!!
+>>>>>>> 1d7193d6fa321f183cfc371bdd80c4f8e983c780
 } from "../actions/actionsTypes";
 
 const initialState = {
   currentUser: null,
   isAdmin: null,
+<<<<<<< HEAD
   loged: false,
+=======
+  isLoged: false,
+>>>>>>> 1d7193d6fa321f183cfc371bdd80c4f8e983c780
   isLoading: true,
   brands: [],
   products: [],
   productsSort: [],
   detail: [],
+<<<<<<< HEAD
   productCart: [],
+=======
+>>>>>>> 1d7193d6fa321f183cfc371bdd80c4f8e983c780
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -38,7 +56,22 @@ export default function rootReducer(state = initialState, { type, payload }) {
         productsSort: payload,
       };
     case SET_USER:
+<<<<<<< HEAD
       return { ...state, currentUser: payload };
+=======
+      return { ...state, currentUser: payload, isLoged: true  };
+    case RESET_USER:
+      return { ...state, currentUser: {}, isLoged: false };
+    case SET_LOADING:
+      return { ...state, isLoading: payload };
+    case ADMIN_HANDLER: {
+      console.log(process.env.REACT_APP_ADMIN_EMAIL, payload);
+      if (process.env.REACT_APP_ADMIN_EMAIL === payload) {
+        return { ...state, isAdmin: true };
+      } else return { ...state, isAdmin: false };
+    }
+
+>>>>>>> 1d7193d6fa321f183cfc371bdd80c4f8e983c780
 
     case SET_LOADING:
       return { ...state, isLoading: payload };

@@ -1,6 +1,6 @@
 
 export const ADMIN_HANDLER = "ADMIN_HANDLER"
-export const SET_MESSAGE = "SET_MESSAGE"
+export const RESET_USER = "RESET_USER"
 export const SET_LOADING = "SET_LOADING"
 export const SET_USER = "SET_USER"
 export const GET_PRODUCT_NAME = "GET_PRODUCT_NAME";

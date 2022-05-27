@@ -120,6 +120,34 @@ router.delete("/bebida/:id", async (req, res) => {
   return res.status(200).send("AL LOBBY");
 });
 
+//-------------------BEBIDA FAVORITO------------------//
+
+router.post("/producto", async (req, res) => {
+  let { id_prod, id_user } = req.body;
+
+  try {
+    let usuarioFavorito = await Usuario.findByPk(id_user, {});
+
+    let productoFavorito = await Producto.findByPk(id_prod, {});
+
+    usuarioFavorito.addProducto(productoFavorito);
+    res.json(usuarioFavorito);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+router.get("/producto/favoritos", async (req, res) => {
+  let user = await Usuario.findOne({
+    include: {
+      model: Producto,
+      attributes: ["id", "nombre"],
+    },
+  });
+
+  res.json(user.productos);
+});
+
 //////AQUI YACEN LOS RESTOS DE AUTENTICACION----RIP-AUTENTICACION----GRACIAS JONA </3----//////
 //#region
 
@@ -188,11 +216,12 @@ router.get("/usuario", async (req, res) => {
 });
 
 router.post("/usuario", async (req, res) => {
-  let = { nombre, email, contraseña, nacimiento, direccion, telefono } =
+  let = { id, nombre, email, contraseña, nacimiento, direccion, telefono } =
     req.body;
 
   let [usuarioCreado, created] = await Usuario.findOrCreate({
     where: {
+      id: id,
       nombre: nombre,
       email: email,
       contraseña: contraseña,

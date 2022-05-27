@@ -7,13 +7,14 @@ import Contact from "./components/Contact";
 import AdminPanel from "./components/AdminPanel";
 import Detail from "./components/Details";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { isAdmin, setUser } from "./redux/actions";
 import { auth } from "./fb";
 import { onAuthStateChanged } from "firebase/auth";
 import ShoppingCart from "./components/ShoppingCart";
 
 function App() {
+  let user = useSelector(state => state.currentUser)
   return (
     <div className="App">
       <Routes>
