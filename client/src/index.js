@@ -10,20 +10,11 @@ import store from "./redux/store";
 
 ReactDOM.render(
   <Provider store={store}>
-    <Auth0Provider
-      domain={process.env.REACT_APP_DOMAIN_URL}
-      clientId={process.env.REACT_APP_CLIENT_ID}
-      redirectUri={window.location.origin + process.env.REACT_APP_PUBLIC_URL}
-    >
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Auth0Provider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
