@@ -13,12 +13,9 @@ import {
   GET_PRODUCT_ID,
   GET_BRANDS,
   GET_PRODUCTS,
-<<<<<<< HEAD
-  GET_FAV,
-=======
   ADD_CARRITO,
   RESET_USER,
->>>>>>> 55014709e8f658fe06458ff4d2d6950a27cab7cf
+  
 } from "./actionsTypes";
 import axios from "axios";
 
@@ -186,17 +183,6 @@ export const filterByAZ = (filter) => {
     }
   };
 };
-<<<<<<< HEAD
-
-
-
-export function getFav(payload){
-  return {
-    type: GET_FAV,
-    payload
-  }
-}
-=======
 export const addCart = (product) => {
   return async function (dispatch) {
     try {
@@ -209,4 +195,7 @@ export const addCart = (product) => {
     }
   };
 };
->>>>>>> 55014709e8f658fe06458ff4d2d6950a27cab7cf
+
+
+
+

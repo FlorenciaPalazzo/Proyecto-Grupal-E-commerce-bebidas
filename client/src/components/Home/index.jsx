@@ -65,7 +65,7 @@ function Home() {
                 currentProducts.map((e) => {
                   return (
                     <div key={e.id}>
-                      <Link to={"/bebida/" + e.id}>
+                     
                         <Card
                           nombre={e.nombre}
                           imagen={e.imagen}
@@ -75,7 +75,7 @@ function Home() {
                           graduacion={e.graduacion}
                           precio={e.precio}
                         />
-                      </Link>
+                    
                     </div>
                   );
                 })

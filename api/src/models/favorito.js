@@ -4,11 +4,23 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('favorito', {
-    productoId:{
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
-    }
+    id: {
+      type:DataTypes.STRING,
+      allowNull: false,
+      primaryKey: true,     
+   },
+
+    usuarioId: {
+      type:DataTypes.STRING,
+     
+           
+   },
+
+   productoId: {
+    type:DataTypes.STRING,
+    
+         
+ },
 
   });
 };

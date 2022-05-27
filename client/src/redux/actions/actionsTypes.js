@@ -13,8 +13,5 @@ export const FILTER_BY_PRICE = "FILTER_BY_PRICE"; // precio
 export const FILTER_BY_AZ = "FILTER_BY_AZ"; // alfabetico
 export const GET_BRANDS = "GET_BRANDS";
 export const GET_PRODUCTS = "GET_PRODUCTS";
-<<<<<<< HEAD
-export const GET_FAV = "GET_FAV";//favoritos
-=======
 export const ADD_CARRITO = "ADD_CARRITO";
->>>>>>> 55014709e8f658fe06458ff4d2d6950a27cab7cf
+

@@ -2,7 +2,7 @@ const { Router } = require("express");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 
-const { Producto, Usuario } = require("../db");
+const { Producto, Usuario, Favorito } = require("../db");
 const router = Router();
 
 // router.use('./bebidas' , bebidas)
@@ -126,16 +126,19 @@ router.post("/producto", async (req, res) => {
   let { id_prod, id_user } = req.body;
 
   try {
-    let usuarioFavorito = await Usuario.findByPk(id_user, {});
-
-    let productoFavorito = await Producto.findByPk(id_prod, {});
-
-    usuarioFavorito.addProducto(productoFavorito);
-    res.json(usuarioFavorito);
+    let [prodFav,created] = await Favorito.create({
+      where:{
+        productoId: id_prod,
+        usuarioId: id_user
+      }
+    })
+    console.log(prodFav)
+    res.json(prodFav)
   } catch (err) {
     console.log(err.message);
   }
 });
+
 
 router.get("/producto/favoritos", async (req, res) => {
   let user = await Usuario.findOne({
@@ -144,9 +147,32 @@ router.get("/producto/favoritos", async (req, res) => {
       attributes: ["id", "nombre"],
     },
   });
-
-  res.json(user.productos);
+console.log(user.productos,"ACA ESTOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY")
+  res.json(user);
 });
+
+
+router.get("/producto/favoritos", async (req, res) => {
+  let { id_prod, id_user } = req.body;
+
+let buscar = Favorito_Usuario.findOne({
+   where:{
+     productoId: id_prod,
+      usuarioId: id_user,
+   }
+ })
+ let favBorrado = buscar.destroy({
+  //  where:{
+  //    usuarioid: id_user,
+  //    productoid: id_prod,
+  //  }
+ })
+ console.log(buscar)
+  res.json(favBorrado)
+
+});
+
+
 
 //////AQUI YACEN LOS RESTOS DE AUTENTICACION----RIP-AUTENTICACION----GRACIAS JONA </3----//////
 //#region
@@ -216,7 +242,7 @@ router.get("/usuario", async (req, res) => {
 });
 
 router.post("/usuario", async (req, res) => {
-  let = { id, nombre, email, contraseña, nacimiento, direccion, telefono } =
+  let = { id, nombre, email,  nacimiento, direccion, telefono } =
     req.body;
 
   let [usuarioCreado, created] = await Usuario.findOrCreate({
@@ -224,7 +250,6 @@ router.post("/usuario", async (req, res) => {
       id: id,
       nombre: nombre,
       email: email,
-      contraseña: contraseña,
       nacimiento: nacimiento,
       direccion: direccion,
       telefono: telefono,
