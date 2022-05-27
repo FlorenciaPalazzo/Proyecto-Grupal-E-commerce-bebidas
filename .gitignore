@@ -105,3 +105,11 @@ dist
 
 # package-lock.json
 package-lock.json
+
+# Firebase 
+
+fb.js
+.firebaserc
+firebase.json
+firestore.indexes.json
+firestore.rules

@@ -34,47 +34,47 @@ function Register() {
         dispatch(isAdmin(user.email));
         sendEmailVerification(user);
       })
-      .then(() => navigate("/"))
+      .then(() => navigate("/home"))
       .catch((err) => setError(err.message));
   }
   const loading = useSelector((state) => state.isLoading);
   const isLoged = useSelector((state) => state.isLoged);
   useEffect(() => {
-    isLoged && navigate("/");
+    isLoged && navigate("/home");
   }, [isLoged]);
   return (
-<div>
+    <div>
       {loading && !isLoged ? (
         <Loading />
       ) : (
-    <div>
-      <Link to="/">
-        <button>Home</button>
-      </Link>
-      <h1>Register</h1>
-      <div>
-        {error && <span>{error}</span>}
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            onChange={handleChange}
-          />
+        <div>
+          <Link to="/">
+            <button>Home</button>
+          </Link>
+          <h1>Register</h1>
+          <div>
+            {error && <span>{error}</span>}
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                onChange={handleChange}
+              />
 
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            onChange={handleChange}
-          />
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                onChange={handleChange}
+              />
 
-          <button>Register</button>
-        </form>
-      </div>
-      </div>
+              <button>Register</button>
+            </form>
+          </div>
+        </div>
       )}
     </div>
   );
