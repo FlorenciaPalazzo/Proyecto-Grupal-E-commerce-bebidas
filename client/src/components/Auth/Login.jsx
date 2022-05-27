@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../fb";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { isAdmin, setUser, setMessage } from "../../redux/actions";
+import Loading from "../Loading";
 function Login() {
   const [input, setInput] = useState({
     email: "",
     password: "",
   });
   const [error, setError] = useState(null);
+  const loading = useSelector((state) => state.isLoading);
+  const isLoged = useSelector((state) => state.isLoged);
+
   let navigate = useNavigate();
   const dispatch = useDispatch();
   function handleChange(e) {
@@ -29,37 +33,45 @@ function Login() {
       .catch((err) => setError(err.message));
 
     dispatch(isAdmin(user.email));
-    dispatch(
-      setUser({...user})
-    );
-    navigate("/");
+    dispatch(setUser({ ...user }));
+    navigate("/home");
   }
+  const user = useSelector((state) => state.currentUser);
+  useEffect(() => {
+    isLoged && navigate("/home");
+  }, [isLoged]);
 
   return (
     <div>
-      <h1>Login</h1>
-      <div>
-        {error && <span>{error}</span>}
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            onChange={handleChange}
-          />
+      {loading && !isLoged ? (
+        <Loading />
+      ) : (
+        <div>
+          <h1>Login</h1>
+          <div>
+            {error && <span>{error}</span>}
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                onChange={handleChange}
+              />
 
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            onChange={handleChange}
-          />
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                onChange={handleChange}
+              />
 
-          <button>Login</button>
-        </form>
-      </div>
+              <button>Login</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

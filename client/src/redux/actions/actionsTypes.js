@@ -1,6 +1,6 @@
 
 export const ADMIN_HANDLER = "ADMIN_HANDLER"
-export const SET_MESSAGE = "SET_MESSAGE"
+export const RESET_USER = "RESET_USER"
 export const SET_LOADING = "SET_LOADING"
 export const SET_USER = "SET_USER"
 export const GET_PRODUCT_NAME = "GET_PRODUCT_NAME";
@@ -13,4 +13,8 @@ export const FILTER_BY_PRICE = "FILTER_BY_PRICE"; // precio
 export const FILTER_BY_AZ = "FILTER_BY_AZ"; // alfabetico
 export const GET_BRANDS = "GET_BRANDS";
 export const GET_PRODUCTS = "GET_PRODUCTS";
+<<<<<<< HEAD
 export const GET_FAV = "GET_FAV";//favoritos
+=======
+export const ADD_CARRITO = "ADD_CARRITO";
+>>>>>>> 55014709e8f658fe06458ff4d2d6950a27cab7cf
