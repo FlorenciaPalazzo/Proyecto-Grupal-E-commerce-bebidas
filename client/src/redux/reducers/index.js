@@ -26,6 +26,7 @@ const initialState = {
   products: [],
   productsSort: [],
   detail: [],
+  productCart: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {

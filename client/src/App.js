@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { isAdmin, setUser } from "./redux/actions";
 import { auth } from "./fb";
 import { onAuthStateChanged } from "firebase/auth";
+import ShoppingCart from "./components/ShoppingCart";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="/bebida/:id" element={<Detail />} />
+        <Route path="/cart" element={<ShoppingCart />} />
       </Routes>
     </div>
   );

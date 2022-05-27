@@ -1,29 +1,31 @@
 import React from "react";
 
-export default class Pagination extends React.Component{
+export default class Pagination extends React.Component {
+  render() {
+    const { product, productsPerPage, pagination } = this.props;
+    const pageNumbers = [];
 
-    render() {
-        const {product, productsPerPage, pagination} = this.props;
-        const pageNumbers = [];
-
-        for (let i = 0; i < Math.ceil(product / productsPerPage); i++) {
-            pageNumbers.push(i + 1);
-        }
-        //Este componente va a renderizar los numeritos en si
-    return (
-        <nav>
-          <ul className="ul">
-            {pageNumbers?.map((number) => (
-              <li className="pagination" key={number}>
-                <button className="pagination-button"
-                  onClick={() => pagination(number)}>{number}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      );
+    for (let i = 0; i < Math.ceil(product / productsPerPage); i++) {
+      pageNumbers.push(i + 1);
     }
+    //Este componente va a renderizar los numeritos en si
+    return (
+      <nav>
+        <ul className="ul">
+          {pageNumbers?.map((number) => (
+            <li className="pagination" key={number}>
+              <button
+                className="pagination-button"
+                onClick={() => pagination(number)}
+              >
+                {number}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    );
+  }
 }
 
 // Cambiar luego para tener 3 botones únicamente para desplazarnos entre páginas (Atrás, Actual, Siguiente)
