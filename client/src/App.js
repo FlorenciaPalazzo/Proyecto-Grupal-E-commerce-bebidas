@@ -1,14 +1,31 @@
-import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Auth/Login";
+import Register from "./components/Auth/Register";
+import Profile from "./components/Profile";
+import Contact from "./components/Contact";
+import AdminPanel from "./components/AdminPanel";
+import Detail from "./components/Details";
+import ShoppingCart from "./components/ShoppingCart";
+import Landing from "./components/Landing/Landing";
 
 function App() {
   return (
     <div className="App">
-      <h1>Henry Bebidas!!!</h1>
+      <Routes>
+        <Route path="/" exact element={<Landing />} />
+        <Route path="/home" exact element={<Home />} />
+        <Route path="/cart" element={<ShoppingCart />} />
+        <Route path="/login" exact element={<Login />} />
+        <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/profile" exact element={<Profile />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/register" exact element={<Register />} />
+        <Route path="/bebida/:id" element={<Detail />} />
+      </Routes>
     </div>
   );
 }
 
+// base
 export default App;
-
-
-// front-alcaraz
