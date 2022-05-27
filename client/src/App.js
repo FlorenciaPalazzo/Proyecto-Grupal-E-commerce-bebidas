@@ -6,22 +6,19 @@ import Profile from "./components/Profile";
 import Contact from "./components/Contact";
 import AdminPanel from "./components/AdminPanel";
 import Detail from "./components/Details";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { isAdmin, setUser } from "./redux/actions";
-import { auth } from "./fb";
-import { onAuthStateChanged } from "firebase/auth";
 import ShoppingCart from "./components/ShoppingCart";
+import Landing from "./components/Landing/Landing";
 
 function App() {
-  let user = useSelector(state => state.currentUser)
   return (
     <div className="App">
       <Routes>
+        <Route path="/" exact element={<Landing />} />
+
         <Route path="/register" exact element={<Register />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/profile" exact element={<Profile />} />
-        <Route path="/" exact element={<Home />} />
+        <Route path="/home" exact element={<Home />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="/bebida/:id" element={<Detail />} />
