@@ -73,29 +73,7 @@ router.get('/bebidasApi', async (req, res, next) => {
     res.json(bebidaCreada)
   })
 
-  router.post('/producto',  async (req, res) => {
-    let {id_prod, id}= req.body
-    
-    try{
-      let usuarioFavorito = await Usuario.find({
-        where:{
-           id: id 
-        }
-        })
-        console.log(id)
-        // let productoFavorito = await Producto.find({
-        //   where:{
-        //      id: id_prod 
-        //   }
-        //   })
 
-        usuarioFavorito //.addFavorito(productoFavorito)
-
-      res.json(usuarioFavorito)
-    }catch(err){
-      console.log('Error del bendito catch')
-    }
-  })
 
 
 
@@ -152,6 +130,40 @@ router.get('/bebidasApi', async (req, res, next) => {
     })
     return res.status(200).send('AL LOBBY');
   })
+
+
+//-------------------BEBIDA FAVORITO------------------//
+  
+  router.post('/producto',  async (req, res) => {
+    let {id_prod, id_user}= req.body
+    
+    try{
+      let usuarioFavorito = await Usuario.findByPk(id_user,{})
+      
+      let productoFavorito = await Producto.findByPk(id_prod,{})
+      
+        
+        usuarioFavorito.addProducto(productoFavorito)
+      res.json(usuarioFavorito)
+    }catch(err){
+      console.log(err.message)
+    }
+  })
+
+
+
+  router.get('/producto/favoritos',  async (req, res) => {
+    
+      let user= await Usuario.findOne({
+          include: {
+              model: Producto,
+              attributes: ['id','nombre'],
+          }
+      })
+
+      res.json(user.productos)
+  })
+
 
 
   
@@ -228,12 +240,13 @@ router.get('/usuario/:id', async(req, res) => {
   
   router.post('/usuario',  async (req, res) => {
     let  ={ 
-        nombre,email,contraseña,nacimiento,direccion,telefono
+       id, nombre,email,contraseña,nacimiento,direccion,telefono
     }= req.body
 
 
     let [usuarioCreado, created] = await Usuario.findOrCreate({
         where:{ 
+            id:id,
             nombre:nombre,
             email:email,
             contraseña: contraseña,

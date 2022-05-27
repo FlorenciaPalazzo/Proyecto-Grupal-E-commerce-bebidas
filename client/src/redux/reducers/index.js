@@ -14,6 +14,7 @@ import {
     GET_PRODUCT_ID,
     GET_PRODUCT_NAME,
     GET_PRODUCTS, //---------> prueba!!!
+    GET_FAV
 } from "../actions/actionsTypes";
 
 const initialState = {
