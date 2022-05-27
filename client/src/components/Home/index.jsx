@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getBrands, getProducts, isAdmin, setUser, setLoading, resetUser} from "../../redux/actions";
+import { getBrands, getProducts} from "../../redux/actions";
 
 import NavBar from "../NavBar";
 import Card from "../Card";
@@ -12,12 +12,6 @@ function Home() {
   const product = useSelector((state) => state.products);
   const user = useSelector((state) => state.currentUser);
   const admin = useSelector((state) => state.isAdmin);
-
-  function adminHandler() {
-    if (isAuthenticated && user) {
-      dispatch(isAdmin(user.email));
-    }
-  }
 
   const [, /*order*/ setOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,7 +32,6 @@ function Home() {
   useEffect(() => { 
     console.log(product);
     console.log("effect");
-    adminHandler();
     if(product.length === 0){
       dispatch(getProducts());
     }
@@ -90,17 +83,13 @@ function Home() {
         <div>
           <h1 className="error">No products were found</h1>
           </div>)
-        }
+            }
         </div>
-        </div>
-          
-      
+      </div>   
     </div>
-    }
-  </div>
   );
-}
 
+          }
 export default Home;
 // front-alcaraz
 // ultima
