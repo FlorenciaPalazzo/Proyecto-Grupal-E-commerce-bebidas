@@ -1,21 +1,29 @@
-
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getBrands, getProducts} from "../../redux/actions";
+import {
+  getBrands,
+  getProducts,
+  isAdmin,
+  setUser,
+  setLoading,
+  resetUser,
+} from "../../redux/actions";
 
 import NavBar from "../NavBar";
 import Card from "../Card";
 import Pagination from "../Pagination";
+import Loading from "../Loading";
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
   const user = useSelector((state) => state.currentUser);
   const admin = useSelector((state) => state.isAdmin);
+  const loading = useSelector((state) => state.isLoading);
 
   const [, /*order*/ setOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage /*setProductsPerPage*/] = useState(15); //15 productos por página
+  const [productsPerPage /*setProductsPerPage*/] = useState(15); //15 productos por pÃ¡gina
 
   const indexOfLastProduct = currentPage * productsPerPage; // 15
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
@@ -29,67 +37,58 @@ function Home() {
     setCurrentPage(pageNumber);
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     console.log(product);
     console.log("effect");
-    if(product.length === 0){
+
+    if (product.length === 0) {
       dispatch(getProducts());
     }
     dispatch(getBrands());
-  }, [user, dispatch, product]);
- 
+  }, [dispatch, product, loading]);
+
   return (
     <div>
-      <NavBar />
-      {isAuthenticated && (
+      {loading /* revisen esto!! */ ? (
+        <Loading />
+      ) : (
         <div>
-          <span>
-            Hi, {user.name}{" "}
-            <img width={50} height={50} src={user.picture} alt={user.name} />
-          </span>
-          <div>Logged: {String(isAuthenticated)}</div>
-          <div>Verified: {String(user.email_verified)}</div>
-          <div>Is Admin: {String(admin)}</div>
+          <NavBar />
+          <div>
+            <Pagination
+              productsPerPage={productsPerPage}
+              product={product.length}
+              pagination={pagination}
+            />
+            <div>
+              {currentProducts.length > 0 ? (
+                currentProducts.map((e) => {
+                  return (
+                    <div key={e.id}>
+                      <Link to={"/bebida/" + e.id}>
+                        <Card
+                          nombre={e.nombre}
+                          imagen={e.imagen}
+                          id={e.id}
+                          marca={e.marca}
+                          ml={e.ml}
+                          graduacion={e.graduacion}
+                          precio={e.precio}
+                        />
+                      </Link>
+                    </div>
+                  );
+                })
+              ) : (
+                <div>
+                  <h1 className="error">No products were found</h1>
+                </div>
+              )}
+            </div>
+          </div>{" "}
         </div>
       )}
-
-      <div>
-      <Pagination
-          productsPerPage={productsPerPage}
-          product={product.length}
-          pagination={pagination}
-          />
-          <div>
-            
-            {currentProducts.length > 0 ? (
-            currentProducts.map((e) => {
-
-          return (
-            <div key={e.id}>
-              <Link to={"/bebida/" + e.id}>
-                <Card
-                  nombre={e.nombre}
-                  imagen={e.imagen}
-                  id={e.id}
-                  marca={e.marca}
-                  ml={e.ml}
-                  graduacion={e.graduacion}
-                  precio={e.precio}
-                />
-              </Link>
-            </div>
-          );
-        })) : (
-        <div>
-          <h1 className="error">No products were found</h1>
-          </div>)
-            }
-        </div>
-      </div>   
     </div>
   );
-
-          }
+}
 export default Home;
-// front-alcaraz
-// ultima

@@ -13,7 +13,7 @@ function Login() {
   const [error, setError] = useState(null);
   const loading = useSelector((state) => state.isLoading);
   const isLoged = useSelector((state) => state.isLoged);
-  
+
   let navigate = useNavigate();
   const dispatch = useDispatch();
   function handleChange(e) {
@@ -34,11 +34,11 @@ function Login() {
 
     dispatch(isAdmin(user.email));
     dispatch(setUser({ ...user }));
-    navigate("/");
+    navigate("/home");
   }
   const user = useSelector((state) => state.currentUser);
   useEffect(() => {
-    isLoged && navigate("/")
+    isLoged && navigate("/home");
   }, [isLoged]);
 
   return (
