@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useAuth0, /*withAuthenticationRequired*/ } from "@auth0/auth0-react";
+
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getBrands, getProducts, isAdmin } from "../../redux/actions";
+import { getBrands, getProducts, isAdmin, setUser, setLoading, resetUser} from "../../redux/actions";
+
 import NavBar from "../NavBar";
 import Card from "../Card";
 import Pagination from "../Pagination";
 function Home() {
-  const { isAuthenticated, user } = useAuth0();
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
+  const user = useSelector((state) => state.currentUser);
   const admin = useSelector((state) => state.isAdmin);
+
   function adminHandler() {
     if (isAuthenticated && user) {
       dispatch(isAdmin(user.email));
@@ -68,6 +70,7 @@ function Home() {
             
             {currentProducts.length > 0 ? (
             currentProducts.map((e) => {
+
           return (
             <div key={e.id}>
               <Link to={"/bebida/" + e.id}>
@@ -93,6 +96,8 @@ function Home() {
           
       
     </div>
+    }
+  </div>
   );
 }
 

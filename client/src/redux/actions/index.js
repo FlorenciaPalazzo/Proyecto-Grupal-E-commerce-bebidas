@@ -1,18 +1,20 @@
 import {
-    ADMIN_HANDLER,
-    GET_PRODUCT_NAME,
-    FILTER_BY_BRAND,
-    FILTER_BY_TYPE,
-    FILTER_BY_GRADUATION,
-    FILTER_BY_ML,
-    FILTER_BY_PRICE,
-    FILTER_BY_AZ,
-    FILTER_BY_ZA,
-    SET_USER,
-    SET_LOADING,
-    GET_PRODUCT_ID,
-    GET_BRANDS,
-    GET_PRODUCTS
+  ADMIN_HANDLER,
+  GET_PRODUCT_NAME,
+  FILTER_BY_BRAND,
+  FILTER_BY_TYPE,
+  FILTER_BY_GRADUATION,
+  FILTER_BY_ML,
+  FILTER_BY_PRICE,
+  FILTER_BY_AZ,
+  FILTER_BY_ZA,
+  SET_USER,
+  RESET_USER,
+  SET_LOADING,
+  GET_PRODUCT_ID,
+  GET_BRANDS,
+  GET_PRODUCTS
+
 } from "./actionsTypes";
 import axios from "axios";
 
@@ -28,6 +30,13 @@ export function setUser(user) {
         return dispatch({ type: SET_USER, payload: user });
     };
 }
+
+export function resetUser() {
+    return async (dispatch) => {
+      return dispatch({ type: RESET_USER });
+    };
+  }
+
 export function setLoading(bool) {
     return async(dispatch) => {
         return dispatch({ type: SET_LOADING, payload: bool });

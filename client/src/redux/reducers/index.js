@@ -1,42 +1,55 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, currentUser } from "../../fb";
 import {
-    ADMIN_HANDLER,
-    SET_USER,
-    SET_LOADING,
-    FILTER_BY_AZ,
-    FILTER_BY_BRAND,
-    FILTER_BY_GRADUATION,
-    FILTER_BY_ML,
-    FILTER_BY_PRICE,
-    FILTER_BY_TYPE,
-    GET_BRANDS,
-    GET_PRODUCT_ID,
-    GET_PRODUCT_NAME,
-    GET_PRODUCTS, //---------> prueba!!!
+
+  ADMIN_HANDLER,
+  SET_USER,
+  RESET_USER,
+  SET_LOADING,
+  FILTER_BY_AZ,
+  FILTER_BY_BRAND,
+  FILTER_BY_GRADUATION,
+  FILTER_BY_ML,
+  FILTER_BY_PRICE,
+  FILTER_BY_TYPE,
+  GET_BRANDS,
+  GET_PRODUCT_ID,
+  GET_PRODUCT_NAME,
+  GET_PRODUCTS, //---------> prueba!!!
 } from "../actions/actionsTypes";
 
 const initialState = {
-    currentUser: null,
-    isAdmin: null,
-    loged: false,
-    isLoading: true,
-    brands: [],
-    products: [],
-    productsSort: [],
-    detail: [],
+  currentUser: null,
+  isAdmin: null,
+  isLoged: false,
+  isLoading: true,
+  brands: [],
+  products: [],
+  productsSort: [],
+  detail: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
-    switch (type) {
-        case GET_PRODUCTS:
-            return {
-                ...state,
-                products: payload,
-                productsSort: payload,
-            };
-        case SET_USER:
-            return {...state, currentUser: payload }
+  switch (type) {
+    case GET_PRODUCTS:
+      return {
+        ...state,
+        products: payload,
+        productsSort: payload,
+      };
+    case SET_USER:
+      return { ...state, currentUser: payload, isLoged: true  };
+    case RESET_USER:
+      return { ...state, currentUser: {}, isLoged: false };
+    case SET_LOADING:
+      return { ...state, isLoading: payload };
+    case ADMIN_HANDLER: {
+      console.log(process.env.REACT_APP_ADMIN_EMAIL, payload);
+      if (process.env.REACT_APP_ADMIN_EMAIL === payload) {
+        return { ...state, isAdmin: true };
+      } else return { ...state, isAdmin: false };
+    }
+
 
         case SET_LOADING:
             return {...state, isLoading: payload }
