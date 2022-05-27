@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getBrands, getProducts, isAdmin, setUser, setLoading, resetUser} from "../../redux/actions";
+import { getBrands, getProducts } from "../../redux/actions";
 import NavBar from "../NavBar";
 import Card from "../Card";
-import { app, auth } from "../../fb";
-import { onAuthStateChanged, signOut } from "firebase/auth";
 import Loading from "../Loading";
 
 function Home() {
@@ -18,39 +16,36 @@ function Home() {
     console.log("effect");
     dispatch(getProducts());
     dispatch(getBrands());
-  }, [ dispatch,loading]);
+  }, [dispatch, loading]);
   return (
     <div>
-     { loading ?
-            <Loading/>
-            :
+      {loading ? (
+        <Loading />
+      ) : (
         <div>
-
-      <NavBar />
-      <div>
-          {user.email}
-      </div>
-      {product &&
-        product.map((e) => {
-          return (
-            <div key={e.id}>
-              <Link to={"/bebida/" + e.id}>
-                <Card
-                  nombre={e.nombre}
-                  imagen={e.imagen}
-                  id={e.id}
-                  marca={e.marca}
-                  ml={e.ml}
-                  graduacion={e.graduacion}
-                  precio={e.precio}
-                />
-              </Link>
-            </div>
-          );
-        })}
+          <NavBar />
+          <div>{user.email}</div>
+          {product &&
+            product.map((e) => {
+              return (
+                <div key={e.id}>
+                  <Link to={"/bebida/" + e.id}>
+                    <Card
+                      nombre={e.nombre}
+                      imagen={e.imagen}
+                      id={e.id}
+                      marca={e.marca}
+                      ml={e.ml}
+                      graduacion={e.graduacion}
+                      precio={e.precio}
+                    />
+                  </Link>
+                </div>
+              );
+            })}
+        </div>
+      )}
     </div>
-    }
-  </div>
   );
 }
 
