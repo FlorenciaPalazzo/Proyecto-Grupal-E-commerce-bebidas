@@ -33,7 +33,7 @@ export default function Detail() {
               dangerouslySetInnerHTML={{ __html: product.descripcion }}
             />
           </div>
-          <Link to="/home">
+          <Link to="/">
             <button className="button">Back</button>
           </Link>
         </div>
