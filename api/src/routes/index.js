@@ -2,7 +2,7 @@ const { Router } = require("express");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 
-const { Producto, Usuario, Favorito } = require("../db");
+const { Producto, Usuario,Favorito } = require("../db");
 const router = Router();
 
 // router.use('./bebidas' , bebidas)
@@ -122,18 +122,18 @@ router.delete("/bebida/:id", async (req, res) => {
 
 //-------------------BEBIDA FAVORITO------------------//
 
+
 router.post("/producto", async (req, res) => {
   let { id_prod, id_user } = req.body;
 
   try {
-    let [prodFav,created] = await Favorito.create({
-      where:{
-        productoId: id_prod,
-        usuarioId: id_user
-      }
-    })
-    console.log(prodFav)
-    res.json(prodFav)
+    let usuarioFavorito = await Usuario.findByPk(id_user, {});
+
+    let productoFavorito = await Producto.findByPk(id_prod, {});
+console.log(productoFavorito, usuarioFavorito)
+
+    usuarioFavorito.addProducto(productoFavorito);
+    res.json(usuarioFavorito);
   } catch (err) {
     console.log(err.message);
   }
@@ -152,25 +152,26 @@ console.log(user.productos,"ACA ESTOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY")
 });
 
 
-router.get("/producto/favoritos", async (req, res) => {
+router.delete("/producto/favoritos", async (req, res) => {
   let { id_prod, id_user } = req.body;
 
-let buscar = Favorito_Usuario.findOne({
-   where:{
-     productoId: id_prod,
-      usuarioId: id_user,
-   }
- })
- let favBorrado = buscar.destroy({
-  //  where:{
-  //    usuarioid: id_user,
-  //    productoid: id_prod,
-  //  }
- })
- console.log(buscar)
-  res.json(favBorrado)
+
+let favBorrado = await Favorito.destroy({
+    where:{
+       usuarioId: id_user,
+       productoId: id_prod,
+     }
+  })
+
+  res.json(Favorito)
 
 });
+
+
+
+
+
+
 
 
 
