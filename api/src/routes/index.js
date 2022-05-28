@@ -2,20 +2,17 @@ const { Router } = require('express');
 const axios = require('axios')
 const jwt = require("jsonwebtoken")
 
-<<<<<<< HEAD
-const { Producto, Usuario, Favorito } = require('../db')
-=======
 const { Producto, Usuario,Favorito } = require("../db");
->>>>>>> 00bade1a3e3c9a73acbecba8eeaaa6d97e9f0e61
 const router = Router();
 
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
 // Agrega credenciales
 mercadopago.configure({
-  access_token: "PROD_ACCESS_TOKEN",
+  access_token: 'APP_USR-6623451607855904-111502-1f258ab308efb0fb26345a2912a3cfa5-672708410',
 });
 
+// router.use(bodyParser).urlencoded({extends : false})
 
 // router.use('./bebidas' , bebidas)
 
@@ -66,6 +63,42 @@ router.get('/bebidas', async (req, res, next) => {
 
 
 
+
+router.post("/checkout", async (req, res) => {
+  // Crea un objeto de preferencia
+  // let {preference} = req.query
+  let { id } = req.body
+
+  let pBuscado = await Producto.findOne({
+    where : { id : id } 
+  })
+
+  console.log(pBuscado, "================ SOY LO QUE BUSCABAS =============== ")
+
+    let preference = {
+     items : [
+       {
+       title : pBuscado.nombre ,
+       unit_price : parseInt(pBuscado.precio),
+       quantity :1 
+     }
+    ]
+  };
+
+
+  console.log(preference, "preferenciaaaaaaaAAAAAAAAAAA")
+
+  mercadopago.preferences.create(preference)
+    .then(function (hola) {
+      console.log(hola.body, "BODYYYYYYYYYYYYYYYYYYYYYYYYYY")
+      console.log(hola.body.sandbox_init_point, "Soy el supuesto y famoso url")
+      res.send("el checkout")
+
+    }).catch(function (error) {
+      console.log(error);
+    });
+
+})
 
 
 
@@ -167,13 +200,6 @@ router.delete('/bebida/:id', async (req, res) => {
 
   const del = await Producto.destroy({
     where: {
-<<<<<<< HEAD
-      id: id
-    }
-  })
-  return res.status(200).send('AL LOBBY');
-})
-=======
       id: id,
     },
   });
@@ -226,7 +252,6 @@ let favBorrado = await Favorito.destroy({
   res.json(Favorito)
 
 });
->>>>>>> 00bade1a3e3c9a73acbecba8eeaaa6d97e9f0e61
 
 
 
