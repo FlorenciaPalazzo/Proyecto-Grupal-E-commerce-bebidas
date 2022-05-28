@@ -38,8 +38,8 @@ function Home() {
   };
 
   useEffect(() => {
-    console.log(product);
-    console.log("effect");
+    /* console.log(product);
+    console.log("effect"); */
 
     if (product.length === 0) {
       dispatch(getProducts());

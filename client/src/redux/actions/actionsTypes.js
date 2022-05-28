@@ -1,8 +1,7 @@
-
-export const ADMIN_HANDLER = "ADMIN_HANDLER"
-export const RESET_USER = "RESET_USER"
-export const SET_LOADING = "SET_LOADING"
-export const SET_USER = "SET_USER"
+export const ADMIN_HANDLER = "ADMIN_HANDLER";
+export const RESET_USER = "RESET_USER";
+export const SET_LOADING = "SET_LOADING";
+export const SET_USER = "SET_USER";
 export const GET_PRODUCT_NAME = "GET_PRODUCT_NAME";
 export const GET_PRODUCT_ID = "GET_PRODUCT_ID"; //por id
 export const FILTER_BY_BRAND = "FILTER_BY_BRAND"; //por marcas
@@ -14,3 +13,7 @@ export const FILTER_BY_AZ = "FILTER_BY_AZ"; // alfabetico
 export const GET_BRANDS = "GET_BRANDS";
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const ADD_CARRITO = "ADD_CARRITO";
+export const ADD_IN_CART = "ADD_IN_CART";
+export const DELETE_ONE_PRODUCT = "DELETE_ONE_PRODUCT";
+export const REMOVE_ALL_CARRITO = "REMOVE_ALL_CARRITO";
+export const BUY_ALL_CART = "BUY_ALL_CART"; // esperando ruta
