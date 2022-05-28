@@ -5,10 +5,10 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('usuario', {
     id: {
-      type:DataTypes.STRING,
-      allowNull: false,
-      primaryKey: true,     
-   },
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     nombre: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
     },
     nacimiento: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATEONLY,
     },
     direccion: {
       type: DataTypes.STRING,
@@ -32,6 +32,6 @@ module.exports = (sequelize) => {
     isAdmin: {
       type: DataTypes.BOOLEAN,
       defaultValue: "false"
-  },
+    },
   });
 };
