@@ -2,7 +2,11 @@ const { Router } = require('express');
 const axios = require('axios')
 const jwt = require("jsonwebtoken")
 
+<<<<<<< HEAD
 const { Producto, Usuario, Favorito } = require('../db')
+=======
+const { Producto, Usuario,Favorito } = require("../db");
+>>>>>>> 00bade1a3e3c9a73acbecba8eeaaa6d97e9f0e61
 const router = Router();
 
 // SDK de Mercado Pago
@@ -163,11 +167,72 @@ router.delete('/bebida/:id', async (req, res) => {
 
   const del = await Producto.destroy({
     where: {
+<<<<<<< HEAD
       id: id
     }
   })
   return res.status(200).send('AL LOBBY');
 })
+=======
+      id: id,
+    },
+  });
+  return res.status(200).send("AL LOBBY");
+});
+
+//-------------------BEBIDA FAVORITO------------------//
+
+
+router.post("/producto", async (req, res) => {
+  let { id_prod, id_user } = req.body;
+
+  try {
+    let usuarioFavorito = await Usuario.findByPk(id_user, {});
+
+    let productoFavorito = await Producto.findByPk(id_prod, {});
+console.log(productoFavorito, usuarioFavorito)
+
+    usuarioFavorito.addProducto(productoFavorito);
+    res.json(usuarioFavorito);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
+router.get("/producto/favoritos", async (req, res) => {
+  let user = await Usuario.findOne({
+    include: {
+      model: Producto,
+      attributes: ["id", "nombre"],
+    },
+  });
+console.log(user.productos,"ACA ESTOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY")
+  res.json(user);
+});
+
+
+router.delete("/producto/favoritos", async (req, res) => {
+  let { id_prod, id_user } = req.body;
+
+
+let favBorrado = await Favorito.destroy({
+    where:{
+       usuarioId: id_user,
+       productoId: id_prod,
+     }
+  })
+
+  res.json(Favorito)
+
+});
+>>>>>>> 00bade1a3e3c9a73acbecba8eeaaa6d97e9f0e61
+
+
+
+
+
+
 
 
 

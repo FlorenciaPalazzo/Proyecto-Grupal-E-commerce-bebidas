@@ -48,6 +48,7 @@ Carrito.belongsToMany(Producto, { through: 'Carrito_Producto' });
 Carrito.belongsTo(Usuario);
 
 
+<<<<<<< HEAD
 // =========================== *Como chingados hago esto* =========================== // 
 
 
@@ -58,6 +59,12 @@ Favorito.belongsToMany(Producto, {through : 'favorito_producto'})
 
 
 
+=======
+Usuario.belongsToMany(Producto, { through: 'Favorito' });
+
+// Usuario.hasMany(Favorito);
+// Favorito.belongsTo(Usuario);
+>>>>>>> 00bade1a3e3c9a73acbecba8eeaaa6d97e9f0e61
 
 // Product.hasMany(Reviews);
 
