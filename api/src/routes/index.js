@@ -1,10 +1,9 @@
-const { Router } = require('express');
-const axios = require ('axios')
-const jwt = require("jsonwebtoken")
+const { Router } = require("express");
+const axios = require("axios");
+const jwt = require("jsonwebtoken");
 
-const {Producto, Usuario}= require ('../db')
+const { Producto, Usuario,Favorito } = require("../db");
 const router = Router();
-
 
 // router.use('./bebidas' , bebidas)
 
@@ -12,151 +11,172 @@ const router = Router();
 
 //--------------------BEBIDAS-------------------------
 
-const getDataBase = async()=>{
-    return await Producto.findAll() 
-}
-router.get('/bebidasApi', async (req, res, next) => {
-    
-    try { 
-     const bebidasInfo = await axios.get(`https://bebidas-efc61-default-rtdb.firebaseio.com/results.json`)   
-     const allBebidas = await bebidasInfo.data.map(e => { return e })
-     const allBebidasDb = await allBebidas.map(e => {Producto.create(e)})
-   
-      res.json(allBebidas)
-    } catch (error) {
-       next(error)
-    } 
-  });
+const getDataBase = async () => {
+  return await Producto.findAll();
+};
+router.get("/bebidasApi", async (req, res, next) => {
+  try {
+    const bebidasInfo = await axios.get(
+      `https://bebidas-efc61-default-rtdb.firebaseio.com/results.json`
+    );
+    const allBebidas = await bebidasInfo.data.map((e) => {
+      return e;
+    });
+    const allBebidasDb = await allBebidas.map((e) => {
+      Producto.create(e);
+    });
 
+    res.json(allBebidas);
+  } catch (error) {
+    next(error);
+  }
+});
 
-
-  router.get('/bebidas', async (req, res, next) => {
-     try {
-         
-      const {nombre} = req.query
-    const dataInfo = await getDataBase()
-    if(nombre){
-        const dataName = await dataInfo.filter(e=> e.nombre.toLowerCase().includes(nombre.toLowerCase()))
-        if(!dataName.length){
-            return res.status(400).send('No se encontro ese producto')
-        }
-        res.json(dataName)
-    }else{
-        res.json(dataInfo)
+router.get("/bebidas", async (req, res, next) => {
+  try {
+    const { nombre } = req.query;
+    const dataInfo = await getDataBase();
+    if (nombre) {
+      const dataName = await dataInfo.filter((e) =>
+        e.nombre.toLowerCase().includes(nombre.toLowerCase())
+      );
+      if (!dataName.length) {
+        return res.status(400).send("No se encontro ese producto");
+      }
+      res.json(dataName);
+    } else {
+      res.json(dataInfo);
     }
+  } catch (error) {
+    next(error);
+  }
+});
 
-      } catch (error) {
-         next(error)
+//--------------------BEBIDA-------------------------
+
+router.post("/bebida", async (req, res) => {
+  let = { nombre, imagen, marca, ml, graduacion, descripcion, precio, stock } =
+    req.body;
+
+  let [bebidaCreada, created] = await Producto.findOrCreate({
+    where: {
+      nombre: nombre,
+      imagen: imagen,
+      marca: marca,
+      descripcion: descripcion,
+      ml: ml,
+      graduacion: graduacion,
+      precio: precio,
+      stock: stock,
+    },
+  });
+  res.json(bebidaCreada);
+});
+
+router.get("/bebida/:id", async (req, res) => {
+  let { id } = req.params;
+
+  try {
+    let bebida = await Producto.findByPk(id);
+    res.status(200).json(bebida);
+  } catch (err) {
+    res.status(404);
+  }
+});
+
+router.put("/bebida", async (req, res) => {
+  let { nombre, imagen, marca, ml, graduacion, descripcion, precio, stock } =
+    req.body;
+  let { id } = req.body;
+
+  try {
+    const bebidaPut = await Producto.findOne({ where: { id: id } });
+
+    await bebidaPut.update({
+      id: id,
+      nombre: nombre,
+      imagen: imagen,
+      marca: marca,
+      descripcion: descripcion,
+      ml: ml,
+      graduacion: graduacion,
+      precio: precio,
+      stock: stock,
+    });
+    res.json(bebidaPut);
+  } catch (err) {
+    console.log("error del glorioso catch. Amen");
+  }
+});
+
+router.delete("/bebida/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const del = await Producto.destroy({
+    where: {
+      id: id,
+    },
+  });
+  return res.status(200).send("AL LOBBY");
+});
+
+//-------------------BEBIDA FAVORITO------------------//
+
+
+router.post("/producto", async (req, res) => {
+  let { id_prod, id_user } = req.body;
+
+  try {
+    let usuarioFavorito = await Usuario.findByPk(id_user, {});
+
+    let productoFavorito = await Producto.findByPk(id_prod, {});
+console.log(productoFavorito, usuarioFavorito)
+
+    usuarioFavorito.addProducto(productoFavorito);
+    res.json(usuarioFavorito);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
+router.get("/producto/favoritos", async (req, res) => {
+  let user = await Usuario.findOne({
+    include: {
+      model: Producto,
+      attributes: ["id", "nombre"],
+    },
+  });
+console.log(user.productos,"ACA ESTOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY")
+  res.json(user);
+});
+
+
+router.delete("/producto/favoritos", async (req, res) => {
+  let { id_prod, id_user } = req.body;
+
+
+let favBorrado = await Favorito.destroy({
+    where:{
+       usuarioId: id_user,
+       productoId: id_prod,
      }
   })
 
+  res.json(Favorito)
 
-//--------------------BEBIDA-------------------------
-  
-  router.post('/bebida',  async (req, res) => {
-    let  ={ 
-        nombre,imagen,marca,ml,graduacion,descripcion,precio,stock
-    }= req.body
-
-    let [bebidaCreada, created] = await Producto.findOrCreate({
-        where:{ 
-            nombre:nombre,
-            imagen:imagen,
-            marca:marca,
-            descripcion:descripcion,
-            ml: ml,
-            graduacion:graduacion,
-            precio: precio,
-            stock:stock
-        }     
-    })
-    res.json(bebidaCreada)
-  })
-
-  router.post('/producto',  async (req, res) => {
-    let {id_prod, id}= req.body
-    
-    try{
-      let usuarioFavorito = await Usuario.find({
-        where:{
-           id: id 
-        }
-        })
-        console.log(id)
-        // let productoFavorito = await Producto.find({
-        //   where:{
-        //      id: id_prod 
-        //   }
-        //   })
-
-        usuarioFavorito //.addFavorito(productoFavorito)
-
-      res.json(usuarioFavorito)
-    }catch(err){
-      console.log('Error del bendito catch')
-    }
-  })
+});
 
 
 
 
-  
-
-  router.get('/bebida/:id', async (req, res) => {
-    let { id } = req.params
-
-    try{
-        let bebida = await Producto.findByPk(id)
-        res.status(200).json(bebida)
-        
-     }catch(err){
-        res.status(404)
-  }
- })
-
-  router.put('/bebida',  async (req, res) => {
-    let {nombre,imagen,marca,ml,graduacion,descripcion,precio,stock}= req.body
-    let {id} = req.body
 
 
-    try{
-        const bebidaPut= await Producto.findOne({where:{id:id}})
-        
-        
-         await bebidaPut.update({
-                id:id,
-                nombre:nombre,
-                imagen:imagen,
-                marca:marca,
-                descripcion:descripcion,
-                ml: ml,
-                graduacion:graduacion,
-                precio: precio,
-                stock:stock           
-        })
-        res.json(bebidaPut)
-    }catch(err){
-        console.log('error del glorioso catch. Amen')
-    }
-  })
 
 
-  
-  router.delete('/bebida/:id', async(req, res) => {
-    const {id} = req.params;
-  
-    const del = await Producto.destroy({
-        where:{
-            id: id
-        }
-    })
-    return res.status(200).send('AL LOBBY');
-  })
 
-
-  
-  //////AQUI YACEN LOS RESTOS DE AUTENTICACION----RIP-AUTENTICACION----GRACIAS JONA </3----//////
-//#region 
+//////AQUI YACEN LOS RESTOS DE AUTENTICACION----RIP-AUTENTICACION----GRACIAS JONA </3----//////
+//#region
 
 //   router.post('/usuario/login',  async (req, res) => {
 //       const user ={
@@ -202,90 +222,74 @@ router.get('/bebidasApi', async (req, res, next) => {
 
 //--------------------USUARIO-------------------------
 
+router.get("/usuario/:id", async (req, res) => {
+  let { id } = req.params;
 
-router.get('/usuario/:id', async(req, res) => {
-  let { id } = req.params
-
-  try{
-    let usuario = await Usuario.findByPk(id)
-    res.status(200).json(usuario)
+  try {
+    let usuario = await Usuario.findByPk(id);
+    res.status(200).json(usuario);
+  } catch (e) {
+    res.status(400);
   }
-  catch(e){
-    res.status(400)
+});
+
+router.get("/usuario", async (req, res) => {
+  try {
+    let usuarios = await Usuario.findAll();
+    res.status(200).json(usuarios);
+  } catch (e) {
+    res.status(404).send(e.message);
   }
-})
+});
 
-  router.get('/usuario', async (req,res) => {
-      try {
-          let usuarios = await Usuario.findAll()
-          res.status(200).json(usuarios)
-          
-      } catch (e) {
-          res.status(404).send(e.message)
-      }
-  })
-  
-  
-  router.post('/usuario',  async (req, res) => {
-    let  ={ 
-        nombre,email,contraseña,nacimiento,direccion,telefono
-    }= req.body
+router.post("/usuario", async (req, res) => {
+  let = { id, nombre, email,  nacimiento, direccion, telefono } =
+    req.body;
 
+  let [usuarioCreado, created] = await Usuario.findOrCreate({
+    where: {
+      id: id,
+      nombre: nombre,
+      email: email,
+      nacimiento: nacimiento,
+      direccion: direccion,
+      telefono: telefono,
+    },
+  });
+  return res.json(usuarioCreado);
+});
 
-    let [usuarioCreado, created] = await Usuario.findOrCreate({
-        where:{ 
-            nombre:nombre,
-            email:email,
-            contraseña: contraseña,
-            nacimiento:nacimiento,
-            direccion: direccion,
-            telefono :telefono,
-        }    
-       
-    })
-    return res.json(usuarioCreado)
-  })
+router.delete("/usuario/:id", async (req, res) => {
+  const { id } = req.params;
 
-  
+  const del = await Usuario.destroy({
+    where: {
+      id: id,
+    },
+  });
+  return res.status(200).send("AL LOBBY");
+});
 
-  router.delete('/usuario/:id', async(req, res) => {
-    const {id} = req.params;
-  
-    const del = await Usuario.destroy({
-        where:{
-            id: id
-        }
-    })
-    return res.status(200).send('AL LOBBY');
-  })
+router.put("/usuario", async (req, res) => {
+  let { nombre, email, contraseña, nacimiento, direccion, telefono } = req.body;
+  let { id } = req.body;
 
+  try {
+    const usuarioPut = await Usuario.findOne({ where: { id: id } });
 
-
-  router.put('/usuario', async (req, res) => {
-
-    let { nombre, email, contraseña , nacimiento , direccion , telefono } = req.body
-    let { id } = req.body
-
-
-      try {
-          const usuarioPut = await Usuario.findOne({ where: { id: id } })
-
-
-          await usuarioPut.update({
-              id: id,
-              nombre: nombre,
-              email: email,
-              contraseña: contraseña ,
-              nacimiento: nacimiento,
-              direccion: direccion,
-              telefono: telefono
-          })
-          res.json(usuarioPut)
-      } catch (err) {
-          console.log('error usuarios')
-      }
-  })
-
+    await usuarioPut.update({
+      id: id,
+      nombre: nombre,
+      email: email,
+      contraseña: contraseña,
+      nacimiento: nacimiento,
+      direccion: direccion,
+      telefono: telefono,
+    });
+    res.json(usuarioPut);
+  } catch (err) {
+    console.log("error usuarios");
+  }
+});
 
 module.exports = router;
-
