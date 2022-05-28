@@ -1,9 +1,21 @@
 const { Router } = require("express");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
+const bodyParser= require('body-parser');
+
 
 const { Producto, Usuario,Favorito } = require("../db");
 const router = Router();
+
+router.use(bodyParser.urlencoded({ extended: false }))
+
+// SDK de Mercado Pago
+const mercadopago = require("mercadopago");
+// Agrega credenciales
+mercadopago.configure({
+  access_token: "APP_USR-6623451607855904-111502-1f258ab308efb0fb26345a2912a3cfa5-672708410",
+});
+
 
 // router.use('./bebidas' , bebidas)
 
@@ -169,12 +181,6 @@ let favBorrado = await Favorito.destroy({
 
 
 
-
-
-
-
-
-
 //////AQUI YACEN LOS RESTOS DE AUTENTICACION----RIP-AUTENTICACION----GRACIAS JONA </3----//////
 //#region
 
@@ -291,5 +297,47 @@ router.put("/usuario", async (req, res) => {
     console.log("error usuarios");
   }
 });
+
+
+
+//------Mercado Pago-----
+
+
+
+router.post("/checkout", async (req, res) => {
+  // Crea un objeto de preferencia
+  // let {preference} = req.query
+  let { id } = req.body
+
+  let pBuscado = await Producto.findOne({
+    where : { id : id } 
+  })
+
+  console.log(pBuscado, "================ SOY LO QUE BUSCABAS =============== ")
+
+    let preference = {
+     items : [
+       {
+       title : pBuscado.nombre ,
+       unit_price : parseInt(pBuscado.precio),
+       quantity :1 
+     }
+    ]
+  };
+
+
+  console.log(preference, "preferenciaaaaaaaAAAAAAAAAAA")
+
+  mercadopago.preferences.create(preference)
+    .then(function (hola) {
+      console.log(hola.body, "BODYYYYYYYYYYYYYYYYYYYYYYYYYY")
+      console.log(hola.body.sandbox_init_point, "Soy el supuesto y famoso url")
+      res.send("el checkout")
+
+    }).catch(function (error) {
+      console.log(error);
+    });
+
+})
 
 module.exports = router;
