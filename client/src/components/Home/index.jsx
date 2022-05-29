@@ -4,26 +4,21 @@ import { Link } from "react-router-dom";
 import {
   getBrands,
   getProducts,
-  isAdmin,
-  setUser,
-  setLoading,
-  resetUser,
 } from "../../redux/actions";
 
 import NavBar from "../NavBar";
 import Card from "../Card";
 import Pagination from "../Pagination";
 import Loading from "../Loading";
+import "./HomeStyles.css"
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
-  const user = useSelector((state) => state.currentUser);
-  const admin = useSelector((state) => state.isAdmin);
   const loading = useSelector((state) => state.isLoading);
 
   const [, /*order*/ setOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage /*setProductsPerPage*/] = useState(15); //15 productos por pÃ¡gina
+  const [productsPerPage /*setProductsPerPage*/] = useState(16); //15 productos por pagina
 
   const indexOfLastProduct = currentPage * productsPerPage; // 15
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
@@ -52,19 +47,20 @@ function Home() {
       {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
-        <div>
+        <div className="div-body">
           <NavBar />
           <div>
             <Pagination
+            currentPage = {currentPage}
               productsPerPage={productsPerPage}
               product={product.length}
               pagination={pagination}
             />
-            <div>
+            <div className="card-container">
               {currentProducts.length > 0 ? (
                 currentProducts.map((e) => {
                   return (
-                    <div key={e.id}>
+                    <div key={e.id} className="div-key-card">
                       <Link to={"/bebida/" + e.id}>
                         <Card
                           nombre={e.nombre}

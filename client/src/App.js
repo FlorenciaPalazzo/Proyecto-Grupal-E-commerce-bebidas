@@ -8,6 +8,7 @@ import AdminPanel from "./components/AdminPanel";
 import Detail from "./components/Details";
 import ShoppingCart from "./components/ShoppingCart";
 import Landing from "./components/Landing/Landing";
+import "@fontsource/montserrat";
 
 function App() {
   return (
