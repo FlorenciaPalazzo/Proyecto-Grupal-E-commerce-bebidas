@@ -26,8 +26,8 @@ export default function NavBar() {
 
   return (
     <div>
-      <Link to="/home">
-        <button className="button">Home</button>
+      <Link to="/">
+        <button className="button">Landing</button>
       </Link>
       <Link to="/contact">
         <button className="button">Contact</button>
@@ -37,13 +37,13 @@ export default function NavBar() {
       </Link>
       {isLoged ? (
         <div>
-          <button onClick={out}>Logout</button>
-          <button onClick={() => navigate("/profile")}>Profile</button>
+          <button className="button" onClick={out}>Logout</button>
+          <button className="button" onClick={() => navigate("/profile")}>Profile</button>
         </div>
       ) : (
         <div>
-          <button onClick={() => navigate("/login")}>Login</button>
-          <button onClick={() => navigate("/register")}>Sign up</button>
+          <button className="button" onClick={() => navigate("/login")}>Login</button>
+          <button className="button" onClick={() => navigate("/register")}>Sign up</button>
         </div>
       )}
       <FilterBy />
