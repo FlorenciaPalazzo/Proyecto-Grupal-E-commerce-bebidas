@@ -50,21 +50,15 @@ export default function Card({
         />{" "}
         {/*imagen del producto*/}
         <div className="card-content">
-          {" "}
           {/*div del contenido*/}
           <h2 className="card-title"> {nombre} </h2> {/*nombre del producto*/}
           <p className="card-body">
-            {" "}
             {/*cuerpo de la card*/}
-            Brand: {marca} <br /> {/*Marca*/}
-            Alcohol content: {graduacion} % <br /> {/*Graduacion*/}
-            Size: {ml}ml <br /> {/*Tamaño en mililitros*/}
-            Price: ${precio} <br /> {/*Precio*/}
+            <p className="card-brand">Brand: {marca}</p>
+            <p className="card-alcohol">Alcohol content: {graduacion} % </p>
+            <p className="card-ml">Size: {ml}ml </p>
           </p>
-          <button href={id} className="button">
-            Details
-          </button>{" "}
-          {/*Boton para ver los detalles*/}
+          <p className="card-price">Price: ${precio} </p>
         </div>
       </div>
     </div>
