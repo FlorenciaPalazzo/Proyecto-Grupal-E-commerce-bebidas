@@ -307,6 +307,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         productCart: array,
       };
+
     default:
       return state;
   }

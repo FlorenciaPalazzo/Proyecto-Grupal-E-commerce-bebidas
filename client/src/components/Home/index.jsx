@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  getBrands,
-  getProducts,
-} from "../../redux/actions";
+import { getBrands, getProducts } from "../../redux/actions";
 
 import NavBar from "../NavBar";
 import Card from "../Card";
 import Pagination from "../Pagination";
 import Loading from "../Loading";
-import "./HomeStyles.css"
+import "./HomeStyles.css";
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
@@ -51,7 +48,7 @@ function Home() {
           <NavBar />
           <div>
             <Pagination
-            currentPage = {currentPage}
+              currentPage={currentPage}
               productsPerPage={productsPerPage}
               product={product.length}
               pagination={pagination}
@@ -61,17 +58,16 @@ function Home() {
                 currentProducts.map((e) => {
                   return (
                     <div key={e.id} className="div-key-card">
-                      <Link to={"/bebida/" + e.id}>
-                        <Card
-                          nombre={e.nombre}
-                          imagen={e.imagen}
-                          id={e.id}
-                          marca={e.marca}
-                          ml={e.ml}
-                          graduacion={e.graduacion}
-                          precio={e.precio}
-                        />
-                      </Link>
+                      <Link to={"/bebida/" + e.id}></Link>
+                      <Card
+                        nombre={e.nombre}
+                        imagen={e.imagen}
+                        id={e.id}
+                        marca={e.marca}
+                        ml={e.ml}
+                        graduacion={e.graduacion}
+                        precio={e.precio}
+                      />
                     </div>
                   );
                 })
