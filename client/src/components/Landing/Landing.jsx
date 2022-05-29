@@ -1,11 +1,14 @@
 import React from "react";
-import NavBar from "../NavBar";
+import "./LandingStyles.css"
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
-    <div>
-      <NavBar />
-      LANDING MINIMALISTA
+    <div className="landing">
+      <p className="landing-title">PF-Bebidas</p>
+        <Link to="/home">
+        <button className="button-home">Home</button>
+      </Link>
     </div>
   );
 };
