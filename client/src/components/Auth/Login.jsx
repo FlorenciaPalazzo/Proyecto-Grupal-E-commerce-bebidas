@@ -47,8 +47,8 @@ function Login() {
         <Loading />
       ) : (
         <div>
-          <h1>Login</h1>
-          <div>
+          <h1 className="forms-title">Login</h1>
+          <div className="forms">
             {error && <span>{error}</span>}
             <form onSubmit={handleSubmit}>
               <label htmlFor="email">Email</label>

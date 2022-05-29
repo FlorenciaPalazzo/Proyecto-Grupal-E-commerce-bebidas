@@ -9,6 +9,7 @@ import {
   filterByType,
   getBrands,
 } from "../../redux/actions";
+import "./FilterStyles.css"
 
 export default function FilterBy() {
   const dispatch = useDispatch(); ///ver si lo dejo aca o lo saco
@@ -42,7 +43,7 @@ export default function FilterBy() {
   return (
     <div>
       <div>
-        <select name="" id="" onChange={handleBrand}>
+        <select className="selector" name="" id="" onChange={handleBrand}>
           <option>Brands</option>
           <option value="all">All</option>
           {brands &&
@@ -54,7 +55,7 @@ export default function FilterBy() {
         </select>
       </div>
       <div>
-        <select onChange={handleType} defaultValue="Type">
+        <select className="selector" onChange={handleType} defaultValue="Type">
           <option value="">Type</option>
           <option value="all">All</option>
           {/* puede sacarse */}
@@ -66,6 +67,7 @@ export default function FilterBy() {
       </div>
       <div>
         <select
+        className="selector"
           name=""
           id=""
           onChange={handleGraduation}
@@ -80,7 +82,7 @@ export default function FilterBy() {
         </select>
       </div>
       <div>
-        <select name="" id="" onChange={handleML} defaultValue="ML">
+        <select className="selector" name="" id="" onChange={handleML} defaultValue="ML">
           <option value="">ML</option>
           <option value="all">All</option>
           {/* puede sacarse */}
@@ -91,7 +93,7 @@ export default function FilterBy() {
         </select>
       </div>
       <div>
-        <select name="" id="" onChange={handlePrice} defaultValue="Price">
+        <select className="selector" name="" id="" onChange={handlePrice} defaultValue="Price">
           <option value="">Price</option>
           <option value="all">All</option>
           {/* puede sacarse */}
@@ -105,7 +107,7 @@ export default function FilterBy() {
         </select>
       </div>
       <div>
-        <select name="" id="" onChange={handleAZ} defaultValue="ABC">
+        <select className="selector" name="" id="" onChange={handleAZ} defaultValue="ABC">
           <option value="all">ABC</option>
           <option value="az">A-Z</option>
           <option value="za">Z-A</option>
