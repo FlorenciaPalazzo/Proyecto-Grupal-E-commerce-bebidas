@@ -69,7 +69,7 @@ const ShoppingCart = () => {
         {verified.email ? (
           <button>Buy Products</button>
         ) : (
-          <h3>No podras comprar hasta tener el mail verificado</h3>
+          <h3>No podrás comprar hasta estar registrado</h3>
         )}
 
         <button onClick={cleanAllCart}>Clean Cart</button>

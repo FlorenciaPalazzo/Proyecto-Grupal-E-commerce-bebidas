@@ -45,7 +45,7 @@ function Home() {
         <Loading />
       ) : (
         <div className="div-body">
-          <NavBar />
+          <NavBar setCurrentPage={setCurrentPage} />
           <div>
             <Pagination
               currentPage={currentPage}

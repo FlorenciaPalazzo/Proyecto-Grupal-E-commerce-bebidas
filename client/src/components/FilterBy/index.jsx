@@ -10,32 +10,38 @@ import {
   getBrands,
 } from "../../redux/actions";
 
-export default function FilterBy() {
+export default function FilterBy({ setCurrentPage }) {
   const dispatch = useDispatch(); ///ver si lo dejo aca o lo saco
   const brands = useSelector((state) => state.brands); //ver esto
 
   const handleBrand = (e) => {
     e.preventDefault(); ///agregar a todos.
+    setCurrentPage(1);
     dispatch(filterByBrand(e.target.value));
   };
   const handleType = (e) => {
     e.preventDefault();
+    setCurrentPage(1);
     dispatch(filterByType(e.target.value));
   };
   const handleGraduation = (e) => {
     e.preventDefault();
+    setCurrentPage(1);
     dispatch(filterByGraduation(e.target.value));
   };
   const handleML = (e) => {
     e.preventDefault();
+    setCurrentPage(1);
     dispatch(filterByML(e.target.value));
   };
   const handlePrice = (e) => {
     e.preventDefault();
+    setCurrentPage(1);
     dispatch(filterByPrice(e.target.value));
   };
   const handleAZ = (e) => {
     e.preventDefault();
+    setCurrentPage(1);
     dispatch(filterByAZ(e.target.value));
   };
 
