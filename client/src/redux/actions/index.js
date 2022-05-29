@@ -15,6 +15,9 @@ import {
   GET_PRODUCTS,
   ADD_CARRITO,
   RESET_USER,
+  DELETE_ONE_PRODUCT,
+  REMOVE_ALL_CARRITO,
+  ADD_IN_CART,
 } from "./actionsTypes";
 import axios from "axios";
 
@@ -66,13 +69,13 @@ export const getProductByName = (name) => {
       let result = await axios.get(
         `http://localhost:3001/bebidas?nombre=${name}`
       );
-      //.
       return dispatch({
         type: GET_PRODUCT_NAME,
         payload: result.data,
       });
     } catch (err) {
-      console.log("Error desde el catch de getProductByName", err);
+      console.log(err);
+      /* alert(`No hay productos con el nombre ${name}`); */
     }
   };
 };
@@ -189,6 +192,39 @@ export const addCart = (product) => {
         type: ADD_CARRITO,
         payload: product,
       });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const deleteOne = (product) => {
+  return async function (dispatch) {
+    try {
+      dispatch({
+        type: DELETE_ONE_PRODUCT,
+        payload: product,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+export const cleanCart = () => {
+  return async function (dispatch) {
+    try {
+      dispatch({
+        type: REMOVE_ALL_CARRITO,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+export const buyCart = () => {
+  return async function (dispatch) {
+    try {
+      console.log("esperando ruta");
     } catch (err) {
       console.log(err);
     }

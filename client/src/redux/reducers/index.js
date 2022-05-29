@@ -1,5 +1,3 @@
-/* import { onAuthStateChanged } from "firebase/auth";
-import { auth, currentUser } from "../../fb"; */
 import {
   ADMIN_HANDLER,
   SET_USER,
@@ -15,7 +13,10 @@ import {
   GET_PRODUCT_ID,
   GET_PRODUCT_NAME,
   GET_PRODUCTS,
-  ADD_CARRITO, //---------> prueba!!!
+  ADD_CARRITO,
+  ADD_IN_CART,
+  DELETE_ONE_PRODUCT,
+  REMOVE_ALL_CARRITO, //---------> prueba!!!
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -25,9 +26,12 @@ const initialState = {
   isLoading: true,
   brands: [],
   products: [],
+  searchProduct: [],
   productsSort: [],
   detail: [],
-  productCart: [],
+  productCart: JSON.parse(localStorage.getItem("product"))
+    ? JSON.parse(localStorage.getItem("product"))
+    : [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -60,7 +64,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
       } else return { ...state, isAdmin: false };
     }
     case GET_PRODUCT_NAME:
-      return { ...state, products: payload };
+      console.log("payload", payload);
+      return { ...state, products: payload, searchProduct: payload };
 
     case GET_PRODUCT_ID:
       return { ...state, detail: payload };
@@ -253,9 +258,56 @@ export default function rootReducer(state = initialState, { type, payload }) {
         };
       }
     case ADD_CARRITO:
+      let repeated = state.productCart.find((e) => e.id === payload.id); //busca si existe ese id
+      const cartProduct = [...state.productCart, payload]; //guarda todo
+      // element = payload.id === e.id
+      let prodQuantity = state.productCart.map((prod) =>
+        prod.id === payload.id ? { ...prod, quantity: prod.quantity + 1 } : prod
+      ); //modifica el quantity si el id ya existia
+
+      repeated
+        ? localStorage.setItem("product", JSON.stringify(prodQuantity))
+        : localStorage.setItem("product", JSON.stringify(cartProduct));
+
+      return repeated
+        ? {
+            ...state,
+            productCart: prodQuantity, //return modificado
+          }
+        : {
+            ...state,
+            productCart: [...state.productCart, payload], //return default
+          };
+    case DELETE_ONE_PRODUCT:
+      let filter = state.productCart.find((e) => e.id === payload);
+      let quantityLess = state.productCart.map((prod) =>
+        prod.id === payload ? { ...prod, quantity: prod.quantity - 1 } : prod
+      );
+      console.log("filter ---- > ", filter);
+      console.log("quantityLess ---- > ", quantityLess);
+      console.log("productCart", state.productCart);
+      filter.quantity >= 2
+        ? localStorage.setItem("product", JSON.stringify(quantityLess))
+        : localStorage.setItem(
+            "product",
+            JSON.stringify(state.productCart.filter((e) => e.id !== payload))
+          );
+      return filter.quantity >= 2
+        ? {
+            ...state,
+            productCart: quantityLess,
+          }
+        : {
+            ...state,
+            productCart: state.productCart.filter((e) => e.id !== payload),
+          };
+
+    case REMOVE_ALL_CARRITO:
+      let array = [];
+      localStorage.setItem("product", JSON.stringify(array));
       return {
         ...state,
-        productCart: [...state.productCart, payload],
+        productCart: array,
       };
     default:
       return state;
