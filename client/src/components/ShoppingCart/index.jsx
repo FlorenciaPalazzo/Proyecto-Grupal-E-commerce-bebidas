@@ -39,7 +39,7 @@ const ShoppingCart = () => {
     <div>
       <h1>Shopping Cart</h1>
       <h3>Products: </h3>
-      <h3>Total: {total}</h3>
+      <h3>Total: ${total}</h3>
       {productCart &&
         productCart.map((element) => {
           productArray.push(element);
