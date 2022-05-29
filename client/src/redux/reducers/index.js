@@ -284,13 +284,13 @@ export default function rootReducer(state = initialState, { type, payload }) {
       console.log("filter ---- > ", filter);
       console.log("quantityLess ---- > ", quantityLess);
       console.log("productCart", state.productCart);
-      filter.quantity !== 0
+      filter.quantity >= 2
         ? localStorage.setItem("product", JSON.stringify(quantityLess))
         : localStorage.setItem(
             "product",
             JSON.stringify(state.productCart.filter((e) => e.id !== payload))
           );
-      return filter.quantity !== 0
+      return filter.quantity >= 2
         ? {
             ...state,
             productCart: quantityLess,

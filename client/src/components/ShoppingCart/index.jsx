@@ -16,8 +16,11 @@ const ShoppingCart = () => {
   }, [dispatch, productReducer]);
 
   let productArray = [];
-  let subtotal = [];
-  let total = subtotal.reduce((a, b) => a + b, 0);
+  let subtotal = productCart?.map(
+    (element) => element.precio * element.quantity
+  );
+  let total = 0;
+  subtotal?.forEach((e) => (total += e));
   console.log("total-----", total);
   const addProduct = (e) => {
     e.preventDefault();
@@ -36,10 +39,9 @@ const ShoppingCart = () => {
     <div>
       <h1>Shopping Cart</h1>
       <h3>Products: </h3>
-      <h3>SubTotal: {total}</h3>
+      <h3>Precio: ${total}</h3>
       {productCart &&
         productCart.map((element) => {
-          subtotal.push(element.precio * element.quantity);
           productArray.push(element);
           console.log("subtotal-----", subtotal);
 
