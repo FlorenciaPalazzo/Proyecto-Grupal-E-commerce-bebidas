@@ -10,7 +10,7 @@ const ShoppingCart = () => {
   const localValue = () => {
     return JSON.parse(window.localStorage.getItem("product"));
   };
-
+  let a = 1;
   useEffect(() => {
     localValue();
   }, [dispatch, productReducer]);
