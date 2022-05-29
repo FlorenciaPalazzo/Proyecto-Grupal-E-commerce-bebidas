@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCart, cleanCart, deleteOne } from "../../redux/actions";
 
 const ShoppingCart = () => {
-  //useSelector user isVerified
+  const verified = useSelector((state) => state.currentUser); //isEmail
+  console.log("verified", verified);
   const productReducer = useSelector((state) => state.productCart);
   const dispatch = useDispatch();
   let productCart = JSON.parse(window.localStorage.getItem("product"));
@@ -65,7 +66,12 @@ const ShoppingCart = () => {
         })}
 
       <span>
-        <button>Buy Products</button>{" "}
+        {verified.email ? (
+          <button>Buy Products</button>
+        ) : (
+          <h3>No podras comprar hasta tener el mail verificado</h3>
+        )}
+
         <button onClick={cleanAllCart}>Clean Cart</button>
       </span>
     </div>
