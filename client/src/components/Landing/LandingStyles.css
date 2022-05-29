@@ -1,34 +1,34 @@
 html,
 body {
-    margin: 0px;
-    height: 100%;
+  margin: 0px;
+  height: 100%;
 }
 
 .landing {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    justify-content: center;
-    display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  display: flex;
 }
 
 .landing-title,
 .button-home {
-    font-size: 30px;
-    text-align: center;
-    margin-top: 20%;
-    letter-spacing: 3px;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 15%;
+  letter-spacing: 3px;
 }
 
 .button-home {
-    font-size: 30px;
-    text-align: center;
-    margin: 0 auto;
-    letter-spacing: 3px;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  font-size: 30px;
+  text-align: center;
+  margin: 0 auto;
+  letter-spacing: 3px;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

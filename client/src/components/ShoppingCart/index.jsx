@@ -66,7 +66,7 @@ const ShoppingCart = () => {
         })}
 
       <span>
-        {verified.email ? (
+        {verified && verified.email ? (
           <button>Buy Products</button>
         ) : (
           <h3>No podrás comprar hasta estar registrado</h3>
