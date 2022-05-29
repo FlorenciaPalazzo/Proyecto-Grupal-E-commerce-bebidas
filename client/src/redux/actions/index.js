@@ -69,13 +69,13 @@ export const getProductByName = (name) => {
       let result = await axios.get(
         `http://localhost:3001/bebidas?nombre=${name}`
       );
-      //.
       return dispatch({
         type: GET_PRODUCT_NAME,
         payload: result.data,
       });
     } catch (err) {
-      console.log("Error desde el catch de getProductByName", err);
+      console.log(err);
+      /* alert(`No hay productos con el nombre ${name}`); */
     }
   };
 };

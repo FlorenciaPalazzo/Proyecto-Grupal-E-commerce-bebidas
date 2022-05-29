@@ -1,21 +1,20 @@
 const { Router } = require("express");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
-const bodyParser= require('body-parser');
+const bodyParser = require("body-parser");
 
-
-const { Producto, Usuario,Favorito } = require("../db");
+const { Producto, Usuario, Favorito } = require("../db");
 const router = Router();
 
-router.use(bodyParser.urlencoded({ extended: false }))
+router.use(bodyParser.urlencoded({ extended: false }));
 
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
 // Agrega credenciales
 mercadopago.configure({
-  access_token: "APP_USR-6623451607855904-111502-1f258ab308efb0fb26345a2912a3cfa5-672708410",
+  access_token:
+    "APP_USR-6623451607855904-111502-1f258ab308efb0fb26345a2912a3cfa5-672708410",
 });
-
 
 // router.use('./bebidas' , bebidas)
 
@@ -53,7 +52,8 @@ router.get("/bebidas", async (req, res, next) => {
         e.nombre.toLowerCase().includes(nombre.toLowerCase())
       );
       if (!dataName.length) {
-        return res.status(400).send("No se encontro ese producto");
+        let error = [];
+        return res.json(error);
       }
       res.json(dataName);
     } else {
@@ -134,7 +134,6 @@ router.delete("/bebida/:id", async (req, res) => {
 
 //-------------------BEBIDA FAVORITO------------------//
 
-
 router.post("/producto", async (req, res) => {
   let { id_prod, id_user } = req.body;
 
@@ -142,7 +141,7 @@ router.post("/producto", async (req, res) => {
     let usuarioFavorito = await Usuario.findByPk(id_user, {});
 
     let productoFavorito = await Producto.findByPk(id_prod, {});
-console.log(productoFavorito, usuarioFavorito)
+    console.log(productoFavorito, usuarioFavorito);
 
     usuarioFavorito.addProducto(productoFavorito);
     res.json(usuarioFavorito);
@@ -151,7 +150,6 @@ console.log(productoFavorito, usuarioFavorito)
   }
 });
 
-
 router.get("/producto/favoritos", async (req, res) => {
   let user = await Usuario.findOne({
     include: {
@@ -159,27 +157,22 @@ router.get("/producto/favoritos", async (req, res) => {
       attributes: ["id", "nombre"],
     },
   });
-console.log(user.productos,"ACA ESTOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY")
+  console.log(user.productos, "ACA ESTOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
   res.json(user);
 });
-
 
 router.delete("/producto/favoritos", async (req, res) => {
   let { id_prod, id_user } = req.body;
 
+  let favBorrado = await Favorito.destroy({
+    where: {
+      usuarioId: id_user,
+      productoId: id_prod,
+    },
+  });
 
-let favBorrado = await Favorito.destroy({
-    where:{
-       usuarioId: id_user,
-       productoId: id_prod,
-     }
-  })
-
-  res.json(Favorito)
-
+  res.json(Favorito);
 });
-
-
 
 //////AQUI YACEN LOS RESTOS DE AUTENTICACION----RIP-AUTENTICACION----GRACIAS JONA </3----//////
 //#region
@@ -249,8 +242,7 @@ router.get("/usuario", async (req, res) => {
 });
 
 router.post("/usuario", async (req, res) => {
-  let = { id, nombre, email,  nacimiento, direccion, telefono } =
-    req.body;
+  let = { id, nombre, email, nacimiento, direccion, telefono } = req.body;
 
   let [usuarioCreado, created] = await Usuario.findOrCreate({
     where: {
@@ -298,46 +290,44 @@ router.put("/usuario", async (req, res) => {
   }
 });
 
-
-
 //------Mercado Pago-----
-
-
 
 router.post("/checkout", async (req, res) => {
   // Crea un objeto de preferencia
   // let {preference} = req.query
-  let { id } = req.body
+  let { id } = req.body;
 
   let pBuscado = await Producto.findOne({
-    where : { id : id } 
-  })
+    where: { id: id },
+  });
 
-  console.log(pBuscado, "================ SOY LO QUE BUSCABAS =============== ")
+  console.log(
+    pBuscado,
+    "================ SOY LO QUE BUSCABAS =============== "
+  );
 
-    let preference = {
-     items : [
-       {
-       title : pBuscado.nombre ,
-       unit_price : parseInt(pBuscado.precio),
-       quantity :1 
-     }
-    ]
+  let preference = {
+    items: [
+      {
+        title: pBuscado.nombre,
+        unit_price: parseInt(pBuscado.precio),
+        quantity: 1,
+      },
+    ],
   };
 
+  console.log(preference, "preferenciaaaaaaaAAAAAAAAAAA");
 
-  console.log(preference, "preferenciaaaaaaaAAAAAAAAAAA")
-
-  mercadopago.preferences.create(preference)
+  mercadopago.preferences
+    .create(preference)
     .then(function (hola) {
-      console.log(hola.body, "BODYYYYYYYYYYYYYYYYYYYYYYYYYY")
-      console.log(hola.body.sandbox_init_point, "Soy el supuesto y famoso url")
-      res.send("el checkout")
-
-    }).catch(function (error) {
+      console.log(hola.body, "BODYYYYYYYYYYYYYYYYYYYYYYYYYY");
+      console.log(hola.body.sandbox_init_point, "Soy el supuesto y famoso url");
+      res.send("el checkout");
+    })
+    .catch(function (error) {
       console.log(error);
     });
-
-})
+});
 
 module.exports = router;

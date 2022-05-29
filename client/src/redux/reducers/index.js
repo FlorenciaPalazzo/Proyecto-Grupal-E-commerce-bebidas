@@ -26,6 +26,7 @@ const initialState = {
   isLoading: true,
   brands: [],
   products: [],
+  searchProduct: [],
   productsSort: [],
   detail: [],
   productCart: JSON.parse(localStorage.getItem("product"))
@@ -63,7 +64,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
       } else return { ...state, isAdmin: false };
     }
     case GET_PRODUCT_NAME:
-      return { ...state, products: payload };
+      console.log("payload", payload);
+      return { ...state, products: payload, searchProduct: payload };
 
     case GET_PRODUCT_ID:
       return { ...state, detail: payload };

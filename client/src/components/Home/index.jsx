@@ -12,7 +12,7 @@ function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
   const loading = useSelector((state) => state.isLoading);
-
+  const searchProduct = useSelector((state) => state.searchProduct);
   const [, /*order*/ setOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage /*setProductsPerPage*/] = useState(16); //15 productos por pagina
@@ -28,17 +28,18 @@ function Home() {
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+  useEffect(() => {
+    //no tocar :)
+    dispatch(getProducts()); // lo traigo aca asi cuando busca y no encuentra en el search puede tirar el err
+  }, []);
 
   useEffect(() => {
     console.log(product);
     console.log("effect");
-
-    if (product.length === 0) {
-      dispatch(getProducts());
-    }
     dispatch(getBrands());
-  }, [dispatch, product, loading]);
+  }, [dispatch, product, loading, searchProduct]);
 
+  console.log("searchProduct", searchProduct);
   return (
     <div>
       {loading /* revisen esto!! */ ? (
@@ -72,6 +73,10 @@ function Home() {
                     </div>
                   );
                 })
+              ) : !searchProduct.length ? (
+                <div>
+                  <h1 className="error">No hay productos con ese nombre</h1>
+                </div>
               ) : (
                 <div>
                   <h1 className="error">No products were found</h1>
