@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getProductById } from "../../redux/actions";
-import "./DetailStyles.css"
+import "./DetailStyles.css";
 
 export default function Detail() {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ export default function Detail() {
           <div className="image-div">
             <img className="detail-image" src={product.imagen} alt="" />
           </div>
-          
+
           <div className="detail-subcontent">
             <h4 className="detail-title">Brand: {product.marca}</h4>
             <h4 className="detail-title">Size: {product.ml} ml</h4>
@@ -33,9 +33,9 @@ export default function Detail() {
             <h4 className="detail-title">Price: $ {product.precio}</h4>
           </div>
           <p
-              className="detail-description"
-              dangerouslySetInnerHTML={{ __html: product.descripcion }}
-            />
+            className="detail-description"
+            dangerouslySetInnerHTML={{ __html: product.descripcion }}
+          />
           <Link to="/home">
             <button className="button">Back</button>
           </Link>
