@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCart, deleteOne } from "../../redux/actions";
+import { addCart, deleteOne, updateCart } from "../../redux/actions";
 
 const ShoppingCart = () => {
   //useSelector user isVerified
@@ -13,25 +13,35 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     localValue();
-  }, [dispatch, productReducer]);
+  }, [dispatch, productReducer, productCart]);
 
-  let productObject;
+  let productObject = [];
+  let deleteProdObject = [];
   const addProduct = (e) => {
     e.preventDefault();
-    dispatch(addCart(productObject));
+    let getAdd = productObject.find((p) => p.id === e.target.value); //busco el que necesito
+    dispatch(addCart(getAdd));
+    dispatch(updateCart());
   };
   const deleteProduct = (e) => {
     e.preventDefault();
-    dispatch(deleteOne(e.target.value));
+    let getDelete = deleteProdObject.find((p) => p.id === e.target.value);
+    dispatch(deleteOne(getDelete));
+    dispatch(updateCart());
   };
+
   return (
     <div>
       <h1>Shopping Cart</h1>
       <h3>Products: </h3>
-      {productCart &&
-        productCart.map((element) => {
-          console.log("productObject-->", productObject);
-          productObject = element;
+      {productReducer &&
+        productReducer.map((element) => {
+          if (element && element.quantity === 0) return;
+          productObject.push(element);
+          deleteProdObject.push(element);
+          console.log(productObject, "productObject");
+          console.log(deleteProdObject, "deleteProdObject");
+
           return (
             <div>
               <div key={element.id}>
@@ -43,7 +53,9 @@ const ShoppingCart = () => {
                   </button>
                   ${element.precio} x {element.quantity} = $
                   {element.precio * element.quantity}
-                  <button onClick={addProduct}>+</button>
+                  <button onClick={addProduct} value={element.id}>
+                    +
+                  </button>
                 </span>
               </div>
             </div>

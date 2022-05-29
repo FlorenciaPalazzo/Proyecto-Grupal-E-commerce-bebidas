@@ -17,7 +17,8 @@ import {
   GET_PRODUCTS,
   ADD_CARRITO,
   ADD_IN_CART,
-  DELETE_ONE_PRODUCT, //---------> prueba!!!
+  DELETE_ONE_PRODUCT,
+  UPDATE_CART, //---------> prueba!!!
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -265,9 +266,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
         prod.id === payload.id ? { ...prod, quantity: prod.quantity + 1 } : prod
       ); //modifica el quantity si el id ya existia
 
-      repeated
+      /*  repeated
         ? localStorage.setItem("product", JSON.stringify(prodQuantity))
-        : localStorage.setItem("product", JSON.stringify(cartProduct));
+        : localStorage.setItem("product", JSON.stringify(cartProduct)); */
 
       return repeated
         ? {
@@ -279,25 +280,27 @@ export default function rootReducer(state = initialState, { type, payload }) {
             productCart: [...state.productCart, payload], //return default
           };
     case DELETE_ONE_PRODUCT:
-      let filter = state.productCart.find((e) => e.id === payload);
+      let filter = state.productCart.find((e) => e.id === payload.id); // EL producto
+
       let quantityLess = state.productCart.map((prod) =>
-        prod.id === payload ? { ...prod, quantity: prod.quantity - 1 } : prod
+        prod.id === payload.id ? { ...prod, quantity: prod.quantity - 1 } : prod
       );
-      console.log("filter ---- > ", filter);
-      console.log("quantityLess ---- > ", quantityLess);
-      console.log("productCart", state.productCart);
-      filter > 1
+      /*  filter.quantity > 0
         ? localStorage.setItem("product", JSON.stringify(quantityLess))
-        : localStorage.setItem("product", JSON.stringify(state.productCart));
-      return filter > 1
+        : localStorage.setItem("product", JSON.stringify(state.productCart)); */
+      return filter.quantity === 0
         ? {
             ...state,
-            productCart: quantityLess,
+            productCart: state.productCart.filter((e) => e.id !== payload.id),
           }
         : {
             ...state,
-            productCart: state.productCart.filter((e) => e.id !== payload),
+            productCart: quantityLess,
           };
+
+    case UPDATE_CART:
+      localStorage.setItem("product", JSON.stringify(state.productCart));
+      return { ...state };
     default:
       return state;
   }

@@ -18,6 +18,7 @@ import {
   DELETE_ONE_PRODUCT,
   REMOVE_ALL_CARRITO,
   ADD_IN_CART,
+  UPDATE_CART,
 } from "./actionsTypes";
 import axios from "axios";
 
@@ -225,6 +226,17 @@ export const buyCart = () => {
   return async function (dispatch) {
     try {
       console.log("esperando ruta");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+export const updateCart = () => {
+  return async function (dispatch) {
+    try {
+      dispatch({
+        type: UPDATE_CART,
+      });
     } catch (err) {
       console.log(err);
     }
