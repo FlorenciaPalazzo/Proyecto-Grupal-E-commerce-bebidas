@@ -300,15 +300,13 @@ router.put("/usuario", async (req, res) => {
 
 
 
-//------Mercado Pago-----
+//------Mercado Pago--------- //
 
 
 
 router.post("/checkout", async (req, res) => {
-  // Crea un objeto de preferencia
-  // let {preference} = req.query
-  let { id } = req.body
-
+  let { id } = req.body  
+  
   let pBuscado = await Producto.findOne({
     where : { id : id } 
   })
@@ -326,18 +324,25 @@ router.post("/checkout", async (req, res) => {
   };
 
 
+  let error = false
   console.log(preference, "preferenciaaaaaaaAAAAAAAAAAA")
+  
+  if (error) {
+    res.send("Sin stock").statusCode(400);
+  } else {
+    const response = await mercadopago.preferences.create(preference);
+    console.log(mercadopago, "============================QUE SOY ??????????????==========================")
+    // const preferenceId = response.body.id;
+    const url = response.body.init_point
+     console.log(response, "soy el response ayuda")
 
-  mercadopago.preferences.create(preference)
-    .then(function (hola) {
-      console.log(hola.body, "BODYYYYYYYYYYYYYYYYYYYYYYYYYY")
-      console.log(hola.body.sandbox_init_point, "Soy el supuesto y famoso url")
-      res.send("el checkout")
 
-    }).catch(function (error) {
-      console.log(error);
-    });
+    res.send({  url  });
+  }
+      
 
+   
 })
+
 
 module.exports = router;
