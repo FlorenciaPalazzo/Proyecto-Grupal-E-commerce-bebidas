@@ -14,16 +14,15 @@ export default class Pagination extends React.Component {
       <nav>
         <ul className="ul">
           <li className="pagination">
-            <button
-              className="pagination-button"
-              onClick={
-                currentPage === 1
-                  ? pagination(currentPage)
-                  : () => pagination(currentPage - 1)
-              }
-            >
-              {"<"}
-            </button>
+            {currentPage !== 1 ? (
+              <button
+                className="pagination-button"
+                onClick={() => pagination(currentPage - 1)}
+              >
+                {" "}
+                {"<"}
+              </button>
+            ) : null}
           </li>
           <li className="pagination">
             <button
@@ -34,16 +33,14 @@ export default class Pagination extends React.Component {
             </button>
           </li>
           <li className="pagination">
-            <button
-              className="pagination-button"
-              onClick={
-                currentPage === pageNumbers.length
-                  ? pagination(currentPage)
-                  : () => pagination(currentPage + 1)
-              }
-            >
-              {">"}
-            </button>
+            {currentPage > pageNumbers.length - 1 ? null : (
+              <button
+                className="pagination-button"
+                onClick={() => pagination(currentPage + 1)}
+              >
+                {">"}
+              </button>
+            )}
           </li>
         </ul>
       </nav>
