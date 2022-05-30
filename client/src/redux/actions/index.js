@@ -21,14 +21,13 @@ import {
   DELETE_ONE_PRODUCT,
   REMOVE_ALL_CARRITO,
   ADD_IN_CART,
-
+  GET_MERCADO_PAGO,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
 
-
-import firebase from 'firebase/app';
-import 'firebase/database';
+import firebase from "firebase/app";
+import "firebase/database";
 
 //-------------------------------AUTH-------------------------------//
 export function isAdmin(email) {
@@ -54,7 +53,7 @@ export function createUser(user) {
       nacimiento: user.nacimiento,
       direccion: user.direccion,
       telefono: user.telefono,
-      isAdmin: user.isAdmin
+      isAdmin: user.isAdmin,
     })
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
@@ -255,7 +254,6 @@ export const addCart = (product) => {
   };
 };
 
-
 export const deleteOne = (product) => {
   return async function (dispatch) {
     try {
@@ -289,3 +287,16 @@ export const buyCart = () => {
   };
 };
 
+export const getMercadoPago = (id) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.post("http://localhost:3001/checkout/" + id);
+      return dispatch({
+        type: GET_MERCADO_PAGO,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log("Error desde el catch de getProductById", err);
+    }
+  };
+};

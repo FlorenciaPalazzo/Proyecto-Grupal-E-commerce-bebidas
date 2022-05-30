@@ -160,10 +160,8 @@ router.post("/producto", async (req, res) => {
   }
 });
 
-
 router.get("/producto/favoritos", async (req, res) => {
-  
-  let user = await {Usuario}.findOne({
+  let user = await { Usuario }.findOne({
     include: {
       model: Producto,
       attributes: ["id", "nombre"],
@@ -254,12 +252,10 @@ router.get("/usuario", async (req, res) => {
 });
 
 router.post("/usuario", async (req, res) => {
-
   let = { id, nombre, email, nacimiento, direccion, telefono, isAdmin } =
     req.body;
-  console.log("ruta",{ id, nombre, email, nacimiento, direccion, telefono });
+  console.log("ruta", { id, nombre, email, nacimiento, direccion, telefono });
   try {
-    
     let [usuarioCreado, created] = await Usuario.findOrCreate({
       where: {
         id: id,
@@ -267,15 +263,15 @@ router.post("/usuario", async (req, res) => {
         email: email,
         nacimiento: nacimiento ? nacimiento : null,
         direccion: direccion ? direccion : null,
-        telefono: telefono ? telefono : null ,
-        isAdmin: isAdmin 
+        telefono: telefono ? telefono : null,
+        isAdmin: isAdmin,
       },
     });
     console.log("bien");
     return res.json(usuarioCreado);
   } catch (error) {
-    console.log("mal",error);
-    return res.status(400)
+    console.log("mal", error);
+    return res.status(400);
   }
 });
 
@@ -336,6 +332,13 @@ router.post("/checkout", async (req, res) => {
         quantity: 1,
       },
     ],
+
+    // back_urls: {
+    //   success: "http://localhost:3000/feedback",
+    //   failure: "http://localhost:3000/feedback",
+    //   pending: "http://localhost:3000/feedback",
+    // },
+    // auto_return: "approved",
   };
 
   console.log(preference, "preferenciaaaaaaaAAAAAAAAAAA");
@@ -351,5 +354,15 @@ router.post("/checkout", async (req, res) => {
       console.log(error);
     });
 });
+
+// app.get("/feedback", async (req, res) => {
+//   const payment = await mercadopago.payment.findById(req.query.payment_id);
+//   const merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
+//   const preferenceId = merchantOrder.body.preference_id;
+//   const status = payment.body.status;
+//   await repository.updateOrderByPreferenceId(preferenceId, status);
+
+//   res.sendFile(require.resolve("./fe/index.html"));
+// });
 
 module.exports = router;
