@@ -290,10 +290,11 @@ export const buyCart = () => {
 export const getMercadoPago = (id) => {
   return async function (dispatch) {
     try {
-      let result = await axios.post("http://localhost:3001/checkout/" + id);
+      let result = await axios.post("http://localhost:3001/checkout?id=eb9d3249-9eb9-4cc7-b562-8ced0d91e026");
+      console.log(result.data)
       return dispatch({
         type: GET_MERCADO_PAGO,
-        payload: result.data,
+        payload: result.data.sandbox_init_point,
       });
     } catch (err) {
       console.log("Error desde el catch de getProductById", err);

@@ -7,8 +7,10 @@ import Contact from "./components/Contact";
 import AdminPanel from "./components/AdminPanel";
 import Detail from "./components/Details";
 import ShoppingCart from "./components/ShoppingCart";
+
 import Landing from "./components/Landing/Landing";
 import "@fontsource/montserrat";
+import { Checkout } from "./components/Checkout";
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
         <Route path="/contact" exact element={<Contact />} />
         <Route path="/register" exact element={<Register />} />
         <Route path="/bebida/:id" exact element={<Detail />} />
+        <Route path="/checkout" exact element={<Checkout />} />
       </Routes>
     </div>
   );
