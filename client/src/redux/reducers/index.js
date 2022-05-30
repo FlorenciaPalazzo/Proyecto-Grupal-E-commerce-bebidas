@@ -40,9 +40,11 @@ const initialState = {
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
+  mpSandBox:[],  
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
+  console.log(payload)
   switch (type) {
     case GET_PRODUCTS:
       return {
@@ -322,7 +324,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
       };
 
     case GET_MERCADO_PAGO:
-      return { ...state };
+      return { ...state, mpSandBox: payload };
+
     default:
       return state;
   }

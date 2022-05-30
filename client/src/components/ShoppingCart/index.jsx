@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCart, cleanCart, deleteOne } from "../../redux/actions";
+import { useNavigate } from "react-router-dom";
+import { addCart, cleanCart, deleteOne,getMercadoPago } from "../../redux/actions";
 
-const ShoppingCart = () => {
+const ShoppingCart = ({id}) => {
+
+
   const verified = useSelector((state) => state.currentUser); //isEmail
   console.log("verified", verified);
   const productReducer = useSelector((state) => state.productCart);
@@ -35,6 +38,14 @@ const ShoppingCart = () => {
     e.preventDefault();
     dispatch(cleanCart());
   };
+
+  let navigate = useNavigate()
+  const buttonMercadoPago =(e)=>{
+    e.preventDefault()
+    dispatch(getMercadoPago(id))
+    navigate('/checkout')
+  }
+
   return (
     <div>
       <h1>Shopping Cart</h1>
@@ -68,11 +79,13 @@ const ShoppingCart = () => {
       <span>
         {verified && verified.email ? (
           <button>Buy Products</button>
-        ) : (
-          <h3>No podrás comprar hasta estar registrado</h3>
-        )}
+          ) : (
+            <h3>No podrás comprar hasta estar registrado</h3>
+            )}
 
         <button onClick={cleanAllCart}>Clean Cart</button>
+
+        <button onClick={buttonMercadoPago}>PAGAR</button>
       </span>
     </div>
   );
