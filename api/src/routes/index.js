@@ -323,6 +323,13 @@ router.post("/checkout", async (req, res) => {
        quantity :1 
      }
     ]
+
+    // back_urls: {
+    //   success: "http://localhost:3000/feedback",
+    //   failure: "http://localhost:3000/feedback",
+    //   pending: "http://localhost:3000/feedback",
+    // },
+    // auto_return: "approved",
   };
 
 
@@ -339,5 +346,16 @@ router.post("/checkout", async (req, res) => {
     });
 
 })
+
+
+// app.get("/feedback", async (req, res) => {
+//   const payment = await mercadopago.payment.findById(req.query.payment_id);
+//   const merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
+//   const preferenceId = merchantOrder.body.preference_id;
+//   const status = payment.body.status;
+//   await repository.updateOrderByPreferenceId(preferenceId, status);
+
+//   res.sendFile(require.resolve("./fe/index.html"));
+// });
 
 module.exports = router;
