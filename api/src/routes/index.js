@@ -2,7 +2,7 @@ const { Router } = require("express");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 
-const { Producto, Usuario } = require("../db");
+const { Producto, Usuario, Carrito, Favorito } = require("../db");
 
 const bodyParser = require("body-parser");
 
@@ -185,49 +185,6 @@ router.delete("/producto/favoritos", async (req, res) => {
 });
 
 //////AQUI YACEN LOS RESTOS DE AUTENTICACION----RIP-AUTENTICACION----GRACIAS JONA </3----//////
-//#region
-
-//   router.post('/usuario/login',  async (req, res) => {
-//       const user ={
-//           id,nombre,email
-//       }=req.body
-
-//       jwt.sign({user},'secretkey',(err,token)=>{
-//           res.json({token})
-//       })
-
-//   })
-
-//   router.post('/usuario/posts', verifyToken, async (req, res) => {
-
-//    jwt.verify(req.token, 'secretkey',(error,authData) =>{
-//        if(error){
-//            res.sendStatus(403)
-//        }else{
-//            res.json({
-//                mensaje:"Post fue creado",
-//                authData
-//            })
-//        }
-
-//    })
-
-//   })
-
-// //Authorization: Bearer <token>
-//   function verifyToken(req, res, next){
-//       const bearerHeader = req.headers['authorization']
-
-//       if(typeof bearerHeader !== 'undefined'){
-//           const bearerToken = bearerHeader.split(" ")[1];
-//           req.token =bearerToken;
-//           next();
-//       }else{
-//           res.sendStatus(403)
-//       }
-//   }
-
-//#endregion  //////////////////////////////////////////////////////////////////////
 
 //--------------------USUARIO-------------------------
 
@@ -327,6 +284,11 @@ router.post("/checkout", async (req, res) => {
   let preference = {
     items: [
       {
+        title: "valenvino",
+        unit_price: 898989,
+        quantity: 1,
+      },
+      {
         title: pBuscado.nombre,
         unit_price: parseInt(pBuscado.precio),
         quantity: 1,
@@ -364,5 +326,32 @@ router.post("/checkout", async (req, res) => {
 
 //   res.sendFile(require.resolve("./fe/index.html"));
 // });
+
+router.post("/carrito", async (req, res) => {
+  try {
+    let array = req.body; // aca viene el carrito entero
+    console.log("estoy adentro");
+    console.log("array", array);
+    let carrito;
+    let result = array.map(async (e) => {
+      console.log(e);
+      carrito = await Carrito.create({
+        where: {
+          nombre: e.nombre,
+          id: e.id,
+          imagen: e.imagen,
+          quantity: e.quantity,
+          precio: e.precio,
+          ml: e.ml,
+        },
+      }); //e = producto entero, {e.nombre}
+    });
+    //let coso = await Promise.all(result);
+
+    return res.status(200).json(result);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 module.exports = router;
