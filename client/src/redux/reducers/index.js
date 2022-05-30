@@ -2,6 +2,7 @@
 /* import { onAuthStateChanged } from "firebase/auth";
 import { auth, currentUser } from "../../fb"; */
 //import { SET_FAV } from "../actions/actionsTypes";
+import { SET_FAV } from "../actions/actionsTypes";
 import {
   ADMIN_HANDLER,
   SET_USER,
