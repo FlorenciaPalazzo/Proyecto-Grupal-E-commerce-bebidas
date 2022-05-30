@@ -1,4 +1,5 @@
 import React from "react";
+import "./PagStyles.css";
 
 export default class Pagination extends React.Component {
   render() {
@@ -12,28 +13,40 @@ export default class Pagination extends React.Component {
     return (
       <nav>
         <ul className="ul">
-              <li className="pagination">
-               <button className="buttonPag" onClick={
-                   currentPage===1?
-                   pagination(currentPage)
-                   :() => pagination(currentPage-1)
-                   }>{'<'}</button>
-               </li>
-              <li className="pagination">
-               <button className="pagination-button" onClick={() => pagination(currentPage)}>{currentPage}</button>
-               </li>
-              <li className="pagination">
-               <button className="buttonPag" onClick={
-                   currentPage===pageNumbers.length?
-                   pagination(currentPage)
-                   :() => pagination(currentPage+1)
-                   }>{'>'}</button>
-               </li>
-       </ul>
+          <li className="pagination">
+            <button
+              className="pagination-button"
+              onClick={
+                currentPage === 1
+                  ? pagination(currentPage)
+                  : () => pagination(currentPage - 1)
+              }
+            >
+              {"<"}
+            </button>
+          </li>
+          <li className="pagination">
+            <button
+              className="pagination-number"
+              onClick={() => pagination(currentPage)}
+            >
+              {currentPage}
+            </button>
+          </li>
+          <li className="pagination">
+            <button
+              className="pagination-button"
+              onClick={
+                currentPage === pageNumbers.length
+                  ? pagination(currentPage)
+                  : () => pagination(currentPage + 1)
+              }
+            >
+              {">"}
+            </button>
+          </li>
+        </ul>
       </nav>
     );
   }
 }
-
-
-

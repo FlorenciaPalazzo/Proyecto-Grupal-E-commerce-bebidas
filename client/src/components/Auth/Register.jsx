@@ -99,10 +99,10 @@ function Register() {
         <Loading />
       ) : (
         <div>
-          <Link to="/">
-            <button>Home</button>
+          <Link to="/home">
+            <button className="button">Home</button>
           </Link>
-          <h1>Register</h1>
+          <h1 className="forms-title">Register</h1>
           <div>
             {error && <span>{error}</span>}
             <form onSubmit={handleSubmit}>

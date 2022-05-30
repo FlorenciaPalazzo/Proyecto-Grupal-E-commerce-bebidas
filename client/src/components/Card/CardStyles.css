@@ -1,0 +1,67 @@
+div,
+a {
+    width: fit-content;
+}
+
+a:link,
+a:visited,
+a:active {
+    text-decoration: none;
+}
+
+.card-main,
+.card,
+.card-imagen,
+.card-content,
+.card-title,
+.card-body {
+    background-color: white;
+}
+
+.card-main {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 10px;
+    margin: 15px;
+    margin-bottom: 50px;
+    border: 2px solid;
+    border-radius: 10px;
+    font-family: "Montserrat";
+    height: 85%;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.card-main:hover {
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.card {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.card-imagen {
+    width: 50%;
+    margin: auto;
+}
+
+.card-body {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.card-brand,
+.card-alcohol,
+.card-ml {
+    font-size: large;
+}
+
+.card-price {
+    font-size: xx-large;
+    margin: 0;
+    justify-items: center;
+}

@@ -5,7 +5,8 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('usuario', {
     id: {
-      type: DataTypes.STRING,
+      type:DataTypes.STRING,
+      allowNull: false,
       primaryKey: true,     
    },
     nombre: {
