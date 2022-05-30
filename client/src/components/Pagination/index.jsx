@@ -1,51 +1,49 @@
 import React from "react";
+import "./PagStyles.css";
 
 export default class Pagination extends React.Component {
   render() {
-    const { product, productsPerPage, pagination } = this.props;
+    const { product, productsPerPage, pagination, currentPage } = this.props;
     const pageNumbers = [];
 
-    for (let i = 0; i < Math.ceil(product / productsPerPage); i++) {
-      pageNumbers.push(i + 1);
+    for (let i = 1; i < Math.ceil(product / productsPerPage); i++) {
+      pageNumbers.push(i);
     }
     //Este componente va a renderizar los numeritos en si
     return (
       <nav>
         <ul className="ul">
-          {pageNumbers?.map((number) => (
-            <li className="pagination" key={number}>
+          <li className="pagination">
+            {currentPage !== 1 ? (
               <button
                 className="pagination-button"
-                onClick={() => pagination(number)}
+                onClick={() => pagination(currentPage - 1)}
               >
-                {number}
+                {" "}
+                {"<"}
               </button>
-            </li>
-          ))}
+            ) : null}
+          </li>
+          <li className="pagination">
+            <button
+              className="pagination-number"
+              onClick={() => pagination(currentPage)}
+            >
+              {currentPage}
+            </button>
+          </li>
+          <li className="pagination">
+            {currentPage > pageNumbers.length - 1 ? null : (
+              <button
+                className="pagination-button"
+                onClick={() => pagination(currentPage + 1)}
+              >
+                {">"}
+              </button>
+            )}
+          </li>
         </ul>
       </nav>
     );
   }
 }
-
-// Cambiar luego para tener 3 botones únicamente para desplazarnos entre páginas (Atrás, Actual, Siguiente)
-
-//<ul className="ul">
-//               <li className="paginado">
-//               <button className="buttonPag" onClick={
-//                   actualPage===1?
-//                   paginado(actualPage)
-//                   :() => paginado(actualPage-1)
-//                   }>{'<'}</button>
-//               </li>
-//               <li className="paginado">
-//               <button className="buttonPag" onClick={() => paginado(actualPage)}>{actualPage}</button>
-//               </li>
-//               <li className="paginado">
-//               <button className="buttonPag" onClick={
-//                   actualPage===pageNumbers.length?
-//                   paginado(actualPage)
-//                   :() => paginado(actualPage+1)
-//                   }>{'>'}</button>
-//               </li>
-//       </ul>

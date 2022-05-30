@@ -17,6 +17,10 @@ function Profile(){
     },[user])
     return(
         <div>
+            <Link to="/">
+                <button>Home</button>
+            </Link>
+            <h1>Profile</h1>
             {
                 loading ?
                     <Loading/>
@@ -27,13 +31,6 @@ function Profile(){
                     <AdminProfile/>
                     :
                     <UserProfile/>
-            }
-            <Link to="/">
-                <button>Home</button>
-            </Link>
-            <h1>Profile</h1>
-            {
-
             }
         </div>
     )

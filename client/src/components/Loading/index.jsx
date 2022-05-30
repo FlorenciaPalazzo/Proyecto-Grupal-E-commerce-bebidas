@@ -5,7 +5,7 @@ import { auth } from "../../fb";
 import { isAdmin, setUser, setLoading } from "../../redux/actions";
 
 function Loading() {
-  const loading = useSelector(state => state.isLoading)
+  const loading = useSelector((state) => state.isLoading);
   const dispatch = useDispatch();
   useEffect(() => {
     console.log("effect loading");
@@ -13,15 +13,14 @@ function Loading() {
 
     onAuthStateChanged(auth, (currUser) => {
       if (currUser) {
-          console.log("el loading enconrtro un usuario activo");
-          dispatch(setUser(currUser));
-          dispatch(isAdmin(currUser.email));
-        }
-        else {
-            console.log("el loading no enconrtro un usuario activo")
-            //dispatch(setLoading(loading))
-        }
-        dispatch(setLoading(!loading))
+        console.log("el loading enconrtro un usuario activo");
+        dispatch(setUser(currUser));
+        dispatch(isAdmin(currUser.email));
+      } else {
+        console.log("el loading no enconrtro un usuario activo");
+        //dispatch(setLoading(loading))
+      }
+      dispatch(setLoading(!loading));
     });
   }, []);
 
