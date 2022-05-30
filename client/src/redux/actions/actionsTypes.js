@@ -1,7 +1,12 @@
-export const ADMIN_HANDLER = "ADMIN_HANDLER";
-export const RESET_USER = "RESET_USER";
-export const SET_LOADING = "SET_LOADING";
-export const SET_USER = "SET_USER";
+
+
+export const ADMIN_HANDLER = "ADMIN_HANDLER"
+export const RESET_USER = "RESET_USER"
+export const GET_USERS_LOGED = "GET_USERS_LOGED"
+export const SET_LOADING = "SET_LOADING"
+export const SET_USER = "SET_USER"
+export const CREATE_USER = "CREATE_USER"
+export const SET_FAV = "SET_FAV"
 export const GET_PRODUCT_NAME = "GET_PRODUCT_NAME";
 export const GET_PRODUCT_ID = "GET_PRODUCT_ID"; //por id
 export const FILTER_BY_BRAND = "FILTER_BY_BRAND"; //por marcas

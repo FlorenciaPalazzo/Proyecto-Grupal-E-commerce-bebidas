@@ -58,8 +58,9 @@ function Home() {
               {currentProducts.length > 0 ? (
                 currentProducts.map((e) => {
                   return (
-                    <div key={e.id} className="div-key-card">
-                      <Link to={"/bebida/" + e.id}>
+
+                    <div key={e.id}>
+                      {/*<Link to={"/bebida/" + e.id}>*/}
                         <Card
                           nombre={e.nombre}
                           imagen={e.imagen}
@@ -69,7 +70,7 @@ function Home() {
                           graduacion={e.graduacion}
                           precio={e.precio}
                         />
-                      </Link>
+                      {/*</Link>*/}
                     </div>
                   );
                 })

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { signInWithEmailAndPassword,  } from "firebase/auth";
 import { auth } from "../../fb";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,7 @@ function Login() {
   const [error, setError] = useState(null);
   const loading = useSelector((state) => state.isLoading);
   const isLoged = useSelector((state) => state.isLoged);
+  const currentState = useSelector((state) => state);
 
   let navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,18 +24,26 @@ function Login() {
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
-
-    let user = await signInWithEmailAndPassword(
+    try {
+        
+        let user = await signInWithEmailAndPassword(
       auth,
       input.email,
       input.password
-    )
+      )
       .then((res) => res.user)
       .catch((err) => setError(err.message));
-
-    dispatch(isAdmin(user.email));
-    dispatch(setUser({ ...user }));
-    navigate("/home");
+      console.log(!user);
+      if(!user) {
+          console.log(currentState);
+        return;
+        }
+      dispatch(isAdmin(user.email));
+      dispatch(setUser({ ...user }));
+      navigate("/home");
+    } catch (error) {
+        
+    }
   }
   const user = useSelector((state) => state.currentUser);
   useEffect(() => {
