@@ -17,9 +17,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       unique: true,
     },
-    contraseña: {
-      type: DataTypes.STRING,
-    },
     nacimiento: {
       type: DataTypes.STRING,
     },
@@ -27,7 +24,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
     },
     telefono: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.STRING,
     },
     isAdmin: {
       type: DataTypes.BOOLEAN,
