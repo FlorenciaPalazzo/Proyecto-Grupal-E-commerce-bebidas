@@ -15,8 +15,19 @@ import {
   GET_PRODUCTS,
   ADD_CARRITO,
   RESET_USER,
+  SET_FAV,
+  CREATE_USER,
+  GET_USERS_LOGED,
+  DELETE_ONE_PRODUCT,
+  REMOVE_ALL_CARRITO,
+  ADD_IN_CART,
+  GET_MERCADO_PAGO,
 } from "./actionsTypes";
 import axios from "axios";
+import { auth } from "../../fb";
+
+import firebase from "firebase/app";
+import "firebase/database";
 
 //-------------------------------AUTH-------------------------------//
 export function isAdmin(email) {
@@ -31,9 +42,39 @@ export function setUser(user) {
   };
 }
 
+export function createUser(user) {
+  // { id, nombre, email, nacimiento, direccion, telefono }
+  console.log("user", user);
+  axios
+    .post("http://localhost:3001/usuario", {
+      id: user.id,
+      nombre: user.nombre,
+      email: user.email,
+      nacimiento: user.nacimiento,
+      direccion: user.direccion,
+      telefono: user.telefono,
+      isAdmin: user.isAdmin,
+    })
+    .then((res) => console.log(res.data))
+    .catch((e) => console.log(e));
+}
+
 export function resetUser() {
   return async (dispatch) => {
     return dispatch({ type: RESET_USER });
+  };
+}
+
+export function getUsersLoged() {
+  return async (dispatch) => {
+    try {
+      let usersFound = await axios
+        .get("http://localhost:3001/usuario")
+        .then((users) => users.data);
+      return dispatch({ type: GET_USERS_LOGED, payload: usersFound });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
@@ -42,6 +83,24 @@ export function setLoading(bool) {
     return dispatch({ type: SET_LOADING, payload: bool });
   };
 }
+
+export const setFavorito = (id_prod, id_user) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.post("http://localhost:3001/producto", {
+        id_prod,
+        id_user,
+      });
+      return dispatch({
+        type: SET_FAV,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
 //------------------------------------------------------------------//
 
 //trae todos los productos
@@ -66,13 +125,13 @@ export const getProductByName = (name) => {
       let result = await axios.get(
         `http://localhost:3001/bebidas?nombre=${name}`
       );
-      //.
       return dispatch({
         type: GET_PRODUCT_NAME,
         payload: result.data,
       });
     } catch (err) {
-      console.log("Error desde el catch de getProductByName", err);
+      console.log(err);
+      /* alert(`No hay productos con el nombre ${name}`); */
     }
   };
 };
@@ -191,6 +250,53 @@ export const addCart = (product) => {
       });
     } catch (err) {
       console.log(err);
+    }
+  };
+};
+
+export const deleteOne = (product) => {
+  return async function (dispatch) {
+    try {
+      dispatch({
+        type: DELETE_ONE_PRODUCT,
+        payload: product,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+export const cleanCart = () => {
+  return async function (dispatch) {
+    try {
+      dispatch({
+        type: REMOVE_ALL_CARRITO,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+export const buyCart = () => {
+  return async function (dispatch) {
+    try {
+      console.log("esperando ruta");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const getMercadoPago = (id) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.post("http://localhost:3001/checkout/" + id);
+      return dispatch({
+        type: GET_MERCADO_PAGO,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log("Error desde el catch de getProductById", err);
     }
   };
 };
