@@ -16,6 +16,7 @@ import {
   GET_PRODUCT_NAME,
   GET_PRODUCTS,
   ADD_CARRITO,//---------> prueba!!!
+  GET_MERCADO_PAGO
    
 } from "../actions/actionsTypes";
 
@@ -260,7 +261,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         productCart: [...state.productCart, payload],
       };
 
-    
+   
     default:
       return state;
   }

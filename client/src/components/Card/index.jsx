@@ -27,10 +27,10 @@ export default function Card({
     setCarrito([...globalCart, productObject]);
   };
 
-  const handleAddFavProd= (e) =>{
-    e.preventDefault();
-    dispatch(setFavorito())
-  }
+  // const handleAddFavProd= (e) =>{
+  //   e.preventDefault();
+  //   dispatch(setFavorito())
+  // }
 
   useEffect(() => {
     localStorage.setItem("product", JSON.stringify(carrito));
