@@ -2,7 +2,7 @@ const { Router } = require("express");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 
-const { Producto, Usuario, Favorito } = require("../db");
+const { Producto, Usuario, Favorito, Carrito } = require("../db");
 
 const bodyParser = require("body-parser");
 
@@ -15,7 +15,7 @@ const mercadopago = require("mercadopago");
 // Agrega credenciales
 mercadopago.configure({
   access_token:
-    "APP_USR-6623451607855904-111502-1f258ab308efb0fb26345a2912a3cfa5-672708410",
+    "APP_USR-3516754288034643-052717-a71610e2187c78804eaefb28cae58b1e-182593787",
 });
 
 
@@ -312,35 +312,34 @@ router.put("/usuario", async (req, res) => {
 //------Mercado Pago-----
 
 router.post("/checkout", async (req, res) => {
-  // Crea un objeto de preferencia
-  // let {preference} = req.query
-  let { id } = req.query;
 
-  let pBuscado = await Producto.findOne({
-    where: { id: id },
-  });
+  let productos = await Carrito.findAll();
 
-  console.log(
-    pBuscado,
-    "================ SOY LO QUE BUSCABAS =============== "
-  );
+  console.log( productos, "================ SOY LO QUE BUSCABAS   BY TONI =============== ");
 
+
+  let itemsMapeo = productos.map(e => {
+    return {
+      title : e.nombre ,
+      unit_price : parseInt(e.precio),
+      quantity : parseInt(e.quantity)
+    }
+  } )
+  
+  console.log(itemsMapeo, " HOLAALALALLALALALALALALALALALA ")
+  
   let preference = {
-    items: [
-      {
-        title: pBuscado.nombre,
-        unit_price: parseInt(pBuscado.precio),
-        quantity: 1,
-      },
-    ],
-
+    items: [...itemsMapeo],
     // back_urls: {
-    //   success: "http://localhost:3000/feedback",
-    //   failure: "http://localhost:3000/feedback",
-    //   pending: "http://localhost:3000/feedback",
-    // },
-    // auto_return: "approved",
-  };
+      //   success: "http://localhost:3000/feedback",
+      //   failure: "http://localhost:3000/feedback",
+      //   pending: "http://localhost:3000/feedback",
+      // },
+      // auto_return: "approved",
+    };
+
+  console.log(preference.items, "Soy el preference items mapeo y estoy cool")
+    
 
   console.log(preference, "preferenciaaaaaaaAAAAAAAAAAA");
 
@@ -348,7 +347,7 @@ router.post("/checkout", async (req, res) => {
     .create(preference)
     .then(function (hola) {
       console.log(hola.body, "BODYYYYYYYYYYYYYYYYYYYYYYYYYY");
-      console.log(hola.body.sandbox_init_point, "Soy el supuesto y famoso url");
+      // console.log(hola.body.sandbox_init_point, "Soy el supuesto y famoso url");
       res.json(hola.body);
     })
     .catch(function (error) {
@@ -365,5 +364,45 @@ router.post("/checkout", async (req, res) => {
 
 //   res.sendFile(require.resolve("./fe/index.html"));
 // });
+router.post("/carrito", async (req, res) => {
+  try {
+    let array  = req.body; // aca viene el carrito entero
+
+    console.log("array", array);
+
+
+    let promesa = await new Promise( (resolve,reject) => {
+
+      let result =    array.map(  (e) => { 
+        return   Carrito.findOrCreate({
+          where: {
+            nombre: e.nombre,
+            id: e.id,
+            imagen: e.imagen,
+            quantity: e.quantity,
+            precio: e.precio,
+            ml: e.ml,
+          },
+        })
+      })
+
+      resolve(result)
+    })// cierre de promise 
+    .then( (e) => Promise.all( e ))
+
+        // let todomorocho = Promise.all(result).then( e =>  e)
+    // let cosas = await Carrito.findAll()
+    console.log(promesa, "Muchas cosas wooooooooooo")
+    
+    return res.status(200).json(promesa[0]);
+
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
+
+
 
 module.exports = router;
