@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { signInWithEmailAndPassword,  } from "firebase/auth";
-import { auth } from "../../fb";
+import { signInWithEmailAndPassword, signInWithPopup,  } from "firebase/auth";
+import { auth, googleProvider } from "../../fb";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { isAdmin, setUser, setMessage } from "../../redux/actions";
+import { isAdmin, setUser, setMessage, createUser } from "../../redux/actions";
 import Loading from "../Loading";
 function Login() {
   const [input, setInput] = useState({
@@ -45,6 +45,34 @@ function Login() {
         
     }
   }
+
+  async function googleHandleSubmit(e) {
+    setError(null);
+    e.preventDefault();
+    await signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const userCred = result.user;
+        console.log("rrrrrrrrrrrrrr", userCred);
+        dispatch(
+           createUser({
+            id: userCred.uid,
+            nombre: userCred.displayName,
+            email: userCred.email,
+            isAdmin: userCred.email === process.env.REACT_APP_ADMIN_EMAIL,
+          })
+        );
+        return userCred;
+      })
+      .then((user) => {
+        console.log("seteoooo");
+        dispatch(setUser(user));
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error.message);
+      });
+  }
+
   const user = useSelector((state) => state.currentUser);
   useEffect(() => {
     isLoged && navigate("/home");
@@ -78,6 +106,7 @@ function Login() {
 
               <button>Login</button>
             </form>
+            <button onClick={googleHandleSubmit}>SignUp with Google</button>
           </div>
         </div>
       )}

@@ -23,14 +23,49 @@ function Register() {
     email: "",
     password: "",
   });
+
+  const [birthError, setBirthError] = useState(null)
+  const [EmailError, setEmailError] = useState(null)
+  const [passwordError, setPasswordError] = useState(null)
+
+
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
   function handleChange(e) {
     setInput({ ...input, [e.target.name]: e.target.value });
+    validate(e.target.value, e.target.name)
   }
 
+  function birthValidate(input) {
+    let today = new Date();
+    let birth = new Date(input);
+    let yOld = today.getFullYear() - birth.getFullYear();
+    let month = today.getMonth() - birth.getMonth();
+    if (month < 0 || (month === 0 && today.getDate() < birth.getDate())) {
+        yOld--;
+    }
+    return yOld;
+}
+
+  function validate(input,name){
+      if(name === "nacimiento"){
+          const dateValidation =
+        /^(?:(?:(?:0?[1-9]|1\d|2[0-8])[/](?:0?[1-9]|1[0-2])|(?:29|30)[/](?:0?[13-9]|1[0-2])|31[/](?:0?[13578]|1[02]))[/](?:0{2,3}[1-9]|0{1,2}[1-9]\d|0?[1-9]\d{2}|[1-9]\d{3})|29[/]0?2[/](?:\d{1,2}(?:0[48]|[2468][048]|[13579][26])|(?:0?[48]|[13579][26]|[2468][048])00))$/;
+        if(dateValidation.test(input) && parseInt(input.split("/")[2])>1920){
+            var r = input.split("/").reverse().join("/")
+            if(birthValidate(r) < 18) setBirthError("Debe ser mayor de 18 años")
+            else setBirthError(null)
+        }    
+        else setBirthError("La fecha es invalida")
+    }
+    if(name === "password"){
+        if(input.length < 6){
+            setPasswordError("La contraseña debe tener mas de 6")
+        }
+    }
+  }
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
@@ -59,33 +94,6 @@ function Register() {
       })
       .then(() => navigate("/home"))
       .catch((err) => setError(err.message));
-  }
-
-  async function googleHandleSubmit(e) {
-    setError(null);
-    e.preventDefault();
-    await signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        const userCred = result.user;
-        console.log("rrrrrrrrrrrrrr", userCred);
-        dispatch(
-           createUser({
-            id: userCred.uid,
-            nombre: userCred.displayName,
-            email: userCred.email,
-            isAdmin: userCred.email === process.env.REACT_APP_ADMIN_EMAIL,
-          })
-        );
-        return userCred;
-      })
-      .then((user) => {
-        console.log("seteoooo");
-        dispatch(setUser(user));
-      })
-      .catch((error) => {
-        console.log(error);
-        setError(error.message);
-      });
   }
 
   const loading = useSelector((state) => state.isLoading);
@@ -134,9 +142,12 @@ function Register() {
               <input
                 type="text"
                 name="nacimiento"
-                placeholder="dd/mm/yy"
+                placeholder="dd/mm/yyyy"
                 onChange={handleChange}
               />
+              {birthError &&
+                 <span>{birthError}</span>
+              }
               <br />
               <label htmlFor="email">Email</label>
               <input
@@ -158,7 +169,6 @@ function Register() {
               <button>Register</button>
             </form>
             <hr />
-            <button onClick={googleHandleSubmit}>SignUp with Google</button>
           </div>
         </div>
       )}
