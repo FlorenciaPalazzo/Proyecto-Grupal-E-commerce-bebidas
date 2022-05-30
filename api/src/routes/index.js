@@ -1,19 +1,21 @@
 const { Router } = require("express");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
-const bodyParser= require('body-parser');
 
+const { Producto, Usuario, Favorito } = require("../db");
 
-const { Producto, Usuario,Favorito } = require("../db");
+const bodyParser = require("body-parser");
+
 const router = Router();
 
-router.use(bodyParser.urlencoded({ extended: false }))
+router.use(bodyParser.urlencoded({ extended: false }));
 
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
 // Agrega credenciales
 mercadopago.configure({
-  access_token: "APP_USR-6623451607855904-111502-1f258ab308efb0fb26345a2912a3cfa5-672708410",
+  access_token:
+    "APP_USR-6623451607855904-111502-1f258ab308efb0fb26345a2912a3cfa5-672708410",
 });
 
 
@@ -53,7 +55,8 @@ router.get("/bebidas", async (req, res, next) => {
         e.nombre.toLowerCase().includes(nombre.toLowerCase())
       );
       if (!dataName.length) {
-        return res.status(400).send("No se encontro ese producto");
+        let error = [];
+        return res.json(error);
       }
       res.json(dataName);
     } else {
@@ -134,7 +137,6 @@ router.delete("/bebida/:id", async (req, res) => {
 
 //-------------------BEBIDA FAVORITO------------------//
 
-
 router.post("/producto", async (req, res) => {
   let { id_prod, id_user } = req.body;
 
@@ -142,7 +144,15 @@ router.post("/producto", async (req, res) => {
     let usuarioFavorito = await Usuario.findByPk(id_user, {});
 
     let productoFavorito = await Producto.findByPk(id_prod, {});
-console.log(productoFavorito, usuarioFavorito)
+
+    /**
+     * 
+    favorito.findOrCreate({
+      id_user: id_user,
+      id_prod: id_prod
+    })
+
+     */
 
     usuarioFavorito.addProducto(productoFavorito);
     res.json(usuarioFavorito);
@@ -151,35 +161,29 @@ console.log(productoFavorito, usuarioFavorito)
   }
 });
 
-
 router.get("/producto/favoritos", async (req, res) => {
-  let user = await Usuario.findOne({
+  let user = await { Usuario }.findOne({
     include: {
       model: Producto,
       attributes: ["id", "nombre"],
     },
   });
-console.log(user.productos,"ACA ESTOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY")
+  console.log(user.productos, "ACA ESTOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
   res.json(user);
 });
-
 
 router.delete("/producto/favoritos", async (req, res) => {
   let { id_prod, id_user } = req.body;
 
+  let favBorrado = await Favorito.destroy({
+    where: {
+      usuarioId: id_user,
+      productoId: id_prod,
+    },
+  });
 
-let favBorrado = await Favorito.destroy({
-    where:{
-       usuarioId: id_user,
-       productoId: id_prod,
-     }
-  })
-
-  res.json(Favorito)
-
+  res.json(Favorito);
 });
-
-
 
 //////AQUI YACEN LOS RESTOS DE AUTENTICACION----RIP-AUTENTICACION----GRACIAS JONA </3----//////
 //#region
@@ -249,20 +253,27 @@ router.get("/usuario", async (req, res) => {
 });
 
 router.post("/usuario", async (req, res) => {
-  let = { id, nombre, email,  nacimiento, direccion, telefono } =
+  let = { id, nombre, email, nacimiento, direccion, telefono, isAdmin } =
     req.body;
-
-  let [usuarioCreado, created] = await Usuario.findOrCreate({
-    where: {
-      id: id,
-      nombre: nombre,
-      email: email,
-      nacimiento: nacimiento,
-      direccion: direccion,
-      telefono: telefono,
-    },
-  });
-  return res.json(usuarioCreado);
+  console.log("ruta", { id, nombre, email, nacimiento, direccion, telefono });
+  try {
+    let [usuarioCreado, created] = await Usuario.findOrCreate({
+      where: {
+        id: id,
+        nombre: nombre,
+        email: email,
+        nacimiento: nacimiento ? nacimiento : null,
+        direccion: direccion ? direccion : null,
+        telefono: telefono ? telefono : null,
+        isAdmin: isAdmin,
+      },
+    });
+    console.log("bien");
+    return res.json(usuarioCreado);
+  } catch (error) {
+    console.log("mal", error);
+    return res.status(400);
+  }
 });
 
 router.delete("/usuario/:id", async (req, res) => {
@@ -298,32 +309,53 @@ router.put("/usuario", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 
 
 //------Mercado Pago--------- //
-
-
+=======
+//------Mercado Pago-----
+>>>>>>> e020cff9050de83527dcd73490d95401dea37a0c
 
 router.post("/checkout", async (req, res) => {
+<<<<<<< HEAD
   let { id } = req.body  
   
+=======
+  // Crea un objeto de preferencia
+  // let {preference} = req.query
+  let { id } = req.query;
+
+>>>>>>> e020cff9050de83527dcd73490d95401dea37a0c
   let pBuscado = await Producto.findOne({
-    where : { id : id } 
-  })
+    where: { id: id },
+  });
 
-  console.log(pBuscado, "================ SOY LO QUE BUSCABAS =============== ")
+  console.log(
+    pBuscado,
+    "================ SOY LO QUE BUSCABAS =============== "
+  );
 
-    let preference = {
-     items : [
-       {
-       title : pBuscado.nombre ,
-       unit_price : parseInt(pBuscado.precio),
-       quantity :1 
-     }
-    ]
+  let preference = {
+    items: [
+      {
+        title: pBuscado.nombre,
+        unit_price: parseInt(pBuscado.precio),
+        quantity: 1,
+      },
+    ],
+
+    // back_urls: {
+    //   success: "http://localhost:3000/feedback",
+    //   failure: "http://localhost:3000/feedback",
+    //   pending: "http://localhost:3000/feedback",
+    // },
+    // auto_return: "approved",
   };
 
+  console.log(preference, "preferenciaaaaaaaAAAAAAAAAAA");
 
+<<<<<<< HEAD
   let error = false
   console.log(preference, "preferenciaaaaaaaAAAAAAAAAAA")
   
@@ -343,6 +375,29 @@ router.post("/checkout", async (req, res) => {
 
    
 })
+=======
+  mercadopago.preferences
+    .create(preference)
+    .then(function (hola) {
+      console.log(hola.body, "BODYYYYYYYYYYYYYYYYYYYYYYYYYY");
+      console.log(hola.body.sandbox_init_point, "Soy el supuesto y famoso url");
+      res.json(hola.body);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+});
+
+// app.get("/feedback", async (req, res) => {
+//   const payment = await mercadopago.payment.findById(req.query.payment_id);
+//   const merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
+//   const preferenceId = merchantOrder.body.preference_id;
+//   const status = payment.body.status;
+//   await repository.updateOrderByPreferenceId(preferenceId, status);
+
+//   res.sendFile(require.resolve("./fe/index.html"));
+// });
+>>>>>>> e020cff9050de83527dcd73490d95401dea37a0c
 
 
 module.exports = router;

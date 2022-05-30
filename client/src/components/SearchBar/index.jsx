@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getProductByName } from "../../redux/actions";
+import "./SearchStyles.css"
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -19,12 +20,13 @@ export default function SearchBar() {
   return (
     <div>
       <input
+      className="input"
         type="text"
         placeholder="Search product..."
         onChange={handleInputChange}
         value={name}
       />
-      <button onClick={handleSubmit} type="submit">
+      <button className="button" onClick={handleSubmit} type="submit">
         Search
       </button>
     </div>
