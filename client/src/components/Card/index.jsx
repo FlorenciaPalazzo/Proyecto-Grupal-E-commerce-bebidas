@@ -61,6 +61,7 @@ export default function Card({
             Alcohol content: {graduacion} % <br /> {/*Graduacion*/}
             Size: {ml}ml <br /> {/*Tamaño en mililitros*/}
             Price: ${precio} <br /> {/*Precio*/}
+
           </p>
           <button href={id} className="button">
             Details

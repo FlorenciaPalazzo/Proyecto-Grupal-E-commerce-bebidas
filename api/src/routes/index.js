@@ -5,6 +5,13 @@ const jwt = require("jsonwebtoken")
 const { Producto, Usuario } = require("../db");
 const router = Router();
 
+const mercadopago = require("mercadopago");
+const orden = require('../models/orden');
+
+mercadopago.configure({
+  access_token: "APP_USR-3516754288034643-052717-a71610e2187c78804eaefb28cae58b1e-182593787",
+});
+
 // router.use('./bebidas' , bebidas)
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -265,4 +272,113 @@ router.put("/usuario", async (req, res) => {
     console.log("error usuarios");
   }
 });
+//------------- Pago -------------------
+// router.post('/orden', async(req, res) => {
+//   const id = req.body;
+//   const productoCop = producto.read();
 
+//   let preference =  {
+//     items: [], // se puede traer la tabla orden?
+//     back_urls: {
+//       success: "http://localhost:3000/feedback",
+//       failure: "http://localhost:3000/feedback",
+//       pending: "http://localhost:3000/feedback",
+//     },
+//     auto_return: "approved",
+//   };
+
+//   let error = false;
+//   id.forEach((id) => {
+//     const product = productoCop.find((p) => p.id === id);
+//     if (product.stock > 0){
+//       product.stock--;
+//       preference.items.push({
+//         nombre: product.nombre,
+//         precio: product.precio,
+//         cantidad: 1,
+//       });
+//     } else {
+//       error = true;
+//     }
+//   });
+//   if (error) {
+//     res.send("Sin stock").statusCode(400);
+//   } else {
+//     const response = await mercadopago.preferences.create(preference);
+//     const preferenceId = response.body.id;
+//     await repository.write(productoCop);
+//     res.send({ preferenceId });
+//   }
+// });
+
+// router.get('/feedback', function(request, response) {
+//   response.json({
+//    Payment: request.query.payment_id,
+//    Status: request.query.status,
+//    MerchantOrder: request.query.merchant_order_id
+//  })
+// });
+
+//----- rutas madreadas de toni ---------
+
+router.post("/checkout", async (req, res) => {
+  // Crea un objeto de preferencia
+  // let {preference} = req.query
+  let { id } = req.body    // [{item}, {item(id)}]
+  // console.log(orders, "soy el orders")
+  // let ids = await orders.map(async (ele) => ele.id) 
+
+  // let pBuscados = await ids.map(id =>  Producto.findOne({
+  //   where : {id : id}
+  // }) )
+
+  let pBuscado = await Producto.findOne({
+    where : { id : id } 
+  })
+
+  console.log(pBuscado, "================ SOY LO QUE BUSCABAS =============== ")
+
+    let preference = {
+     items : [
+       {
+       title : pBuscado.nombre ,
+       unit_price : parseInt(pBuscado.precio),
+       quantity :1 
+     }
+    ]
+    // back_urls: {
+    //     success: "http://localhost:3000/feedback",
+    //     failure: "http://localhost:3000/feedback",
+    //     pending: "http://localhost:3000/feedback",
+    //   },
+    //   auto_return: "approved",
+  };
+
+  let error = false
+
+
+  console.log(preference, "preferenciaaaaaaaAAAAAAAAAAA")
+
+
+  if (error) {
+    res.send("Sin stock").statusCode(400);
+  } else {
+    const response = await mercadopago.preferences.create(preference);
+    const preferenceId = response.body.id;
+     console.log(response, "soy el response ayuda")
+    // await repository.write(productsCopy);
+    // order.date = new Date().toISOString();
+    // order.preferenceId = preferenceId;
+    // order.status = "pending";
+    // const orders = await repository.readOrders();
+    // orders.push(order);
+    // await repository.writeOrders(orders);
+    res.send({ preferenceId });
+  }
+
+      res.send("el checkout")
+
+
+})
+
+module.exports = router;

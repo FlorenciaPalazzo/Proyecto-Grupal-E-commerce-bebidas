@@ -1,0 +1,17 @@
+{"clientes":[
+    {
+        "id": 1131990379,
+        "nickname": "TESTXHAEXOSK",
+        "password": "qatest2547",
+        "site_status": "active",
+        "email": "test_user_6998496@testuser.com"
+    },
+    {
+        "id": 1131996110,
+        "nickname": "TESTJTLF7TQW",
+        "password": "qatest8080",
+        "site_status": "active",
+        "email": "test_user_36529467@testuser.com"
+    }
+]
+}
