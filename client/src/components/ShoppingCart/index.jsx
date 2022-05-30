@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 // import ScriptTag from 'react-script-tag';
 import { useParams } from "react-router-dom";
 import useScript from "./useScript";
@@ -8,18 +9,54 @@ const FORM_ID = 'payment-form';
 
 
 
+=======
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addCart, cleanCart, deleteOne,getMercadoPago } from "../../redux/actions";
+>>>>>>> 5123e0c6a15e9be4689f4a7efdd39d3afd8bb968
 
-const ShoppingCart = () => {
+const ShoppingCart = ({id}) => {
+
+
+  const verified = useSelector((state) => state.currentUser); //isEmail
+  console.log("verified", verified);
+  const productReducer = useSelector((state) => state.productCart);
+  const dispatch = useDispatch();
   let productCart = JSON.parse(window.localStorage.getItem("product"));
   const localValue = () => {
-    return JSON.parse(window.localStorage.getItem("product")); //creo
+    return JSON.parse(window.localStorage.getItem("product"));
   };
-
-  console.log(localValue());
-
   useEffect(() => {
     localValue();
-  }, []);
+  }, [dispatch, productReducer]);
+
+  let productArray = [];
+  let subtotal = productCart?.map(
+    (element) => element.precio * element.quantity
+  );
+  let total = 0;
+  subtotal?.forEach((e) => (total += e));
+  console.log("total-----", total);
+  const addProduct = (e) => {
+    e.preventDefault();
+    let productObject = productArray.find((el) => el.id === e.target.value);
+    dispatch(addCart(productObject));
+  };
+  const deleteProduct = (e) => {
+    e.preventDefault();
+    dispatch(deleteOne(e.target.value));
+  };
+  const cleanAllCart = (e) => {
+    e.preventDefault();
+    dispatch(cleanCart());
+  };
+
+  let navigate = useNavigate()
+  const buttonMercadoPago =(e)=>{
+    e.preventDefault()
+    dispatch(getMercadoPago(id))
+    navigate('/checkout')
+  }
 
   //----- implementacion mercado pago-----
   const { id } = useParams(); // id de producto
@@ -73,11 +110,16 @@ const ShoppingCart = () => {
 
   return (
     <div>
-      <h1>Carrito de compras</h1>
-      <h3>Productos: </h3>
+      <h1>Shopping Cart</h1>
+      <h3>Products: </h3>
+      <h3>Precio: ${total}</h3>
       {productCart &&
-        productCart.map((e) => {
+        productCart.map((element) => {
+          productArray.push(element);
+          console.log("subtotal-----", subtotal);
+
           return (
+<<<<<<< HEAD
             <div key={e.id}>
               <span>{`${e.nombre} $${e.precio}  ${e.ml}`}</span>
               <img src={e.imagen} alt="img not found" width="20%" />
@@ -94,9 +136,35 @@ const ShoppingCart = () => {
     </div>
   );
 };
+=======
+            <div>
+              <div key={element.id}>
+                <h3>{`${element.nombre}`}</h3>
+                <img src={element.imagen} alt="img not found" width="20%" />
+                <span>
+                  <button onClick={deleteProduct} value={element.id}>
+                    -
+                  </button>
+                  ${element.precio} x {element.quantity} = $
+                  {element.precio * element.quantity}
+                  <button onClick={addProduct} value={element.id}>
+                    +
+                  </button>
+                </span>
+              </div>
+            </div>
+          );
+        })}
+>>>>>>> 5123e0c6a15e9be4689f4a7efdd39d3afd8bb968
 
-export default ShoppingCart;
+      <span>
+        {verified && verified.email ? (
+          <button>Buy Products</button>
+          ) : (
+            <h3>No podrás comprar hasta estar registrado</h3>
+            )}
 
+<<<<<<< HEAD
 
 // import React, { useEffect, useState } from 'react';
 // import { useParams } from "react-router-dom";
@@ -119,34 +187,14 @@ export default ShoppingCart;
 /* 
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+=======
+        <button onClick={cleanAllCart}>Clean Cart</button>
+>>>>>>> 5123e0c6a15e9be4689f4a7efdd39d3afd8bb968
 
-const ShoppingCart = () => {
-  //let productCart = useSelector((state) => state.productCart);
-  let products;
-  const localValue = () => {
-    products = JSON.parse(window.localStorage.getItem("product")); //creo
-  };
-  let [carrito] = useState(JSON.parse(window.localStorage.getItem("product")));
-  useEffect(() => {
-    console.log("entro al useEffect de ShoppingCart");
-    localValue();
-  }, [carrito]);
-  console.log("carrito ------>", carrito);
-  return (
-    <div>
-      <h1>Carrito de compras</h1>
-      <h3>Productos: </h3>
-      {carrito &&
-        carrito.map((e) => {
-          return (
-            <div key={e.id}>
-              <span>{`${e.nombre} $${e.precio}  ${e.ml}`}</span>
-              <img src={e.imagen} alt="img not found" width="20%" />
-            </div>
-          );
-        })}
+        <button onClick={buttonMercadoPago}>PAGAR</button>
+      </span>
     </div>
   );
 };
 
-*/
+export default ShoppingCart;

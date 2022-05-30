@@ -2,9 +2,13 @@ const { Router } = require('express');
 const axios = require ('axios')
 const jwt = require("jsonwebtoken")
 
-const { Producto, Usuario } = require("../db");
+const { Producto, Usuario, Favorito, Carrito } = require("../db");
+
+const bodyParser = require("body-parser");
+
 const router = Router();
 
+<<<<<<< HEAD
 const mercadopago = require("mercadopago");
 const orden = require('../models/orden');
 
@@ -12,6 +16,19 @@ mercadopago.configure({
   access_token: "APP_USR-3516754288034643-052717-a71610e2187c78804eaefb28cae58b1e-182593787",
 });
 
+=======
+router.use(bodyParser.urlencoded({ extended: false }));
+
+// SDK de Mercado Pago
+const mercadopago = require("mercadopago");
+// Agrega credenciales
+mercadopago.configure({
+  access_token:
+    "APP_USR-3516754288034643-052717-a71610e2187c78804eaefb28cae58b1e-182593787",
+});
+
+
+>>>>>>> 5123e0c6a15e9be4689f4a7efdd39d3afd8bb968
 // router.use('./bebidas' , bebidas)
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -48,7 +65,8 @@ router.get("/bebidas", async (req, res, next) => {
         e.nombre.toLowerCase().includes(nombre.toLowerCase())
       );
       if (!dataName.length) {
-        return res.status(400).send("No se encontro ese producto");
+        let error = [];
+        return res.json(error);
       }
       res.json(dataName);
     } else {
@@ -137,6 +155,15 @@ router.post("/producto", async (req, res) => {
 
     let productoFavorito = await Producto.findByPk(id_prod, {});
 
+    /**
+     * 
+    favorito.findOrCreate({
+      id_user: id_user,
+      id_prod: id_prod
+    })
+
+     */
+
     usuarioFavorito.addProducto(productoFavorito);
     res.json(usuarioFavorito);
   } catch (err) {
@@ -145,14 +172,27 @@ router.post("/producto", async (req, res) => {
 });
 
 router.get("/producto/favoritos", async (req, res) => {
-  let user = await Usuario.findOne({
+  let user = await { Usuario }.findOne({
     include: {
       model: Producto,
       attributes: ["id", "nombre"],
     },
   });
+  console.log(user.productos, "ACA ESTOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
+  res.json(user);
+});
 
-  res.json(user.productos);
+router.delete("/producto/favoritos", async (req, res) => {
+  let { id_prod, id_user } = req.body;
+
+  let favBorrado = await Favorito.destroy({
+    where: {
+      usuarioId: id_user,
+      productoId: id_prod,
+    },
+  });
+
+  res.json(Favorito);
 });
 
 //////AQUI YACEN LOS RESTOS DE AUTENTICACION----RIP-AUTENTICACION----GRACIAS JONA </3----//////
@@ -223,21 +263,27 @@ router.get("/usuario", async (req, res) => {
 });
 
 router.post("/usuario", async (req, res) => {
-  let = { id, nombre, email, contraseña, nacimiento, direccion, telefono } =
+  let = { id, nombre, email, nacimiento, direccion, telefono, isAdmin } =
     req.body;
-
-  let [usuarioCreado, created] = await Usuario.findOrCreate({
-    where: {
-      id: id,
-      nombre: nombre,
-      email: email,
-      contraseña: contraseña,
-      nacimiento: nacimiento,
-      direccion: direccion,
-      telefono: telefono,
-    },
-  });
-  return res.json(usuarioCreado);
+  console.log("ruta", { id, nombre, email, nacimiento, direccion, telefono });
+  try {
+    let [usuarioCreado, created] = await Usuario.findOrCreate({
+      where: {
+        id: id,
+        nombre: nombre,
+        email: email,
+        nacimiento: nacimiento ? nacimiento : null,
+        direccion: direccion ? direccion : null,
+        telefono: telefono ? telefono : null,
+        isAdmin: isAdmin,
+      },
+    });
+    console.log("bien");
+    return res.json(usuarioCreado);
+  } catch (error) {
+    console.log("mal", error);
+    return res.status(400);
+  }
 });
 
 router.delete("/usuario/:id", async (req, res) => {
@@ -380,5 +426,101 @@ router.post("/checkout", async (req, res) => {
 
 
 })
+
+//------Mercado Pago-----
+
+router.post("/checkout", async (req, res) => {
+
+  let productos = await Carrito.findAll();
+
+  console.log( productos, "================ SOY LO QUE BUSCABAS   BY TONI =============== ");
+
+
+  let itemsMapeo = productos.map(e => {
+    return {
+      title : e.nombre ,
+      unit_price : parseInt(e.precio),
+      quantity : parseInt(e.quantity)
+    }
+  } )
+  
+  console.log(itemsMapeo, " HOLAALALALLALALALALALALALALALA ")
+  
+  let preference = {
+    items: [...itemsMapeo],
+    // back_urls: {
+      //   success: "http://localhost:3000/feedback",
+      //   failure: "http://localhost:3000/feedback",
+      //   pending: "http://localhost:3000/feedback",
+      // },
+      // auto_return: "approved",
+    };
+
+  console.log(preference.items, "Soy el preference items mapeo y estoy cool")
+    
+
+  console.log(preference, "preferenciaaaaaaaAAAAAAAAAAA");
+
+  mercadopago.preferences
+    .create(preference)
+    .then(function (hola) {
+      console.log(hola.body, "BODYYYYYYYYYYYYYYYYYYYYYYYYYY");
+      // console.log(hola.body.sandbox_init_point, "Soy el supuesto y famoso url");
+      res.json(hola.body);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+});
+
+// app.get("/feedback", async (req, res) => {
+//   const payment = await mercadopago.payment.findById(req.query.payment_id);
+//   const merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
+//   const preferenceId = merchantOrder.body.preference_id;
+//   const status = payment.body.status;
+//   await repository.updateOrderByPreferenceId(preferenceId, status);
+
+//   res.sendFile(require.resolve("./fe/index.html"));
+// });
+router.post("/carrito", async (req, res) => {
+  try {
+    let array  = req.body; // aca viene el carrito entero
+
+    console.log("array", array);
+
+
+    let promesa = await new Promise( (resolve,reject) => {
+
+      let result =    array.map(  (e) => { 
+        return   Carrito.findOrCreate({
+          where: {
+            nombre: e.nombre,
+            id: e.id,
+            imagen: e.imagen,
+            quantity: e.quantity,
+            precio: e.precio,
+            ml: e.ml,
+          },
+        })
+      })
+
+      resolve(result)
+    })// cierre de promise 
+    .then( (e) => Promise.all( e ))
+
+        // let todomorocho = Promise.all(result).then( e =>  e)
+    // let cosas = await Carrito.findAll()
+    console.log(promesa, "Muchas cosas wooooooooooo")
+    
+    return res.status(200).json(promesa[0]);
+
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
+
+
 
 module.exports = router;
