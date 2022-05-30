@@ -2,7 +2,7 @@ const { Router } = require("express");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 
-const { Producto, Usuario } = require("../db");
+const { Producto, Usuario, Favorito } = require("../db");
 
 const bodyParser = require("body-parser");
 
@@ -313,7 +313,7 @@ router.put("/usuario", async (req, res) => {
 router.post("/checkout", async (req, res) => {
   // Crea un objeto de preferencia
   // let {preference} = req.query
-  let { id } = req.body;
+  let { id } = req.query;
 
   let pBuscado = await Producto.findOne({
     where: { id: id },
@@ -348,7 +348,7 @@ router.post("/checkout", async (req, res) => {
     .then(function (hola) {
       console.log(hola.body, "BODYYYYYYYYYYYYYYYYYYYYYYYYYY");
       console.log(hola.body.sandbox_init_point, "Soy el supuesto y famoso url");
-      res.send("el checkout");
+      res.json(hola.body);
     })
     .catch(function (error) {
       console.log(error);
