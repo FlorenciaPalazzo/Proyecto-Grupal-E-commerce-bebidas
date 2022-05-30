@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
-
 const { Producto, Usuario } = require("../db");
 const router = Router();
 
@@ -129,7 +128,14 @@ router.post("/producto", async (req, res) => {
     let usuarioFavorito = await Usuario.findByPk(id_user, {});
 
     let productoFavorito = await Producto.findByPk(id_prod, {});
+    /**
+     * 
+    favorito.findOrCreate({
+      id_user: id_user,
+      id_prod: id_prod
+    })
 
+     */
     usuarioFavorito.addProducto(productoFavorito);
     res.json(usuarioFavorito);
   } catch (err) {
@@ -137,8 +143,10 @@ router.post("/producto", async (req, res) => {
   }
 });
 
+
 router.get("/producto/favoritos", async (req, res) => {
-  let user = await Usuario.findOne({
+  
+  let user = await {Usuario}.findOne({
     include: {
       model: Producto,
       attributes: ["id", "nombre"],
@@ -216,21 +224,28 @@ router.get("/usuario", async (req, res) => {
 });
 
 router.post("/usuario", async (req, res) => {
-  let = { id, nombre, email, contraseña, nacimiento, direccion, telefono } =
+  let = { id, nombre, email, nacimiento, direccion, telefono, isAdmin } =
     req.body;
-
-  let [usuarioCreado, created] = await Usuario.findOrCreate({
-    where: {
-      id: id,
-      nombre: nombre,
-      email: email,
-      contraseña: contraseña,
-      nacimiento: nacimiento,
-      direccion: direccion,
-      telefono: telefono,
-    },
-  });
-  return res.json(usuarioCreado);
+  console.log("ruta",{ id, nombre, email, nacimiento, direccion, telefono });
+  try {
+    
+    let [usuarioCreado, created] = await Usuario.findOrCreate({
+      where: {
+        id: id,
+        nombre: nombre,
+        email: email,
+        nacimiento: nacimiento ? nacimiento : null,
+        direccion: direccion ? direccion : null,
+        telefono: telefono ? telefono : null ,
+        isAdmin: isAdmin 
+      },
+    });
+    console.log("bien");
+    return res.json(usuarioCreado);
+  } catch (error) {
+    console.log("mal",error);
+    return res.status(400)
+  }
 });
 
 router.delete("/usuario/:id", async (req, res) => {

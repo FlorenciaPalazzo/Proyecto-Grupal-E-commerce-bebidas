@@ -1,9 +1,11 @@
 /* import { onAuthStateChanged } from "firebase/auth";
 import { auth, currentUser } from "../../fb"; */
+import { SET_FAV } from "../actions/actionsTypes";
 import {
   ADMIN_HANDLER,
   SET_USER,
   RESET_USER,
+  GET_USERS_LOGED,
   SET_LOADING,
   FILTER_BY_AZ,
   FILTER_BY_BRAND,
@@ -23,11 +25,13 @@ const initialState = {
   isAdmin: null,
   isLoged: false,
   isLoading: true,
+  usersLoged: [],
   brands: [],
   products: [],
   productsSort: [],
   detail: [],
   productCart: [],
+  favProducts: []
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -41,7 +45,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case SET_USER:
       return { ...state, currentUser: payload, isLoged: true };
     case RESET_USER:
-      return { ...state, currentUser: {}, isLoged: false };
+      return { ...state, currentUser: {}, isLoged: false , favProducts: []};
+    case GET_USERS_LOGED:
+      return { ...state, usersLoged: payload};
     case SET_LOADING:
       return { ...state, isLoading: payload };
     case ADMIN_HANDLER: {
@@ -50,7 +56,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
         return { ...state, isAdmin: true };
       } else return { ...state, isAdmin: false };
     }
-
     case SET_LOADING:
       return { ...state, isLoading: payload };
     case ADMIN_HANDLER: {
@@ -61,6 +66,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
     }
     case GET_PRODUCT_NAME:
       return { ...state, products: payload };
+    
+      case SET_FAV:
+      return { ...state, favProducts: payload };
 
     case GET_PRODUCT_ID:
       return { ...state, detail: payload };

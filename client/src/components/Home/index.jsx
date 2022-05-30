@@ -4,10 +4,6 @@ import { Link } from "react-router-dom";
 import {
   getBrands,
   getProducts,
-  isAdmin,
-  setUser,
-  setLoading,
-  resetUser,
 } from "../../redux/actions";
 
 import NavBar from "../NavBar";
@@ -23,7 +19,7 @@ function Home() {
 
   const [, /*order*/ setOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage /*setProductsPerPage*/] = useState(15); //15 productos por pÃ¡gina
+  const [productsPerPage /*setProductsPerPage*/] = useState(15); //15 productos por pagina
 
   const indexOfLastProduct = currentPage * productsPerPage; // 15
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
@@ -40,6 +36,7 @@ function Home() {
   useEffect(() => {
     console.log(product);
     console.log("effect");
+    console.log(loading);
 
     if (product.length === 0) {
       dispatch(getProducts());
@@ -56,6 +53,7 @@ function Home() {
           <NavBar />
           <div>
             <Pagination
+            currentPage = {currentPage}
               productsPerPage={productsPerPage}
               product={product.length}
               pagination={pagination}

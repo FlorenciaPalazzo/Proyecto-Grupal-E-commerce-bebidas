@@ -15,8 +15,16 @@ import {
   GET_PRODUCTS,
   ADD_CARRITO,
   RESET_USER,
+  SET_FAV,
+  CREATE_USER,
+  GET_USERS_LOGED,
 } from "./actionsTypes";
 import axios from "axios";
+import { auth } from "../../fb";
+
+
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 //-------------------------------AUTH-------------------------------//
 export function isAdmin(email) {
@@ -31,9 +39,39 @@ export function setUser(user) {
   };
 }
 
+export function createUser(user) {
+  // { id, nombre, email, nacimiento, direccion, telefono }
+  console.log("user", user);
+  axios
+    .post("http://localhost:3001/usuario", {
+      id: user.id,
+      nombre: user.nombre,
+      email: user.email,
+      nacimiento: user.nacimiento,
+      direccion: user.direccion,
+      telefono: user.telefono,
+      isAdmin: user.isAdmin
+    })
+    .then((res) => console.log(res.data))
+    .catch((e) => console.log(e));
+}
+
 export function resetUser() {
   return async (dispatch) => {
     return dispatch({ type: RESET_USER });
+  };
+}
+
+export function getUsersLoged() {
+  return async (dispatch) => {
+    try {
+      let usersFound = await axios
+        .get("http://localhost:3001/usuario")
+        .then((users) => users.data);
+      return dispatch({ type: GET_USERS_LOGED, payload: usersFound });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
@@ -42,6 +80,24 @@ export function setLoading(bool) {
     return dispatch({ type: SET_LOADING, payload: bool });
   };
 }
+
+export const setFavorito = (id_prod, id_user) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.post("http://localhost:3001/producto", {
+        id_prod,
+        id_user,
+      });
+      return dispatch({
+        type: SET_FAV,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
 //------------------------------------------------------------------//
 
 //trae todos los productos
@@ -194,3 +250,5 @@ export const addCart = (product) => {
     }
   };
 };
+
+
