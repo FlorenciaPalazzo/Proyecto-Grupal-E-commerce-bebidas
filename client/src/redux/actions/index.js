@@ -18,6 +18,7 @@ import {
   DELETE_ONE_PRODUCT,
   REMOVE_ALL_CARRITO,
   ADD_IN_CART,
+  GET_MERCADO_PAGO,
 } from "./actionsTypes";
 import axios from "axios";
 
@@ -227,6 +228,20 @@ export const buyCart = () => {
       console.log("esperando ruta");
     } catch (err) {
       console.log(err);
+    }
+  };
+};
+
+export const getMercadoPago = (id) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.post("http://localhost:3001/checkout/" + id);
+      return dispatch({
+        type: GET_MERCADO_PAGO,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log("Error desde el catch de getProductById", err);
     }
   };
 };

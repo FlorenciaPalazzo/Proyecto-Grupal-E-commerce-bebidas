@@ -16,7 +16,8 @@ import {
   ADD_CARRITO,
   ADD_IN_CART,
   DELETE_ONE_PRODUCT,
-  REMOVE_ALL_CARRITO, //---------> prueba!!!
+  REMOVE_ALL_CARRITO,
+  GET_MERCADO_PAGO, //---------> prueba!!!
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -309,6 +310,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         productCart: array,
       };
+
+    case GET_MERCADO_PAGO:
+      return { ...state };
     default:
       return state;
   }
