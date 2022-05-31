@@ -22,6 +22,7 @@ import {
   REMOVE_ALL_CARRITO,
   ADD_IN_CART,
   GET_MERCADO_PAGO,
+  ORDER_MERCADO_PAGO,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -287,17 +288,38 @@ export const buyCart = () => {
   };
 };
 
-export const getMercadoPago = (id) => {
+
+export const orderMercadoPago = (payload) => {
   return async function (dispatch) {
     try {
-      let result = await axios.post("http://localhost:3001/checkout?id=eb9d3249-9eb9-4cc7-b562-8ced0d91e026");
+      let result = await axios.post("http://localhost:3001/carrito", payload);
+      
+      console.log(result)
+      return dispatch({
+        type: ORDER_MERCADO_PAGO,
+       
+      });
+    } catch (err) {
+      console.log("Error desde el catch de orderMercadoPago", err);
+    }
+  };
+};
+
+
+
+
+export const getMercadoPago = (payload) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.post("http://localhost:3001/", payload);
       console.log(result.data)
       return dispatch({
         type: GET_MERCADO_PAGO,
         payload: result.data.sandbox_init_point,
       });
     } catch (err) {
-      console.log("Error desde el catch de getProductById", err);
+      console.log("Error desde el catch de getMercadoPago", err);
     }
   };
 };
+

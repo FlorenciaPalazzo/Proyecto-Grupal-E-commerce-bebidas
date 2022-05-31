@@ -22,7 +22,9 @@ import {
   DELETE_ONE_PRODUCT,
   REMOVE_ALL_CARRITO,
   GET_MERCADO_PAGO,
-  SET_FAV, //---------> prueba!!!
+  ORDER_MERCADO_PAGO,
+  SET_FAV,
+   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -40,7 +42,8 @@ const initialState = {
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
-  mpSandBox:[],  
+  mpSandBox:[],
+  orderMP:[],  
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -325,6 +328,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
 
     case GET_MERCADO_PAGO:
       return { ...state, mpSandBox: payload };
+    
+    case ORDER_MERCADO_PAGO:
+      return{
+        ...state,
+      }
 
     default:
       return state;
