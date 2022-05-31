@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCart } from "../../redux/actions";
+import { addCart, setFavorito } from "../../redux/actions";
 import "./CardStyles.css";
 export default function Card({
   nombre,
@@ -27,6 +27,11 @@ export default function Card({
     e.preventDefault();
     dispatch(addCart(productObject));
   };
+
+  const handleAddFavorito =(e)=>{
+    e.preventDefault()
+    dispatch(setFavorito())
+  }  
 
   //acá traigo todas las propiedades
   return (
@@ -60,6 +65,7 @@ export default function Card({
           </p>
           <p className="card-price">Price: ${precio} </p>
         </div>
+    <button onClick={handleAddFavorito}>❤</button>
       </div>
     </div>
   );
