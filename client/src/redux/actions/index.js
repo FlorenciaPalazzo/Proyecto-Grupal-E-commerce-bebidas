@@ -21,14 +21,14 @@ import {
   DELETE_ONE_PRODUCT,
   REMOVE_ALL_CARRITO,
   ADD_IN_CART,
-
+  GET_MERCADO_PAGO,
+  ORDER_MERCADO_PAGO,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
 
-
-import firebase from 'firebase/app';
-import 'firebase/database';
+import firebase from "firebase/app";
+import "firebase/database";
 
 //-------------------------------AUTH-------------------------------//
 export function isAdmin(email) {
@@ -54,7 +54,7 @@ export function createUser(user) {
       nacimiento: user.nacimiento,
       direccion: user.direccion,
       telefono: user.telefono,
-      isAdmin: user.isAdmin
+      isAdmin: user.isAdmin,
     })
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
@@ -255,7 +255,6 @@ export const addCart = (product) => {
   };
 };
 
-
 export const deleteOne = (product) => {
   return async function (dispatch) {
     try {
@@ -285,6 +284,42 @@ export const buyCart = () => {
       console.log("esperando ruta");
     } catch (err) {
       console.log(err);
+    }
+  };
+};
+
+//ESTO ESTA ANDANDO LISTO...
+export const orderMercadoPago = (payload) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.post("http://localhost:3001/carrito", payload);
+      
+      console.log(result)
+      return dispatch({
+        type: ORDER_MERCADO_PAGO,
+       
+      });
+    } catch (err) {
+      console.log("Error desde el catch de orderMercadoPago", err);
+    }
+  };
+};
+
+
+
+
+export const getMercadoPago = () => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.post("http://localhost:3001/checkout");
+      console.log(result.data)
+      console.log("entro a getMercadoPago")
+      return dispatch({
+        type: GET_MERCADO_PAGO,
+        payload: result.data.sandbox_init_point,
+      });
+    } catch (err) {
+      console.log("Error desde el catch de getMercadoPago", err);
     }
   };
 };

@@ -1,4 +1,3 @@
-
 /* import { onAuthStateChanged } from "firebase/auth";
 import { auth, currentUser } from "../../fb"; */
 //import { SET_FAV } from "../actions/actionsTypes";
@@ -21,7 +20,11 @@ import {
   ADD_CARRITO,
   ADD_IN_CART,
   DELETE_ONE_PRODUCT,
-  REMOVE_ALL_CARRITO, //---------> prueba!!!
+  REMOVE_ALL_CARRITO,
+  GET_MERCADO_PAGO,
+  ORDER_MERCADO_PAGO,
+  SET_FAV,
+   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -39,10 +42,12 @@ const initialState = {
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
-
+  mpSandBox:[],
+  orderMP:[],  
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
+  console.log(payload)
   switch (type) {
     case GET_PRODUCTS:
       return {
@@ -53,9 +58,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case SET_USER:
       return { ...state, currentUser: payload, isLoged: true };
     case RESET_USER:
-      return { ...state, currentUser: {}, isLoged: false , favProducts: []};
+      return { ...state, currentUser: {}, isLoged: false, favProducts: [] };
     case GET_USERS_LOGED:
-      return { ...state, usersLoged: payload};
+      return { ...state, usersLoged: payload };
     case SET_LOADING:
       return { ...state, isLoading: payload };
     case ADMIN_HANDLER: {
@@ -73,10 +78,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
       } else return { ...state, isAdmin: false };
     }
     case GET_PRODUCT_NAME:
-
       return { ...state, products: payload, searchProduct: payload };
-    
-      case SET_FAV:
+
+    case SET_FAV:
       return { ...state, favProducts: payload };
 
     case GET_PRODUCT_ID:
@@ -321,6 +325,17 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         productCart: array,
       };
+
+  
+    
+    case ORDER_MERCADO_PAGO:
+      return{
+        ...state,
+      }
+
+      case GET_MERCADO_PAGO:
+        return { ...state, mpSandBox: payload };
+
     default:
       return state;
   }
