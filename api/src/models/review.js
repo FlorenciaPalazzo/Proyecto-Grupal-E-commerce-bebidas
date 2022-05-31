@@ -4,6 +4,11 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('review', {
+    // id: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    //   primaryKey: true,  
+    // },
     titulo: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -17,7 +22,7 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: { min: 0, max:5 },
-    }
+    },
 
   });
 };

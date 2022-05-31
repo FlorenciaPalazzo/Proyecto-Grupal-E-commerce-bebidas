@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-const { Producto,  } = require("../db");
+// const { Producto,  } = require("../db");
 const productoModules = require('./modules/producto.js');
 const usuarioModules = require('./modules/usuario.js');
 const reviewModules = require('./modules/review.js');

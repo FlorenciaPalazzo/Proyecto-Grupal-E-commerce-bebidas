@@ -54,7 +54,7 @@ router.get("/usuario/:id", async (req, res) => {
           nacimiento: nacimiento ? nacimiento : null,
           direccion: direccion ? direccion : null,
           telefono: telefono ? telefono : null,
-          isAdmin: isAdmin,
+          // isAdmin: isAdmin,
         },
       });
       console.log("bien");
