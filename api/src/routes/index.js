@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
+const morgan = require("morgan");
 
 const { Producto, Usuario, Favorito, Carrito } = require("../db");
 
@@ -8,7 +9,28 @@ const bodyParser = require("body-parser");
 
 const router = Router();
 
+const {db} = require('../firebase')
+
 router.use(bodyParser.urlencoded({ extended: false }));
+router.use(morgan("dev"))
+
+
+router.get("/usuarioFire", async (req, res) => {
+  try {
+    const querySnapshot = await db.collection("Prueba-Firestore").get();
+
+      console.log(querySnapshot.docs.id)
+
+    const contacts = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+   return res.send(contacts);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
