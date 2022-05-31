@@ -23,6 +23,7 @@ import {
   ADD_IN_CART,
   GET_MERCADO_PAGO,
   ORDER_MERCADO_PAGO,
+  DELETE_MERCADO_PAGO,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -316,6 +317,19 @@ export const getMercadoPago = () => {
       });
     } catch (err) {
       console.log("Error desde el catch de getMercadoPago", err);
+    }
+  };
+};
+
+export const deleteMercadoPago = () => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.delete("http://localhost:3001/checkout");
+      return dispatch({
+        type: DELETE_MERCADO_PAGO,
+      });
+    } catch (err) {
+      console.log("Error desde el catch deleteMercadoPago", err);
     }
   };
 };

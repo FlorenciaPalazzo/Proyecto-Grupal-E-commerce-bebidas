@@ -24,6 +24,7 @@ import {
   GET_MERCADO_PAGO,
   ORDER_MERCADO_PAGO,
   SET_FAV,
+  DELETE_MERCADO_PAGO,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -344,7 +345,13 @@ export default function rootReducer(state = initialState, { type, payload }) {
 
     case GET_MERCADO_PAGO:
       return { ...state, mpSandBox: payload };
-
+    case DELETE_MERCADO_PAGO:
+      let carritoVacio = [];
+      localStorage.setItem("product", JSON.stringify(carritoVacio));
+      return {
+        ...state,
+        productCart: carritoVacio,
+      };
     default:
       return state;
   }
