@@ -25,6 +25,7 @@ import {
   ORDER_MERCADO_PAGO,
   SET_FAV,
   DELETE_MERCADO_PAGO,
+  FEEDBACK_MERCADO_PAGO,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -43,12 +44,13 @@ const initialState = {
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
-  mpSandBox: [],
+  mpSandBox: "",
   orderMP: [],
+  feedBackMP: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
-  console.log(payload);
+  console.log("payload del reducer probando carrito", payload);
   switch (type) {
     case GET_PRODUCTS:
       return {
@@ -329,7 +331,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
             ...state,
             productCart: state.productCart.filter((e) => e.id !== payload),
           };
-
     case REMOVE_ALL_CARRITO:
       let array = [];
       localStorage.setItem("product", JSON.stringify(array));
@@ -337,12 +338,10 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         productCart: array,
       };
-
     case ORDER_MERCADO_PAGO:
       return {
         ...state,
       };
-
     case GET_MERCADO_PAGO:
       return { ...state, mpSandBox: payload };
     case DELETE_MERCADO_PAGO:
@@ -351,6 +350,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         productCart: carritoVacio,
+      };
+    case FEEDBACK_MERCADO_PAGO:
+      return {
+        ...state,
+        feedBackMP: payload,
       };
     default:
       return state;

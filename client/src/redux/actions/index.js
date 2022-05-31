@@ -24,6 +24,7 @@ import {
   GET_MERCADO_PAGO,
   ORDER_MERCADO_PAGO,
   DELETE_MERCADO_PAGO,
+  FEEDBACK_MERCADO_PAGO,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -290,12 +291,13 @@ export const buyCart = () => {
 };
 
 //ESTO ESTA ANDANDO LISTO...
-export const orderMercadoPago = (payload) => {
+export const orderMercadoPago = (localStorage) => {
   return async function (dispatch) {
     try {
-      let result = await axios.post("http://localhost:3001/carrito", payload);
-
-      console.log(result);
+      let result = await axios.post(
+        "http://localhost:3001/carrito",
+        localStorage
+      );
       return dispatch({
         type: ORDER_MERCADO_PAGO,
       });
@@ -330,6 +332,21 @@ export const deleteMercadoPago = () => {
       });
     } catch (err) {
       console.log("Error desde el catch deleteMercadoPago", err);
+    }
+  };
+};
+
+export const feedBack = () => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.get("http://localhost:3001/feedback");
+      console.log("result.data ------->FEEDBACK", result.data);
+      return dispatch({
+        type: FEEDBACK_MERCADO_PAGO,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log("Error feedback catch", err);
     }
   };
 };

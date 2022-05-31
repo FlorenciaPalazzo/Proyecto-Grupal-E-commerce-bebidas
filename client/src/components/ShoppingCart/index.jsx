@@ -5,24 +5,30 @@ import {
   addCart,
   cleanCart,
   deleteOne,
+  feedBack,
   getMercadoPago,
   orderMercadoPago,
 } from "../../redux/actions";
+import Loading from "../Loading";
 
 const ShoppingCart = () => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.isLoading);
 
   const verified = useSelector((state) => state.currentUser); //isEmail
+  const feedBackReducer = useSelector((state) => state.feedBackMP);
   const productReducer = useSelector((state) => state.productCart);
   let productCart = JSON.parse(window.localStorage.getItem("product"));
   const localValue = () => {
     return JSON.parse(window.localStorage.getItem("product"));
   };
   console.log("productCart", productCart);
+  console.log("feedbackReducer", feedBackReducer);
   useEffect(() => {
+    if (!feedBackReducer) dispatch(feedBack());
     localValue();
-  }, [dispatch, productReducer]);
+  }, [dispatch, productReducer, feedBackReducer]);
 
   let productArray = [];
   let subtotal = productCart?.map(
@@ -55,43 +61,49 @@ const ShoppingCart = () => {
 
   return (
     <div>
-      <h1>Shopping Cart</h1>
-      <h3>Products: </h3>
-      <h3>Precio: ${total}</h3>
-      {productCart &&
-        productCart.map((element) => {
-          productArray.push(element);
-          console.log("subtotal-----", subtotal);
+      {loading /* revisen esto!! */ ? (
+        <Loading />
+      ) : (
+        <div>
+          <h1>Shopping Cart</h1>
+          <h3>Products: </h3>
+          <h3>Precio: ${total}</h3>
+          {productCart &&
+            productCart.map((element) => {
+              productArray.push(element);
+              console.log("subtotal-----", subtotal);
 
-          return (
-            <div>
-              <div key={element.id}>
-                <h3>{`${element.nombre}`}</h3>
-                <img src={element.imagen} alt="img not found" width="20%" />
-                <span>
-                  <button onClick={deleteProduct} value={element.id}>
-                    -
-                  </button>
-                  ${element.precio} x {element.quantity} = $
-                  {element.precio * element.quantity}
-                  <button onClick={addProduct} value={element.id}>
-                    +
-                  </button>
-                </span>
-              </div>
-            </div>
-          );
-        })}
+              return (
+                <div>
+                  <div key={element.id}>
+                    <h3>{`${element.nombre}`}</h3>
+                    <img src={element.imagen} alt="img not found" width="20%" />
+                    <span>
+                      <button onClick={deleteProduct} value={element.id}>
+                        -
+                      </button>
+                      ${element.precio} x {element.quantity} = $
+                      {element.precio * element.quantity}
+                      <button onClick={addProduct} value={element.id}>
+                        +
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
 
-      <span>
-        {verified && verified.email ? (
-          <button onClick={postCarrito}>PAGAR</button>
-        ) : (
-          <h3>No podrás comprar hasta estar registrado</h3>
-        )}
+          <span>
+            {verified && verified.email ? (
+              <button onClick={postCarrito}>PAGAR</button>
+            ) : (
+              <h3>No podrás comprar hasta estar registrado</h3>
+            )}
 
-        <button onClick={cleanAllCart}>Clean Cart</button>
-      </span>
+            <button onClick={cleanAllCart}>Clean Cart</button>
+          </span>
+        </div>
+      )}
     </div>
   );
 };

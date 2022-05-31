@@ -271,12 +271,7 @@ router.put("/usuario", async (req, res) => {
 } */
 router.post("/checkout", async (req, res) => {
   let productos = await Carrito.findAll();
-
-  console.log(
-    productos,
-    "================ SOY LO QUE BUSCABAS   BY TONI =============== "
-  );
-
+  console.log("productos", productos);
   let itemsMapeo = productos.map((e) => {
     return {
       title: e.nombre,
@@ -284,25 +279,22 @@ router.post("/checkout", async (req, res) => {
       quantity: parseInt(e.quantity),
     };
   });
-
-  console.log(itemsMapeo, " HOLA ");
-
+  console.log("itemsMapeo", itemsMapeo);
   let preference = {
     items: [...itemsMapeo],
-    // back_urls: {
-    //   success: "http://localhost:3000/feedback",
-    //   failure: "http://localhost:3000/feedback",
-    //   pending: "http://localhost:3000/feedback",
-    // },
-    // auto_return: "approved",
+    back_urls: {
+      success: "http://localhost:3000/feedback",
+      failure: "http://localhost:3000/feedback",
+      pending: "http://localhost:3000/feedback",
+    },
+    auto_return: "approved",
   };
 
   mercadopago.preferences
     .create(preference)
-    .then(function (hola) {
-      console.log(hola.body, "BODYY");
-
-      res.json(hola.body);
+    .then(function (mp) {
+      console.log("Body de mercado pago", mp.body);
+      res.json(mp.body);
     })
     .catch(function (error) {
       console.log(error);
@@ -311,12 +303,12 @@ router.post("/checkout", async (req, res) => {
 
 router.post("/carrito", async (req, res) => {
   try {
-    let array = req.body; // aca viene el carrito entero
+    let localStorage = req.body; // aca viene el carrito entero
 
-    console.log("array", array);
+    console.log("localStorage", localStorage);
 
     let promesa = await new Promise((resolve, reject) => {
-      let result = array.map((e) => {
+      let result = localStorage.map((e) => {
         return Carrito.findOrCreate({
           where: {
             nombre: e.nombre,
@@ -329,15 +321,10 @@ router.post("/carrito", async (req, res) => {
           },
         });
       });
-
       resolve(result);
     }) // cierre de promise
       .then((e) => Promise.all(e));
-
-    // let todomorocho = Promise.all(result).then( e =>  e)
-    // let cosas = await Carrito.findAll()
-    console.log(promesa, "Muchas cosas wooooooooooo");
-
+    console.log("promesa", promesa);
     return res.status(200).json(promesa[0]);
   } catch (err) {
     console.log(err);
@@ -351,14 +338,21 @@ router.delete("/checkout", async (req, res) => {
     console.log("Error en el catch del delete", err);
   }
 });
-// app.get("/feedback", async (req, res) => {
-//   const payment = await mercadopago.payment.findById(req.query.payment_id);
-//   const merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
-//   const preferenceId = merchantOrder.body.preference_id;
-//   const status = payment.body.status;
-//   await repository.updateOrderByPreferenceId(preferenceId, status);
+router.get("/feedback", async (req, res) => {
+  const payment = await mercadopago.payment.findById(req.query.payment_id);
+  console.log("payment", payment);
+  const merchantOrder = await mercadopago.merchant_orders.findById(
+    payment.body.order.id
+  );
+  console.log("merchantOrder", merchantOrder);
+  const preferenceId = merchantOrder.body.preference_id;
+  console.log("preferenceId", preferenceId);
 
-//   res.sendFile(require.resolve("./fe/index.html"));
-// });
+  const status = payment.body.status;
+  console.log("status", status);
 
+  await repository.updateOrderByPreferenceId(preferenceId, status);
+
+  res.sendFile(require.resolve("./fe/index.html"));
+});
 module.exports = router;
