@@ -65,7 +65,7 @@ export default function Card({
           </p>
           <p className="card-price">Price: ${precio} </p>
         </div>
-    <button onClick={handleAddFavorito}>❤</button>
+    <button className="button-fav" onClick={handleAddFavorito}>❤</button>
       </div>
     </div>
   );
