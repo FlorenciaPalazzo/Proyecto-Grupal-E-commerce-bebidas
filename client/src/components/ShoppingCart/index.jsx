@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-<<<<<<< HEAD
+//<<<<<<< HEAD
 // import ScriptTag from 'react-script-tag';
 import { useParams } from "react-router-dom";
 import useScript from "./useScript";
@@ -9,23 +9,30 @@ const FORM_ID = 'payment-form';
 
 
 
-=======
+//=======
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+//<<<<<<< HEAD
 import { addCart, cleanCart, deleteOne,getMercadoPago } from "../../redux/actions";
->>>>>>> 5123e0c6a15e9be4689f4a7efdd39d3afd8bb968
+//>>>>>>> 5123e0c6a15e9be4689f4a7efdd39d3afd8bb968
+//=======
+import { addCart, cleanCart, deleteOne,getMercadoPago, orderMercadoPago } from "../../redux/actions";
+//>>>>>>> 24ba4cfdb9e84de44538634be407e2a16d4a8dc6
 
 const ShoppingCart = ({id}) => {
 
+  let navigate = useNavigate()
+  const dispatch = useDispatch();
 
   const verified = useSelector((state) => state.currentUser); //isEmail
   console.log("verified", verified);
   const productReducer = useSelector((state) => state.productCart);
-  const dispatch = useDispatch();
   let productCart = JSON.parse(window.localStorage.getItem("product"));
   const localValue = () => {
     return JSON.parse(window.localStorage.getItem("product"));
   };
+
+  
   useEffect(() => {
     localValue();
   }, [dispatch, productReducer]);
@@ -51,10 +58,11 @@ const ShoppingCart = ({id}) => {
     dispatch(cleanCart());
   };
 
-  let navigate = useNavigate()
-  const buttonMercadoPago =(e)=>{
+
+  let postCarrito =(e) =>{
     e.preventDefault()
-    dispatch(getMercadoPago(id))
+    console.log('soy el dispatch de postCarrito')
+    dispatch(orderMercadoPago(productCart))
     navigate('/checkout')
   }
 
@@ -119,24 +127,6 @@ const ShoppingCart = ({id}) => {
           console.log("subtotal-----", subtotal);
 
           return (
-<<<<<<< HEAD
-            <div key={e.id}>
-              <span>{`${e.nombre} $${e.precio}  ${e.ml}`}</span>
-              <img src={e.imagen} alt="img not found" width="20%" />
-              {/* <ScriptTag src =  "https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"/>;
-              <ScriptTag type = "text/javascript"/>
-              <ScriptTag.dataset.preferenceId = {preference.preferenceId} />;
-              <ScriptTag setAttribute ("data-button-label", "Pagar con Mercado Pago") />;
-              <ScriptTag document.getElementById("order-actions").innerHTML = "" />;
-              <ScriptTag document.querySelector("#order-actions").appendChild(script) />; */}
-            </div>
-          );
-        })}
-        <form id={FORM_ID} method="GET" />
-    </div>
-  );
-};
-=======
             <div>
               <div key={element.id}>
                 <h3>{`${element.nombre}`}</h3>
@@ -155,43 +145,17 @@ const ShoppingCart = ({id}) => {
             </div>
           );
         })}
->>>>>>> 5123e0c6a15e9be4689f4a7efdd39d3afd8bb968
 
       <span>
         {verified && verified.email ? (
-          <button>Buy Products</button>
+          <button onClick={postCarrito}>PAGAR</button>
+          
           ) : (
             <h3>No podrás comprar hasta estar registrado</h3>
             )}
 
-<<<<<<< HEAD
-
-// import React, { useEffect, useState } from 'react';
-// import { useParams } from "react-router-dom";
-
-// const FORM_ID = 'payment-form';
-
-// export default function Product() {
-//   const { id } = useParams(); // id de producto
-//   const [preferenceId, setPreferenceId] = useState(null);
-
-
-
-//   return (
-//     
-//   );
-// }
-
-
-
-/* 
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-=======
         <button onClick={cleanAllCart}>Clean Cart</button>
->>>>>>> 5123e0c6a15e9be4689f4a7efdd39d3afd8bb968
 
-        <button onClick={buttonMercadoPago}>PAGAR</button>
       </span>
     </div>
   );
