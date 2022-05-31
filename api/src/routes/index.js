@@ -159,6 +159,8 @@ router.delete("/bebida/:id", async (req, res) => {
 
 //-------------------BEBIDA FAVORITO------------------//
 
+// "id_prod":"eb9d3249-9eb9-4cc7-b562-8ced0d91e026",
+// "id_user": "S0aGACK7d3NCvnYNNdu9GSzTgrw2"
 router.post("/producto", async (req, res) => {
   let { id_prod, id_user } = req.body;
 
@@ -167,24 +169,20 @@ router.post("/producto", async (req, res) => {
 
     let productoFavorito = await Producto.findByPk(id_prod, {});
 
-    /**
-     * 
-    favorito.findOrCreate({
-      id_user: id_user,
-      id_prod: id_prod
-    })
+    // console.log(usuarioFavorito)
+    // console.log(productoFavorito)
 
-     */
-
-    usuarioFavorito.addProducto(productoFavorito);
+  
+    usuarioFavorito.addUsuario(productoFavorito);
     res.json(usuarioFavorito);
+
   } catch (err) {
     console.log(err.message);
   }
 });
 
 router.get("/producto/favoritos", async (req, res) => {
-  let user = await { Usuario }.findOne({
+  let user = await Usuario.findOne({
     include: {
       model: Producto,
       attributes: ["id", "nombre"],
