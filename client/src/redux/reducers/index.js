@@ -326,13 +326,15 @@ export default function rootReducer(state = initialState, { type, payload }) {
         productCart: array,
       };
 
-    case GET_MERCADO_PAGO:
-      return { ...state, mpSandBox: payload };
+  
     
     case ORDER_MERCADO_PAGO:
       return{
         ...state,
       }
+
+      case GET_MERCADO_PAGO:
+        return { ...state, mpSandBox: payload };
 
     default:
       return state;

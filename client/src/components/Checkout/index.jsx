@@ -9,12 +9,12 @@ const dispatch = useDispatch()
 useEffect(() => {
     // dispatch(getMercadoPago());
     console.log("cualquier cosaaaaaaaaaaaaaaaaaa")
-    
+    dispatch(getMercadoPago())
   }, []);
 
   return (
     <div>Checkout
-        <a href={sandbox}>sandbox:{sandbox}</a>
+       <button><a href={sandbox}>PAGAR</a></button>
 
 
     </div>

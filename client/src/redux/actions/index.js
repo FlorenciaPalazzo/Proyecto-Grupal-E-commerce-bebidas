@@ -288,7 +288,7 @@ export const buyCart = () => {
   };
 };
 
-
+//ESTO ESTA ANDANDO LISTO...
 export const orderMercadoPago = (payload) => {
   return async function (dispatch) {
     try {
@@ -308,11 +308,12 @@ export const orderMercadoPago = (payload) => {
 
 
 
-export const getMercadoPago = (payload) => {
+export const getMercadoPago = () => {
   return async function (dispatch) {
     try {
-      let result = await axios.post("http://localhost:3001/", payload);
+      let result = await axios.post("http://localhost:3001/checkout");
       console.log(result.data)
+      console.log("entro a getMercadoPago")
       return dispatch({
         type: GET_MERCADO_PAGO,
         payload: result.data.sandbox_init_point,
