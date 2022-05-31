@@ -24,7 +24,7 @@ import {
   GET_MERCADO_PAGO,
   ORDER_MERCADO_PAGO,
   SET_FAV,
-   //---------> prueba!!!
+  //---------> prueba!!!
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -42,12 +42,12 @@ const initialState = {
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
-  mpSandBox:[],
-  orderMP:[],  
+  mpSandBox: [],
+  orderMP: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
-  console.log(payload)
+  console.log(payload);
   switch (type) {
     case GET_PRODUCTS:
       return {
@@ -276,9 +276,14 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case ADD_CARRITO:
       let repeated = state.productCart.find((e) => e.id === payload.id); //busca si existe ese id
       const cartProduct = [...state.productCart, payload]; //guarda todo
-      // element = payload.id === e.id
       let prodQuantity = state.productCart.map((prod) =>
-        prod.id === payload.id ? { ...prod, quantity: prod.quantity + 1 } : prod
+        prod.id === payload.id
+          ? {
+              ...prod,
+              quantity: prod.quantity + 1,
+              subtotal: prod.precio * (prod.quantity + 1),
+            }
+          : prod
       ); //modifica el quantity si el id ya existia
 
       repeated
@@ -297,7 +302,13 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case DELETE_ONE_PRODUCT:
       let filter = state.productCart.find((e) => e.id === payload);
       let quantityLess = state.productCart.map((prod) =>
-        prod.id === payload ? { ...prod, quantity: prod.quantity - 1 } : prod
+        prod.id === payload
+          ? {
+              ...prod,
+              quantity: prod.quantity - 1,
+              subtotal: prod.subtotal - prod.precio,
+            }
+          : prod
       );
       console.log("filter ---- > ", filter);
       console.log("quantityLess ---- > ", quantityLess);
@@ -326,15 +337,13 @@ export default function rootReducer(state = initialState, { type, payload }) {
         productCart: array,
       };
 
-  
-    
     case ORDER_MERCADO_PAGO:
-      return{
+      return {
         ...state,
-      }
+      };
 
-      case GET_MERCADO_PAGO:
-        return { ...state, mpSandBox: payload };
+    case GET_MERCADO_PAGO:
+      return { ...state, mpSandBox: payload };
 
     default:
       return state;

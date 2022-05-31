@@ -25,5 +25,8 @@ module.exports = (sequelize) => {
     quantity: {
       type: DataTypes.INTEGER,
     },
+    subtotal: {
+      type: DataTypes.INTEGER, //validar cuando agreguen productos que no tengan coma desde el form
+    },
   });
 };

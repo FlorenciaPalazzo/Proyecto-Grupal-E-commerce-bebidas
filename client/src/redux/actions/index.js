@@ -293,11 +293,10 @@ export const orderMercadoPago = (payload) => {
   return async function (dispatch) {
     try {
       let result = await axios.post("http://localhost:3001/carrito", payload);
-      
-      console.log(result)
+
+      console.log(result);
       return dispatch({
         type: ORDER_MERCADO_PAGO,
-       
       });
     } catch (err) {
       console.log("Error desde el catch de orderMercadoPago", err);
@@ -305,15 +304,12 @@ export const orderMercadoPago = (payload) => {
   };
 };
 
-
-
-
 export const getMercadoPago = () => {
   return async function (dispatch) {
     try {
       let result = await axios.post("http://localhost:3001/checkout");
-      console.log(result.data)
-      console.log("entro a getMercadoPago")
+      console.log(result.data);
+      console.log("entro a getMercadoPago");
       return dispatch({
         type: GET_MERCADO_PAGO,
         payload: result.data.sandbox_init_point,
@@ -323,4 +319,3 @@ export const getMercadoPago = () => {
     }
   };
 };
-

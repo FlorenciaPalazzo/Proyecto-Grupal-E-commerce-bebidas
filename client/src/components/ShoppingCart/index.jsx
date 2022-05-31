@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addCart, cleanCart, deleteOne,getMercadoPago, orderMercadoPago } from "../../redux/actions";
+import {
+  addCart,
+  cleanCart,
+  deleteOne,
+  getMercadoPago,
+  orderMercadoPago,
+} from "../../redux/actions";
 
-const ShoppingCart = ({id}) => {
-
-  let navigate = useNavigate()
+const ShoppingCart = () => {
+  let navigate = useNavigate();
   const dispatch = useDispatch();
 
   const verified = useSelector((state) => state.currentUser); //isEmail
-  console.log("verified", verified);
   const productReducer = useSelector((state) => state.productCart);
   let productCart = JSON.parse(window.localStorage.getItem("product"));
   const localValue = () => {
     return JSON.parse(window.localStorage.getItem("product"));
   };
-
-  
+  console.log("productCart", productCart);
   useEffect(() => {
     localValue();
   }, [dispatch, productReducer]);
@@ -25,6 +28,7 @@ const ShoppingCart = ({id}) => {
   let subtotal = productCart?.map(
     (element) => element.precio * element.quantity
   );
+
   let total = 0;
   subtotal?.forEach((e) => (total += e));
   console.log("total-----", total);
@@ -42,13 +46,12 @@ const ShoppingCart = ({id}) => {
     dispatch(cleanCart());
   };
 
-
-  let postCarrito =(e) =>{
-    e.preventDefault()
-    console.log('soy el dispatch de postCarrito')
-    dispatch(orderMercadoPago(productCart))
-    navigate('/checkout')
-  }
+  let postCarrito = (e) => {
+    e.preventDefault();
+    console.log("productCart --- post carrito", productCart);
+    dispatch(orderMercadoPago(productCart));
+    navigate("/checkout");
+  };
 
   return (
     <div>
@@ -83,13 +86,11 @@ const ShoppingCart = ({id}) => {
       <span>
         {verified && verified.email ? (
           <button onClick={postCarrito}>PAGAR</button>
-          
-          ) : (
-            <h3>No podrás comprar hasta estar registrado</h3>
-            )}
+        ) : (
+          <h3>No podrás comprar hasta estar registrado</h3>
+        )}
 
         <button onClick={cleanAllCart}>Clean Cart</button>
-
       </span>
     </div>
   );

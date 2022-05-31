@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const axios = require("axios");
 
-
 const { Producto, Usuario, Favorito, Carrito } = require("../db");
 
 const bodyParser = require("body-parser");
@@ -149,10 +148,8 @@ router.post("/producto", async (req, res) => {
     // console.log(usuarioFavorito)
     // console.log(productoFavorito)
 
-  
     usuarioFavorito.addUsuario(productoFavorito);
     res.json(usuarioFavorito);
-
   } catch (err) {
     console.log(err.message);
   }
@@ -264,7 +261,14 @@ router.put("/usuario", async (req, res) => {
 });
 
 //------Mercado Pago-----
-
+/* async function deleteCarrito() {
+  try {
+    await Carrito.destroy({ where: { id } });
+    res.status(200).json("Carrito borrado");
+  } catch (err) {
+    console.log(err);
+  }
+} */
 router.post("/checkout", async (req, res) => {
   let productos = await Carrito.findAll();
 
@@ -281,7 +285,7 @@ router.post("/checkout", async (req, res) => {
     };
   });
 
-  console.log(itemsMapeo, " HOLAALALALLALALALALALALALALALA ");
+  console.log(itemsMapeo, " HOLA ");
 
   let preference = {
     items: [...itemsMapeo],
@@ -293,15 +297,11 @@ router.post("/checkout", async (req, res) => {
     // auto_return: "approved",
   };
 
-  console.log(preference.items, "Soy el preference items mapeo y estoy cool");
-
-  console.log(preference, "preferenciaaaaaaaAAAAAAAAAAA");
-
   mercadopago.preferences
     .create(preference)
     .then(function (hola) {
-      console.log(hola.body, "BODYYYYYYYYYYYYYYYYYYYYYYYYYY");
-      // console.log(hola.body.sandbox_init_point, "Soy el supuesto y famoso url");
+      console.log(hola.body, "BODYY");
+
       res.json(hola.body);
     })
     .catch(function (error) {
@@ -309,15 +309,6 @@ router.post("/checkout", async (req, res) => {
     });
 });
 
-// app.get("/feedback", async (req, res) => {
-//   const payment = await mercadopago.payment.findById(req.query.payment_id);
-//   const merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
-//   const preferenceId = merchantOrder.body.preference_id;
-//   const status = payment.body.status;
-//   await repository.updateOrderByPreferenceId(preferenceId, status);
-
-//   res.sendFile(require.resolve("./fe/index.html"));
-// });
 router.post("/carrito", async (req, res) => {
   try {
     let array = req.body; // aca viene el carrito entero
@@ -334,6 +325,7 @@ router.post("/carrito", async (req, res) => {
             quantity: e.quantity,
             precio: e.precio,
             ml: e.ml,
+            subtotal: e.subtotal,
           },
         });
       });
@@ -351,32 +343,22 @@ router.post("/carrito", async (req, res) => {
     console.log(err);
   }
 });
-
-router.post("/carrito", async (req, res) => {
+router.delete("/checkout", async (req, res) => {
   try {
-    let array = req.body; // aca viene el carrito entero
-    console.log("estoy adentro");
-    console.log("array", array);
-    let carrito;
-    let result = array.map(async (e) => {
-      console.log(e);
-      carrito = await Carrito.create({
-        where: {
-          nombre: e.nombre,
-          id: e.id,
-          imagen: e.imagen,
-          quantity: e.quantity,
-          precio: e.precio,
-          ml: e.ml,
-        },
-      }); //e = producto entero, {e.nombre}
-    });
-    //let coso = await Promise.all(result);
-
-    return res.status(200).json(result);
+    Carrito.destroy({ where: {} });
+    res.status(200).json("Carrito borrado");
   } catch (err) {
-    console.log(err);
+    console.log("Error en el catch del delete", err);
   }
 });
+// app.get("/feedback", async (req, res) => {
+//   const payment = await mercadopago.payment.findById(req.query.payment_id);
+//   const merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
+//   const preferenceId = merchantOrder.body.preference_id;
+//   const status = payment.body.status;
+//   await repository.updateOrderByPreferenceId(preferenceId, status);
+
+//   res.sendFile(require.resolve("./fe/index.html"));
+// });
 
 module.exports = router;
