@@ -21,7 +21,7 @@ mercadopago.configure({
 
 //--------------------USUARIO-------------------------
 
-router.get("/usuario/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     let { id } = req.params;
   
     try {
@@ -32,7 +32,7 @@ router.get("/usuario/:id", async (req, res) => {
     }
   });
   
-  router.get("/usuario", async (req, res) => {
+  router.get("/", async (req, res) => {
     try {
       let usuarios = await Usuario.findAll();
       res.status(200).json(usuarios);
@@ -41,7 +41,7 @@ router.get("/usuario/:id", async (req, res) => {
     }
   });
   
-  router.post("/usuario", async (req, res) => {
+  router.post("/", async (req, res) => {
     let = { id, nombre, email, nacimiento, direccion, telefono, isAdmin } =
       req.body;
     console.log("ruta", { id, nombre, email, nacimiento, direccion, telefono });
@@ -65,7 +65,7 @@ router.get("/usuario/:id", async (req, res) => {
     }
   });
   
-  router.delete("/usuario/:id", async (req, res) => {
+  router.delete("/:id", async (req, res) => {
     const { id } = req.params;
   
     const del = await Usuario.destroy({
@@ -76,7 +76,7 @@ router.get("/usuario/:id", async (req, res) => {
     return res.status(200).send("AL LOBBY");
   });
   
-  router.put("/usuario", async (req, res) => {
+  router.put("/", async (req, res) => {
     let { nombre, email, contraseña, nacimiento, direccion, telefono } = req.body;
     let { id } = req.body;
   

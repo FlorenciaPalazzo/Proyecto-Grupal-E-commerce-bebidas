@@ -127,7 +127,7 @@ router.post("/bebida", async (req, res) => {
 
 // "id_prod":"eb9d3249-9eb9-4cc7-b562-8ced0d91e026",
 // "id_user": "S0aGACK7d3NCvnYNNdu9GSzTgrw2"
-router.post("/producto", async (req, res) => {
+router.post("/", async (req, res) => {
     let { id_prod, id_user } = req.body;
   
     try {
@@ -147,7 +147,7 @@ router.post("/producto", async (req, res) => {
     }
   });
   
-  router.get("/producto/favoritos", async (req, res) => {
+  router.get("/favoritos", async (req, res) => {
     let user = await Usuario.findOne({
       include: {
         model: Producto,
@@ -158,7 +158,7 @@ router.post("/producto", async (req, res) => {
     res.json(user);
   });
   
-  router.delete("/producto/favoritos", async (req, res) => {
+  router.delete("/favoritos", async (req, res) => {
     let { id_prod, id_user } = req.body;
   
     let favBorrado = await Favorito.destroy({
