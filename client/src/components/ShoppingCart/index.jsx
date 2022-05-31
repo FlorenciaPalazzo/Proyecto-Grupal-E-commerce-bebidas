@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addCart, cleanCart, deleteOne,getMercadoPago } from "../../redux/actions";
+import { addCart, cleanCart, deleteOne,getMercadoPago, orderMercadoPago } from "../../redux/actions";
 
 const ShoppingCart = ({id}) => {
 
+  let navigate = useNavigate()
+  const dispatch = useDispatch();
 
   const verified = useSelector((state) => state.currentUser); //isEmail
   console.log("verified", verified);
   const productReducer = useSelector((state) => state.productCart);
-  const dispatch = useDispatch();
   let productCart = JSON.parse(window.localStorage.getItem("product"));
   const localValue = () => {
     return JSON.parse(window.localStorage.getItem("product"));
   };
+
+  
   useEffect(() => {
     localValue();
   }, [dispatch, productReducer]);
@@ -39,10 +42,11 @@ const ShoppingCart = ({id}) => {
     dispatch(cleanCart());
   };
 
-  let navigate = useNavigate()
-  const buttonMercadoPago =(e)=>{
+
+  let postCarrito =(e) =>{
     e.preventDefault()
-    dispatch(getMercadoPago(id))
+    console.log('soy el dispatch de postCarrito')
+    dispatch(orderMercadoPago(productCart))
     navigate('/checkout')
   }
 
@@ -78,14 +82,14 @@ const ShoppingCart = ({id}) => {
 
       <span>
         {verified && verified.email ? (
-          <button>Buy Products</button>
+          <button onClick={postCarrito}>PAGAR</button>
+          
           ) : (
             <h3>No podrás comprar hasta estar registrado</h3>
             )}
 
         <button onClick={cleanAllCart}>Clean Cart</button>
 
-        <button onClick={buttonMercadoPago}>PAGAR</button>
       </span>
     </div>
   );

@@ -7,14 +7,14 @@ const  sandbox = useSelector(state => state.mpSandBox)
 const dispatch = useDispatch()
 
 useEffect(() => {
-    dispatch(getMercadoPago());
+    // dispatch(getMercadoPago());
     console.log("cualquier cosaaaaaaaaaaaaaaaaaa")
-    
+    dispatch(getMercadoPago())
   }, []);
 
   return (
     <div>Checkout
-        <a href={sandbox}><p>sandbox:{sandbox}</p></a>
+       <button><a href={sandbox}>PAGAR</a></button>
 
 
     </div>
