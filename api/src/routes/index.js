@@ -8,15 +8,6 @@ const bodyParser = require("body-parser");
 
 const router = Router();
 
-<<<<<<< HEAD
-const mercadopago = require("mercadopago");
-const orden = require('../models/orden');
-
-mercadopago.configure({
-  access_token: "APP_USR-3516754288034643-052717-a71610e2187c78804eaefb28cae58b1e-182593787",
-});
-
-=======
 router.use(bodyParser.urlencoded({ extended: false }));
 
 // SDK de Mercado Pago
@@ -28,7 +19,6 @@ mercadopago.configure({
 });
 
 
->>>>>>> 5123e0c6a15e9be4689f4a7efdd39d3afd8bb968
 // router.use('./bebidas' , bebidas)
 
 ///////////////////////////////////////////////////////////////////////////////////

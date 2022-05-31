@@ -54,18 +54,10 @@ export default function Card({
           <h2 className="card-title"> {nombre} </h2> {/*nombre del producto*/}
           <p className="card-body">
             {/*cuerpo de la card*/}
-<<<<<<< HEAD
-            Brand: {marca} <br /> {/*Marca*/}
-            Alcohol content: {graduacion} % <br /> {/*Graduacion*/}
-            Size: {ml}ml <br /> {/*Tamaño en mililitros*/}
-            Price: ${precio} <br /> {/*Precio*/}
-
-=======
             <p className="card-brand">Brand: {marca}</p>
             <p className="card-alcohol">Alcohol content: {graduacion} % </p>
             <p className="card-ml">Size: {ml}ml </p>
->>>>>>> 5123e0c6a15e9be4689f4a7efdd39d3afd8bb968
-          </p>
+s          </p>
           <p className="card-price">Price: ${precio} </p>
         </div>
       </div>
