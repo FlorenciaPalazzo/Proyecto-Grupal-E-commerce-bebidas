@@ -5,15 +5,18 @@ import { addCart, cleanCart, deleteOne,getMercadoPago, orderMercadoPago } from "
 
 const ShoppingCart = ({id}) => {
 
+  let navigate = useNavigate()
+  const dispatch = useDispatch();
 
   const verified = useSelector((state) => state.currentUser); //isEmail
   console.log("verified", verified);
   const productReducer = useSelector((state) => state.productCart);
-  const dispatch = useDispatch();
   let productCart = JSON.parse(window.localStorage.getItem("product"));
   const localValue = () => {
     return JSON.parse(window.localStorage.getItem("product"));
   };
+
+  
   useEffect(() => {
     localValue();
   }, [dispatch, productReducer]);
@@ -39,12 +42,6 @@ const ShoppingCart = ({id}) => {
     dispatch(cleanCart());
   };
 
-  let navigate = useNavigate()
-  const buttonMercadoPago =(e)=>{
-    e.preventDefault()
-    // dispatch(getMercadoPago(id))
-   
-  }
 
   let postCarrito =(e) =>{
     e.preventDefault()
