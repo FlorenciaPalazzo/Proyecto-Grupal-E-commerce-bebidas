@@ -47,8 +47,8 @@ export default function FilterBy({ setCurrentPage }) {
   };
 
   return (
-    <div>
-      <div>
+    <div className="div-filter">
+      <div className="div-select">
         <select className="selector" name="" id="" onChange={handleBrand}>
           <option>Brands</option>
           <option value="all">All</option>
@@ -60,7 +60,7 @@ export default function FilterBy({ setCurrentPage }) {
             ))}
         </select>
       </div>
-      <div>
+      <div className="div-select">
         <select className="selector" onChange={handleType} defaultValue="Type">
           <option value="">Type</option>
           <option value="all">All</option>
@@ -71,7 +71,7 @@ export default function FilterBy({ setCurrentPage }) {
           <option value="destilado">Destilled</option>
         </select>
       </div>
-      <div>
+      <div className="div-select">
         <select
           className="selector"
           name=""
@@ -87,7 +87,7 @@ export default function FilterBy({ setCurrentPage }) {
           <option value="high">39°-55°</option>
         </select>
       </div>
-      <div>
+      <div className="div-select">
         <select
           className="selector"
           name=""
@@ -104,7 +104,7 @@ export default function FilterBy({ setCurrentPage }) {
           <option value="ml_4">950ml-1500ml</option>
         </select>
       </div>
-      <div>
+      <div className="div-select">
         <select
           className="selector"
           name=""
@@ -124,7 +124,7 @@ export default function FilterBy({ setCurrentPage }) {
           <option value="price_7">+$35000</option>
         </select>
       </div>
-      <div>
+      <div className="div-select">
         <select
           className="selector"
           name=""
