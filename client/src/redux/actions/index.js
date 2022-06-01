@@ -25,6 +25,7 @@ import {
   ORDER_MERCADO_PAGO,
   DELETE_MERCADO_PAGO,
   FEEDBACK_MERCADO_PAGO,
+  POST_REVIEW,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -349,3 +350,19 @@ export const feedBack = () => {
     }
   };
 };
+
+// -------- review --------
+
+export const postReview = () => {
+  return async function (dispatch) {
+    try{
+      let result = await axios.post("http://localhost:3001/review/" + id);
+      return dispatch({
+        type: POST_REVIEW,
+        payload: result.data,
+      });
+    }catch(e){
+      console.log(e)
+    }
+  }
+}

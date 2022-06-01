@@ -26,6 +26,7 @@ import {
   SET_FAV,
   DELETE_MERCADO_PAGO,
   FEEDBACK_MERCADO_PAGO,
+  POST_REVIEW,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -356,6 +357,10 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         feedBackMP: payload,
       };
+    case POST_REVIEW: 
+      return{      
+        ...state        ,
+      };          
     default:
       return state;
   }
