@@ -137,13 +137,6 @@ router.delete("/bebida/:id", async (req, res) => {
 
 //-------------------BEBIDA FAVORITO------------------//
 
-
-
-
-
-
-
-
 // "id_prod":"eb9d3249-9eb9-4cc7-b562-8ced0d91e026",
 // "id_user": "S0aGACK7d3NCvnYNNdu9GSzTgrw2"
 router.post("/producto", async (req, res) => {
