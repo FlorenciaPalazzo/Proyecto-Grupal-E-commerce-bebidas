@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCart } from "../../redux/actions";
+import { addCart, setFavorito } from "../../redux/actions";
 import "./CardStyles.css";
 export default function Card({
   nombre,
@@ -20,12 +20,19 @@ export default function Card({
     graduacion,
     precio,
     quantity: 1,
+    subtotal: precio,
   };
+  console.log("subtotal", productObject.subtotal);
   const dispatch = useDispatch();
 
   const handleAddCarrito = (e) => {
     e.preventDefault();
     dispatch(addCart(productObject));
+  };
+
+  const handleAddFavorito = (e) => {
+    e.preventDefault();
+    dispatch(setFavorito());
   };
 
   //acá traigo todas las propiedades
@@ -57,9 +64,12 @@ export default function Card({
             <p className="card-brand">Brand: {marca}</p>
             <p className="card-alcohol">Alcohol content: {graduacion} % </p>
             <p className="card-ml">Size: {ml}ml </p>
-          </p>
+s          </p>
           <p className="card-price">Price: ${precio} </p>
         </div>
+        <button className="button-fav" onClick={handleAddFavorito}>
+          ❤
+        </button>
       </div>
     </div>
   );
