@@ -33,5 +33,5 @@ function App() {
   );
 }
 
-// base
+// base 64 como codificar y decodificar
 export default App;

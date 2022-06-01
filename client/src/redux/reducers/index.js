@@ -356,6 +356,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         feedBackMP: payload,
       };
+    case SET_FAV:
+      return { ...state, favProducts: payload };
     default:
       return state;
   }
