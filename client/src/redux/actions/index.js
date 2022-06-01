@@ -23,6 +23,8 @@ import {
   ADD_IN_CART,
   GET_MERCADO_PAGO,
   ORDER_MERCADO_PAGO,
+  DELETE_MERCADO_PAGO,
+  FEEDBACK_MERCADO_PAGO,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -289,7 +291,7 @@ export const buyCart = () => {
 };
 
 //ESTO ESTA ANDANDO LISTO...
-export const orderMercadoPago = (payload) => {
+export const orderMercadoPago = (localStorage) => {
   return async function (dispatch) {
     try {
       let result = await axios.post("http://localhost:3001/usuario/carrito", payload);
@@ -297,16 +299,12 @@ export const orderMercadoPago = (payload) => {
       console.log(result)
       return dispatch({
         type: ORDER_MERCADO_PAGO,
-       
       });
     } catch (err) {
       console.log("Error desde el catch de orderMercadoPago", err);
     }
   };
 };
-
-
-
 
 export const getMercadoPago = () => {
   return async function (dispatch) {

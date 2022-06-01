@@ -20,7 +20,9 @@ export default function Card({
     graduacion,
     precio,
     quantity: 1,
+    subtotal: precio,
   };
+  console.log("subtotal", productObject.subtotal);
   const dispatch = useDispatch();
 
   const handleAddCarrito = (e) => {
@@ -28,10 +30,10 @@ export default function Card({
     dispatch(addCart(productObject));
   };
 
-  const handleAddFavorito =(e)=>{
-    e.preventDefault()
-    dispatch(setFavorito())
-  }  
+  const handleAddFavorito = (e) => {
+    e.preventDefault();
+    dispatch(setFavorito());
+  };
 
   //acá traigo todas las propiedades
   return (
@@ -65,7 +67,9 @@ export default function Card({
 s          </p>
           <p className="card-price">Price: ${precio} </p>
         </div>
-    <button onClick={handleAddFavorito}>❤</button>
+        <button className="button-fav" onClick={handleAddFavorito}>
+          ❤
+        </button>
       </div>
     </div>
   );

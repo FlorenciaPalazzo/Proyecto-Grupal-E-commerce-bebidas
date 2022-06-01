@@ -15,7 +15,7 @@ a:active {
 .card-content,
 .card-title,
 .card-body {
-  background-color: white;
+  background-color: rgb(255, 255, 255, 0.5);
 }
 
 .card-main {
@@ -25,15 +25,13 @@ a:active {
   padding: 10px;
   margin: 15px;
   margin-bottom: 50px;
-  border: 2px solid;
-  border-radius: 10px;
   font-family: "Montserrat";
   height: 85%;
   transition: box-shadow 0.2s ease-in-out;
 }
 
 .card-main:hover {
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 20px rgb(190, 190, 190, 0.5);
   transition: box-shadow 0.2s ease-in-out;
 }
 
@@ -52,6 +50,13 @@ a:active {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.card:hover .card-body {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .card-brand,
