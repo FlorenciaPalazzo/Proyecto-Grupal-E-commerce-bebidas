@@ -388,3 +388,96 @@
 //     console.log(err);
 //   }
 // });
+
+//------Mercado Pago-----
+  
+// router.post("/checkout", async (req, res) => {
+  
+//     let productos = await Carrito.findAll();
+  
+//     console.log( productos, "================ SOY LO QUE BUSCABAS   BY TONI =============== ");
+  
+  
+//     let itemsMapeo = productos.map(e => {
+//       return {
+//         title : e.nombre ,
+//         unit_price : parseInt(e.precio),
+//         quantity : parseInt(e.quantity)
+//       }
+//     } )
+    
+//     console.log(itemsMapeo, " HOLAALALALLALALALALALALALALALA ")
+    
+//     let preference = {
+//       items: [...itemsMapeo],
+//       // back_urls: {
+//         //   success: "http://localhost:3000/feedback",
+//         //   failure: "http://localhost:3000/feedback",
+//         //   pending: "http://localhost:3000/feedback",
+//         // },
+//         // auto_return: "approved",
+//       };
+  
+//     console.log(preference.items, "Soy el preference items mapeo y estoy cool")
+      
+  
+//     console.log(preference, "preferenciaaaaaaaAAAAAAAAAAA");
+  
+//     mercadopago.preferences
+//       .create(preference)
+//       .then(function (hola) {
+//         console.log(hola.body, "BODYYYYYYYYYYYYYYYYYYYYYYYYYY");
+//         // console.log(hola.body.sandbox_init_point, "Soy el supuesto y famoso url");
+//         res.json(hola.body);
+//       })
+//       .catch(function (error) {
+//         console.log(error);
+//       });
+//   });
+  
+//   // app.get("/feedback", async (req, res) => {
+//   //   const payment = await mercadopago.payment.findById(req.query.payment_id);
+//   //   const merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
+//   //   const preferenceId = merchantOrder.body.preference_id;
+//   //   const status = payment.body.status;
+//   //   await repository.updateOrderByPreferenceId(preferenceId, status);
+  
+//   //   res.sendFile(require.resolve("./fe/index.html"));
+//   // });
+//   router.post("/carrito", async (req, res) => {
+//     try {
+//       let array  = req.body; // aca viene el carrito entero
+  
+//       console.log("array", array);
+  
+  
+//       let promesa = await new Promise( (resolve,reject) => {
+  
+//         let result =    array.map(  (e) => { 
+//           return   Carrito.findOrCreate({
+//             where: {
+//               nombre: e.nombre,
+//               id: e.id,
+//               imagen: e.imagen,
+//               quantity: e.quantity,
+//               precio: e.precio,
+//               ml: e.ml,
+//             },
+//           })
+//         })
+  
+//         resolve(result)
+//       })// cierre de promise 
+//       .then( (e) => Promise.all( e ))
+  
+//           // let todomorocho = Promise.all(result).then( e =>  e)
+//       // let cosas = await Carrito.findAll()
+//       console.log(promesa, "Muchas cosas wooooooooooo")
+      
+//       return res.status(200).json(promesa[0]);
+  
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   });
+  
