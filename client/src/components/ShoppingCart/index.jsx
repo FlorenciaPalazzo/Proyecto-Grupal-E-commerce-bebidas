@@ -94,13 +94,14 @@ const ShoppingCart = () => {
             })}
 
           <span>
-            {verified && verified.email ? (
-              <button onClick={postCarrito}>PAGAR</button>
-            ) : (
+            {verified.email && productCart.length ? (
+              <div>
+                <button onClick={postCarrito}>PAGAR</button>
+                <button onClick={cleanAllCart}>Clean Cart</button>
+              </div>
+            ) : !verified ? (
               <h3>No podrás comprar hasta estar registrado</h3>
-            )}
-
-            <button onClick={cleanAllCart}>Clean Cart</button>
+            ) : null}
           </span>
         </div>
       )}
