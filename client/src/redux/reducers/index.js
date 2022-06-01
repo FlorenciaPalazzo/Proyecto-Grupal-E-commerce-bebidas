@@ -38,12 +38,12 @@ const initialState = {
   searchProduct: [],
   productsSort: [],
   detail: [],
-  favProducts: [],
   productCart: JSON.parse(localStorage.getItem("product"))
-    ? JSON.parse(localStorage.getItem("product"))
-    : [],
+  ? JSON.parse(localStorage.getItem("product"))
+  : [],
   mpSandBox:[],
   orderMP:[],  
+  favProducts: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -59,8 +59,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return { ...state, currentUser: payload, isLoged: true };
     case RESET_USER:
       return { ...state, currentUser: {}, isLoged: false, favProducts: [] };
+
     case GET_USERS_LOGED:
+      
       return { ...state, usersLoged: payload };
+      
     case SET_LOADING:
       return { ...state, isLoading: payload };
     case ADMIN_HANDLER: {
@@ -80,8 +83,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case GET_PRODUCT_NAME:
       return { ...state, products: payload, searchProduct: payload };
 
-    case SET_FAV:
-      return { ...state, favProducts: payload };
+   
 
     case GET_PRODUCT_ID:
       return { ...state, detail: payload };
@@ -335,6 +337,10 @@ export default function rootReducer(state = initialState, { type, payload }) {
 
       case GET_MERCADO_PAGO:
         return { ...state, mpSandBox: payload };
+
+
+      case SET_FAV:
+        return { ...state, favProducts: payload };
 
     default:
       return state;
