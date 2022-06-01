@@ -75,7 +75,7 @@ export default function Card({
             {/*cuerpo de la card*/}
             <p className="card-brand">Brand: {marca}</p>
             <p className="card-alcohol">Alcohol content: {graduacion} % </p>
-            <p className="card-ml">Size: {ml}ml </p>s{" "}
+            <p className="card-ml">Size: {ml}ml </p>
           </p>
           <p className="card-price">Price: ${precio} </p>
         </div>

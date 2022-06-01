@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   addCart,
   cleanCart,
+  deleteMercadoPago,
   deleteOne,
   feedBack,
   getMercadoPago,
@@ -50,6 +51,7 @@ const ShoppingCart = () => {
   const cleanAllCart = (e) => {
     e.preventDefault();
     dispatch(cleanCart());
+    dispatch(deleteMercadoPago());
   };
 
   let postCarrito = (e) => {
