@@ -42,12 +42,17 @@ export default function NavBar({ setCurrentPage }) {
               </svg>
             </button>
           </Link>
-          <button className="button" onClick={out}>
+          <div className="dropdown">
+            <button className="dropbtn"> Account </button>
+            <div className="dropdown-content">
+              <button className="button" onClick={out}>
             Logout
           </button>
           <button className="button" onClick={() => navigate("/profile")}>
             Profile
           </button>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="nav-links">
@@ -64,12 +69,17 @@ export default function NavBar({ setCurrentPage }) {
               </svg>
             </button>
           </Link>
-          <button className="button" onClick={() => navigate("/login")}>
+          <div className="dropdown">
+            <button className="dropbtn"> Account </button>
+            <div className="dropdown-content">
+              <button className="button" onClick={() => navigate("/login")}>
             Login
           </button>
           <button className="button" onClick={() => navigate("/register")}>
             Sign up
           </button>
+            </div>
+          </div>
         </div>
       )}
       <div className="div-searchbar">
