@@ -3,6 +3,12 @@ import React from "react";
 
 
 export default function postReview(){
+    const dispatch = useDispatch();
+    const [input, setInput] = useState({
+       titulo: '',
+       descripcion: '',
+       rating: '',
+      })
     return(
         <div>
             <h1>Dejanos tu Reseña.</h1>

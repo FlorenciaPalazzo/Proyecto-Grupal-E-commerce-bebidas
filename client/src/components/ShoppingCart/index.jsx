@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 //<<<<<<< HEAD
 // import ScriptTag from 'react-script-tag';
 import { useParams } from "react-router-dom";
-import useScript from "./useScript";
+// import useScript from "./useScript";
 import axios from 'axios';
 
 const FORM_ID = 'payment-form';
@@ -12,14 +12,6 @@ const FORM_ID = 'payment-form';
 //=======
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
-//<<<<<<< HEAD
-import { addCart, cleanCart, deleteOne,getMercadoPago } from "../../redux/actions";
-//>>>>>>> 5123e0c6a15e9be4689f4a7efdd39d3afd8bb968
-//=======
-import { addCart, cleanCart, deleteOne,getMercadoPago, orderMercadoPago } from "../../redux/actions";
-//>>>>>>> 24ba4cfdb9e84de44538634be407e2a16d4a8dc6
-=======
 import {
   addCart,
   cleanCart,
@@ -29,7 +21,6 @@ import {
   orderMercadoPago,
 } from "../../redux/actions";
 import Loading from "../Loading";
->>>>>>> 4ed36d4cb22d09e5139d6a2d09c4cca4d4cf4dcc
 
 const ShoppingCart = () => {
   let navigate = useNavigate();
