@@ -24,6 +24,8 @@ import {
   GET_MERCADO_PAGO,
   ORDER_MERCADO_PAGO,
   SET_FAV,
+  GET_FAV,
+  DEL_FAV,
   DELETE_MERCADO_PAGO,
   FEEDBACK_MERCADO_PAGO,
   //---------> prueba!!!
@@ -46,6 +48,7 @@ const initialState = {
   mpSandBox: "",
   orderMP: [],
   feedBackMP: [],
+  favProducts: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -357,8 +360,34 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         feedBackMP: payload,
       };
+
+
+
     case SET_FAV:
       return { ...state, favProducts: payload };
+
+    case GET_FAV:
+      let productos = state.products//te trae todos los productos
+      let ids= payload.map((e)=> e.productoId)
+      let arr= [];
+      console.log("SOY EL PAYLOAD", payload)
+      
+      productos.map((e)=>{
+        if(ids.includes(e.id)){
+          arr.push(e)
+        }
+      })
+     
+      console.log("SOY EL FILTRO PROD",arr)
+
+      return {
+        ...state, 
+        favProducts: arr,
+      }
+
+      case DEL_FAV:
+        return { ...state};
+
     default:
       return state;
   }

@@ -16,6 +16,8 @@ import {
   ADD_CARRITO,
   RESET_USER,
   SET_FAV,
+  GET_FAV,
+  DEL_FAV,
   CREATE_USER,
   GET_USERS_LOGED,
   DELETE_ONE_PRODUCT,
@@ -25,6 +27,7 @@ import {
   ORDER_MERCADO_PAGO,
   DELETE_MERCADO_PAGO,
   FEEDBACK_MERCADO_PAGO,
+
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -352,3 +355,32 @@ export const setFavorito = (payload) => {
     }
   };
 };
+
+export const getFavorito =(id)=>{
+  return async function (dispatch) {
+    try {
+      let result = await axios.get(`http://localhost:3001/producto/favoritos/${id}` );
+      return dispatch({
+        type: GET_FAV,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
+export const deleteFavorito =(payload,id)=>{
+  return async function (dispatch) {
+    try {
+      console.log("SOY EL PAYLOAD DE LA ACTION",payload)
+      let result = await axios.delete(`http://localhost:3001/producto/favoritos/${id}`, payload );
+      return dispatch({
+        type: DEL_FAV,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}

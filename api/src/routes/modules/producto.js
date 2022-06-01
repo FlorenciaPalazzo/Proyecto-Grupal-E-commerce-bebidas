@@ -138,8 +138,8 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/favoritos", async (req, res) => {
-  let { id_user } = req.body;
+router.get("/favoritos/:id_user", async (req, res) => {
+  let { id_user } = req.params;
   try {
     let favs = await Favorito.findAll({ where: { usuarioId: id_user } });
     res.status(200).json(favs);
@@ -148,12 +148,16 @@ router.get("/favoritos", async (req, res) => {
   }
 });
 
-router.delete("/favoritos", async (req, res) => {
-  let { id_prod, id_user } = req.body;
+router.delete("/favoritos/:id_user", async (req, res) => {
+  let { id_user } = req.params;
+  console.log("soy el id prod",id_user)
+  let { productoId } = req.body;
+
+  console.log("soy el id prod",productoId)
   let favBorrado = await Favorito.destroy({
     where: {
       usuarioId: id_user,
-      productoId: id_prod,
+      productoId: productoId,
     },
   });
   res.json(Favorito);
