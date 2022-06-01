@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { signUp } from "./authServices";
+import validate from "./authServices";
 import {
   createUserWithEmailAndPassword,
-  sendEmailVerification,
-  signInWithPopup,
-  GoogleAuthProvider,
+  sendEmailVerification
 } from "firebase/auth";
-import { auth, googleProvider } from "../../fb";
+import { auth } from "../../fb";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser, isAdmin, setUser } from "../../redux/actions";
@@ -16,18 +14,20 @@ import Loading from "../Loading";
 function Register() {
   // { id, nombre, email, nacimiento, direccion, telefono }
   const [input, setInput] = useState({
-    nombre: "",
-    nacimiento: "",
-    direccion: "",
-    telefono: "",
-    email: "",
-    password: "",
+    nombre: null,
+    apellido: null,
+    nacimiento: null,
+    direccion: null,
+    telefono: null,
+    email: null,
+    password: null,
   });
 
-  const [birthError, setBirthError] = useState(null)
-  const [EmailError, setEmailError] = useState(null)
-  const [passwordError, setPasswordError] = useState(null)
-
+  const [nameError, setNameError] = useState(null);
+  const [surnameError, setSurnameError] = useState(null);
+  const [birthError, setBirthError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
 
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
@@ -35,37 +35,17 @@ function Register() {
 
   function handleChange(e) {
     setInput({ ...input, [e.target.name]: e.target.value });
-    validate(e.target.value, e.target.name)
+    validate(
+      e.target.value,
+      e.target.name,
+      setBirthError,
+      setEmailError,
+      setNameError,
+      setPasswordError,
+      setSurnameError
+    );
   }
 
-  function birthValidate(input) {
-    let today = new Date();
-    let birth = new Date(input);
-    let yOld = today.getFullYear() - birth.getFullYear();
-    let month = today.getMonth() - birth.getMonth();
-    if (month < 0 || (month === 0 && today.getDate() < birth.getDate())) {
-        yOld--;
-    }
-    return yOld;
-}
-
-  function validate(input,name){
-      if(name === "nacimiento"){
-          const dateValidation =
-        /^(?:(?:(?:0?[1-9]|1\d|2[0-8])[/](?:0?[1-9]|1[0-2])|(?:29|30)[/](?:0?[13-9]|1[0-2])|31[/](?:0?[13578]|1[02]))[/](?:0{2,3}[1-9]|0{1,2}[1-9]\d|0?[1-9]\d{2}|[1-9]\d{3})|29[/]0?2[/](?:\d{1,2}(?:0[48]|[2468][048]|[13579][26])|(?:0?[48]|[13579][26]|[2468][048])00))$/;
-        if(dateValidation.test(input) && parseInt(input.split("/")[2])>1920){
-            var r = input.split("/").reverse().join("/")
-            if(birthValidate(r) < 18) setBirthError("Debe ser mayor de 18 años")
-            else setBirthError(null)
-        }    
-        else setBirthError("La fecha es invalida")
-    }
-    if(name === "password"){
-        if(input.length < 6){
-            setPasswordError("La contraseña debe tener mas de 6")
-        }
-    }
-  }
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
@@ -83,7 +63,7 @@ function Register() {
         dispatch(
           createUser({
             id: user.uid,
-            nombre: input.nombre,
+            nombre: `${input.nombre} ${input.apellido}`,
             email: input.email,
             nacimiento: input.nacimiento,
             direccion: input.direccion,
@@ -101,6 +81,7 @@ function Register() {
   useEffect(() => {
     isLoged && navigate("/home");
   }, [isLoged]);
+
   return (
     <div>
       {loading && !isLoged ? (
@@ -114,13 +95,23 @@ function Register() {
           <div>
             {error && <span>{error}</span>}
             <form onSubmit={handleSubmit}>
-              <label htmlFor="nombre">Name</label>
+              <label htmlFor="nombre">Nombre</label>
               <input
                 type="text"
                 name="nombre"
                 placeholder="Enter your name"
                 onChange={handleChange}
               />
+              {nameError && <span>{nameError}</span>}
+              <br />
+              <label htmlFor="apellido">Apellido</label>
+              <input
+                type="text"
+                name="apellido"
+                placeholder="Enter your surname"
+                onChange={handleChange}
+              />
+              {surnameError && <span>{surnameError}</span>}
               <br />
               <label htmlFor="telefono">Phone</label>
               <input
@@ -145,9 +136,7 @@ function Register() {
                 placeholder="dd/mm/yyyy"
                 onChange={handleChange}
               />
-              {birthError &&
-                 <span>{birthError}</span>
-              }
+              {birthError && <span>{birthError}</span>}
               <br />
               <label htmlFor="email">Email</label>
               <input
@@ -156,7 +145,7 @@ function Register() {
                 placeholder="Enter your email"
                 onChange={handleChange}
               />
-
+              {emailError && <span>{emailError}</span>}
               <br />
               <label htmlFor="password">Password</label>
               <input
@@ -165,8 +154,28 @@ function Register() {
                 id="password"
                 onChange={handleChange}
               />
+              {passwordError && <span>{passwordError}</span>}
+              <br />
 
-              <button>Register</button>
+              {!passwordError &&
+              !surnameError &&
+              !nameError &&
+              !emailError &&
+              !birthError &&
+              input.nombre &&
+              input.apellido &&
+              input.password &&
+              input.nacimiento &&
+              input.email ? (
+                <button>Register</button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => alert("Complete todos los campos")}
+                >
+                  Register
+                </button>
+              )}
             </form>
             <hr />
           </div>
