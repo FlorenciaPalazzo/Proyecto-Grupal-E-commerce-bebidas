@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { signUp } from "./authServices";
+import validate from "./authServices";
 import {
   createUserWithEmailAndPassword,
-  sendEmailVerification,
-  signInWithPopup,
-  GoogleAuthProvider,
+  sendEmailVerification
 } from "firebase/auth";
-import { auth, googleProvider } from "../../fb";
+import { auth } from "../../fb";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser, isAdmin, setUser } from "../../redux/actions";
@@ -16,19 +14,36 @@ import Loading from "../Loading";
 function Register() {
   // { id, nombre, email, nacimiento, direccion, telefono }
   const [input, setInput] = useState({
-    nombre: "",
-    nacimiento: "",
-    direccion: "",
-    telefono: "",
-    email: "",
-    password: "",
+    nombre: null,
+    apellido: null,
+    nacimiento: null,
+    direccion: null,
+    telefono: null,
+    email: null,
+    password: null,
   });
+
+  const [nameError, setNameError] = useState(null);
+  const [surnameError, setSurnameError] = useState(null);
+  const [birthError, setBirthError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
+
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
   function handleChange(e) {
     setInput({ ...input, [e.target.name]: e.target.value });
+    validate(
+      e.target.value,
+      e.target.name,
+      setBirthError,
+      setEmailError,
+      setNameError,
+      setPasswordError,
+      setSurnameError
+    );
   }
 
   async function handleSubmit(e) {
@@ -48,7 +63,7 @@ function Register() {
         dispatch(
           createUser({
             id: user.uid,
-            nombre: input.nombre,
+            nombre: `${input.nombre} ${input.apellido}`,
             email: input.email,
             nacimiento: input.nacimiento,
             direccion: input.direccion,
@@ -61,6 +76,7 @@ function Register() {
       .catch((err) => setError(err.message));
   }
 
+<<<<<<< HEAD
   async function googleHandleSubmit(e) {
     setError(null);
     e.preventDefault();
@@ -89,11 +105,14 @@ function Register() {
       });
   }
 
+=======
+>>>>>>> 97a60de133105fdf5a3cb9b1541e50440e04d2bb
   const loading = useSelector((state) => state.isLoading);
   const isLoged = useSelector((state) => state.isLoged);
   useEffect(() => {
     isLoged && navigate("/home");
   }, [isLoged]);
+
   return (
     <div>
       {loading && !isLoged ? (
@@ -107,13 +126,23 @@ function Register() {
           <div>
             {error && <span>{error}</span>}
             <form onSubmit={handleSubmit}>
-              <label htmlFor="nombre">Name</label>
+              <label htmlFor="nombre">Nombre</label>
               <input
                 type="text"
                 name="nombre"
                 placeholder="Enter your name"
                 onChange={handleChange}
               />
+              {nameError && <span>{nameError}</span>}
+              <br />
+              <label htmlFor="apellido">Apellido</label>
+              <input
+                type="text"
+                name="apellido"
+                placeholder="Enter your surname"
+                onChange={handleChange}
+              />
+              {surnameError && <span>{surnameError}</span>}
               <br />
               <label htmlFor="telefono">Phone</label>
               <input
@@ -135,9 +164,10 @@ function Register() {
               <input
                 type="text"
                 name="nacimiento"
-                placeholder="dd/mm/yy"
+                placeholder="dd/mm/yyyy"
                 onChange={handleChange}
               />
+              {birthError && <span>{birthError}</span>}
               <br />
               <label htmlFor="email">Email</label>
               <input
@@ -146,7 +176,7 @@ function Register() {
                 placeholder="Enter your email"
                 onChange={handleChange}
               />
-
+              {emailError && <span>{emailError}</span>}
               <br />
               <label htmlFor="password">Password</label>
               <input
@@ -155,11 +185,30 @@ function Register() {
                 id="password"
                 onChange={handleChange}
               />
+              {passwordError && <span>{passwordError}</span>}
+              <br />
 
-              <button>Register</button>
+              {!passwordError &&
+              !surnameError &&
+              !nameError &&
+              !emailError &&
+              !birthError &&
+              input.nombre &&
+              input.apellido &&
+              input.password &&
+              input.nacimiento &&
+              input.email ? (
+                <button>Register</button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => alert("Complete todos los campos")}
+                >
+                  Register
+                </button>
+              )}
             </form>
             <hr />
-            <button onClick={googleHandleSubmit}>SignUp with Google</button>
           </div>
         </div>
       )}

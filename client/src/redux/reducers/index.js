@@ -24,7 +24,9 @@ import {
   GET_MERCADO_PAGO,
   ORDER_MERCADO_PAGO,
   SET_FAV,
-   //---------> prueba!!!
+  DELETE_MERCADO_PAGO,
+  FEEDBACK_MERCADO_PAGO,
+  //---------> prueba!!!
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -42,12 +44,13 @@ const initialState = {
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
-  mpSandBox:[],
-  orderMP:[],  
+  mpSandBox: "",
+  orderMP: [],
+  feedBackMP: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
-  console.log(payload)
+  console.log("payload del reducer probando carrito", payload);
   switch (type) {
     case GET_PRODUCTS:
       return {
@@ -274,9 +277,14 @@ export default function rootReducer(state = initialState, { type, payload }) {
       case ADD_CARRITO:
       let repeated = state.productCart.find((e) => e.id === payload.id); //busca si existe ese id
       const cartProduct = [...state.productCart, payload]; //guarda todo
-      // element = payload.id === e.id
       let prodQuantity = state.productCart.map((prod) =>
-        prod.id === payload.id ? { ...prod, quantity: prod.quantity + 1 } : prod
+        prod.id === payload.id
+          ? {
+              ...prod,
+              quantity: prod.quantity + 1,
+              subtotal: prod.precio * (prod.quantity + 1),
+            }
+          : prod
       ); //modifica el quantity si el id ya existia
 
       repeated
@@ -289,18 +297,24 @@ export default function rootReducer(state = initialState, { type, payload }) {
           productCart: prodQuantity, //return modificado
         }
         : {
-          ...state,
-          productCart: [...state.productCart, payload], //return default
-        };
-        case DELETE_ONE_PRODUCT:
-          let filter = state.productCart.find((e) => e.id === payload);
-          let quantityLess = state.productCart.map((prod) =>
-        prod.id === payload ? { ...prod, quantity: prod.quantity - 1 } : prod
-        );
-        console.log("filter ---- > ", filter);
-        console.log("quantityLess ---- > ", quantityLess);
-        console.log("productCart", state.productCart);
-        filter.quantity >= 2
+            ...state,
+            productCart: [...state.productCart, payload], //return default
+          };
+    case DELETE_ONE_PRODUCT:
+      let filter = state.productCart.find((e) => e.id === payload);
+      let quantityLess = state.productCart.map((prod) =>
+        prod.id === payload
+          ? {
+              ...prod,
+              quantity: prod.quantity - 1,
+              subtotal: prod.subtotal - prod.precio,
+            }
+          : prod
+      );
+      console.log("filter ---- > ", filter);
+      console.log("quantityLess ---- > ", quantityLess);
+      console.log("productCart", state.productCart);
+      filter.quantity >= 2
         ? localStorage.setItem("product", JSON.stringify(quantityLess))
         : localStorage.setItem(
           "product",
@@ -315,7 +329,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
             ...state,
             productCart: state.productCart.filter((e) => e.id !== payload),
           };
-
     case REMOVE_ALL_CARRITO:
       let array = [];
       localStorage.setItem("product", JSON.stringify(array));
@@ -323,22 +336,27 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         productCart: array,
       };
-      
-      
-    
-      case ORDER_MERCADO_PAGO:
-        return{
-          ...state,
-        }
-        
-        case GET_MERCADO_PAGO:
-          return { ...state, mpSandBox: payload };
-          
-          case SET_FAV:
-            return { ...state, favProducts: payload };
-
-
-          default:
-            return state;
-          }
-        }
+    case ORDER_MERCADO_PAGO:
+      return {
+        ...state,
+      };
+    case GET_MERCADO_PAGO:
+      return { ...state, mpSandBox: payload };
+    case DELETE_MERCADO_PAGO:
+      let carritoVacio = [];
+      localStorage.setItem("product", JSON.stringify(carritoVacio));
+      return {
+        ...state,
+        productCart: carritoVacio,
+      };
+    case FEEDBACK_MERCADO_PAGO:
+      return {
+        ...state,
+        feedBackMP: payload,
+      };
+    case SET_FAV:
+      return { ...state, favProducts: payload };
+    default:
+      return state;
+  }
+}
