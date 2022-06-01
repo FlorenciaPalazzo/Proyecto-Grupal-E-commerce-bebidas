@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { signInWithEmailAndPassword,  } from "firebase/auth";
-import { auth } from "../../fb";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "../../fb";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { isAdmin, setUser, setMessage } from "../../redux/actions";
+import { isAdmin, setUser, setMessage, createUser } from "../../redux/actions";
 import Loading from "../Loading";
 function Login() {
   const [input, setInput] = useState({
@@ -25,26 +25,56 @@ function Login() {
     e.preventDefault();
     setError(null);
     try {
-        
-        let user = await signInWithEmailAndPassword(
-      auth,
-      input.email,
-      input.password
+      let user = await signInWithEmailAndPassword(
+        auth,
+        input.email,
+        input.password
       )
-      .then((res) => res.user)
-      .catch((err) => setError(err.message));
+        .then((res) => res.user)
+        .catch((err) => setError(err.message));
       console.log(!user);
-      if(!user) {
-          console.log(currentState);
+      if (!user) {
+        console.log(currentState);
         return;
-        }
+      }
       dispatch(isAdmin(user.email));
       dispatch(setUser({ ...user }));
       navigate("/home");
-    } catch (error) {
-        
-    }
+    } catch (error) {}
   }
+
+  async function googleHandleSubmit(e) {
+    setError(null);
+    e.preventDefault();
+    await signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const userCred = result.user;
+        console.log("rrrrrrrrrrrrrr", userCred);
+        dispatch(
+          createUser({
+            id: userCred.uid,
+            nombre: userCred.displayName,
+            email: userCred.email,
+            isAdmin: userCred.email === process.env.REACT_APP_ADMIN_EMAIL,
+          })
+        );
+        return userCred;
+      })
+      .then((user) => {
+        console.log("seteoooo");
+        dispatch(setUser(user));
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error.message);
+      });
+  }
+
+//   let search = window.location.search;
+//   let params = new URLSearchParams(search);
+//   let foo = params.get("valen");
+//   console.log(foo)
+  
   const user = useSelector((state) => state.currentUser);
   useEffect(() => {
     isLoged && navigate("/home");
@@ -78,6 +108,7 @@ function Login() {
 
               <button>Login</button>
             </form>
+            <button onClick={googleHandleSubmit}>SignUp with Google</button>
           </div>
         </div>
       )}
