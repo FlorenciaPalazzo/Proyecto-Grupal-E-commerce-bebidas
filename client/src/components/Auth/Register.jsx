@@ -76,6 +76,7 @@ function Register() {
             isAdmin: userCred.email === process.env.REACT_APP_ADMIN_EMAIL,
           })
         );
+        console.log(userCred, "SOY EL USER CRED CRED CRED CREEEDIIII")
         return userCred;
       })
       .then((user) => {

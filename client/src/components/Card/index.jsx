@@ -28,9 +28,25 @@ export default function Card({
     dispatch(addCart(productObject));
   };
 
+  const usuario = useSelector((state) => state.currentUser)
+
+    
+  let a =  usuario? usuario.uid : null
+
+  const [fav, setFav] = useState({
+    id_prod : id,
+    id_user : a
+  })
+
+
+  
   const handleAddFavorito =(e)=>{
+    console.log(a,  "SOY EL MALDITO CURRENT USER HIJO DE LAS RE MIL MANZANAS PODRIDASS")
+    console.log(fav)
     e.preventDefault()
-    dispatch(setFavorito())
+     
+    dispatch(setFavorito(fav))
+    return () => {setFav({id_user : a})}
   }  
 
   //acá traigo todas las propiedades
@@ -65,7 +81,7 @@ export default function Card({
           </p>
           <p className="card-price">Price: ${precio} </p>
         </div>
-    <button className="button-fav" onClick={handleAddFavorito}>❤</button>
+    <button className="button-fav" value={fav.id} onClick={handleAddFavorito}>❤</button>
       </div>
     </div>
   );

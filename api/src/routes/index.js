@@ -9,7 +9,11 @@ const bodyParser = require("body-parser");
 
 const router = Router();
 
+
 const {db} = require('../firebase')
+
+const admin = require('firebase-admin')
+const serviceAccount = require('../../firebase.json')
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(morgan("dev"))
@@ -17,19 +21,40 @@ router.use(morgan("dev"))
 
 router.get("/usuarioFire", async (req, res) => {
   try {
-    const querySnapshot = await db.collection("Prueba-Firestore").get();
+    const querySnapshot =  db.collection("fb-auth-bebidas");
+      // admin.initializeApp({
+      //   credential : admin.credential(serviceAccount),
+      //   databaseURL : ""
+      // })
 
-      console.log(querySnapshot.docs.id)
+    console.log("SOY ALGO NUEVO Y NO SENSACIONAL ", auth)
+    // const users = querySnapshot.docs.map((doc) => ({
+    //   id: doc.id,
+    //   ...doc.data(),
+    // }));
 
-    const contacts = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-   return res.send(contacts);
+    //  users.forEach( async (u) => {
+    //   console.log("data", u.nombre, u.id, u.email , "=======", u, "USUARIOWEY")
+    //   await Usuario.findOrCreate({
+    //     where : {
+    //       id : u.id,
+    //       nombre : u.nombre ,
+    //       email : u.email
+           
+    //     }
+    //   })
+    // })
+
+    // let usersDB = await Usuario.findAll()
+
+
+   return res.status(200).send('hola');
   } catch (error) {
     console.error(error);
   }
 });
+
+
 
 
 // SDK de Mercado Pago
@@ -173,7 +198,7 @@ router.post("/producto", async (req, res) => {
     // console.log(productoFavorito)
 
   
-    usuarioFavorito.addUsuario(productoFavorito);
+    usuarioFavorito.addProducto(productoFavorito);
     res.json(usuarioFavorito);
 
   } catch (err) {
@@ -182,14 +207,17 @@ router.post("/producto", async (req, res) => {
 });
 
 router.get("/producto/favoritos", async (req, res) => {
-  let user = await Usuario.findOne({
-    include: {
-      model: Producto,
-      attributes: ["id", "nombre"],
-    },
-  });
-  console.log(user.productos, "ACA ESTOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-  res.json(user);
+  let {id_user} = req.body
+  try {
+    
+    let favs = await Favorito.findAll(
+      {where : { usuarioId: id_user }});
+      
+      // console.log(user.productos, "ACA ESTOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
+      res.status(200).json(favs);
+    } catch (error) {
+     console.log(error) 
+    }
 });
 
 router.delete("/producto/favoritos", async (req, res) => {

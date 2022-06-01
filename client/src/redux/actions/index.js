@@ -85,13 +85,10 @@ export function setLoading(bool) {
   };
 }
 
-export const setFavorito = (id_prod, id_user) => {
+export const setFavorito = (payload) => {
   return async function (dispatch) {
     try {
-      let result = await axios.post("http://localhost:3001/producto", {
-        id_prod,
-        id_user,
-      });
+      let result = await axios.post("http://localhost:3001/producto", payload);
       return dispatch({
         type: SET_FAV,
         payload: result.data,

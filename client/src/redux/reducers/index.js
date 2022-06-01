@@ -38,7 +38,7 @@ const initialState = {
   searchProduct: [],
   productsSort: [],
   detail: [],
-  favProducts: [],
+  favProducts: {},
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
@@ -80,18 +80,16 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case GET_PRODUCT_NAME:
       return { ...state, products: payload, searchProduct: payload };
 
-    case SET_FAV:
-      return { ...state, favProducts: payload };
-
-    case GET_PRODUCT_ID:
+      
+      case GET_PRODUCT_ID:
       return { ...state, detail: payload };
-
-    case GET_BRANDS:
-      let brandFilter = [];
-      state.productsSort.filter((e) => {
-        if (!brandFilter.includes(e.marca)) {
-          brandFilter.push(e.marca);
-        }
+      
+      case GET_BRANDS:
+        let brandFilter = [];
+        state.productsSort.filter((e) => {
+          if (!brandFilter.includes(e.marca)) {
+            brandFilter.push(e.marca);
+          }
       });
       return {
         ...state,
@@ -106,7 +104,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
           products: state.productsSort.filter((e) => e.marca.includes(payload)),
         };
       }
-    case FILTER_BY_TYPE:
+      case FILTER_BY_TYPE:
       if (payload === "all") {
         return { ...state, products: state.products };
       }
@@ -142,20 +140,20 @@ export default function rootReducer(state = initialState, { type, payload }) {
           ...state,
           products: state.productsSort.filter(
             (e) => e.graduacion > 20 && e.graduacion < 38
-          ),
+            ),
+          };
+        }
+        if (payload === "high") {
+          return {
+            ...state,
+            products: state.productsSort.filter((e) => e.graduacion > 38),
         };
       }
-      if (payload === "high") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.graduacion > 38),
-        };
-      }
-    case FILTER_BY_ML:
-      if (payload === "all") {
-        return {
-          ...state,
-          products: state.productsSort,
+      case FILTER_BY_ML:
+        if (payload === "all") {
+          return {
+            ...state,
+            products: state.productsSort,
         };
       }
       if (payload === "ml_1") {
@@ -175,24 +173,24 @@ export default function rootReducer(state = initialState, { type, payload }) {
           ...state,
           products: state.productsSort.filter(
             (e) => e.ml >= 750 && e.ml <= 949
-          ),
-        };
-      }
+            ),
+          };
+        }
 
-      if (payload === "ml_4") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.ml >= 950 && e.ml < 1500
+        if (payload === "ml_4") {
+          return {
+            ...state,
+            products: state.productsSort.filter(
+              (e) => e.ml >= 950 && e.ml < 1500
           ),
         };
       }
-    case FILTER_BY_PRICE:
-      if (payload === "all") {
-        return {
-          ...state,
-          products: state.productsSort,
-        };
+      case FILTER_BY_PRICE:
+        if (payload === "all") {
+          return {
+            ...state,
+            products: state.productsSort,
+          };
       }
       if (payload === "price_1") {
         return {
@@ -205,9 +203,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
           ...state,
           products: state.productsSort.filter(
             (e) => e.precio > 500 && e.precio < 2000
-          ),
-        };
-      }
+            ),
+          };
+        }
       if (payload === "price_3") {
         return {
           ...state,
@@ -221,25 +219,25 @@ export default function rootReducer(state = initialState, { type, payload }) {
           ...state,
           products: state.productsSort.filter(
             (e) => e.precio > 5000 && e.precio < 10000
-          ),
-        };
-      }
-      if (payload === "price_5") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.precio > 10000 && e.precio < 20000
-          ),
-        };
+            ),
+          };
+        }
+        if (payload === "price_5") {
+          return {
+            ...state,
+            products: state.productsSort.filter(
+              (e) => e.precio > 10000 && e.precio < 20000
+              ),
+            };
       }
       if (payload === "price_6") {
         return {
           ...state,
           products: state.productsSort.filter(
             (e) => e.precio > 20000 && e.precio < 35000
-          ),
-        };
-      }
+            ),
+          };
+        }
       if (payload === "price_7") {
         return {
           ...state,
@@ -273,7 +271,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
           }),
         };
       }
-    case ADD_CARRITO:
+      case ADD_CARRITO:
       let repeated = state.productCart.find((e) => e.id === payload.id); //busca si existe ese id
       const cartProduct = [...state.productCart, payload]; //guarda todo
       // element = payload.id === e.id
@@ -284,36 +282,36 @@ export default function rootReducer(state = initialState, { type, payload }) {
       repeated
         ? localStorage.setItem("product", JSON.stringify(prodQuantity))
         : localStorage.setItem("product", JSON.stringify(cartProduct));
-
-      return repeated
+        
+        return repeated
         ? {
-            ...state,
-            productCart: prodQuantity, //return modificado
-          }
+          ...state,
+          productCart: prodQuantity, //return modificado
+        }
         : {
-            ...state,
-            productCart: [...state.productCart, payload], //return default
-          };
-    case DELETE_ONE_PRODUCT:
-      let filter = state.productCart.find((e) => e.id === payload);
-      let quantityLess = state.productCart.map((prod) =>
+          ...state,
+          productCart: [...state.productCart, payload], //return default
+        };
+        case DELETE_ONE_PRODUCT:
+          let filter = state.productCart.find((e) => e.id === payload);
+          let quantityLess = state.productCart.map((prod) =>
         prod.id === payload ? { ...prod, quantity: prod.quantity - 1 } : prod
-      );
-      console.log("filter ---- > ", filter);
-      console.log("quantityLess ---- > ", quantityLess);
-      console.log("productCart", state.productCart);
-      filter.quantity >= 2
+        );
+        console.log("filter ---- > ", filter);
+        console.log("quantityLess ---- > ", quantityLess);
+        console.log("productCart", state.productCart);
+        filter.quantity >= 2
         ? localStorage.setItem("product", JSON.stringify(quantityLess))
         : localStorage.setItem(
-            "product",
-            JSON.stringify(state.productCart.filter((e) => e.id !== payload))
+          "product",
+          JSON.stringify(state.productCart.filter((e) => e.id !== payload))
           );
-      return filter.quantity >= 2
-        ? {
+          return filter.quantity >= 2
+          ? {
             ...state,
             productCart: quantityLess,
           }
-        : {
+          : {
             ...state,
             productCart: state.productCart.filter((e) => e.id !== payload),
           };
@@ -325,18 +323,22 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         productCart: array,
       };
-
-  
+      
+      
     
-    case ORDER_MERCADO_PAGO:
-      return{
-        ...state,
-      }
+      case ORDER_MERCADO_PAGO:
+        return{
+          ...state,
+        }
+        
+        case GET_MERCADO_PAGO:
+          return { ...state, mpSandBox: payload };
+          
+          case SET_FAV:
+            return { ...state, favProducts: payload };
 
-      case GET_MERCADO_PAGO:
-        return { ...state, mpSandBox: payload };
 
-    default:
-      return state;
-  }
-}
+          default:
+            return state;
+          }
+        }
