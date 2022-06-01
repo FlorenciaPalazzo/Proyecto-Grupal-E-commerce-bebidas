@@ -110,7 +110,7 @@ export const setFavorito = (id_prod, id_user) => {
 export const getProducts = () => {
   return async function (dispatch) {
     try {
-      let result = await axios.get(`http://localhost:3001/bebidas`);
+      let result = await axios.get(`http://localhost:3001/producto/bebidas`);
       return dispatch({
         type: GET_PRODUCTS,
         payload: result.data,
@@ -126,7 +126,7 @@ export const getProductByName = (name) => {
   return async function (dispatch) {
     try {
       let result = await axios.get(
-        `http://localhost:3001/bebidas?nombre=${name}`
+        `http://localhost:3001/producto/bebidas?nombre=${name}`
       );
       return dispatch({
         type: GET_PRODUCT_NAME,
@@ -143,7 +143,7 @@ export const getProductByName = (name) => {
 export const getProductById = (id) => {
   return async function (dispatch) {
     try {
-      let result = await axios.get("http://localhost:3001/bebida/" + id);
+      let result = await axios.get("http://localhost:3001/producto/bebida/" + id);
       return dispatch({
         type: GET_PRODUCT_ID,
         payload: result.data,
@@ -294,10 +294,9 @@ export const buyCart = () => {
 export const orderMercadoPago = (localStorage) => {
   return async function (dispatch) {
     try {
-      let result = await axios.post(
-        "http://localhost:3001/carrito",
-        localStorage
-      );
+      let result = await axios.post("http://localhost:3001/usuario/carrito", payload);
+      
+      console.log(result)
       return dispatch({
         type: ORDER_MERCADO_PAGO,
       });
@@ -310,9 +309,9 @@ export const orderMercadoPago = (localStorage) => {
 export const getMercadoPago = () => {
   return async function (dispatch) {
     try {
-      let result = await axios.post("http://localhost:3001/checkout");
-      console.log(result.data);
-      console.log("entro a getMercadoPago");
+      let result = await axios.post("http://localhost:3001/usuario/checkout");
+      console.log(result.data)
+      console.log("entro a getMercadoPago")
       return dispatch({
         type: GET_MERCADO_PAGO,
         payload: result.data.sandbox_init_point,
@@ -326,7 +325,7 @@ export const getMercadoPago = () => {
 export const deleteMercadoPago = () => {
   return async function (dispatch) {
     try {
-      let result = await axios.delete("http://localhost:3001/checkout");
+      let result = await axios.delete("http://localhost:3001/usuario/checkout");
       return dispatch({
         type: DELETE_MERCADO_PAGO,
       });
@@ -339,7 +338,7 @@ export const deleteMercadoPago = () => {
 export const feedBack = () => {
   return async function (dispatch) {
     try {
-      let result = await axios.get("http://localhost:3001/feedback");
+      let result = await axios.get("http://localhost:3001/usuario/feedback");
       console.log("result.data ------->FEEDBACK", result.data);
       return dispatch({
         type: FEEDBACK_MERCADO_PAGO,

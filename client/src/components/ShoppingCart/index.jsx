@@ -1,6 +1,25 @@
 import React, { useEffect, useState } from "react";
+//<<<<<<< HEAD
+// import ScriptTag from 'react-script-tag';
+import { useParams } from "react-router-dom";
+import useScript from "./useScript";
+import axios from 'axios';
+
+const FORM_ID = 'payment-form';
+
+
+
+//=======
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
+//<<<<<<< HEAD
+import { addCart, cleanCart, deleteOne,getMercadoPago } from "../../redux/actions";
+//>>>>>>> 5123e0c6a15e9be4689f4a7efdd39d3afd8bb968
+//=======
+import { addCart, cleanCart, deleteOne,getMercadoPago, orderMercadoPago } from "../../redux/actions";
+//>>>>>>> 24ba4cfdb9e84de44538634be407e2a16d4a8dc6
+=======
 import {
   addCart,
   cleanCart,
@@ -10,6 +29,7 @@ import {
   orderMercadoPago,
 } from "../../redux/actions";
 import Loading from "../Loading";
+>>>>>>> 4ed36d4cb22d09e5139d6a2d09c4cca4d4cf4dcc
 
 const ShoppingCart = () => {
   let navigate = useNavigate();
@@ -58,6 +78,56 @@ const ShoppingCart = () => {
     dispatch(orderMercadoPago(productCart));
     navigate("/checkout");
   };
+
+  //----- implementacion mercado pago-----
+  const { id } = useParams(); // id de producto
+  const [preferenceId, setPreferenceId] = useState(null);
+  const { MercadoPago } = useScript(
+    "https://sdk.mercadopago.com/js/v2",
+    "MercadoPago"
+);
+ 
+  useEffect(async() => {
+    // luego de montarse el componente, le pedimos al backend el preferenceId
+    await axios.post("/checkout", { productId: id }).then((order) => {
+      setPreferenceId(order.preferenceId);
+    });
+  }, [id]);
+    
+  useEffect(() => {
+    if (preferenceId) {
+      // con el preferenceId en mano, inyectamos el script de mercadoPago
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src =
+        'https://www.mercadopago.cl/integrations/v1/web-payment-checkout.js';
+      script.setAttribute('data-preference-id', preferenceId);
+      const form = document.getElementById(FORM_ID);
+      form.appendChild(script);
+    }
+  }, [preferenceId]);
+  
+{/* <script>
+  // Agrega credenciales de SDK
+  const mp = new MercadoPago("PUBLIC_KEY", {
+    locale: "es-AR",
+  });
+
+  // Inicializa el checkout
+  mp.checkout({
+    preference: {
+      id: "YOUR_PREFERENCE_ID",
+    },
+    render: {
+      container: ".cho-container", // Indica el nombre de la clase donde se mostrará el botón de pago
+      label: "Pagar", // Cambia el texto del botón de pago (opcional)
+    },
+  });
+</script> */}
+
+
+
+
 
   return (
     <div>
