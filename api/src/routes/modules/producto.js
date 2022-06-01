@@ -11,14 +11,51 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 //--------------------BEBIDAS-------------------------
 
-const getDataBase = async () => {
-  return await Producto.findAll();
-};
-router.get("/bebidasApi", async (req, res, next) => {
+/*router.get("/bebidasApi", async (req, res, next) => {
   try {
     const bebidasInfo = await axios.get(
       `https://bebidas-efc61-default-rtdb.firebaseio.com/results.json`
-    );
+      );
+      const allBebidas = await bebidasInfo.data.map((e) => {
+        return e;
+      });
+      const allBebidasDb = await allBebidas.map((e) => {
+        Producto.create(e);
+      });
+      
+      res.json(allBebidas);
+    } catch (error) {
+      next(error);
+    }
+  });
+  
+  router.get("/bebidas", async (req, res, next) => {
+    try {
+      const { nombre } = req.query;
+      const dataInfo = await getDataBase();
+      if (nombre) {
+        const dataName = await dataInfo.filter((e) =>
+        e.nombre.toLowerCase().includes(nombre.toLowerCase())
+        );
+        if (!dataName.length) {
+          let error = [];
+          return res.json(error);
+        }
+        res.json(dataName);
+      } else {
+        res.json(dataInfo);
+      }
+    } catch (error) {
+      next(error);
+    }
+  }); */
+const getDataBase = async () => {
+  return await Producto.findAll();
+};
+const getBebidasApi = async () => {
+  try {
+    const bebidasInfo = await axios.get(`
+      https://bebidas-efc61-default-rtdb.firebaseio.com/results.json`);
     const allBebidas = await bebidasInfo.data.map((e) => {
       return e;
     });
@@ -26,16 +63,21 @@ router.get("/bebidasApi", async (req, res, next) => {
       Producto.create(e);
     });
 
-    res.json(allBebidas);
+    return allBebidas;
   } catch (error) {
     next(error);
   }
-});
+};
 
 router.get("/bebidas", async (req, res, next) => {
   try {
+    let dataInfo = await getDataBase();
+    if (dataInfo.length === 0) {
+      console.log("entro al if de la api");
+      dataInfo = await getBebidasApi();
+    }
+    console.log(dataInfo);
     const { nombre } = req.query;
-    const dataInfo = await getDataBase();
     if (nombre) {
       const dataName = await dataInfo.filter((e) =>
         e.nombre.toLowerCase().includes(nombre.toLowerCase())
@@ -52,7 +94,6 @@ router.get("/bebidas", async (req, res, next) => {
     next(error);
   }
 });
-
 //--------------------BEBIDA-------------------------
 
 router.post("/bebida", async (req, res) => {
