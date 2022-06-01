@@ -76,7 +76,6 @@ router.post("/bebida", async (req, res) => {
 
 router.get("/bebida/:id", async (req, res) => {
   let { id } = req.params;
-
   try {
     let bebida = await Producto.findByPk(id);
     res.status(200).json(bebida);
@@ -125,18 +124,14 @@ router.delete("/bebida/:id", async (req, res) => {
 
 // "id_prod":"eb9d3249-9eb9-4cc7-b562-8ced0d91e026",
 // "id_user": "S0aGACK7d3NCvnYNNdu9GSzTgrw2"
+
 router.post("/", async (req, res) => {
   let { id_prod, id_user } = req.body;
 
   try {
     let usuarioFavorito = await Usuario.findByPk(id_user, {});
-
     let productoFavorito = await Producto.findByPk(id_prod, {});
-
-    // console.log(usuarioFavorito)
-    // console.log(productoFavorito)
-
-    usuarioFavorito.addUsuario(productoFavorito);
+    usuarioFavorito.addProducto(productoFavorito);
     res.json(usuarioFavorito);
   } catch (err) {
     console.log(err.message);
@@ -144,29 +139,25 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/favoritos", async (req, res) => {
-  let user = await Usuario.findOne({
-    include: {
-      model: Producto,
-      attributes: ["id", "nombre"],
-    },
-  });
-  console.log(user.productos, "ACA ESTOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-  res.json(user);
+  let { id_user } = req.body;
+  try {
+    let favs = await Favorito.findAll({ where: { usuarioId: id_user } });
+    res.status(200).json(favs);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.delete("/favoritos", async (req, res) => {
   let { id_prod, id_user } = req.body;
-
   let favBorrado = await Favorito.destroy({
     where: {
       usuarioId: id_user,
       productoId: id_prod,
     },
   });
-
   res.json(Favorito);
 });
-
 //////AQUI YACEN LOS RESTOS DE AUTENTICACION----RIP-AUTENTICACION----GRACIAS JONA </3----//////
 //#region
 

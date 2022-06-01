@@ -87,23 +87,6 @@ export function setLoading(bool) {
   };
 }
 
-export const setFavorito = (id_prod, id_user) => {
-  return async function (dispatch) {
-    try {
-      let result = await axios.post("http://localhost:3001/producto", {
-        id_prod,
-        id_user,
-      });
-      return dispatch({
-        type: SET_FAV,
-        payload: result.data,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-};
-
 //------------------------------------------------------------------//
 
 //trae todos los productos
@@ -351,6 +334,19 @@ export const feedBack = () => {
       });
     } catch (err) {
       console.log("Error feedback catch", err);
+    }
+  };
+};
+export const setFavorito = (payload) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.post("http://localhost:3001/producto", payload);
+      return dispatch({
+        type: SET_FAV,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 };
