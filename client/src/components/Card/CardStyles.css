@@ -70,3 +70,11 @@ a:active {
   margin: 0;
   justify-items: center;
 }
+
+.swal-overlay{
+  width: 100%;
+}
+.swal-button {
+  background-color: rgba(170, 150, 100, 0.744);
+}
+

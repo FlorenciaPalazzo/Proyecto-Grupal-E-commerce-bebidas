@@ -7,6 +7,7 @@ import { resetUser } from "../../redux/actions";
 import FilterBy from "../FilterBy";
 import SearchBar from "../SearchBar";
 import "./NavStyles.css";
+import swal from 'sweetalert';
 export default function NavBar({ setCurrentPage }) {
   const isLoged = useSelector((state) => state.isLoged);
   const usuarioActual = useSelector((state)=> state.currentUser)
@@ -26,13 +27,15 @@ export default function NavBar({ setCurrentPage }) {
       });
   }
 
+
+
   return (
     <div className="nav-main">
       {isLoged ? (
         <div className="nav-links">
 
           <Link to={`/favoritos/${usuarioActual.uid}`}>
-            <button className="button">Ver Favoritos</button>
+            <button  className="button">Ver Favoritos</button>
           </Link>
 
           <Link to="/">
