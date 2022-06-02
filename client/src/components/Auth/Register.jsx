@@ -76,37 +76,6 @@ function Register() {
       .catch((err) => setError(err.message));
   }
 
-<<<<<<< HEAD
-  async function googleHandleSubmit(e) {
-    setError(null);
-    e.preventDefault();
-    await signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        const userCred = result.user;
-        console.log("rrrrrrrrrrrrrr", userCred);
-        dispatch(
-           createUser({
-            id: userCred.uid,
-            nombre: userCred.displayName,
-            email: userCred.email,
-            isAdmin: userCred.email === process.env.REACT_APP_ADMIN_EMAIL,
-          })
-        );
-        console.log(userCred, "SOY EL USER CRED CRED CRED CREEEDIIII")
-        return userCred;
-      })
-      .then((user) => {
-        console.log("seteoooo");
-        dispatch(setUser(user));
-      })
-      .catch((error) => {
-        console.log(error);
-        setError(error.message);
-      });
-  }
-
-=======
->>>>>>> 97a60de133105fdf5a3cb9b1541e50440e04d2bb
   const loading = useSelector((state) => state.isLoading);
   const isLoged = useSelector((state) => state.isLoged);
   useEffect(() => {
