@@ -56,8 +56,7 @@ Review.belongsTo(Usuario);
 Producto.hasMany(Review);
 Review.belongsTo(Producto);
 
-// Usuario.hasMany(Favorito);
-// Favorito.belongsTo(Usuario);
+
 
 // Product.hasMany(Reviews);
 

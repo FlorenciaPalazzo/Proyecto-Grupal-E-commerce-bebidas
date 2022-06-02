@@ -11,14 +11,51 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 //--------------------BEBIDAS-------------------------
 
-const getDataBase = async () => {
-  return await Producto.findAll();
-};
-router.get("/bebidasApi", async (req, res, next) => {
+/*router.get("/bebidasApi", async (req, res, next) => {
   try {
     const bebidasInfo = await axios.get(
       `https://bebidas-efc61-default-rtdb.firebaseio.com/results.json`
-    );
+      );
+      const allBebidas = await bebidasInfo.data.map((e) => {
+        return e;
+      });
+      const allBebidasDb = await allBebidas.map((e) => {
+        Producto.create(e);
+      });
+      
+      res.json(allBebidas);
+    } catch (error) {
+      next(error);
+    }
+  });
+  
+  router.get("/bebidas", async (req, res, next) => {
+    try {
+      const { nombre } = req.query;
+      const dataInfo = await getDataBase();
+      if (nombre) {
+        const dataName = await dataInfo.filter((e) =>
+        e.nombre.toLowerCase().includes(nombre.toLowerCase())
+        );
+        if (!dataName.length) {
+          let error = [];
+          return res.json(error);
+        }
+        res.json(dataName);
+      } else {
+        res.json(dataInfo);
+      }
+    } catch (error) {
+      next(error);
+    }
+  }); */
+const getDataBase = async () => {
+  return await Producto.findAll();
+};
+const getBebidasApi = async () => {
+  try {
+    const bebidasInfo = await axios.get(`
+      https://bebidas-efc61-default-rtdb.firebaseio.com/results.json`);
     const allBebidas = await bebidasInfo.data.map((e) => {
       return e;
     });
@@ -26,16 +63,21 @@ router.get("/bebidasApi", async (req, res, next) => {
       Producto.create(e);
     });
 
-    res.json(allBebidas);
+    return allBebidas;
   } catch (error) {
     next(error);
   }
-});
+};
 
 router.get("/bebidas", async (req, res, next) => {
   try {
+    let dataInfo = await getDataBase();
+    if (dataInfo.length === 0) {
+      console.log("entro al if de la api");
+      dataInfo = await getBebidasApi();
+    }
+    /* console.log(dataInfo); */
     const { nombre } = req.query;
-    const dataInfo = await getDataBase();
     if (nombre) {
       const dataName = await dataInfo.filter((e) =>
         e.nombre.toLowerCase().includes(nombre.toLowerCase())
@@ -52,7 +94,6 @@ router.get("/bebidas", async (req, res, next) => {
     next(error);
   }
 });
-
 //--------------------BEBIDA-------------------------
 
 router.post("/bebida", async (req, res) => {
@@ -138,8 +179,8 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/favoritos", async (req, res) => {
-  let { id_user } = req.body;
+router.get("/favoritos/:id_user", async (req, res) => {
+  let { id_user } = req.params;
   try {
     let favs = await Favorito.findAll({ where: { usuarioId: id_user } });
     res.status(200).json(favs);
@@ -149,14 +190,22 @@ router.get("/favoritos", async (req, res) => {
 });
 
 router.delete("/favoritos", async (req, res) => {
-  let { id_prod, id_user } = req.body;
+  
+  let { id_user, id_prod } = req.query;
+try{
   let favBorrado = await Favorito.destroy({
     where: {
       usuarioId: id_user,
       productoId: id_prod,
     },
   });
-  res.json(Favorito);
+  let favs2 =  Favorito.findAll({ where: { usuarioId: id_user } });
+  
+  res.json(favs2);
+}catch(err){
+  console.log(err.message)
+
+}
 });
 //////AQUI YACEN LOS RESTOS DE AUTENTICACION----RIP-AUTENTICACION----GRACIAS JONA </3----//////
 //#region
