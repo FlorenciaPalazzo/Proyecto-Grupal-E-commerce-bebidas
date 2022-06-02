@@ -345,6 +345,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case GET_MERCADO_PAGO:
       return { ...state, mpSandBox: payload };
     case DELETE_MERCADO_PAGO:
+      console.log("entro al reducer DELETE MP");
       let carritoVacio = [];
       localStorage.setItem("product", JSON.stringify(carritoVacio));
       return {

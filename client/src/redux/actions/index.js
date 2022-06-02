@@ -314,6 +314,7 @@ export const deleteMercadoPago = () => {
   return async function (dispatch) {
     try {
       let result = await axios.delete("http://localhost:3001/usuario/checkout");
+      console.log("entro a borrar");
       return dispatch({
         type: DELETE_MERCADO_PAGO,
       });

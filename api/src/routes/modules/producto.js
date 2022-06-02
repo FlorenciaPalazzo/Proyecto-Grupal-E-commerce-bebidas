@@ -76,7 +76,7 @@ router.get("/bebidas", async (req, res, next) => {
       console.log("entro al if de la api");
       dataInfo = await getBebidasApi();
     }
-    console.log(dataInfo);
+    /* console.log(dataInfo); */
     const { nombre } = req.query;
     if (nombre) {
       const dataName = await dataInfo.filter((e) =>

@@ -50,7 +50,7 @@ const ShoppingCart = () => {
   };
   const cleanAllCart = (e) => {
     e.preventDefault();
-    dispatch(cleanCart());
+    //dispatch(cleanCart());
     dispatch(deleteMercadoPago());
   };
 
