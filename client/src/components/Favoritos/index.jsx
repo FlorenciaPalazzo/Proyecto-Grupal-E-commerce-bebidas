@@ -12,7 +12,7 @@ export const Favoritos = () => {
 
   let a = usuario ? usuario.uid : null;
 
-  console.log("SOY EL USUARIO---->", usuario.uid);
+  console.log("SOY EL USUARIO--->", usuario.uid);
 
   useEffect(() => {
     if (!elFavorito.length) {
