@@ -9,6 +9,7 @@ import SearchBar from "../SearchBar";
 import "./NavStyles.css";
 export default function NavBar({ setCurrentPage }) {
   const isLoged = useSelector((state) => state.isLoged);
+  const usuarioActual = useSelector((state)=> state.currentUser)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   function out() {
@@ -29,6 +30,11 @@ export default function NavBar({ setCurrentPage }) {
     <div className="nav-main">
       {isLoged ? (
         <div className="nav-links">
+
+          <Link to={`/favoritos/${usuarioActual.uid}`}>
+            <button className="button">Ver Favoritos</button>
+          </Link>
+
           <Link to="/">
             <button className="button">Landing</button>
           </Link>

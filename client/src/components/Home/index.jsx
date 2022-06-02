@@ -30,12 +30,11 @@ function Home() {
   };
   useEffect(() => {
     //no tocar :)
-    dispatch(getProducts()); // lo traigo aca asi cuando busca y no encuentra en el search puede tirar el err
+    dispatch(getProducts()); 
   }, []);
 
   useEffect(() => {
-    console.log(product);
-    console.log("effect");
+   
     dispatch(getBrands());
   }, [dispatch, product, loading, searchProduct]);
 
