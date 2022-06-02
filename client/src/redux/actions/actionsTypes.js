@@ -22,3 +22,7 @@ export const REMOVE_ALL_CARRITO = "REMOVE_ALL_CARRITO";
 export const BUY_ALL_CART = "BUY_ALL_CART"; // esperando ruta
 export const GET_MERCADO_PAGO = "GET_MERCADO_PAGO";
 export const ORDER_MERCADO_PAGO = "ORDER_MERCADO_PAGO"; // recibe la orden del carrito y la lleva a MP
+export const DELETE_MERCADO_PAGO = "DELETE_MERCADO_PAGO";
+export const FEEDBACK_MERCADO_PAGO = "FEEDBACK_MERCADO_PAGO";
+export const GET_FAV ="GET_FAV";
+export const DEL_FAV = "DEL_FAV";
