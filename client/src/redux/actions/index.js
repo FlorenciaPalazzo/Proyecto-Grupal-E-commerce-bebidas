@@ -370,11 +370,12 @@ export const getFavorito =(id)=>{
   };
 }
 
-export const deleteFavorito =(payload,id)=>{
+export const deleteFavorito =({id_user, id_prod})=>{
   return async function (dispatch) {
     try {
-      console.log("SOY EL PAYLOAD DE LA ACTION",payload)
-      let result = await axios.delete(`http://localhost:3001/producto/favoritos/${id}`, payload );
+      console.log("SOY EL PAYLOAD DE LA ACTION")
+      let result = await axios.delete(`http://localhost:3001/producto/favoritos?id_prod=${id_prod}&&id_user=${id_user}` );
+
       return dispatch({
         type: DEL_FAV,
         payload: result.data,

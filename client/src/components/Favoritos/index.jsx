@@ -8,38 +8,38 @@ export const Favoritos = () => {
     const elFavorito = useSelector((state) => state.favProducts);
     const usuario = useSelector((state) => state.currentUser)
 
+    console.log("EL FAVORITOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",elFavorito)
     const dispatch = useDispatch();
     
     let a = usuario ? usuario.uid : null;
-    const[del,setDel]= useState({
-        usuarioId: a, 
-        productoId:null,
-    })
-
-    // setDel({productoId:idProd} )
-    //  console.log("SOY EL DEL",del)
+    
 
     console.log('SOY EL USUARIOOOOOOOOOOOOO---->',usuario.uid)
+
     useEffect(() => {
+      if(!elFavorito.length){
         dispatch(getFavorito(usuario.uid))
-      }, [dispatch]);
+        }
+      }, [elFavorito]);
       
     const handleDeleteFav =(e) =>{
         e.preventDefault()
         let idProd = e.target.value
-        let payload= {usuarioId:a, productoId:idProd} 
-        console.log("SOY EL PAYLOAD 2",payload)
+        let payload= { id_prod:idProd, id_user:a,} 
+        
         dispatch(deleteFavorito(payload))
+        // dispatch(getFavorito(usuario.uid))
     }
   return (
     <div>
         <Link to ="/home"><button className='button'>Home</button></Link>
         <div>Lista de Favoritos</div>
+        
         {elFavorito.length > 0 ?
             elFavorito.map((e)=>{
                 return(
                     <div key={e.id}>
-                       {/* <button className='button' onClick={handleDeleteFav}>Delete</button> */}
+                       <button className='button' value={e.id} onClick={handleDeleteFav}>Delete</button> 
                        { e.nombre} 
                        <img src={ e.imagen} /> 
                     </div>
@@ -47,7 +47,10 @@ export const Favoritos = () => {
             }
             )   
             :
+            <div>
                 <h2>No hay favoritos</h2>
+
+             </div>
             }
     </div>
 

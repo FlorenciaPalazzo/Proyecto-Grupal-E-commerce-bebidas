@@ -367,12 +367,14 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return { ...state, favProducts: payload };
 
     case GET_FAV:
+      
       let productos = state.products//te trae todos los productos
-      let ids= payload.map((e)=> e.productoId)
+
+      let ids= payload.map((e)=> e.productoId) //mapea los prod fav
       let arr= [];
       console.log("SOY EL PAYLOAD", payload)
-      
-      productos.map((e)=>{
+
+      productos.map((e)=>{         //mapea productos pregunta si hay id prod
         if(ids.includes(e.id)){
           arr.push(e)
         }
@@ -386,7 +388,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
       }
 
       case DEL_FAV:
-        return { ...state};
+
+        return { ...state, favProducts: payload };
 
     default:
       return state;
