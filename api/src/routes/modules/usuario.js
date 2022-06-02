@@ -50,7 +50,9 @@ router.get("/:id", async (req, res) => {
         where: {
           id: id,
           nombre: nombre,
+          // apellido: apellido,
           email: email,
+          //contraseña: contraseña,
           nacimiento: nacimiento ? nacimiento : null,
           direccion: direccion ? direccion : null,
           telefono: telefono ? telefono : null,

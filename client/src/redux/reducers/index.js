@@ -26,7 +26,10 @@ import {
   SET_FAV,
   DELETE_MERCADO_PAGO,
   FEEDBACK_MERCADO_PAGO,
+  GET_REVIEW,
   POST_REVIEW,
+  PUT_REVIEW,
+  DELETE_REVIEW,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -48,6 +51,7 @@ const initialState = {
   mpSandBox: "",
   orderMP: [],
   feedBackMP: [],
+  review: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -359,8 +363,23 @@ export default function rootReducer(state = initialState, { type, payload }) {
       };
     case POST_REVIEW: 
       return{      
-        ...state        ,
-      };          
+        ...state,
+      };
+    case GET_REVIEW: 
+      return{      
+        ...state,
+        review: payload,
+      };
+    case PUT_REVIEW: 
+      return{      
+        ...state,
+        review: payload,
+      };
+    case DELETE_REVIEW: 
+      return{      
+        ...state,
+      };
+              
     default:
       return state;
   }

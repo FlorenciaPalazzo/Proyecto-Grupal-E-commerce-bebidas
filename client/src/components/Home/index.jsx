@@ -7,6 +7,7 @@ import NavBar from "../NavBar";
 import Card from "../Card";
 import Pagination from "../Pagination";
 import Loading from "../Loading";
+// import Review from "../Review";
 import "./HomeStyles.css";
 function Home() {
   const dispatch = useDispatch();
@@ -81,7 +82,12 @@ function Home() {
                 <div>
                   <h1 className="error">No products were found</h1>
                 </div>
-              )}
+              )};
+            <div>
+              <Link to = '/Review'>
+                <button>contanos tu experiencia.</button>
+              </Link>
+            </div>  
             </div>
           </div>{" "}
         </div>

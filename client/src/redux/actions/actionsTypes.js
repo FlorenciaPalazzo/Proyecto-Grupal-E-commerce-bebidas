@@ -25,3 +25,6 @@ export const ORDER_MERCADO_PAGO = "ORDER_MERCADO_PAGO"; // recibe la orden del c
 export const DELETE_MERCADO_PAGO = "DELETE_MERCADO_PAGO";
 export const FEEDBACK_MERCADO_PAGO = "FEEDBACK_MERCADO_PAGO";
 export const POST_REVIEW = "POST_REVIEW";
+export const GET_REVIEW = "GET_REVIEW";
+export const PUT_REVIEW = "PUT_REVIEW";
+export const DELETE_REVIEW = "DELETE_REVIEW";
