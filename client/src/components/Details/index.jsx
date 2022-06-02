@@ -39,10 +39,14 @@ export default function Detail() {
           <Link to="/home">
             <button className="button">Back</button>
           </Link>
+          <Link to = {`/Review/${id}`}>
+                <button>contanos tu experiencia.</button>
+          </Link>
         </div>
       ) : (
         console.log("No hay nada acá")
       )}
+              
     </div>
   );
 }

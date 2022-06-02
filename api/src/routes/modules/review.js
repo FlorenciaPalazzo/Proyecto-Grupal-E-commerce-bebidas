@@ -15,9 +15,8 @@ try{
 }
 });
 
-router.post('/:id', async(req, res) => {
-    const { id } = req.params;
-    const { titulo, comentario, puntaje, usuarioId } = req.body;
+router.post('/', async(req, res) => {
+    const { titulo, comentario, puntaje, usuarioId, productoId } = req.body;
 
     try{
     // const existe = await Review.findOne({ where: id, usuarioId });
@@ -28,8 +27,8 @@ router.post('/:id', async(req, res) => {
         titulo:  titulo, 
         comentario:  comentario, 
         puntaje:  puntaje, 
-        productoId:  id,
-        usuarioId: usuarioId
+        productoId:  productoId,
+        usuarioId: usuarioId,
         },
         
     });

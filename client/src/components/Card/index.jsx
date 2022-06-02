@@ -11,6 +11,13 @@ export default function Card({
   graduacion,
   precio,
 }) {
+  const usuario = useSelector((state) => state.currentUser);
+  let a = usuario ? usuario.uid : null;
+
+  const [fav, setFav] = useState({
+    id_prod: id,
+    id_user: a,
+  });
   let productObject = {
     nombre,
     imagen,
@@ -31,8 +38,13 @@ export default function Card({
   };
 
   const handleAddFavorito = (e) => {
+    console.log("fav", fav);
     e.preventDefault();
-    dispatch(setFavorito());
+
+    dispatch(setFavorito(fav));
+    return () => {
+      setFav({ id_user: a });
+    };
   };
 
   //acá traigo todas las propiedades
@@ -63,12 +75,16 @@ export default function Card({
             {/*cuerpo de la card*/}
             <p className="card-brand">Brand: {marca}</p>
             <p className="card-alcohol">Alcohol content: {graduacion} % </p>
-            <p className="card-ml">Size: {ml}ml </p>
-s          </p>
+            <p className="card-ml">Size: {ml}ml </p>{" "}
+          </p>
           <p className="card-price">Price: ${precio} </p>
         </div>
-        <button className="button-fav" onClick={handleAddFavorito}>
-          ❤
+        <button
+          className="button-fav"
+          value={fav.id}
+          onClick={handleAddFavorito}
+        >
+          ❤ {/* el corazon de toni (es chiquito) */}
         </button>
       </div>
     </div>

@@ -13,6 +13,7 @@ import Landing from "./components/Landing/Landing";
 import "@fontsource/montserrat";
 import { Checkout } from "./components/Checkout";
 import { FeedBack } from "./components/FeedBack";
+import { Favoritos } from "./components/Favoritos";
 
 function App() {
   return (
@@ -29,11 +30,12 @@ function App() {
         <Route path="/bebida/:id" exact element={<Detail />} />
         <Route path="/checkout" exact element={<Checkout />} />
         <Route path="/feedback" exact element={<FeedBack />} />
-        <Route path="/review" exact element={<Review />} />
+        <Route path="/review/:id" exact element={<Review />} />
+        <Route path="/favoritos/:id_user" exact element={<Favoritos />} />
       </Routes>
     </div>
   );
 }
 
-// base
+// base 64 como codificar y decodificar
 export default App;
