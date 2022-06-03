@@ -74,12 +74,19 @@ const ShoppingCart = () => {
           text: "Registrarse",
           value: "register",
         },
+        login: {
+          text: "Iniciar sesion",
+          value: "login",
+        },
       },
       icon: "warning",
     }).then((value) => {
-      switch (value) {
-        case "register":
-          navigate("/register");
+      if (value === "register") {
+        navigate("/register");
+      }
+
+      if (value === "login") {
+        navigate("/login");
       }
     });
   };

@@ -61,12 +61,19 @@ export default function Card({
           text: "Registrarse",
           value: "register",
         },
+        login: {
+          text: "Iniciar sesion",
+          value: "login",
+        },
       },
       icon: "warning",
     }).then((value) => {
-      switch (value) {
-        case "register":
-          navigate("/register");
+      if (value === "register") {
+        navigate("/register");
+      }
+
+      if (value === "login") {
+        navigate("/login");
       }
     });
   };
@@ -85,9 +92,12 @@ export default function Card({
       },
       icon: "warning",
     }).then((value) => {
-      switch (value) {
-        case "register":
-          navigate("/register");
+      if (value === "register") {
+        navigate("/register");
+      }
+
+      if (value === "login") {
+        navigate("/login");
       }
     });
   };

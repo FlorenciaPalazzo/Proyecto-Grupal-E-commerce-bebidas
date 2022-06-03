@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactStars from "react-rating-stars-component";
 import { postReview } from "../../redux/actions";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams , useNavigate } from "react-router-dom";
 
 
 export default function PostReview(){
     const dispatch = useDispatch();
-    // const history = useHistory();
+    const navigate = useNavigate();
     // const producto = useSelector(state => state.products)
     // const usuario = useSelector(state => state.usersLoged)
     const { id } = useParams();
@@ -49,8 +49,8 @@ export default function PostReview(){
             comentario: '',
             puntaje: '',
           });
+          navigate('/home') 
           console.log(setInput);
-        // history.push('/home') 
           
       }
     return(
