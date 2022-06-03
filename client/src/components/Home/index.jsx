@@ -156,7 +156,7 @@ function Home() {
             }
             </div>
             </div>
-            <Link to = '/Review'>
+              <Link to = '/Review'>
                 <button onClick={handleAlertReview} className="button" >Contanos tu experiencia</button>
               </Link>
           </div>

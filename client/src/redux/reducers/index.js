@@ -59,7 +59,6 @@ const initialState = {
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
-  console.log("payload del reducer probando carrito", payload);
   switch (type) {
     case GET_PRODUCTS:
       return {
