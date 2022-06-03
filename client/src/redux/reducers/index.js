@@ -42,10 +42,6 @@ const initialState = {
   searchProduct: [],
   productsSort: [],
   detail: [],
-<<<<<<< HEAD
-  favProducts: {},
-=======
->>>>>>> 5dff3251f826a8a940716abf8b6d7df8f8301971
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
@@ -92,14 +88,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case GET_PRODUCT_NAME:
       return { ...state, products: payload, searchProduct: payload };
 
-<<<<<<< HEAD
-      
-      case GET_PRODUCT_ID:
-=======
    
 
     case GET_PRODUCT_ID:
->>>>>>> 5dff3251f826a8a940716abf8b6d7df8f8301971
       return { ...state, detail: payload };
       
       case GET_BRANDS:
