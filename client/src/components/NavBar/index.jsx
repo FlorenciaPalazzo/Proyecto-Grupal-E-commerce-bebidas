@@ -72,14 +72,15 @@ export default function NavBar({ setCurrentPage }) {
         <div className="nav-links">
           <div className="nav-left">
             <Link to="/">
-            <button className="button">Landing</button>
-          </Link>
-          <Link to="/contact">
-            <button className="button">Contact</button>
-          </Link>
+            <img className="logo" src="./logo/logo.png" alt="loguito" />
+            </Link>
+          
           </div>
 
           <div className="nav-right">
+          <Link to="/contact">
+            <button className="button">Contact</button>
+          </Link>
             <Link to="/cart">
             <button className="button-cart">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">

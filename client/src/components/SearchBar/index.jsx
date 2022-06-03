@@ -18,7 +18,7 @@ export default function SearchBar() {
   };
 
   return (
-    <div>
+    <div className="searchbar-main">
       <input
       className="input"
         type="text"
