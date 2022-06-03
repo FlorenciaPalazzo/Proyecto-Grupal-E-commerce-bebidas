@@ -12,6 +12,8 @@
     "@testing-library/user-event": "^12.2.2",
     "axios": "^0.27.2",
     "firebase": "^9.8.1",
+    "i": "^0.3.7",
+    "npm": "^8.12.1",
     "react": "^16.14.0",
     "react-dom": "^17.0.2",
     "react-rating-stars-component": "^2.2.0",

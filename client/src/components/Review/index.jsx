@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 
 export default function PostReview(){
     const dispatch = useDispatch();
+    // const history = useHistory();
     // const producto = useSelector(state => state.products)
     // const usuario = useSelector(state => state.usersLoged)
     const { id } = useParams();
@@ -49,7 +50,7 @@ export default function PostReview(){
             puntaje: '',
           });
           console.log(setInput);
-        //   history.push('/home') 
+        // history.push('/home') 
           
       }
     return(

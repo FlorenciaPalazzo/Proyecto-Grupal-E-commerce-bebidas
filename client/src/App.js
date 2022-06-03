@@ -31,6 +31,7 @@ function App() {
         <Route path="/checkout" exact element={<Checkout />} />
         <Route path="/feedback" exact element={<FeedBack />} />
         <Route path="/review/:id" exact element={<Review />} />
+        <Route path="/review" exact element={<Review />} />
         <Route path="/favoritos/:id_user" exact element={<Favoritos />} />
       </Routes>
     </div>
