@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getBrands, getProducts } from "../../redux/actions";
+import { getBrands, getProducts, getReviewPage } from "../../redux/actions";
 
 import NavBar from "../NavBar";
 import Card from "../Card";
 import Pagination from "../Pagination";
 import Loading from "../Loading";
+// import Review from "../Review";
 import "./HomeStyles.css";
+import ReactStars from "react-rating-stars-component";
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
+  const rev = useSelector((state) => state.reviewPage);
+  console.log(rev, 'SOY EL REV')
   const loading = useSelector((state) => state.isLoading);
   const searchProduct = useSelector((state) => state.searchProduct);
   const [, /*order*/ setOrder] = useState("");
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage /*setProductsPerPage*/] = useState(16); //15 productos por pagina
-
   const indexOfLastProduct = currentPage * productsPerPage; // 15
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
   //Productos que estan en la pagina actual
@@ -31,12 +35,13 @@ function Home() {
   useEffect(() => {
     //no tocar :)
     dispatch(getProducts()); 
+    dispatch(getReviewPage())
   }, []);
 
   useEffect(() => {
    
     dispatch(getBrands());
-  }, [dispatch, product, loading, searchProduct]);
+  }, [dispatch, product, loading, searchProduct, rev]);
 
   console.log("searchProduct", searchProduct);
   return (
@@ -80,7 +85,35 @@ function Home() {
                 <div>
                   <h1 className="error">No products were found</h1>
                 </div>
-              )}
+              )};
+            <div>
+              <Link to = '/Review'>
+                <button className="button">contanos tu experiencia</button>
+              </Link>
+            </div>  
+            </div>
+            <div>
+            <div className="detail-description">
+            {rev ? rev.map(e => {return(
+              <div key= {e.id}>
+                <p>Titulo: {e.titulo}</p>
+                <p>Comentario: {e.comentario}</p>
+                <p>Puntaje: <ReactStars
+                count={e.puntaje}
+                size={24}
+                isHalf={true}
+                emptyIcon={<i className="far fa-star"></i>}
+                halfIcon={<i className="fa fa-star-half-alt"></i>}
+                fullIcon={<i className="fa fa-star"></i>}
+                edit={false}
+                color="#ffd700"
+              /></p>
+              </div>
+            )}): 
+            
+            <p>no hay reviews</p>
+            }
+            </div>
             </div>
           </div>{" "}
         </div>

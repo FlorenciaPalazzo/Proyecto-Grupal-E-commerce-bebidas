@@ -7,6 +7,7 @@ import Contact from "./components/Contact";
 import AdminPanel from "./components/AdminPanel";
 import Detail from "./components/Details";
 import ShoppingCart from "./components/ShoppingCart";
+import Review from "./components/Review";
 
 import Landing from "./components/Landing/Landing";
 import "@fontsource/montserrat";
@@ -29,6 +30,8 @@ function App() {
         <Route path="/bebida/:id" exact element={<Detail />} />
         <Route path="/checkout" exact element={<Checkout />} />
         <Route path="/feedback" exact element={<FeedBack />} />
+        <Route path="/review/:id" exact element={<Review />} />
+        <Route path="/review" exact element={<Review />} />
         <Route path="/favoritos/:id_user" exact element={<Favoritos />} />
       </Routes>
     </div>

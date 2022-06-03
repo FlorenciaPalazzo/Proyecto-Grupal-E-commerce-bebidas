@@ -5,6 +5,23 @@ const { Producto, Usuario, Review } = require("../../db");
 
 const router = Router();
 
+router.get('/', async(req, res) => {
+    try{
+    let get = await Review.findAll();
+     let filt = [];
+    get.forEach(e => {
+        console.log(e)
+        if(!e.productoId){
+            filt.push(e)
+        }
+    })
+    console.log(filt)
+    res.status(200).json(filt);
+    }catch(e){
+        console.log(e)
+    }
+})
+
 router.get('/:id', async(req, res) => {
     const { id } = req.params;
 try{
@@ -15,9 +32,8 @@ try{
 }
 });
 
-router.post('/:id', async(req, res) => {
-    const { id } = req.params;
-    const { titulo, comentario, puntaje, usuarioId } = req.body;
+router.post('/', async(req, res) => {
+    const { titulo, comentario, puntaje, usuarioId, productoId } = req.body;
 
     try{
     // const existe = await Review.findOne({ where: id, usuarioId });
@@ -28,8 +44,8 @@ router.post('/:id', async(req, res) => {
         titulo:  titulo, 
         comentario:  comentario, 
         puntaje:  puntaje, 
-        productoId:  id,
-        usuarioId: usuarioId
+        productoId:  productoId ? productoId: null,
+        usuarioId: usuarioId,
         },
         
     });
