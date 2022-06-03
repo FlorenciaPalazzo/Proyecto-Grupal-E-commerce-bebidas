@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { getProductById, getReview } from "../../redux/actions";
 import "./DetailStyles.css";
 import ReactStars from "react-rating-stars-component";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
 export default function Detail() {
   const dispatch = useDispatch();
@@ -19,18 +19,15 @@ export default function Detail() {
     dispatch(getReview(id));
   }, [dispatch, id]);
 
-<<<<<<< HEAD
-=======
   const handleAlertReview = (e) => {
     e.preventDefault();
- swal({
-   title: "Debes ingresar con tu usuario", 
-   text:"...para dejar una reseña ⭐⭐⭐!",
-   icon: "warning",  
-  }) 
-}
+    swal({
+      title: "Debes ingresar con tu usuario",
+      text: "...para dejar una reseña ⭐⭐⭐!",
+      icon: "warning",
+    });
+  };
 
->>>>>>> 6a01ada26f619a0052b0bc77cf16a21d09669a5f
   return (
     <div className="detail-background">
       {product ? (
@@ -52,7 +49,6 @@ export default function Detail() {
             className="detail-description"
             dangerouslySetInnerHTML={{ __html: product.descripcion }}
           />
-<<<<<<< HEAD
           <div>
             {rev.length ? (
               rev.map((e) => {
@@ -77,44 +73,17 @@ export default function Detail() {
                 );
               })
             ) : (
-              <p>no hay reviews</p>
+              <div className="detail-description">no hay reviews</div>
             )}
-=======
-          <div >
-            {rev.length ? rev.map(e => {return(
-              <div className="detail-description">
-                <p>Titulo: {e.titulo}</p>
-                <p>Comentario: {e.comentario}</p>
-                <p>Puntaje: <ReactStars
-                count={e.puntaje}
-                size={24}
-                isHalf={true}
-                emptyIcon={<i className="far fa-star"></i>}
-                halfIcon={<i className="fa fa-star-half-alt"></i>}
-                fullIcon={<i className="fa fa-star"></i>}
-                edit={false}
-                color="#ffd700"
-              /></p>
-              </div>
-            )}): 
-            
-            <div className="detail-description">no hay reviews</div>
-            }
-              
->>>>>>> 6a01ada26f619a0052b0bc77cf16a21d09669a5f
           </div>
           <Link to="/home">
             <button className="button">Back</button>
           </Link>
-<<<<<<< HEAD
           <Link to={`/Review/${id}`}>
-            <button className="button">contanos tu experiencia</button>
-=======
-          <Link to = {`/Review/${id}`}>
-                <button onClick={handleAlertReview} className="button">Contanos tu experiencia</button>
->>>>>>> 6a01ada26f619a0052b0bc77cf16a21d09669a5f
+            <button onClick={handleAlertReview} className="button">
+              Contanos tu experiencia
+            </button>
           </Link>
-          
         </div>
       ) : (
         console.log("No hay nada acá")

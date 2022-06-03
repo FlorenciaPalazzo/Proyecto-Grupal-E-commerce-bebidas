@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCart, setFavorito } from "../../redux/actions";
 import "./CardStyles.css";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 export default function Card({
   nombre,
   imagen,
@@ -48,24 +48,23 @@ export default function Card({
     };
   };
 
-
-    const handleAlertFav = (e) => {
-      e.preventDefault();
-   swal({
-     title: "Debes ingresar con tu usuario", 
-     text:"...para agregar tus bebidas a favoritos❤!",
-     icon: "warning",  
-    }) 
-  }
+  const handleAlertFav = (e) => {
+    e.preventDefault();
+    swal({
+      title: "Debes ingresar con tu usuario",
+      text: "...para agregar tus bebidas a favoritos❤!",
+      icon: "warning",
+    });
+  };
 
   const handleAlertCarrito = (e) => {
     e.preventDefault();
- swal({
-   title: "Debes ingresar con tu usuario", 
-   text:"...para poder comprar 🛒🛒🛒!",
-   icon: "warning",  
-  }) 
-}
+    swal({
+      title: "Debes ingresar con tu usuario",
+      text: "...para poder comprar 🛒🛒🛒!",
+      icon: "warning",
+    });
+  };
 
   //acá traigo todas las propiedades
   return (
@@ -76,7 +75,6 @@ export default function Card({
       <div className="card">
         {" "}
         {/*div de la card*/}
-        
         <img
           className="card-imagen"
           src={imagen}
@@ -95,28 +93,19 @@ export default function Card({
           </p> */}
           <p className="card-price">Price: ${precio} </p>
         </div>
+        <div>
+          <button onClick={handleAlertCarrito} className="button-shop">
+            Añadir al carrito
+          </button>
 
-    
-        
-          <div>
-        <button onClick={handleAlertCarrito} className="button-shop">
-          Añadir al carrito
-        </button>
-
-        <button
-          className="button-fav"
-          value={fav.id}
-          onClick={handleAlertFav}
-        >
-          ❤ {/* el corazon de toni (es chiquito) */}
-        </button>
+          <button
+            className="button-fav"
+            value={fav.id}
+            onClick={handleAlertFav}
+          >
+            ❤ {/* el corazon de toni (es chiquito) */}
+          </button>
         </div>
-        
-        
-        
-        
-
-
       </div>
     </div>
   );
