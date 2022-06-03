@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   addCart,
   cleanCart,
@@ -96,8 +96,9 @@ const ShoppingCart = () => {
           <span>
             {verified.email && productCart.length ? (
               <div>
-                <button onClick={postCarrito}>PAGAR</button>
-                <button onClick={cleanAllCart}>Clean Cart</button>
+                <button onClick={postCarrito}>Finalizar Compra</button>
+                <button> <Link to= "/home">Seguir Comprando</Link></button>
+                <button onClick={cleanAllCart}>Vaciar Carrito</button>
               </div>
             ) : !verified ? (
               <h3>No podrás comprar hasta estar registrado</h3>
