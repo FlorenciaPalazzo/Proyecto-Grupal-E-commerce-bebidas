@@ -61,16 +61,23 @@ export default function Card({
        register : {
          text :'Registrarse',
         value : 'register'},
+        login : {
+          text : 'Iniciar sesion',
+          value : 'login'
+        }
      },
      icon: "warning",  
-    }) .then(value => {
-      switch (value){
-        case 'register': 
-        navigate('/register')
+   }).then(value => {
 
-      }
-    })
-  }
+     if (value === 'register') {
+       navigate('/register')
+     }
+
+     if (value === 'login') {
+       navigate('/login')
+     }
+   })
+    }
 
   const handleAlertCarrito = (e) => {
     e.preventDefault();
@@ -86,13 +93,16 @@ export default function Card({
    icon: "warning",  
    
  }).then(value => {
-   switch (value) {
-     case 'register':
-       navigate('/register')
 
+   if (value === 'register') {
+     navigate('/register')
+   }
+
+   if (value === 'login') {
+     navigate('/login')
    }
  })
-}
+  }
 
   //acá traigo todas las propiedades
   return (

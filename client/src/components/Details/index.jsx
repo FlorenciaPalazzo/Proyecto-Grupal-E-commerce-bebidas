@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getProductById, getReview } from "../../redux/actions";
@@ -11,6 +11,8 @@ export default function Detail() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const verified = useSelector((state) => state.currentUser);
+  const navigate = useNavigate();
+  const isLoged = useSelector((state) => state.isLoged);
   const product = useSelector((state) => state.detail);
   const rev = useSelector((state) => state.review);
   console.log(rev, 'SOY EL REV')
@@ -21,12 +23,31 @@ export default function Detail() {
 
   const handleAlertReview = (e) => {
     e.preventDefault();
- swal({
-   title: "Debes ingresar con tu usuario", 
-   text:"...para dejar una reseña ⭐⭐⭐!",
-   icon: "warning",  
-  }) 
-}
+    swal({
+      title: "Debes ingresar con tu usuario",
+      text: "...para dejar una reseña ⭐⭐⭐!",
+      buttons: {
+        cancel: 'Ahorita no joven',
+        register: {
+          text: 'Registrarse',
+          value: 'register'
+        },
+             login: {
+          text: 'Iniciar sesion',
+          value: 'login'
+        }
+      },
+      icon: "warning",
+    }).then(value => {
+      switch (value) {
+        case 'register':
+          navigate('/register')
+        case 'login':
+          navigate('/login')
+
+      }
+    })
+  }
 
   return (
     <div className="detail-background">
@@ -74,10 +95,12 @@ export default function Detail() {
           <Link to="/home">
             <button className="button">Back</button>
           </Link>
+          {isLoged?(
           <Link to = {`/Review/${id}`}>
-                <button onClick={handleAlertReview} className="button">Contanos tu experiencia</button>
-          </Link>
-          
+                <button  className="button">Contanos tu experiencia</button>
+          </Link>): (
+              <button onClick={handleAlertReview} className='button' >Contanos tu experiencia</button>
+          )}
         </div>
       ) : (
         console.log("No hay nada acá")
