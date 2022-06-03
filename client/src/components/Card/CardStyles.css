@@ -75,3 +75,8 @@ a:active {
   background-color: rgba(67, 65, 65, 0.464);
   width: 100%;
 }
+
+.swal-overlay {
+  background-color: rgba(67, 65, 65, 0.464);
+  width: 100%;
+}
