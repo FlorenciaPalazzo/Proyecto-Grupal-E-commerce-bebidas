@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCart, setFavorito } from "../../redux/actions";
+import { useNavigate } from "react-router-dom";
 import "./CardStyles.css";
 import swal from "sweetalert";
 export default function Card({
@@ -16,6 +17,7 @@ export default function Card({
   const isLoged = useSelector((state) => state.isLoged);
   let a = usuario ? usuario.uid : null;
 
+  const navigate = useNavigate();
   const [fav, setFav] = useState({
     id_prod: id,
     id_user: a,
@@ -53,7 +55,19 @@ export default function Card({
     swal({
       title: "Debes ingresar con tu usuario",
       text: "...para agregar tus bebidas a favoritos❤!",
+      buttons: {
+        cancel: "Ahorita no joven",
+        register: {
+          text: "Registrarse",
+          value: "register",
+        },
+      },
       icon: "warning",
+    }).then((value) => {
+      switch (value) {
+        case "register":
+          navigate("/register");
+      }
     });
   };
 
@@ -62,7 +76,19 @@ export default function Card({
     swal({
       title: "Debes ingresar con tu usuario",
       text: "...para poder comprar 🛒🛒🛒!",
+      buttons: {
+        cancel: "Ahorita no joven",
+        register: {
+          text: "Registrarse",
+          value: "register",
+        },
+      },
       icon: "warning",
+    }).then((value) => {
+      switch (value) {
+        case "register":
+          navigate("/register");
+      }
     });
   };
 
@@ -94,17 +120,25 @@ export default function Card({
           <p className="card-price">Price: ${precio} </p>
         </div>
         <div>
-          <button onClick={handleAlertCarrito} className="button-shop">
-            Añadir al carrito
-          </button>
+          <div>
+            <button onClick={handleAddCarrito} className="button-shop">
+              Añadir al carrito
+            </button>
 
-          <button
-            className="button-fav"
-            value={fav.id}
-            onClick={handleAlertFav}
-          >
-            ❤ {/* el corazon de toni (es chiquito) */}
-          </button>
+            {!isLoged ? (
+              <button
+                className="button-fav"
+                value={fav.id}
+                onClick={handleAlertFav}
+              >
+                ❤ {/* el corazon de toni (es chiquito) */}
+              </button>
+            ) : (
+              <button onClick={handleAddFavorito} className="button-fav">
+                ❤
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

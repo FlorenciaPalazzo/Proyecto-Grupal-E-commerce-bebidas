@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import validate from "./authServices";
 import {
   createUserWithEmailAndPassword,
-  sendEmailVerification
+  sendEmailVerification,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../../fb";
 import { useNavigate } from "react-router-dom";
@@ -17,10 +18,10 @@ function Register() {
     nombre: null,
     apellido: null,
     nacimiento: null,
-    direccion: null,
     telefono: null,
     email: null,
     password: null,
+    confirmPassword: null,
   });
 
   const [nameError, setNameError] = useState(null);
@@ -28,6 +29,7 @@ function Register() {
   const [birthError, setBirthError] = useState(null);
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
+  const [confirmPasswordError, setConfirmPasswordError] = useState(null);
 
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
@@ -38,10 +40,12 @@ function Register() {
     validate(
       e.target.value,
       e.target.name,
+      input.password,
       setBirthError,
       setEmailError,
       setNameError,
       setPasswordError,
+      setConfirmPasswordError,
       setSurnameError
     );
   }
@@ -50,30 +54,43 @@ function Register() {
     e.preventDefault();
     setError(null);
     console.log(input);
-    await createUserWithEmailAndPassword(auth, input.email, input.password)
-      .then(() => {
-        let user = auth.currentUser;
-        dispatch(setUser(user));
-        dispatch(isAdmin(user.email));
-        sendEmailVerification(user);
-        return user;
-      })
-      .then((user) => {
-        console.log("se creo el usuario usuario", { ...input, id: user.uid });
-        dispatch(
-          createUser({
+    try {
+      await createUserWithEmailAndPassword(auth, input.email, input.password)
+        .then(async () => {
+          let res = auth.currentUser;
+          console.log("userrrrrrrr", res);
+          dispatch(setUser(res));
+          dispatch(isAdmin(res.email));
+          sendEmailVerification(res);
+          await updateProfile(res, {
+            displayName: `${input.nombre} ${input.apellido}`,
+          }).catch((err) => console.log(err));
+          return res;
+        })
+        .then((user) => {
+          console.log("se creo el usuario usuario", {
+            ...input,
             id: user.uid,
-            nombre: `${input.nombre} ${input.apellido}`,
-            email: input.email,
-            nacimiento: input.nacimiento,
-            direccion: input.direccion,
-            telefono: input.telefono,
-            isAdmin: input.email === process.env.REACT_APP_ADMIN_EMAIL,
-          })
-        );
-      })
-      .then(() => navigate("/home"))
-      .catch((err) => setError(err.message));
+            isVerified: user.isVerified,
+          });
+          console.log(user);
+          dispatch(
+            createUser({
+              id: user.uid,
+              nombre: `${input.nombre} ${input.apellido}`,
+              email: input.email,
+              nacimiento: input.nacimiento,
+              telefono: input.telefono,
+              isAdmin: input.email === process.env.REACT_APP_ADMIN_EMAIL,
+              isVerified: user.emailVerified,
+            })
+          );
+        })
+        .then(() => navigate("/home"))
+        .catch((err) => setError(err.message));
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const loading = useSelector((state) => state.isLoading);
@@ -81,6 +98,7 @@ function Register() {
   useEffect(() => {
     isLoged && navigate("/home");
   }, [isLoged]);
+  console.log(input);
 
   return (
     <div>
@@ -121,14 +139,6 @@ function Register() {
                 onChange={handleChange}
               />
               <br />
-              <label htmlFor="direccion">Adress</label>
-              <input
-                type="text"
-                name="direccion"
-                placeholder="Enter your adress"
-                onChange={handleChange}
-              />
-              <br />
               <label htmlFor="nacimiento">Birthday</label>
               <input
                 type="text"
@@ -156,17 +166,26 @@ function Register() {
               />
               {passwordError && <span>{passwordError}</span>}
               <br />
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                onChange={handleChange}
+              />
+              {confirmPasswordError && <span>{confirmPasswordError}</span>}
+              <br />
 
               {!passwordError &&
-              !surnameError &&
-              !nameError &&
-              !emailError &&
-              !birthError &&
-              input.nombre &&
-              input.apellido &&
-              input.password &&
-              input.nacimiento &&
-              input.email ? (
+                !surnameError &&
+                !nameError &&
+                !emailError &&
+                !birthError &&
+                input.nombre &&
+                input.apellido &&
+                input.password &&
+                input.nacimiento &&
+                input.email ? (
                 <button>Register</button>
               ) : (
                 <button
