@@ -123,20 +123,25 @@ export default function Card({
           <p className="card-price">Price: ${precio} </p>
         </div>
 
-    
+          
         
           <div>
-        <button onClick={handleAlertCarrito} className="button-shop">
+          <button onClick={handleAddCarrito} className="button-shop">
           Añadir al carrito
         </button>
 
+          {!isLoged?(
         <button
           className="button-fav"
           value={fav.id}
           onClick={handleAlertFav}
         >
           ❤ {/* el corazon de toni (es chiquito) */}
-        </button>
+        </button>) : (
+              <button onClick={handleAddFavorito} className="button-fav" >❤</button>
+        
+        )
+      }
         </div>
         
         
