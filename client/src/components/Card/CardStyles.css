@@ -31,8 +31,8 @@ a:active {
 }
 
 .card-main:hover {
-  box-shadow: 0 0 40px rgb(170, 150, 100);
-  transition: box-shadow 0.2s ease-in-out;
+    box-shadow: 0 0 40px rgb(100, 100, 100);
+    transition: box-shadow 0.2s ease-in-out;
 }
 
 .card {
@@ -42,38 +42,34 @@ a:active {
 }
 
 .card-imagen {
-  width: 50%;
-  margin: auto;
+    width: 100%;
+    margin: auto;
 }
 
-.card-body {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out;
+
+/* .card-body {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
 }
 
 .card:hover .card-body {
-  opacity: 1;
-  transition: opacity 0.2s ease-in-out;
-}
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+} */
 
-.card-brand,
+
+/* .card-brand,
 .card-alcohol,
 .card-ml {
-  font-size: large;
-}
+    font-size: large;
+} */
 
-.card-price {
-  font-size: xx-large;
-  margin: 0;
-  justify-items: center;
-}
-
-.swal-overlay {
-  width: 100%;
-}
-.swal-button {
-  background-color: rgba(170, 150, 100, 0.744);
+.card-price,
+.card-title {
+    font-size: medium;
+    margin: 0;
+    justify-items: center;
 }
