@@ -39,12 +39,13 @@ export default function Detail() {
       },
       icon: "warning",
     }).then(value => {
-      switch (value) {
-        case 'register':
-          navigate('/register')
-        case 'login':
-          navigate('/login')
 
+      if (value === 'register') {
+        navigate('/register')
+      }
+
+      if (value === 'login') {
+        navigate('/login')
       }
     })
   }
@@ -80,10 +81,10 @@ export default function Detail() {
             <p className="detail-title" dangerouslySetInnerHTML={{ __html: product.descripcion }}/>
             </div>
           </div>
-          <p
+          {/* <p
             className="detail-description"
             dangerouslySetInnerHTML={{ __html: product.descripcion }}
-          />
+          /> */}
           <div >
             {rev.length ? rev.map(e => {return(
               <div className="detail-description">
