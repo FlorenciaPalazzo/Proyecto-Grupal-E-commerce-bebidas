@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactStars from "react-rating-stars-component";
 import { postReview } from "../../redux/actions";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 
 export default function PostReview(){
@@ -70,7 +70,6 @@ export default function PostReview(){
                 count={5}
                 onChange = { ratingChanged }
                 size={24}
-                isHalf={true}
                 emptyIcon={<i className="far fa-star"></i>}
                 halfIcon={<i className="fa fa-star-half-alt"></i>}
                 fullIcon={<i className="fa fa-star"></i>}
@@ -78,9 +77,14 @@ export default function PostReview(){
               />
               </div>
               <div>
-                <button type="submit"  >
-                    Puntuar.
+                <button className="button" type="submit"  >
+                    Puntuar
                 </button>
+              </div>
+              <div>
+                <Link to='/home'>
+                  <button className="button">Back</button>
+                </Link>
               </div>
           </form>  
         </div>

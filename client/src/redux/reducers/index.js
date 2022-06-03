@@ -32,6 +32,7 @@ import {
   POST_REVIEW,
   PUT_REVIEW,
   DELETE_REVIEW,
+  GET_REVPAGE,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -53,6 +54,7 @@ const initialState = {
   orderMP: [],
   feedBackMP: [],
   review: [],
+  reviewPage: [],
   favProducts: [],
 };
 
@@ -370,10 +372,16 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return{      
         ...state,
       };
-    case GET_REVIEW: 
+    case GET_REVIEW:
       return{      
         ...state,
         review: payload,
+      };
+    case GET_REVPAGE: 
+    console.log(payload, 'SOY EL REDUCER')
+      return{      
+        ...state,
+        reviewPage: payload,
       };
     case PUT_REVIEW: 
       return{      

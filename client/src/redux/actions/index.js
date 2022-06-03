@@ -31,6 +31,7 @@ import {
   GET_REVIEW,
   PUT_REVIEW,
   DELETE_REVIEW,
+  GET_REVPAGE,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -370,6 +371,21 @@ export const getReview = (id) => {
       let result = await axios.get("http://localhost:3001/review/" + id)
       return dispatch({
         type: GET_REVIEW,
+        payload: result.data
+      })
+    }catch(e){
+      console.log(e)
+    }
+  };
+};
+
+export const getReviewPage = () => {
+  return async function (dispatch) {
+    try{
+      let result = await axios.get("http://localhost:3001/review")
+      console.log(result.data, 'ACTION')
+      return dispatch({
+        type: GET_REVPAGE,
         payload: result.data
       })
     }catch(e){
