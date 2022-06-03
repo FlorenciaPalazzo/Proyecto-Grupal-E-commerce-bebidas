@@ -15,7 +15,7 @@ function Home() {
   const searchProduct = useSelector((state) => state.searchProduct);
   const [, /*order*/ setOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage /*setProductsPerPage*/] = useState(16); //15 productos por pagina
+  const [productsPerPage /*setProductsPerPage*/] = useState(20); //15 productos por pagina
 
   const indexOfLastProduct = currentPage * productsPerPage; // 15
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
@@ -82,8 +82,13 @@ function Home() {
                 </div>
               )}
             </div>
-          </div>{" "}
+          </div>
+          <div className="footer">
+            <div className="text">Contact</div>
+            <div className="text">About</div>
+          </div>
         </div>
+
       )}
     </div>
   );
