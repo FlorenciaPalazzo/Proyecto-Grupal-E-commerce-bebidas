@@ -11,13 +11,11 @@ export default function Detail() {
   const { id } = useParams();
   const product = useSelector((state) => state.detail);
   const rev = useSelector((state) => state.review);
-  console.log(rev, 'SOY EL REV')
+  console.log(rev, "SOY EL REV");
   useEffect(() => {
     dispatch(getProductById(id));
-    dispatch(getReview(id))
+    dispatch(getReview(id));
   }, [dispatch, id]);
-
-  
 
   return (
     <div className="detail-background">
@@ -40,39 +38,43 @@ export default function Detail() {
             className="detail-description"
             dangerouslySetInnerHTML={{ __html: product.descripcion }}
           />
-          <div >
-            {rev.length ? rev.map(e => {return(
-              <div className="detail-description">
-                <p>Titulo: {e.titulo}</p>
-                <p>Comentario: {e.comentario}</p>
-                <p>Puntaje: <ReactStars
-                count={e.puntaje}
-                size={24}
-                isHalf={true}
-                emptyIcon={<i className="far fa-star"></i>}
-                halfIcon={<i className="fa fa-star-half-alt"></i>}
-                fullIcon={<i className="fa fa-star"></i>}
-                edit={false}
-                color="#ffd700"
-              /></p>
-              </div>
-            )}): 
-            
-            <p>no hay reviews</p>
-            }
-              
+          <div>
+            {rev.length ? (
+              rev.map((e) => {
+                return (
+                  <div className="detail-description">
+                    <p>Titulo: {e.titulo}</p>
+                    <p>Comentario: {e.comentario}</p>
+                    <p>
+                      Puntaje:{" "}
+                      <ReactStars
+                        count={e.puntaje}
+                        size={24}
+                        isHalf={true}
+                        emptyIcon={<i className="far fa-star"></i>}
+                        halfIcon={<i className="fa fa-star-half-alt"></i>}
+                        fullIcon={<i className="fa fa-star"></i>}
+                        edit={false}
+                        color="#ffd700"
+                      />
+                    </p>
+                  </div>
+                );
+              })
+            ) : (
+              <p>no hay reviews</p>
+            )}
           </div>
           <Link to="/home">
             <button className="button">Back</button>
           </Link>
-          <Link to = {`/Review/${id}`}>
-                <button className="button">contanos tu experiencia</button>
+          <Link to={`/Review/${id}`}>
+            <button className="button">contanos tu experiencia</button>
           </Link>
         </div>
       ) : (
         console.log("No hay nada acá")
       )}
-              
     </div>
   );
 }

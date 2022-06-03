@@ -24,7 +24,6 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.4.1",
     "sweetalert": "^2.1.2",
-    
     "typekit": "^0.1.1",
     "web-vitals": "^0.2.4"
   },
