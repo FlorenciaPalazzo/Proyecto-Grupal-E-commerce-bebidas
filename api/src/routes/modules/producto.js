@@ -190,22 +190,20 @@ router.get("/favoritos/:id_user", async (req, res) => {
 });
 
 router.delete("/favoritos", async (req, res) => {
-  
   let { id_user, id_prod } = req.query;
-try{
-  let favBorrado = await Favorito.destroy({
-    where: {
-      usuarioId: id_user,
-      productoId: id_prod,
-    },
-  });
-  let favs2 =  Favorito.findAll({ where: { usuarioId: id_user } });
-  
-  res.json(favs2);
-}catch(err){
-  console.log(err.message)
+  try {
+    let favBorrado = await Favorito.destroy({
+      where: {
+        usuarioId: id_user,
+        productoId: id_prod,
+      },
+    });
+    let favs2 = Favorito.findAll({ where: { usuarioId: id_user } });
 
-}
+    res.json(favs2);
+  } catch (err) {
+    console.log(err.message);
+  }
 });
 //////AQUI YACEN LOS RESTOS DE AUTENTICACION----RIP-AUTENTICACION----GRACIAS JONA </3----//////
 //#region
