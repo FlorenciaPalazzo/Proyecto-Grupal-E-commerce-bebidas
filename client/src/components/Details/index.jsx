@@ -5,10 +5,12 @@ import { useEffect } from "react";
 import { getProductById, getReview } from "../../redux/actions";
 import "./DetailStyles.css";
 import ReactStars from "react-rating-stars-component";
+import swal from 'sweetalert';
 
 export default function Detail() {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const verified = useSelector((state) => state.currentUser);
   const product = useSelector((state) => state.detail);
   const rev = useSelector((state) => state.review);
   console.log(rev, 'SOY EL REV')
@@ -17,7 +19,14 @@ export default function Detail() {
     dispatch(getReview(id))
   }, [dispatch, id]);
 
-  
+  const handleAlertReview = (e) => {
+    e.preventDefault();
+ swal({
+   title: "Debes ingresar con tu usuario", 
+   text:"...para dejar una reseña ⭐⭐⭐!",
+   icon: "warning",  
+  }) 
+}
 
   return (
     <div className="detail-background">
@@ -58,7 +67,7 @@ export default function Detail() {
               </div>
             )}): 
             
-            <p>no hay reviews</p>
+            <div className="detail-description">no hay reviews</div>
             }
               
           </div>
@@ -66,8 +75,9 @@ export default function Detail() {
             <button className="button">Back</button>
           </Link>
           <Link to = {`/Review/${id}`}>
-                <button className="button">contanos tu experiencia</button>
+                <button onClick={handleAlertReview} className="button">Contanos tu experiencia</button>
           </Link>
+          
         </div>
       ) : (
         console.log("No hay nada acá")

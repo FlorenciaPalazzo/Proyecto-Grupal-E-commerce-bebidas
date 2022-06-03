@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getBrands, getProducts, getReviewPage } from "../../redux/actions";
+import swal from 'sweetalert';
 
 import NavBar from "../NavBar";
 import Card from "../Card";
@@ -17,6 +18,7 @@ function Home() {
   console.log(rev, 'SOY EL REV')
   const loading = useSelector((state) => state.isLoading);
   const searchProduct = useSelector((state) => state.searchProduct);
+  const verified = useSelector((state) => state.currentUser);
   const [, /*order*/ setOrder] = useState("");
   
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,6 +45,17 @@ function Home() {
    
     dispatch(getBrands());
   }, [dispatch, product, loading, searchProduct, rev]);
+
+  const handleAlertReview = (e) => {
+    e.preventDefault();
+ swal({
+   title: "Debes ingresar con tu usuario", 
+   text:"...para dejar una reseña ⭐⭐⭐!",
+   icon: "warning",  
+  }) 
+}
+
+
 
   console.log("searchProduct", searchProduct);
   return (
@@ -86,14 +99,12 @@ function Home() {
                 <div>
                   <h1 className="error">No products were found</h1>
                 </div>
-              )};
+              )}
             <div>
-              <Link to = '/Review'>
-                <button className="button">contanos tu experiencia</button>
-              </Link>
+               
             </div>  
             </div>
-            <div>
+            {/* <div>
             <div className="detail-description">
             {rev ? rev.map(e => {return(
               <div key= {e.id}>
@@ -116,14 +127,45 @@ function Home() {
             }
             </div>
             </div>
-          </div>
+          </div> */}
           <div className="footer">
+            
             <div className="text">Contact</div>
             <div className="text">About</div>
+            
+            <div>
+            <div className="detail-description">
+            {rev ? rev.map(e => {return(
+              <div key= {e.id}>
+                <p>Titulo: {e.titulo}</p>
+                <p>Comentario: {e.comentario}</p>
+                <p>Puntaje: <ReactStars
+                count={e.puntaje}
+                size={24}
+                isHalf={true}
+                emptyIcon={<i className="far fa-star"></i>}
+                halfIcon={<i className="fa fa-star-half-alt"></i>}
+                fullIcon={<i className="fa fa-star"></i>}
+                edit={false}
+                color="#ffd700"
+              /></p>
+              </div>
+            )}): 
+            
+            <p>No hay reviews</p>
+            }
+            </div>
+            </div>
+            <Link to = '/Review'>
+                <button onClick={handleAlertReview} className="button" >Contanos tu experiencia</button>
+              </Link>
+          </div>
+          
           </div>
         </div>
 
-      )}
+      )}  
+      
     </div>
   );
 }
