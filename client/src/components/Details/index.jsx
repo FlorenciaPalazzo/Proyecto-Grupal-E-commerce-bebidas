@@ -77,7 +77,6 @@ export default function Detail() {
           <Link to = {`/Review/${id}`}>
                 <button onClick={handleAlertReview} className="button">Contanos tu experiencia</button>
           </Link>
-          
         </div>
       ) : (
         console.log("No hay nada acá")
