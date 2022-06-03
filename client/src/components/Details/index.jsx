@@ -17,28 +17,36 @@ export default function Detail() {
 
   return (
     <div className="detail-background">
+      <Link to="/home">
+            <button className="button">Back</button>
+          </Link>
       {product ? (
         <div className="detail-content">
-          <h1 className="detail-name">{product.nombre}</h1>
+          <div className="detail-compra">
+            <h1 className="detail-name">{product.nombre}</h1>
+            <h1 className="detail-title">Price: $ {product.precio}</h1>
+            <button className="button-shop">
+          Añadir al carrito
+        </button>
+          </div>
           <div className="image-div">
             <img className="detail-image" src={product.imagen} alt="" />
           </div>
-
-          <div className="detail-subcontent">
-            <h4 className="detail-title">Brand: {product.marca}</h4>
-            <h4 className="detail-title">Size: {product.ml} ml</h4>
-            <h4 className="detail-title">
+          
+          
+          <div className="detail-description">
+            <div className="detail-left">
+            <p className="detail-title">Brand: {product.marca}</p>
+            <p className="detail-title">Size: {product.ml} ml</p>
+            <p className="detail-title">
               Alcohol content: {product.graduacion} %
-            </h4>
-            <h4 className="detail-title">Price: $ {product.precio}</h4>
+            </p>
+            </div>
+            <div className="detail-right">
+            <p className="detail-title" dangerouslySetInnerHTML={{ __html: product.descripcion }}/>
+            </div>
           </div>
-          <p
-            className="detail-description"
-            dangerouslySetInnerHTML={{ __html: product.descripcion }}
-          />
-          <Link to="/home">
-            <button className="button">Back</button>
-          </Link>
+          
         </div>
       ) : (
         console.log("No hay nada acá")
