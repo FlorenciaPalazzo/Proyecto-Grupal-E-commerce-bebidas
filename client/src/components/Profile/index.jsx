@@ -17,7 +17,7 @@ function Profile(){
     },[user])
     return(
         <div>
-            <Link to="/">
+            <Link to="/home">
                 <button>Home</button>
             </Link>
             <h1>Profile</h1>

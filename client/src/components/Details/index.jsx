@@ -2,18 +2,31 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getProductById } from "../../redux/actions";
+import { getProductById, getReview } from "../../redux/actions";
 import "./DetailStyles.css";
+import ReactStars from "react-rating-stars-component";
+import swal from 'sweetalert';
 
 export default function Detail() {
   const dispatch = useDispatch();
   const { id } = useParams();
-
+  const verified = useSelector((state) => state.currentUser);
+  const product = useSelector((state) => state.detail);
+  const rev = useSelector((state) => state.review);
+  console.log(rev, 'SOY EL REV')
   useEffect(() => {
     dispatch(getProductById(id));
+    dispatch(getReview(id))
   }, [dispatch, id]);
 
-  const product = useSelector((state) => state.detail);
+  const handleAlertReview = (e) => {
+    e.preventDefault();
+ swal({
+   title: "Debes ingresar con tu usuario", 
+   text:"...para dejar una reseña ⭐⭐⭐!",
+   icon: "warning",  
+  }) 
+}
 
   return (
     <div className="detail-background">
@@ -36,13 +49,40 @@ export default function Detail() {
             className="detail-description"
             dangerouslySetInnerHTML={{ __html: product.descripcion }}
           />
+          <div >
+            {rev.length ? rev.map(e => {return(
+              <div className="detail-description">
+                <p>Titulo: {e.titulo}</p>
+                <p>Comentario: {e.comentario}</p>
+                <p>Puntaje: <ReactStars
+                count={e.puntaje}
+                size={24}
+                isHalf={true}
+                emptyIcon={<i className="far fa-star"></i>}
+                halfIcon={<i className="fa fa-star-half-alt"></i>}
+                fullIcon={<i className="fa fa-star"></i>}
+                edit={false}
+                color="#ffd700"
+              /></p>
+              </div>
+            )}): 
+            
+            <div className="detail-description">no hay reviews</div>
+            }
+              
+          </div>
           <Link to="/home">
             <button className="button">Back</button>
           </Link>
+          <Link to = {`/Review/${id}`}>
+                <button onClick={handleAlertReview} className="button">Contanos tu experiencia</button>
+          </Link>
+          
         </div>
       ) : (
         console.log("No hay nada acá")
       )}
+              
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   addCart,
   cleanCart,
@@ -96,7 +96,7 @@ const ShoppingCart = () => {
             })}
 
           <span>
-            {verified.email && productCart.length ? (
+            {verified && verified.email && productCart.length ? (
               <div>
                 <button onClick={postCarrito}>PAGAR</button>
                 <button onClick={cleanAllCart}>Clean Cart</button>
@@ -107,6 +107,9 @@ const ShoppingCart = () => {
           </span>
         </div>
       )}
+      <Link to='/home'>
+        <button>Regresar.</button>
+      </Link>
     </div>
   );
 };

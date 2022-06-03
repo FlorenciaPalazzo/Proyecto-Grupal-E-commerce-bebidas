@@ -27,7 +27,11 @@ import {
   ORDER_MERCADO_PAGO,
   DELETE_MERCADO_PAGO,
   FEEDBACK_MERCADO_PAGO,
-
+  POST_REVIEW,
+  GET_REVIEW,
+  PUT_REVIEW,
+  DELETE_REVIEW,
+  GET_REVPAGE,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -343,6 +347,80 @@ export const feedBack = () => {
     }
   };
 };
+
+// -------- review --------
+
+export const postReview = (payload) => {
+  return async function (dispatch) {
+    try{
+      let result = await axios.post("http://localhost:3001/review/", payload);
+      console.log('ACTION DEL POST')
+      return dispatch({
+        type: POST_REVIEW,
+      });
+    }catch(e){
+      console.log(e)
+    }
+  }
+}
+
+
+export const getReview = (id) => {
+  return async function (dispatch) {
+    try{
+      let result = await axios.get("http://localhost:3001/review/" + id)
+      return dispatch({
+        type: GET_REVIEW,
+        payload: result.data
+      })
+    }catch(e){
+      console.log(e)
+    }
+  };
+};
+
+export const getReviewPage = () => {
+  return async function (dispatch) {
+    try{
+      let result = await axios.get("http://localhost:3001/review")
+      console.log(result.data, 'ACTION')
+      return dispatch({
+        type: GET_REVPAGE,
+        payload: result.data
+      })
+    }catch(e){
+      console.log(e)
+    }
+  };
+};
+
+export const putReview = (id) => {
+  return async function (dispatch) {
+    try{
+      let result = await axios.get("http://localhost:3001/review/" + id)
+      return dispatch({
+        type: PUT_REVIEW,
+        payload: result.data
+      })
+    }catch(e){
+      console.log(e)
+    }
+  };
+};
+export const deleteReview = (id) => {
+  return async function (dispatch) {
+    try{
+      let result = await axios.get("http://localhost:3001/review/" + id)
+      return dispatch({
+        type: DELETE_REVIEW,
+        payload: result.data
+      })
+    }catch(e){
+      console.log(e)
+    }
+  };
+};
+
 export const setFavorito = (payload) => {
   return async function (dispatch) {
     try {
