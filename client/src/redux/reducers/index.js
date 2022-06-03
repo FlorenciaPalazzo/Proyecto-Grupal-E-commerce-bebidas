@@ -73,9 +73,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return { ...state, currentUser: {}, isLoged: false, favProducts: [] };
 
     case GET_USERS_LOGED:
-      
       return { ...state, usersLoged: payload };
-      
+
     case SET_LOADING:
       return { ...state, isLoading: payload };
     case ADMIN_HANDLER: {
@@ -94,8 +93,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
     }
     case GET_PRODUCT_NAME:
       return { ...state, products: payload, searchProduct: payload };
-
-   
 
     case GET_PRODUCT_ID:
       return { ...state, detail: payload };
@@ -378,7 +375,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
         review: payload,
       };
     case GET_REVPAGE: 
-    console.log(payload, 'SOY EL REDUCER')
       return{      
         ...state,
         reviewPage: payload,
@@ -396,29 +392,28 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return { ...state, favProducts: payload };
 
     case GET_FAV:
-      
-      let productos = state.products//te trae todos los productos
+      let productos = state.products; //te trae todos los productos
 
-      let ids= payload.map((e)=> e.productoId) //mapea los prod fav
-      let arr= [];
-      console.log("SOY EL PAYLOAD", payload)
+      let ids = payload.map((e) => e.productoId); //mapea los prod fav
+      let arr = [];
+      console.log("SOY EL PAYLOAD", payload);
 
-      productos.map((e)=>{         //mapea productos pregunta si hay id prod
-        if(ids.includes(e.id)){
-          arr.push(e)
+      productos.map((e) => {
+        //mapea productos pregunta si hay id prod
+        if (ids.includes(e.id)) {
+          arr.push(e);
         }
-      })
-     
-      console.log("SOY EL FILTRO PROD",arr)
+      });
+
+      console.log("SOY EL FILTRO PROD", arr);
 
       return {
-        ...state, 
+        ...state,
         favProducts: arr,
-      }
+      };
 
-      case DEL_FAV:
-
-        return { ...state, favProducts: payload };
+    case DEL_FAV:
+      return { ...state, favProducts: payload };
 
     default:
       return state;

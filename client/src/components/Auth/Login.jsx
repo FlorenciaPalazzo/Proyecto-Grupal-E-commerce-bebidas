@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../fb";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { isAdmin, setUser, setMessage, createUser } from "../../redux/actions";
 import Loading from "../Loading";
@@ -86,6 +86,9 @@ function Login() {
         <Loading />
       ) : (
         <div>
+          <Link to="/home">
+          <button className="button">Home</button>
+          </Link>
           <h1 className="forms-title">Login</h1>
           <div className="forms">
             {error && <span>{error}</span>}
