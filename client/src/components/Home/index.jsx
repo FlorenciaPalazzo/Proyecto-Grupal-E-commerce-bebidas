@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import { getBrands, getProducts, getReviewPage } from "../../redux/actions";
 import swal from 'sweetalert';
 
@@ -16,9 +16,11 @@ function Home() {
   const product = useSelector((state) => state.products);
   const rev = useSelector((state) => state.reviewPage);
   console.log(rev, 'SOY EL REV')
+  const navigate = useNavigate();
   const loading = useSelector((state) => state.isLoading);
   const searchProduct = useSelector((state) => state.searchProduct);
   const verified = useSelector((state) => state.currentUser);
+  const isLoged = useSelector((state) => state.isLoged);
   const [, /*order*/ setOrder] = useState("");
   
   const [currentPage, setCurrentPage] = useState(1);
@@ -51,9 +53,29 @@ function Home() {
  swal({
    title: "Debes ingresar con tu usuario", 
    text:"...para dejar una reseña ⭐⭐⭐!",
-   icon: "warning",  
-  }) 
-}
+   buttons : {
+     cancel : 'Ahorita no joven',
+     register : {
+       text : 'Registrarse',
+       value : 'register'
+     },
+         login: {
+       text: 'Iniciar sesion',
+       value: 'login'
+     }
+   },
+   icon: "warning",
+ }).then(value => {
+
+   if (value === 'register') {
+     navigate('/register')
+   }
+
+   if (value === 'login') {
+     navigate('/login')
+   }
+ })
+  }
 
 
 
@@ -156,9 +178,17 @@ function Home() {
             }
             </div>
             </div>
-              <Link to = '/Review'>
-                <button onClick={handleAlertReview} className="button" >Contanos tu experiencia</button>
+            {isLoged?(
+              <Link  to = '/Review'>
+                <button  className="button" >Contanos tu experiencia</button>
               </Link>
+            ) : (
+              <Link to = ''>
+              <button onClick={handleAlertReview} className="button" >Contanos tu experiencia</button>
+              </Link>
+
+            )
+            }
           </div>
           
           </div>
