@@ -391,9 +391,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         review: payload,
       };
     case DELETE_REVIEW:
-      return {
-        ...state,
-      };
+      return { ...state };
     case SET_FAV:
       return { ...state, favProducts: payload };
 
@@ -402,7 +400,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
 
       let ids = payload.map((e) => e.productoId); //mapea los prod fav
       let arr = [];
-      console.log("SOY EL PAYLOAD", payload);
 
       productos.map((e) => {
         //mapea productos pregunta si hay id prod
@@ -410,9 +407,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
           arr.push(e);
         }
       });
-
-      console.log("SOY EL FILTRO PROD", arr);
-
       return {
         ...state,
         favProducts: arr,

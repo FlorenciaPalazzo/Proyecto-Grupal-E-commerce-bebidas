@@ -30,7 +30,7 @@ export const Favoritos = () => {
   };
   return (
     <div>
-      <Link to="/home">
+      <Link to="/">
         <button className="button">Home</button>
       </Link>
       <div>Lista de Favoritos</div>

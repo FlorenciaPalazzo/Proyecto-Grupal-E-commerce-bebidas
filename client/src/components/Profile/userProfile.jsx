@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import ReactStars from "react-rating-stars-component";
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useLayoutEffect, useState } from "react";
 import {
   deleteReview,
   getAllReviews,
@@ -8,27 +9,31 @@ import {
   getReviewPage,
   putReview,
 } from "../../redux/actions";
+import { ReviewCar } from "../Review/ReviewCar";
 
 function UserProfile() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.currentUser);
   let revs = useSelector((state) => state.allReviews);
+  let [bool, setBool] = useState(false);
   console.log("user", user);
-
   let allRevs = revs.filter((e) => user.uid === e.usuarioId);
+
   const handleDelete = (e) => {
     e.preventDefault();
-    dispatch(deleteReview());
+    console.log(e.target.value);
+    dispatch(deleteReview(e.target.value));
+    setBool(!bool);
   };
   const handlePut = (e) => {
     e.preventDefault();
-    dispatch(putReview());
+    dispatch(putReview(e.target.value));
+    setBool(!bool);
   };
   useEffect(() => {
-    /* dispatch(getReviewPage());
-    dispatch(getReview()); */
     dispatch(getAllReviews());
-  }, []);
+  }, [dispatch, bool]);
 
   return (
     <div>
@@ -36,35 +41,27 @@ function UserProfile() {
       <h2>{user && user.email}</h2>
       <div>
         <h2>Reviews</h2>
-        {
-          allRevs &&
-            allRevs.map((e) => {
-              return (
-                <div key={e.id}>
-                  <p>Titulo: {e.titulo}</p>
-                  <p>Comentario: {e.comentario}</p>
-                  <p>
-                    Puntaje:{" "}
-                    <ReactStars
-                      count={e.puntaje}
-                      size={24}
-                      isHalf={true}
-                      emptyIcon={<i className="far fa-star"></i>}
-                      halfIcon={<i className="fa fa-star-half-alt"></i>}
-                      fullIcon={<i className="fa fa-star"></i>}
-                      edit={false}
-                      color="#ffd700"
-                    />
-                  </p>
-                  <button onClick={handlePut}>✏️</button>
-                  <button onClick={handleDelete}>❌</button>
-                </div>
-              );
-            })
-          /*  : (
-          <div>No hay reviews hasta el momento</div>
-        ) */
-        }
+        {allRevs.length ? (
+          allRevs.map((r) => {
+            return (
+              <div key={r.id} value={r.id}>
+                <ReviewCar
+                  titulo={r.titulo}
+                  comentario={r.comentario}
+                  puntaje={r.puntaje}
+                />
+                <button onClick={handleDelete} value={r.id}>
+                  ❌
+                </button>
+                <button onClick={handlePut} value={r.id}>
+                  ✏️
+                </button>
+              </div>
+            );
+          })
+        ) : (
+          <div>No hay reviews!</div>
+        )}
       </div>
     </div>
   );

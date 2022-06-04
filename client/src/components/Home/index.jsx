@@ -155,7 +155,7 @@ function Home() {
                         <div key={e.id}>
                           <p>Titulo: {e.titulo}</p>
                           <p>Comentario: {e.comentario}</p>
-                          <p>
+                          <div>
                             Puntaje:{" "}
                             <ReactStars
                               count={e.puntaje}
@@ -167,12 +167,12 @@ function Home() {
                               edit={false}
                               color="#ffd700"
                             />
-                          </p>
+                          </div>
                         </div>
                       );
                     })
                   ) : (
-                    <p>No hay reviews</p>
+                    <span>No hay reviews</span> // esto es lo que tiraba error del pDOM en la consola
                   )}
                 </div>
               </div>
