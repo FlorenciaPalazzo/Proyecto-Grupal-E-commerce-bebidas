@@ -1,0 +1,38 @@
+.container {
+    position: relative;
+    overflow:hidden;
+    width: 750px;
+    left: 50vh ;
+    top: 115px;
+    transform: translateY(-50%);
+  }
+  
+  .wrapper {
+    width: 2250px;
+    position: relative;
+    animation: scroll 11s linear infinite;
+  }
+  ul {
+    list-style-type: none;
+  }
+  
+  @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-750px * 3))}
+  }
+  
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  li img {
+    height: 200px;
+    width: 750px;
+  }
+  
+  * {
+    margin:0px;
+    padding: 0px;
+  }
+  

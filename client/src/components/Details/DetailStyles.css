@@ -143,3 +143,32 @@
     background-color: rgb(100, 100, 100);
     transition: background-color 0.1s ease-in-out;
 }
+
+.review-detail {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 75%;
+    margin-left: 0;
+    padding-right: 12%;
+    border-right: solid 2px #3c3c3c;
+}
+
+.review-body {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    justify-content: space-between;
+    align-content: center;
+    border-top: solid 2px #3c3c3c;
+    border-bottom: solid 2px #3c3c3c;
+    box-sizing: border-box;
+    margin-top: 40%;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 3%;
+    align-items: center;
+    font-weight: bold;
+    min-width: 100px;
+    font-family: "Montserrat";
+    text-align: justify;
+}

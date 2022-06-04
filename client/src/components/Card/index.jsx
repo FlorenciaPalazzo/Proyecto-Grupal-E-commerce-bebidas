@@ -106,26 +106,20 @@ export default function Card({
     //empiezo a renderizar
     <div className="card-main">
       {" "}
-      {/*div contenedor principal*/}
+      
       <div className="card">
         {" "}
-        {/*div de la card*/}
+        
         <img
           className="card-imagen"
           src={imagen}
           alt="img not found"
           width="30%"
         />{" "}
-        {/*imagen del producto*/}
+       
         <div className="card-content">
-          {/*div del contenido*/}
-          <h2 className="card-title"> {nombre} </h2> {/*nombre del producto*/}
-          {/* <p className="card-body">
-            
-            <p className="card-brand">Brand: {marca}</p>
-            <p className="card-alcohol">Alcohol content: {graduacion} % </p>
-            <p className="card-ml">Size: {ml}ml </p>{" "}
-          </p> */}
+          
+          <h2 className="card-title"> {nombre} </h2>
           <p className="card-price">Price: ${precio} </p>
         </div>
         <div>
