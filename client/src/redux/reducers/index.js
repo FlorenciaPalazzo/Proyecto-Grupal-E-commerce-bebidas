@@ -30,6 +30,12 @@ import {
   FEEDBACK_MERCADO_PAGO,
   ADD_DIRECCIONES,
   GET_DIRECCIONES,
+  GET_REVIEW,
+  POST_REVIEW,
+  PUT_REVIEW,
+  DELETE_REVIEW,
+  GET_REVPAGE,
+  GET_ALL_REVIEWS,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -51,11 +57,14 @@ const initialState = {
   orderMP: [],
   feedBackMP: [],
   favProducts: [],
-  direcciones: []
+  direcciones: [],
+  review: [],
+  reviewPage: [],
+  allReviews: [],
+  favProducts: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
-  console.log("payload del reducer probando carrito", payload);
   switch (type) {
     case GET_PRODUCTS:
       return {
@@ -354,7 +363,32 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         feedBackMP: payload,
       };
-
+    case POST_REVIEW:
+      return {
+        ...state,
+      };
+    case GET_ALL_REVIEWS:
+      return {
+        ...state,
+        allReviews: payload,
+      };
+    case GET_REVIEW: //de los productos
+      return {
+        ...state,
+        review: payload,
+      };
+    case GET_REVPAGE: // de la pag general
+      return {
+        ...state,
+        reviewPage: payload,
+      };
+    case PUT_REVIEW:
+      return {
+        ...state,
+        review: payload,
+      };
+    case DELETE_REVIEW:
+      return { ...state };
     case SET_FAV:
       return { ...state, favProducts: payload };
 
@@ -371,9 +405,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
           arr.push(e);
         }
       });
-
-      console.log("SOY EL FILTRO PROD", arr);
-
       return {
         ...state,
         favProducts: arr,

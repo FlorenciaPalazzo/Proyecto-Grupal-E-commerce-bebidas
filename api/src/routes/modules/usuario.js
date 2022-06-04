@@ -63,9 +63,8 @@ router.post("/", async (req, res) => {
   }
 });
 router.put("/", async (req, res) => {
-  let { nombre, email, contraseña, nacimiento, direccion, telefono } = req.body;
+  //let { nombre, email, contraseña, nacimiento, direccion, telefono } = req.body;
   let { id } = req.body;
-
   try {
     const usuarioPut = await Usuario.findOne({ where: { id: id } });
 
