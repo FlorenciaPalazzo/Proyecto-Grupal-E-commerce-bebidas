@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import ReactStars from "react-rating-stars-component";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import {
   deleteReview,
   getAllReviews,
@@ -16,24 +16,24 @@ function UserProfile() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.currentUser);
   let revs = useSelector((state) => state.allReviews);
+  let [bool, setBool] = useState(false);
   console.log("user", user);
-
   let allRevs = revs.filter((e) => user.uid === e.usuarioId);
+
   const handleDelete = (e) => {
     e.preventDefault();
     console.log(e.target.value);
     dispatch(deleteReview(e.target.value));
-    window.location.reload();
+    setBool(!bool);
   };
   const handlePut = (e) => {
     e.preventDefault();
     dispatch(putReview(e.target.value));
-    //window.location.reload()
-    console.log("Me meto al put");
+    setBool(!bool);
   };
   useEffect(() => {
     dispatch(getAllReviews());
-  }, [dispatch /* , allRevs */]);
+  }, [dispatch, bool]);
 
   return (
     <div>
@@ -41,7 +41,7 @@ function UserProfile() {
       <h2>{user && user.email}</h2>
       <div>
         <h2>Reviews</h2>
-        {allRevs &&
+        {allRevs.length ? (
           allRevs.map((r) => {
             return (
               <div key={r.id} value={r.id}>
@@ -58,7 +58,10 @@ function UserProfile() {
                 </button>
               </div>
             );
-          })}
+          })
+        ) : (
+          <div>No hay reviews!</div>
+        )}
       </div>
     </div>
   );
