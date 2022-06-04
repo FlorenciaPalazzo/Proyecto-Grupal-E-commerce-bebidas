@@ -9,7 +9,7 @@ import Pagination from "../Pagination";
 import Loading from "../Loading";
 import ReactStars from "react-rating-stars-component";
 import "./HomeStyles.css";
-
+import Carousel from "../Carousel";
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
@@ -89,6 +89,7 @@ function Home() {
               product={product.length}
               pagination={pagination}
             />
+            <Carousel />
             <div className="card-container">
               {currentProducts.length > 0 ? (
                 currentProducts.map((e) => {
