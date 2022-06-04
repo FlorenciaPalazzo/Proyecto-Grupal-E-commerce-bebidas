@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCart, setFavorito } from "../../redux/actions";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import "./CardStyles.css";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 export default function Card({
   nombre,
   imagen,
@@ -17,7 +17,7 @@ export default function Card({
   const isLoged = useSelector((state) => state.isLoged);
   let a = usuario ? usuario.uid : null;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [fav, setFav] = useState({
     id_prod: id,
     id_user: a,
@@ -33,7 +33,10 @@ export default function Card({
     quantity: 1,
     subtotal: precio,
   };
+<<<<<<< HEAD
   
+=======
+>>>>>>> 24c1d038592805e377735ed1f67037fe94c79947
   const dispatch = useDispatch();
 
   const handleAddCarrito = (e) => {
@@ -50,59 +53,57 @@ export default function Card({
     };
   };
 
+  const handleAlertFav = (e) => {
+    e.preventDefault();
+    swal({
+      title: "Debes ingresar con tu usuario",
+      text: "...para agregar tus bebidas a favoritos❤!",
+      buttons: {
+        cancel: "Ahorita no joven",
+        register: {
+          text: "Registrarse",
+          value: "register",
+        },
+        login: {
+          text: "Iniciar sesion",
+          value: "login",
+        },
+      },
+      icon: "warning",
+    }).then((value) => {
+      if (value === "register") {
+        navigate("/register");
+      }
 
-    const handleAlertFav = (e) => {
-      e.preventDefault();
-   swal({
-     title: "Debes ingresar con tu usuario", 
-     text:"...para agregar tus bebidas a favoritos❤!",
-     buttons : {
-       cancel : 'Ahorita no joven',
-       register : {
-         text :'Registrarse',
-        value : 'register'},
-        login : {
-          text : 'Iniciar sesion',
-          value : 'login'
-        }
-     },
-     icon: "warning",  
-   }).then(value => {
-
-     if (value === 'register') {
-       navigate('/register')
-     }
-
-     if (value === 'login') {
-       navigate('/login')
-     }
-   })
-    }
+      if (value === "login") {
+        navigate("/login");
+      }
+    });
+  };
 
   const handleAlertCarrito = (e) => {
     e.preventDefault();
- swal({
-   title: "Debes ingresar con tu usuario", 
-   text:"...para poder comprar 🛒🛒🛒!",
-   buttons: {
-     cancel: 'Ahorita no joven',
-     register: {
-       text: 'Registrarse',
-       value: 'register'}
-     },
-   icon: "warning",  
-   
- }).then(value => {
+    swal({
+      title: "Debes ingresar con tu usuario",
+      text: "...para poder comprar 🛒🛒🛒!",
+      buttons: {
+        cancel: "Ahorita no joven",
+        register: {
+          text: "Registrarse",
+          value: "register",
+        },
+      },
+      icon: "warning",
+    }).then((value) => {
+      if (value === "register") {
+        navigate("/register");
+      }
 
-   if (value === 'register') {
-     navigate('/register')
-   }
-
-   if (value === 'login') {
-     navigate('/login')
-   }
- })
-  }
+      if (value === "login") {
+        navigate("/login");
+      }
+    });
+  };
 
   //acá traigo todas las propiedades
   return (
@@ -113,7 +114,6 @@ export default function Card({
       <div className="card">
         {" "}
         {/*div de la card*/}
-        
         <img
           className="card-imagen"
           src={imagen}
@@ -132,33 +132,27 @@ export default function Card({
           </p> */}
           <p className="card-price">Price: ${precio} </p>
         </div>
-
-          
-        
+        <div>
           <div>
-          <button onClick={handleAddCarrito} className="button-shop">
-          Añadir al carrito
-        </button>
+            <button onClick={handleAddCarrito} className="button-shop">
+              Añadir al carrito
+            </button>
 
-          {!isLoged?(
-        <button
-          className="button-fav"
-          value={fav.id}
-          onClick={handleAlertFav}
-        >
-          ❤ {/* el corazon de toni (es chiquito) */}
-        </button>) : (
-              <button onClick={handleAddFavorito} className="button-fav" >❤</button>
-        
-        )
-      }
+            {!isLoged ? (
+              <button
+                className="button-fav"
+                value={fav.id}
+                onClick={handleAlertFav}
+              >
+                ❤ {/* el corazon de toni (es chiquito) */}
+              </button>
+            ) : (
+              <button onClick={handleAddFavorito} className="button-fav">
+                ❤
+              </button>
+            )}
+          </div>
         </div>
-        
-        
-        
-        
-
-
       </div>
     </div>
   );

@@ -32,6 +32,7 @@ import {
   PUT_REVIEW,
   DELETE_REVIEW,
   GET_REVPAGE,
+  GET_ALL_REVIEWS,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -282,8 +283,6 @@ export const buyCart = () => {
   };
 };
 
-
-
 //ESTO ESTA ANDANDO LISTO...
 export const orderMercadoPago = (localStorage) => {
   return async function (dispatch) {
@@ -352,71 +351,82 @@ export const feedBack = () => {
 
 export const postReview = (payload) => {
   return async function (dispatch) {
-    try{
+    try {
       let result = await axios.post("http://localhost:3001/review/", payload);
-      console.log('ACTION DEL POST')
       return dispatch({
         type: POST_REVIEW,
       });
-    }catch(e){
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
-  }
-}
-
+  };
+};
+export const getAllReviews = () => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.get("http://localhost:3001/review/all");
+      console.log("result.date", result.data);
+      return dispatch({
+        type: GET_ALL_REVIEWS,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log("error desde el catch getAllReviews", err);
+    }
+  };
+};
 
 export const getReview = (id) => {
   return async function (dispatch) {
-    try{
-      let result = await axios.get("http://localhost:3001/review/" + id)
+    try {
+      let result = await axios.get("http://localhost:3001/review/" + id);
       return dispatch({
         type: GET_REVIEW,
-        payload: result.data
-      })
-    }catch(e){
-      console.log(e)
+        payload: result.data,
+      });
+    } catch (e) {
+      console.log(e);
     }
   };
 };
 
 export const getReviewPage = () => {
   return async function (dispatch) {
-    try{
-      let result = await axios.get("http://localhost:3001/review")
-      console.log(result.data, 'ACTION')
+    try {
+      let result = await axios.get("http://localhost:3001/review");
+      console.log(result.data, "ACTION");
       return dispatch({
         type: GET_REVPAGE,
-        payload: result.data
-      })
-    }catch(e){
-      console.log(e)
+        payload: result.data,
+      });
+    } catch (e) {
+      console.log(e);
     }
   };
 };
 
 export const putReview = (id) => {
   return async function (dispatch) {
-    try{
-      let result = await axios.get("http://localhost:3001/review/" + id)
+    try {
+      let result = await axios.get("http://localhost:3001/review/" + id);
       return dispatch({
         type: PUT_REVIEW,
-        payload: result.data
-      })
-    }catch(e){
-      console.log(e)
+        payload: result.data,
+      });
+    } catch (e) {
+      console.log(e);
     }
   };
 };
 export const deleteReview = (id) => {
   return async function (dispatch) {
-    try{
-      let result = await axios.get("http://localhost:3001/review/" + id)
+    try {
+      let result = await axios.delete("http://localhost:3001/review/" + id);
       return dispatch({
         type: DELETE_REVIEW,
-        payload: result.data
-      })
-    }catch(e){
-      console.log(e)
+      });
+    } catch (e) {
+      console.log("Error del action del deleteReview", e);
     }
   };
 };
@@ -435,10 +445,12 @@ export const setFavorito = (payload) => {
   };
 };
 
-export const getFavorito =(id)=>{
+export const getFavorito = (id) => {
   return async function (dispatch) {
     try {
-      let result = await axios.get(`http://localhost:3001/producto/favoritos/${id}` );
+      let result = await axios.get(
+        `http://localhost:3001/producto/favoritos/${id}`
+      );
       return dispatch({
         type: GET_FAV,
         payload: result.data,
@@ -447,13 +459,15 @@ export const getFavorito =(id)=>{
       console.log(err);
     }
   };
-}
+};
 
-export const deleteFavorito =({id_user, id_prod})=>{
+export const deleteFavorito = ({ id_user, id_prod }) => {
   return async function (dispatch) {
     try {
-      console.log("SOY EL PAYLOAD DE LA ACTION")
-      let result = await axios.delete(`http://localhost:3001/producto/favoritos?id_prod=${id_prod}&&id_user=${id_user}` );
+      console.log("SOY EL PAYLOAD DE LA ACTION");
+      let result = await axios.delete(
+        `http://localhost:3001/producto/favoritos?id_prod=${id_prod}&&id_user=${id_user}`
+      );
 
       return dispatch({
         type: DEL_FAV,
@@ -463,4 +477,4 @@ export const deleteFavorito =({id_user, id_prod})=>{
       console.log(err);
     }
   };
-}
+};
