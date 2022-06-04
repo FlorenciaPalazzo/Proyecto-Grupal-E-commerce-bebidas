@@ -80,15 +80,11 @@ export default function Detail() {
               />
             </div>
           </div>
-          {/* <p
-            className="detail-description"
-            dangerouslySetInnerHTML={{ __html: product.descripcion }}
-          /> */}
-          <div>
+          <div className="review-detail">
             {rev.length ? (
               rev.map((e) => {
                 return (
-                  <div className="detail-description">
+                  <div className="review-body">
                     <p>Titulo: {e.titulo}</p>
                     <p>Comentario: {e.comentario}</p>
                     <p>
@@ -108,12 +104,9 @@ export default function Detail() {
                 );
               })
             ) : (
-              <div className="detail-description">no hay reviews</div>
+              <div className="review-body">no hay reviews</div>
             )}
           </div>
-          <Link to="/">
-            <button className="button">Back</button>
-          </Link>
           {isLoged ? (
             <Link to={`/Review/${id}`}>
               <button className="button">Contanos tu experiencia</button>
