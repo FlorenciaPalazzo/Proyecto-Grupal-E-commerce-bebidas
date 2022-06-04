@@ -1,12 +1,12 @@
-div,
+zdiv,
 a {
-    width: fit-content;
+  width: fit-content;
 }
 
 a:link,
 a:visited,
 a:active {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .card-main,
@@ -15,19 +15,19 @@ a:active {
 .card-content,
 .card-title,
 .card-body {
-    background-color: rgb(255, 255, 255, 0.5);
+  background-color: rgb(255, 255, 255, 0.5);
 }
 
 .card-main {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    padding: 10px;
-    margin: 15px;
-    margin-bottom: 50px;
-    font-family: "Montserrat";
-    height: 85%;
-    transition: box-shadow 0.2s ease-in-out;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin: 15px;
+  margin-bottom: 50px;
+  font-family: "Montserrat";
+  height: 85%;
+  transition: box-shadow 0.2s ease-in-out;
 }
 
 .card-main:hover {
@@ -36,9 +36,9 @@ a:active {
 }
 
 .card {
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
 }
 
 .card-imagen {
@@ -64,6 +64,23 @@ a:active {
 /* .card-brand,
 .card-alcohol,
 .card-ml {
+
+  font-size: large;
+}
+
+.card-price {
+  font-size: xx-large;
+  margin: 0;
+  justify-items: center;
+}
+
+.swal-overlay {
+  width: 100%;
+}
+.swal-button {
+  background-color: rgba(170, 150, 100, 0.744);
+}
+=======
     font-size: large;
 } */
 
@@ -72,4 +89,9 @@ a:active {
     font-size: medium;
     margin: 0;
     justify-items: center;
+}
+
+.swal-overlay {
+  background-color: rgba(67, 65, 65, 0.464);
+  width: 100%;
 }

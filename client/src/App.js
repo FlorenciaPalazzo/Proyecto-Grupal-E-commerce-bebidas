@@ -13,6 +13,7 @@ import "@fontsource/montserrat";
 import { Checkout } from "./components/Checkout";
 import { FeedBack } from "./components/FeedBack";
 import { Favoritos } from "./components/Favoritos";
+import Offers from "./components/Off/Offers";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/contact" exact element={<Contact />} />
         <Route path="/register" exact element={<Register />} />
         <Route path="/bebida/:id" exact element={<Detail />} />
+        <Route path="/offers" exact element={<Offers />} />
         <Route path="/checkout" exact element={<Checkout />} />
         <Route path="/feedback" exact element={<FeedBack />} />
         <Route path="/favoritos/:id_user" exact element={<Favoritos />} />
