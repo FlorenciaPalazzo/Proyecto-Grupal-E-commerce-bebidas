@@ -34,13 +34,6 @@ export default function NavBar({ setCurrentPage }) {
       {isLoged ? (
         <div className="nav-links">
           <div className="nav-left">
-          <Link to={`/favoritos/${usuarioActual.uid}`}>
-            <button  className="button">Ver Favoritos</button>
-          </Link>
-
-          <Link to="/contact">
-            <button className="button">Contact</button>
-          </Link>
             <Link to="/">
             <img className="logo" src="./logo/logo.png" alt="loguito" />
             </Link>
@@ -113,7 +106,7 @@ export default function NavBar({ setCurrentPage }) {
       <div className="div-searchbar">
         <SearchBar />
       </div>
-      <div className="div-filter">
+      <div className="div-filter-main">
         <FilterBy setCurrentPage={setCurrentPage} />
       </div>
     </div>

@@ -3,6 +3,8 @@
     flex-wrap: wrap;
     flex-direction: column;
     background-color: #3C3C3C;
+    height: 19vh;
+    min-height: max-content;
 }
 
 .logo {
@@ -19,12 +21,18 @@
     height: 75px;
     width: 99vw;
     align-content: center;
+    position: sticky;
 }
 
 .nav-links>.nav-left {
     position: absolute;
     left: 0;
     right: auto;
+    max-height: 40%;
+    max-width: 40%;
+    min-height: 15%;
+    min-width: 15%;
+    z-index: -1;
 }
 
 .nav-links>.nav-right {
@@ -39,6 +47,7 @@
 }
 
 .div-filter {
+    position: relative;
     height: 50px;
     width: 99vw;
     /* background-color: rgb(70, 70, 70); */
