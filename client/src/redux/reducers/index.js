@@ -24,8 +24,12 @@ import {
   GET_MERCADO_PAGO,
   ORDER_MERCADO_PAGO,
   SET_FAV,
+  GET_FAV,
+  DEL_FAV,
   DELETE_MERCADO_PAGO,
   FEEDBACK_MERCADO_PAGO,
+  ADD_DIRECCIONES,
+  GET_DIRECCIONES,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -40,13 +44,14 @@ const initialState = {
   searchProduct: [],
   productsSort: [],
   detail: [],
-  favProducts: [],
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
   mpSandBox: "",
   orderMP: [],
   feedBackMP: [],
+  favProducts: [],
+  direcciones: []
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -62,8 +67,10 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return { ...state, currentUser: payload, isLoged: true };
     case RESET_USER:
       return { ...state, currentUser: {}, isLoged: false, favProducts: [] };
+
     case GET_USERS_LOGED:
       return { ...state, usersLoged: payload };
+
     case SET_LOADING:
       return { ...state, isLoading: payload };
     case ADMIN_HANDLER: {
@@ -72,19 +79,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
         return { ...state, isAdmin: true };
       } else return { ...state, isAdmin: false };
     }
-    case SET_LOADING:
-      return { ...state, isLoading: payload };
-    case ADMIN_HANDLER: {
-      console.log(process.env.REACT_APP_ADMIN_EMAIL, payload);
-      if (process.env.REACT_APP_ADMIN_EMAIL === payload) {
-        return { ...state, isAdmin: true };
-      } else return { ...state, isAdmin: false };
-    }
+   
     case GET_PRODUCT_NAME:
       return { ...state, products: payload, searchProduct: payload };
-
-    case SET_FAV:
-      return { ...state, favProducts: payload };
 
     case GET_PRODUCT_ID:
       return { ...state, detail: payload };
@@ -188,8 +185,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
           products: state.productsSort.filter(
             (e) => e.ml >= 950 && e.ml < 1500
           ),
-        };
-      }
+        }
+      };
     case FILTER_BY_PRICE:
       if (payload === "all") {
         return {
@@ -345,6 +342,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case GET_MERCADO_PAGO:
       return { ...state, mpSandBox: payload };
     case DELETE_MERCADO_PAGO:
+      console.log("entro al reducer DELETE MP");
       let carritoVacio = [];
       localStorage.setItem("product", JSON.stringify(carritoVacio));
       return {
@@ -356,8 +354,42 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         feedBackMP: payload,
       };
+
     case SET_FAV:
       return { ...state, favProducts: payload };
+
+    case GET_FAV:
+      let productos = state.products; //te trae todos los productos
+
+      let ids = payload.map((e) => e.productoId); //mapea los prod fav
+      let arr = [];
+      console.log("SOY EL PAYLOAD", payload);
+
+      productos.map((e) => {
+        //mapea productos pregunta si hay id prod
+        if (ids.includes(e.id)) {
+          arr.push(e);
+        }
+      });
+
+      console.log("SOY EL FILTRO PROD", arr);
+
+      return {
+        ...state,
+        favProducts: arr,
+      };
+
+    case DEL_FAV:
+      return { ...state, favProducts: payload };
+    case ADD_DIRECCIONES:
+      return {
+        ...state
+      };
+      case GET_DIRECCIONES:
+        return{
+          ...state,
+          direcciones: payload
+      }
     default:
       return state;
   }
