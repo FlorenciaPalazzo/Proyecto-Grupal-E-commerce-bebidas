@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import ReactStars from "react-rating-stars-component";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import {
   deleteReview,
   getAllReviews,
@@ -9,6 +9,7 @@ import {
   getReviewPage,
   putReview,
 } from "../../redux/actions";
+import { ReviewCar } from "../Review/ReviewCar";
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -18,21 +19,21 @@ function UserProfile() {
   console.log("user", user);
 
   let allRevs = revs.filter((e) => user.uid === e.usuarioId);
-  let idRev;
   const handleDelete = (e) => {
     e.preventDefault();
     console.log(e.target.value);
     dispatch(deleteReview(e.target.value));
+    window.location.reload();
   };
   const handlePut = (e) => {
     e.preventDefault();
     dispatch(putReview(e.target.value));
+    //window.location.reload()
     console.log("Me meto al put");
   };
   useEffect(() => {
     dispatch(getAllReviews());
-    navigate("/profile");
-  }, [dispatch]);
+  }, [dispatch /* , allRevs */]);
 
   return (
     <div>
@@ -42,24 +43,13 @@ function UserProfile() {
         <h2>Reviews</h2>
         {allRevs &&
           allRevs.map((r) => {
-            //console.log("r.id", r.id);  esto le tengo que pasar al handle
             return (
               <div key={r.id} value={r.id}>
-                <p>Titulo: {r.titulo}</p>
-                <p>Comentario: {r.comentario}</p>
-                <p>
-                  Puntaje:{" "}
-                  <ReactStars
-                    count={r.puntaje}
-                    size={24}
-                    isHalf={true}
-                    emptyIcon={<i className="far fa-star"></i>}
-                    halfIcon={<i className="fa fa-star-half-alt"></i>}
-                    fullIcon={<i className="fa fa-star"></i>}
-                    edit={false}
-                    color="#ffd700"
-                  />
-                </p>
+                <ReviewCar
+                  titulo={r.titulo}
+                  comentario={r.comentario}
+                  puntaje={r.puntaje}
+                />
                 <button onClick={handleDelete} value={r.id}>
                   ❌
                 </button>

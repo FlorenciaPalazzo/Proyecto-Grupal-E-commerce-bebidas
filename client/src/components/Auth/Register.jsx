@@ -86,7 +86,7 @@ function Register() {
             })
           );
         })
-        .then(() => navigate("/home"))
+        .then(() => navigate("/"))
         .catch((err) => setError(err.message));
     } catch (error) {
       console.log(error);
@@ -96,7 +96,7 @@ function Register() {
   const loading = useSelector((state) => state.isLoading);
   const isLoged = useSelector((state) => state.isLoged);
   useEffect(() => {
-    isLoged && navigate("/home");
+    isLoged && navigate("/");
   }, [isLoged]);
   console.log(input);
 
@@ -106,7 +106,7 @@ function Register() {
         <Loading />
       ) : (
         <div>
-          <Link to="/home">
+          <Link to="/">
             <button className="button">Home</button>
           </Link>
           <h1 className="forms-title">Register</h1>
@@ -177,15 +177,15 @@ function Register() {
               <br />
 
               {!passwordError &&
-                !surnameError &&
-                !nameError &&
-                !emailError &&
-                !birthError &&
-                input.nombre &&
-                input.apellido &&
-                input.password &&
-                input.nacimiento &&
-                input.email ? (
+              !surnameError &&
+              !nameError &&
+              !emailError &&
+              !birthError &&
+              input.nombre &&
+              input.apellido &&
+              input.password &&
+              input.nacimiento &&
+              input.email ? (
                 <button>Register</button>
               ) : (
                 <button

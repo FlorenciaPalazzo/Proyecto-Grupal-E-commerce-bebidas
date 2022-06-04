@@ -33,7 +33,6 @@ export default function Card({
     quantity: 1,
     subtotal: precio,
   };
-  console.log("subtotal", productObject.subtotal);
   const dispatch = useDispatch();
 
   const handleAddCarrito = (e) => {

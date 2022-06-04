@@ -51,7 +51,7 @@ export default function Detail() {
 
   return (
     <div className="detail-background">
-      <Link to="/home">
+      <Link to="/">
         <button className="button">Back</button>
       </Link>
       {product ? (
@@ -111,7 +111,7 @@ export default function Detail() {
               <div className="detail-description">no hay reviews</div>
             )}
           </div>
-          <Link to="/home">
+          <Link to="/">
             <button className="button">Back</button>
           </Link>
           {isLoged ? (

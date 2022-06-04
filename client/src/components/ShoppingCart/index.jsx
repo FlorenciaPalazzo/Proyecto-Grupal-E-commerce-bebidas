@@ -103,7 +103,6 @@ const ShoppingCart = () => {
           {productCart &&
             productCart.map((element) => {
               productArray.push(element);
-              console.log("subtotal-----", subtotal);
 
               return (
                 <div>
@@ -139,7 +138,7 @@ const ShoppingCart = () => {
           </span>
         </div>
       )}
-      <Link to="/home">
+      <Link to="/">
         <button>Regresar.</button>
       </Link>
     </div>

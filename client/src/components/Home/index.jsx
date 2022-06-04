@@ -155,7 +155,7 @@ function Home() {
                         <div key={e.id}>
                           <p>Titulo: {e.titulo}</p>
                           <p>Comentario: {e.comentario}</p>
-                          <p>
+                          <div>
                             Puntaje:{" "}
                             <ReactStars
                               count={e.puntaje}
@@ -167,7 +167,7 @@ function Home() {
                               edit={false}
                               color="#ffd700"
                             />
-                          </p>
+                          </div>
                         </div>
                       );
                     })
