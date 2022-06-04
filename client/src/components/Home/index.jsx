@@ -172,7 +172,7 @@ function Home() {
                       );
                     })
                   ) : (
-                    <p>No hay reviews</p>
+                    <span>No hay reviews</span> // esto es lo que tiraba error del pDOM en la consola
                   )}
                 </div>
               </div>
