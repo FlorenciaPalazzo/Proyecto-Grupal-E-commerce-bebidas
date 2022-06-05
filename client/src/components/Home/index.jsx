@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getBrands, getProducts, getReviewPage } from "../../redux/actions";
-
+import swal from "sweetalert";
 import NavBar from "../NavBar";
 import Card from "../Card";
 import Pagination from "../Pagination";
 import Loading from "../Loading";
-// import Review from "../Review";
-import "./HomeStyles.css";
 import ReactStars from "react-rating-stars-component";
+import "./HomeStyles.css";
+import Carousel from "../Carousel";
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
   const rev = useSelector((state) => state.reviewPage);
-  console.log(rev, 'SOY EL REV')
+  console.log(rev, "SOY EL REV");
+  const navigate = useNavigate();
   const loading = useSelector((state) => state.isLoading);
   const searchProduct = useSelector((state) => state.searchProduct);
+  const verified = useSelector((state) => state.currentUser);
+  const isLoged = useSelector((state) => state.isLoged);
   const [, /*order*/ setOrder] = useState("");
-  
+
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage /*setProductsPerPage*/] = useState(20); //15 productos por pagina
 
@@ -35,14 +38,41 @@ function Home() {
   };
   useEffect(() => {
     //no tocar :)
-    dispatch(getProducts()); 
-    dispatch(getReviewPage())
+    dispatch(getProducts());
+    dispatch(getReviewPage());
   }, []);
 
   useEffect(() => {
-   
     dispatch(getBrands());
   }, [dispatch, product, loading, searchProduct, rev]);
+
+  const handleAlertReview = (e) => {
+    e.preventDefault();
+    swal({
+      title: "Debes ingresar con tu usuario",
+      text: "...para dejar una reseña ⭐⭐⭐!",
+      buttons: {
+        cancel: "Ahorita no joven",
+        register: {
+          text: "Registrarse",
+          value: "register",
+        },
+        login: {
+          text: "Iniciar sesion",
+          value: "login",
+        },
+      },
+      icon: "warning",
+    }).then((value) => {
+      if (value === "register") {
+        navigate("/register");
+      }
+
+      if (value === "login") {
+        navigate("/login");
+      }
+    });
+  };
 
   console.log("searchProduct", searchProduct);
   return (
@@ -59,6 +89,7 @@ function Home() {
               product={product.length}
               pagination={pagination}
             />
+            <Carousel />
             <div className="card-container">
               {currentProducts.length > 0 ? (
                 currentProducts.map((e) => {
@@ -86,14 +117,10 @@ function Home() {
                 <div>
                   <h1 className="error">No products were found</h1>
                 </div>
-              )};
-            <div>
-              <Link to = '/Review'>
-                <button className="button">contanos tu experiencia</button>
-              </Link>
-            </div>  
+              )}
+              <div></div>
             </div>
-            <div>
+            {/* <div>
             <div className="detail-description">
             {rev ? rev.map(e => {return(
               <div key= {e.id}>
@@ -116,13 +143,54 @@ function Home() {
             }
             </div>
             </div>
-          </div>
-          <div className="footer">
-            <div className="text">Contact</div>
-            <div className="text">About</div>
+          </div> */}
+            <div className="footer">
+              <div className="text">Contact</div>
+              <div className="text">About</div>
+
+              <div>
+                <div className="detail-description">
+                  {rev ? (
+                    rev.map((e) => {
+                      return (
+                        <div key={e.id}>
+                          <p>Titulo: {e.titulo}</p>
+                          <p>Comentario: {e.comentario}</p>
+                          <div>
+                            Puntaje:{" "}
+                            <ReactStars
+                              count={e.puntaje}
+                              size={24}
+                              isHalf={true}
+                              emptyIcon={<i className="far fa-star"></i>}
+                              halfIcon={<i className="fa fa-star-half-alt"></i>}
+                              fullIcon={<i className="fa fa-star"></i>}
+                              edit={false}
+                              color="#ffd700"
+                            />
+                          </div>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <span>No hay reviews</span> // esto es lo que tiraba error del pDOM en la consola
+                  )}
+                </div>
+              </div>
+              {isLoged ? (
+                <Link to="/Review">
+                  <button className="button">Contanos tu experiencia</button>
+                </Link>
+              ) : (
+                <Link to="">
+                  <button onClick={handleAlertReview} className="button">
+                    Contanos tu experiencia
+                  </button>
+                </Link>
+              )}
+            </div>
           </div>
         </div>
-
       )}
     </div>
   );

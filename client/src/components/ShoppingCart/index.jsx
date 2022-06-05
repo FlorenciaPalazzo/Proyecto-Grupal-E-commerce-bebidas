@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
+
 import {
   addCart,
   cleanCart,
@@ -61,6 +63,34 @@ const ShoppingCart = () => {
     navigate("/checkout");
   };
 
+  const handleAlertCarrito = (e) => {
+    e.preventDefault();
+    swal({
+      title: "Debes ingresar con tu usuario",
+      text: "...para poder comprar 🛒🛒🛒!",
+      buttons: {
+        cancel: "Ahorita no joven",
+        register: {
+          text: "Registrarse",
+          value: "register",
+        },
+        login: {
+          text: "Iniciar sesion",
+          value: "login",
+        },
+      },
+      icon: "warning",
+    }).then((value) => {
+      if (value === "register") {
+        navigate("/register");
+      }
+
+      if (value === "login") {
+        navigate("/login");
+      }
+    });
+  };
+
   return (
     <div>
       {loading /* revisen esto!! */ ? (
@@ -73,7 +103,6 @@ const ShoppingCart = () => {
           {productCart &&
             productCart.map((element) => {
               productArray.push(element);
-              console.log("subtotal-----", subtotal);
 
               return (
                 <div>
@@ -102,12 +131,14 @@ const ShoppingCart = () => {
                 <button onClick={cleanAllCart}>Clean Cart</button>
               </div>
             ) : !verified ? (
-              <h3>No podrás comprar hasta estar registrado</h3>
-            ) : null}
+              <button onClick={handleAlertCarrito}>Pagar</button>
+            ) : (
+              <button onClick={handleAlertCarrito}>Pagar</button>
+            )}
           </span>
         </div>
       )}
-      <Link to='/home'>
+      <Link to="/">
         <button>Regresar.</button>
       </Link>
     </div>
