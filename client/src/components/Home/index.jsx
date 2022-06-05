@@ -111,41 +111,18 @@ function Home() {
                 })
               ) : !searchProduct.length ? (
                 <div>
-                  <h1 className="error">No hay productos con ese nombre</h1>
+                  <h1 className="error">No se encontraron productos</h1>
                 </div>
               ) : (
                 <div>
-                  <h1 className="error">No products were found</h1>
+                  <h1 className="error">No se encontraron productos</h1>
                 </div>
               )}
               <div></div>
             </div>
-            {/* <div>
-            <div className="detail-description">
-            {rev ? rev.map(e => {return(
-              <div key= {e.id}>
-                <p>Titulo: {e.titulo}</p>
-                <p>Comentario: {e.comentario}</p>
-                <p>Puntaje: <ReactStars
-                count={e.puntaje}
-                size={24}
-                isHalf={true}
-                emptyIcon={<i className="far fa-star"></i>}
-                halfIcon={<i className="fa fa-star-half-alt"></i>}
-                fullIcon={<i className="fa fa-star"></i>}
-                edit={false}
-                color="#ffd700"
-              /></p>
-              </div>
-            )}): 
-            
-            <p>no hay reviews</p>
-            }
-            </div>
-            </div>
-          </div> */}
+
             <div className="footer">
-              <div className="text">Contact</div>
+              <div className="text">Contacto</div>
               <div className="text">About</div>
 
               <div>

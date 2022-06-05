@@ -47,7 +47,7 @@ function UserProfile() {
 console.log("dbUser",dbUser);
   return (
     <div>
-      <h1>User Profile</h1>
+      <h1>Perfil de usuario</h1>
       <h2>{user && user.email}</h2>
       <div>
         {!user.photoURL && dbUser?.image ? (

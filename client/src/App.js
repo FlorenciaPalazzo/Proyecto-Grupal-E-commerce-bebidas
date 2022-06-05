@@ -8,7 +8,6 @@ import AdminPanel from "./components/AdminPanel";
 import Detail from "./components/Details";
 import ShoppingCart from "./components/ShoppingCart";
 import Review from "./components/Review";
-import Landing from "./components/Landing/Landing";
 import EditProfile from "./components/Profile/editContainer";
 import "@fontsource/montserrat";
 import { Checkout } from "./components/Checkout";

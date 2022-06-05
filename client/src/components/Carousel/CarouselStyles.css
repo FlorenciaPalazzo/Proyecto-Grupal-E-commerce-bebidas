@@ -1,38 +1,42 @@
 .container {
     position: relative;
-    overflow:hidden;
-    width: 750px;
-    left: 50vh ;
-    top: 115px;
+    overflow: hidden;
+    width: 80vw;
+    left: 10vw;
+    top: 10vh;
     transform: translateY(-50%);
-  }
-  
-  .wrapper {
+}
+
+.wrapper {
     width: 2250px;
     position: relative;
     animation: scroll 11s linear infinite;
-  }
-  ul {
+}
+
+ul {
     list-style-type: none;
-  }
-  
-  @keyframes scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(calc(-750px * 3))}
-  }
-  
-  .flex-row {
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-750px * 3))
+    }
+}
+
+.flex-row {
     display: flex;
     flex-direction: row;
-  }
-  
-  li img {
+}
+
+li img {
     height: 200px;
     width: 750px;
-  }
-  
-  * {
-    margin:0px;
+}
+
+* {
+    margin: 0px;
     padding: 0px;
-  }
-  
+}

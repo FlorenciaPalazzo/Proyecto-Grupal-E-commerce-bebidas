@@ -4,9 +4,9 @@ function AdminProfile() {
   const user = useSelector((state) => state.currentUser);
   return (
     <div>
-      <p>Admin Profile</p>
+      <p>Perfil de admin</p>
       <p>{user && user.email}</p>
-      <AdminPanel/>
+      <AdminPanel />
     </div>
   );
 }

@@ -21,10 +21,13 @@ function Profile() {
       <Link to="/">
         <button>Home</button>
       </Link>
+
       <Link to="/profile/edit">
         <button>Editar Perfil</button>
       </Link>
-      <h1>Profile</h1>
+      
+      <h1>Perfil</h1>
+
       {loading ? (
         <Loading />
       ) : admin && user ? (
