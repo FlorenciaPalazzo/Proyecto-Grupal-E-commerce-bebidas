@@ -20,7 +20,7 @@ function Profile() {
       <Link to="/">
         <button>Home</button>
       </Link>
-      <h1>Profile</h1>
+      <h1>Perfil</h1>
       {loading ? (
         <Loading />
       ) : admin && user ? (

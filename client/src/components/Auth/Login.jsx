@@ -101,7 +101,7 @@ function Login() {
                 onChange={handleChange}
               />
 
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">Contraseña</label>
               <input
                 type="password"
                 name="password"
@@ -111,7 +111,7 @@ function Login() {
 
               <button>Login</button>
             </form>
-            <button onClick={googleHandleSubmit}>SignUp with Google</button>
+            <button onClick={googleHandleSubmit}>SignUp con Google</button>
           </div>
         </div>
       )}

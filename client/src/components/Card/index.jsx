@@ -106,21 +106,17 @@ export default function Card({
     //empiezo a renderizar
     <div className="card-main">
       {" "}
-      
       <div className="card">
         {" "}
-        
         <img
           className="card-imagen"
           src={imagen}
           alt="img not found"
           width="30%"
         />{" "}
-       
         <div className="card-content">
-          
           <h2 className="card-title"> {nombre} </h2>
-          <p className="card-price">Price: ${precio} </p>
+          <p className="card-price">Precio: ${precio} </p>
         </div>
         <div>
           <div>

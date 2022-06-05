@@ -40,7 +40,7 @@ export const Favoritos = () => {
           return (
             <div key={e.id}>
               <button className="button" value={e.id} onClick={handleDeleteFav}>
-                Delete
+                Borrar
               </button>
               {e.nombre}
               <img src={e.imagen} />

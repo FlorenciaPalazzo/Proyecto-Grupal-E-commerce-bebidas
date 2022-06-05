@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createUser, isAdmin, setUser } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import Loading from "../Loading";
+import "./Styles/RegisterStyles.css";
 
 function Register() {
   // { id, nombre, email, nacimiento, direccion, telefono }
@@ -101,79 +102,118 @@ function Register() {
   console.log(input);
 
   return (
-    <div>
+    <div className="register-background">
+      <img src="./images/formsBackground.jpg" alt="" />
+      <Link to="/">
+        <img className="register-logo" src="./logo/logo.png" alt="loguito" />
+      </Link>
       {loading && !isLoged ? (
         <Loading />
       ) : (
-        <div>
-          <Link to="/">
-            <button className="button">Home</button>
-          </Link>
-          <h1 className="forms-title">Register</h1>
-          <div>
-            {error && <span>{error}</span>}
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="nombre">Nombre</label>
-              <input
-                type="text"
-                name="nombre"
-                placeholder="Enter your name"
-                onChange={handleChange}
-              />
-              {nameError && <span>{nameError}</span>}
+        <div className="register-main">
+          <h1 className="forms-title">Registro</h1>
+          <div className="register-container">
+            {error && <span className="register-span">{error}</span>}
+            <form className="register-form" onSubmit={handleSubmit}>
+              <div className="label-input">
+                <label htmlFor="nombre">Nombre</label>
+                <input
+                  className="register-input"
+                  type="text"
+                  name="nombre"
+                  placeholder="Enter your name"
+                  onChange={handleChange}
+                />
+              </div>
+
+              {nameError && <span className="register-span">{nameError}</span>}
               <br />
-              <label htmlFor="apellido">Apellido</label>
-              <input
-                type="text"
-                name="apellido"
-                placeholder="Enter your surname"
-                onChange={handleChange}
-              />
-              {surnameError && <span>{surnameError}</span>}
+              <div className="label-input">
+                <label htmlFor="apellido">Apellido</label>
+                <input
+                  className="register-input"
+                  type="text"
+                  name="apellido"
+                  placeholder="Enter your surname"
+                  onChange={handleChange}
+                />
+              </div>
+
+              {surnameError && (
+                <span className="register-span">{surnameError}</span>
+              )}
               <br />
-              <label htmlFor="telefono">Phone</label>
-              <input
-                type="tel"
-                name="telefono"
-                placeholder="Enter your phone number"
-                onChange={handleChange}
-              />
+              <div className="label-input">
+                <label htmlFor="telefono">Celular</label>
+                <input
+                  className="register-input"
+                  type="tel"
+                  name="telefono"
+                  placeholder="Enter your phone number"
+                  onChange={handleChange}
+                />
+              </div>
+
               <br />
-              <label htmlFor="nacimiento">Birthday</label>
-              <input
-                type="text"
-                name="nacimiento"
-                placeholder="dd/mm/yyyy"
-                onChange={handleChange}
-              />
-              {birthError && <span>{birthError}</span>}
+              <div className="label-input">
+                <label htmlFor="nacimiento">Nacimiento</label>
+                <input
+                  className="register-input"
+                  type="text"
+                  name="nacimiento"
+                  placeholder="dd/mm/yyyy"
+                  onChange={handleChange}
+                />
+              </div>
+
+              {birthError && (
+                <span className="register-span">{birthError}</span>
+              )}
               <br />
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                onChange={handleChange}
-              />
-              {emailError && <span>{emailError}</span>}
+              <div className="label-input">
+                <label htmlFor="email">Email</label>
+                <input
+                  className="register-input"
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  onChange={handleChange}
+                />
+              </div>
+
+              {emailError && (
+                <span className="register-span">{emailError}</span>
+              )}
               <br />
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                onChange={handleChange}
-              />
-              {passwordError && <span>{passwordError}</span>}
+              <div className="label-input">
+                <label htmlFor="password">Contraseña</label>
+                <input
+                  className="register-input"
+                  type="password"
+                  name="password"
+                  id="password"
+                  onChange={handleChange}
+                />
+              </div>
+
+              {passwordError && (
+                <span className="register-span">{passwordError}</span>
+              )}
               <br />
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <input
-                type="password"
-                name="confirmPassword"
-                id="confirmPassword"
-                onChange={handleChange}
-              />
-              {confirmPasswordError && <span>{confirmPasswordError}</span>}
+              <div className="label-input">
+                <label htmlFor="confirmPassword">Confirma tu contraseña</label>
+                <input
+                  className="register-input"
+                  type="password"
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  onChange={handleChange}
+                />
+              </div>
+
+              {confirmPasswordError && (
+                <span className="register-span">{confirmPasswordError}</span>
+              )}
               <br />
 
               {!passwordError &&
@@ -186,17 +226,17 @@ function Register() {
               input.password &&
               input.nacimiento &&
               input.email ? (
-                <button>Register</button>
+                <button className="button-register">Registrarse</button>
               ) : (
                 <button
+                  className="button-register"
                   type="button"
                   onClick={() => alert("Complete todos los campos")}
                 >
-                  Register
+                  Registrarse
                 </button>
               )}
             </form>
-            <hr />
           </div>
         </div>
       )}
