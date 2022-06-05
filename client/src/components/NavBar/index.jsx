@@ -34,9 +34,7 @@ export default function NavBar({ setCurrentPage }) {
       {isLoged ? (
         <div className="nav-links">
           <div className="nav-left">
-            <Link to="/">
             <img className="logo" src="./logo/logo.png" alt="loguito" />
-            </Link>
           </div>
 
           <div className="nav-right">
