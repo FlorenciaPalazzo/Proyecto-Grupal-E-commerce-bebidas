@@ -34,6 +34,8 @@ import {
   DELETE_REVIEW,
   GET_REVPAGE,
   GET_ALL_REVIEWS,
+  GET_COMPRADOS,
+  ADD_COMPRADOS
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -51,13 +53,15 @@ const initialState = {
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
-  mpSandBox: "",
+    mpSandBox: "",
   orderMP: [],
   feedBackMP: [],
   review: [],
   reviewPage: [],
   allReviews: [],
   favProducts: [],
+  comprados : []
+
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -417,6 +421,15 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         favProducts: arr,
       };
+
+      case GET_COMPRADOS : 
+      return {...state ,
+      comprados : payload
+      }
+
+      case ADD_COMPRADOS : {
+        return {...state}
+      }
 
     case DEL_FAV:
       return { ...state, favProducts: payload };

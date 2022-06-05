@@ -10,13 +10,13 @@ export const Favoritos = () => {
   console.log("EL FAVORITO", elFavorito);
   const dispatch = useDispatch();
 
-  let a = usuario ? usuario.uid : null;
-
-  console.log("SOY EL USUARIO--->", usuario.uid);
+  let a = usuario 
+  let paco = a.uid
+  console.log("SOY EL USUARIO--->", paco);
 
   useEffect(() => {
     if (!elFavorito.length) {
-      dispatch(getFavorito(usuario.uid));
+      dispatch(getFavorito(paco));
     }
   }, [elFavorito]);
 

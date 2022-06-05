@@ -39,22 +39,24 @@ Orden.belongsTo(Usuario);
 
 Orden.belongsTo(Carrito);
 
-Orden.belongsToMany(Comprado, { through: 'Orden_Comprado' });
+// Orden.belongsToMany(Comprado, { through: 'Orden_Comprado' });
 
-Comprado.belongsTo(Producto);
+// Comprado.belongsTo(Producto);
 
 Carrito.belongsToMany(Producto, { through: 'Carrito_Producto' });
 
 Carrito.belongsTo(Usuario);
 
 
-Usuario.belongsToMany(Producto, { through: Favorito });
+Usuario.belongsToMany(Producto, { through: Favorito  });
+Usuario.belongsToMany(Producto, {through : Comprado})
 
 Usuario.hasMany(Review);
 Review.belongsTo(Usuario);
 
 Producto.hasMany(Review);
 Review.belongsTo(Producto);
+
 
 
 

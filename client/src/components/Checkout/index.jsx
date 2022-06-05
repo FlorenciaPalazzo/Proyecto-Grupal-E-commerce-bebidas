@@ -9,12 +9,11 @@ export const Checkout = () => {
   let productCart = JSON.parse(window.localStorage.getItem("product"));
   let navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const user = useSelector(state => state.currentUser)
   /* const handleMercadoPago = (e) => {
     e.preventDefault();
     dispatch(deleteMercadoPago());
   }; */
-
   useEffect(() => {
     if (!sandbox) dispatch(getMercadoPago());
     /* dispatch(deleteMercadoPago()); */

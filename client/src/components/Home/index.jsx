@@ -18,9 +18,13 @@ function Home() {
   const navigate = useNavigate();
   const loading = useSelector((state) => state.isLoading);
   const searchProduct = useSelector((state) => state.searchProduct);
-  const verified = useSelector((state) => state.currentUser);
+  const verified =   useSelector((state) => state.currentUser);
   const isLoged = useSelector((state) => state.isLoged);
   const [, /*order*/ setOrder] = useState("");
+  if(verified){
+    window.localStorage.setItem('pan', verified.uid)
+    console.log(verified.uid, 'SOY UN MILAGRO')
+  }
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage /*setProductsPerPage*/] = useState(20); //15 productos por pagina
@@ -44,7 +48,7 @@ function Home() {
 
   useEffect(() => {
     dispatch(getBrands());
-  }, [dispatch, product, loading, searchProduct, rev]);
+  }, [dispatch, product, loading, searchProduct, rev, verified]);
 
   const handleAlertReview = (e) => {
     e.preventDefault();

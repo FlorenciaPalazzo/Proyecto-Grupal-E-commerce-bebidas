@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const axios = require("axios");
 
-const { Producto, Usuario, Favorito } = require("../../db");
+const { Producto, Usuario, Favorito, Comprado } = require("../../db");
 
 const bodyParser = require("body-parser");
 
@@ -55,7 +55,7 @@ const getDataBase = async () => {
 const getBebidasApi = async () => {
   try {
     const bebidasInfo = await axios.get(`
-      https://bebidas-efc61-default-rtdb.firebaseio.com/results.json`);
+     https://bebidas-efc61-default-rtdb.firebaseio.com/results.json`);
     const allBebidas = await bebidasInfo.data.map((e) => {
       return e;
     });
@@ -168,7 +168,6 @@ router.delete("/bebida/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   let { id_prod, id_user } = req.body;
-
   try {
     let usuarioFavorito = await Usuario.findByPk(id_user, {});
     let productoFavorito = await Producto.findByPk(id_prod, {});
@@ -205,6 +204,51 @@ router.delete("/favoritos", async (req, res) => {
     console.log(err.message);
   }
 });
+
+router.post("/comprado", async (req, res) => {
+  const { id_user, ids_product } = req.body
+  try {
+
+    let user = await Usuario.findByPk(id_user, {})
+    console.log(ids_product, "Oh, you finally awake")
+    let mapeoChido = await ids_product.forEach(async (e) => {
+      //  Producto.findByPk( e , {});
+      console.log(e, "u a wisar jarry")
+         await Comprado.create({
+        where: {
+          usuarioId : id_user,
+          productoId : e
+        }
+      }) 
+      console.log("u shall not pass")
+    })
+    // let product = await Producto.findByPk(ids_product, {});
+    console.log(mapeoChido, "MIRAME MIRAME MIRAME MIRAME MIRAME")
+
+    res.status(200).json('Me gustan los ponis')
+
+  } catch (err) {
+    console.log(err.message)
+  }
+
+});
+
+
+router.get("/comprado/:id_user", async (req, res) => {
+  let { id_user } = req.params;
+  try {
+    let comprado = await Comprado.findAll({ where: { usuarioId: id_user } });
+    res.status(200).json(comprado);
+  } catch (error) {
+    console.log(error);
+  }
+  
+})
+
+//aqui hubiera un delete innecesario pero flor detuvo a toni
+
+
+
 //////AQUI YACEN LOS RESTOS DE AUTENTICACION----RIP-AUTENTICACION----GRACIAS JONA </3----//////
 //#region
 

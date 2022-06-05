@@ -33,6 +33,8 @@ import {
   DELETE_REVIEW,
   GET_REVPAGE,
   GET_ALL_REVIEWS,
+  GET_COMPRADOS,
+  ADD_COMPRADOS
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -305,7 +307,7 @@ export const orderMercadoPago = (localStorage) => {
 export const getMercadoPago = () => {
   return async function (dispatch) {
     try {
-      let result = await axios.post("http://localhost:3001/usuario/checkout");
+      let result = await axios.post("http://localhost:3001/usuario/checkout" );
       console.log(result.data);
       console.log("entro a getMercadoPago");
       return dispatch({
@@ -335,7 +337,7 @@ export const deleteMercadoPago = () => {
 export const feedBack = () => {
   return async function (dispatch) {
     try {
-      let result = await axios.get("http://localhost:3001/usuario/feedback");
+      let result = await axios.get("http://localhost:3001/usuario/feedback/" );
       console.log("result.data ------->FEEDBACK", result.data);
       return dispatch({
         type: FEEDBACK_MERCADO_PAGO,
@@ -479,3 +481,33 @@ export const deleteFavorito = ({ id_user, id_prod }) => {
     }
   };
 };
+
+export const getComprados = (id) => {
+  return async function (dispatch){
+    try {
+      let result = await axios.get(`http://localhost:3001/producto/comprado/${id}`) ; 
+
+      return dispatch ({
+        type : GET_COMPRADOS,
+        payload : result.data
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const addComprados = (payload) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.post(`http://localhost:3001/producto/comprado`, payload);
+
+      return dispatch({
+        type: ADD_COMPRADOS,
+        payload: result.data
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}

@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const axios = require("axios");
 
-const { Usuario, Carrito } = require("../../db");
+const { Usuario, Carrito, Producto , Comprado} = require("../../db");
 
 const bodyParser = require("body-parser");
 
@@ -11,6 +11,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
+const comprado = require("../../models/comprado");
 // Agrega credenciales
 mercadopago.configure({
   access_token:
@@ -99,11 +100,13 @@ router.post("/checkout", async (req, res) => {
   let preference = {
     items: [...itemsMapeo],
     back_urls: {
-      success: "http://localhost:3000/feedback",
-      failure: "http://localhost:3000/feedback",
-      pending: "http://localhost:3000/feedback",
+      success: "http://localhost:3000/feedback/",
+      failure: "http://localhost:3000/feedback/",
+      pending: "http://localhost:3000/feedback/",
     },
     auto_return: "approved",
+
+    //nombre del payer  = 'ID USER'
   };
 
   mercadopago.preferences
@@ -156,7 +159,7 @@ router.delete("/checkout", async (req, res) => {
     console.log("Error en el catch del delete", err);
   }
 });
-router.get("/feedback", async (req, res) => {
+router.get("/feedback/", async (req, res) => {
   const payment = await mercadopago.payment.findById(req.query.payment_id);
   console.log("payment", payment);
   const merchantOrder = await mercadopago.merchant_orders.findById(
@@ -184,4 +187,11 @@ router.delete("/:id", async (req, res) => {
   });
   return res.status(200).send("AL LOBBY");
 });
+
+
+
+
+
+
+ 
 module.exports = router;
