@@ -37,7 +37,7 @@ function UserProfile() {
 
   return (
     <div>
-      <h1>User Profile</h1>
+      <h1>Perfil de usuario</h1>
       <h2>{user && user.email}</h2>
       <div>
         <h2>Reviews</h2>
