@@ -77,7 +77,8 @@ function Register() {
           dispatch(
             createUser({
               id: user.uid,
-              nombre: `${input.nombre} ${input.apellido}`,
+              nombre: input.nombre,
+              apellido: input.apellido,
               email: input.email,
               nacimiento: input.nacimiento,
               telefono: input.telefono,
@@ -86,7 +87,7 @@ function Register() {
             })
           );
         })
-        .then(() => navigate("/"))
+        .then(() => navigate("/home"))
         .catch((err) => setError(err.message));
     } catch (error) {
       console.log(error);
@@ -96,7 +97,7 @@ function Register() {
   const loading = useSelector((state) => state.isLoading);
   const isLoged = useSelector((state) => state.isLoged);
   useEffect(() => {
-    isLoged && navigate("/");
+    isLoged && navigate("/home");
   }, [isLoged]);
   console.log(input);
 
@@ -106,7 +107,7 @@ function Register() {
         <Loading />
       ) : (
         <div>
-          <Link to="/">
+          <Link to="/home">
             <button className="button">Home</button>
           </Link>
           <h1 className="forms-title">Register</h1>
@@ -177,15 +178,15 @@ function Register() {
               <br />
 
               {!passwordError &&
-              !surnameError &&
-              !nameError &&
-              !emailError &&
-              !birthError &&
-              input.nombre &&
-              input.apellido &&
-              input.password &&
-              input.nacimiento &&
-              input.email ? (
+                !surnameError &&
+                !nameError &&
+                !emailError &&
+                !birthError &&
+                input.nombre &&
+                input.apellido &&
+                input.password &&
+                input.nacimiento &&
+                input.email ? (
                 <button>Register</button>
               ) : (
                 <button

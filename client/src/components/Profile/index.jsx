@@ -12,6 +12,7 @@ function Profile() {
   const admin = useSelector((state) => state.isAdmin);
 
   useEffect(() => {
+    
     console.log("effect");
     console.log(user);
   }, [user]);
@@ -19,6 +20,9 @@ function Profile() {
     <div>
       <Link to="/">
         <button>Home</button>
+      </Link>
+      <Link to="/profile/edit">
+        <button>Editar Perfil</button>
       </Link>
       <h1>Profile</h1>
       {loading ? (
