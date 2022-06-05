@@ -63,23 +63,24 @@ router.post("/", async (req, res) => {
   }
 });
 router.put("/", async (req, res) => {
-  //let { nombre, email, contraseña, nacimiento, direccion, telefono } = req.body;
-  let { id } = req.body;
+  let {id, nombre, email, contraseña, nacimiento, direccion, telefono, image } = req.body.user;
+  console.log(req.body.user);
   try {
     const usuarioPut = await Usuario.findOne({ where: { id: id } });
-
-    await usuarioPut.update({
-      id: id,
-      nombre: nombre,
-      email: email,
-      contraseña: contraseña,
-      nacimiento: nacimiento,
-      direccion: direccion,
-      telefono: telefono,
+    console.log("usuarioPut busqueda", usuarioPut);
+    let updated = await usuarioPut.update({
+      id: id || usuarioPut.id,
+      nombre: nombre || usuarioPut.nombre,
+      email: email || usuarioPut.email,
+      contraseña: contraseña || usuarioPut.contraseña,
+      nacimiento: nacimiento || usuarioPut.nacimiento,
+      direccion: direccion || usuarioPut.direccion,
+      telefono: telefono || usuarioPut.telefono,
+      image: image || usuarioPut.image,
     });
-    res.json(usuarioPut);
+    res.json(updated);
   } catch (err) {
-    console.log("error usuarios");
+    console.log(err);
   }
 });
 

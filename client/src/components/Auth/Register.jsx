@@ -78,7 +78,8 @@ function Register() {
           dispatch(
             createUser({
               id: user.uid,
-              nombre: `${input.nombre} ${input.apellido}`,
+              nombre: input.nombre,
+              apellido: input.apellido,
               email: input.email,
               nacimiento: input.nacimiento,
               telefono: input.telefono,
@@ -87,7 +88,7 @@ function Register() {
             })
           );
         })
-        .then(() => navigate("/"))
+        .then(() => navigate("/home"))
         .catch((err) => setError(err.message));
     } catch (error) {
       console.log(error);
@@ -97,7 +98,7 @@ function Register() {
   const loading = useSelector((state) => state.isLoading);
   const isLoged = useSelector((state) => state.isLoged);
   useEffect(() => {
-    isLoged && navigate("/");
+    isLoged && navigate("/home");
   }, [isLoged]);
   console.log(input);
 
@@ -110,6 +111,7 @@ function Register() {
       {loading && !isLoged ? (
         <Loading />
       ) : (
+
         <div className="register-main">
           <h1 className="forms-title">Registro</h1>
           <div className="register-container">
@@ -127,6 +129,7 @@ function Register() {
               </div>
 
               {nameError && <span className="register-span">{nameError}</span>}
+
               <br />
               <div className="label-input">
                 <label htmlFor="apellido">Apellido</label>
@@ -217,6 +220,7 @@ function Register() {
               <br />
 
               {!passwordError &&
+
               !surnameError &&
               !nameError &&
               !emailError &&
@@ -227,6 +231,7 @@ function Register() {
               input.nacimiento &&
               input.email ? (
                 <button className="button-register">Registrarse</button>
+
               ) : (
                 <button
                   className="button-register"
