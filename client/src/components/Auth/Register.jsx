@@ -78,17 +78,18 @@ function Register() {
           dispatch(
             createUser({
               id: user.uid,
-              nombre: input.nombre,
-              apellido: input.apellido,
+              nombre: input.nombre || "Usuario",
+              apellido: input.apellido || "Google",
               email: input.email,
               nacimiento: input.nacimiento,
               telefono: input.telefono,
               isAdmin: input.email === process.env.REACT_APP_ADMIN_EMAIL,
               isVerified: user.emailVerified,
+              image: user.photoURL || null,
             })
           );
         })
-        .then(() => navigate("/home"))
+        .then(() => navigate("/"))
         .catch((err) => setError(err.message));
     } catch (error) {
       console.log(error);
@@ -98,7 +99,7 @@ function Register() {
   const loading = useSelector((state) => state.isLoading);
   const isLoged = useSelector((state) => state.isLoged);
   useEffect(() => {
-    isLoged && navigate("/home");
+    isLoged && navigate("/");
   }, [isLoged]);
   console.log(input);
 
@@ -111,7 +112,6 @@ function Register() {
       {loading && !isLoged ? (
         <Loading />
       ) : (
-
         <div className="register-main">
           <h1 className="forms-title">Registro</h1>
           <div className="register-container">
@@ -220,7 +220,6 @@ function Register() {
               <br />
 
               {!passwordError &&
-
               !surnameError &&
               !nameError &&
               !emailError &&
@@ -231,7 +230,6 @@ function Register() {
               input.nacimiento &&
               input.email ? (
                 <button className="button-register">Registrarse</button>
-
               ) : (
                 <button
                   className="button-register"

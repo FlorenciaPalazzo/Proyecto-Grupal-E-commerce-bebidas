@@ -99,7 +99,7 @@ export default function NavBar({ setCurrentPage }) {
         </div>
       )}
       <div className="div-searchbar">
-        <SearchBar />
+        <SearchBar setCurrentPage={setCurrentPage} />
       </div>
       <div className="div-filter-main">
         <FilterBy setCurrentPage={setCurrentPage} />
