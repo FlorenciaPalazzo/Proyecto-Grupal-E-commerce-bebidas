@@ -85,6 +85,7 @@ function Register() {
               telefono: input.telefono,
               isAdmin: input.email === process.env.REACT_APP_ADMIN_EMAIL,
               isVerified: user.emailVerified,
+              image: user.photoURL || null
             })
           );
         })

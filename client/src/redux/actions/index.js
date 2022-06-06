@@ -70,6 +70,7 @@ export function createUser(user) {
       telefono: user.telefono,
       isAdmin: user.isAdmin,
       isVerified: user.isVerified,
+      image: user.image
     })
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));

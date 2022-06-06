@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@auth0/auth0-react": "^1.10.1",
     "@emailjs/browser": "^3.6.2",
     "@fontsource/montserrat": "^4.5.10",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
