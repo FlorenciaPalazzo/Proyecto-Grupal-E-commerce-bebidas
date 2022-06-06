@@ -1,3 +1,4 @@
+
 a:link,
 a:visited,
 a:active {
@@ -11,9 +12,9 @@ a:active {
     min-width: 250px;
 }
 
-.div-body {
+/* .div-body {
     background-color: #F5F5F5;
-}
+}  */
 
 .card-container {
     display: flex;
@@ -117,6 +118,25 @@ label {
     font-weight: bold;
     font-family: "Montserrat";
 }
-.toggle{
-    z-index: 2;
+
+
+
+
+/* 👇👇👇aqui yacen los restos del modo oscuro 👇👇👇*/
+
+html {
+    --primary-color:  #1B2838;
+    --secondary-color: #fff;
+  }
+
+html[data-theme="dark"] {
+    --primary-color: #fff;
+    --secondary-color:  #1B2838;
+  }
+  
+.div-body {
+background-color: var(--secondary-color) ;
+
 }
+   
+  

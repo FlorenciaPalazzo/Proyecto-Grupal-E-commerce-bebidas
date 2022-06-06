@@ -10,7 +10,7 @@ import Loading from "../Loading";
 import ReactStars from "react-rating-stars-component";
 import "./HomeStyles.css";
 import Carousel from "../Carousel";
-import Toogle  from "../DarkMode/Toogle";
+
 
 function Home() {
   const dispatch = useDispatch();
@@ -76,6 +76,30 @@ function Home() {
     });
   };
 
+  //////////////👇👇👇aqui modo oscuro 👇👇👇///////////
+  
+  const [checked, setChecked] = useState(
+    localStorage.getItem("theme") === "dark" ? true : false
+  );
+
+  useEffect(() => {
+    document
+      .getElementsByTagName("HTML")[0]
+      .setAttribute("data-theme", localStorage.getItem("theme"));
+  }, [checked]);
+
+  const toggleThemeChange = () => {
+    if (checked === false) {
+      localStorage.setItem("theme", "dark");
+      setChecked(true);
+    } else {
+      localStorage.setItem("theme", "light");
+      setChecked(false);
+    }
+  };
+  
+/////////////////👆👆👆aqui modo oscuro 👆👆👆/////////////////
+
   console.log("searchProduct", searchProduct);
   return (
     <div>
@@ -83,6 +107,19 @@ function Home() {
         <Loading />
       ) : (
         <div className="div-body">
+        
+
+
+    {/* 👇👇👇modo oscuro para el render 👇👇👇*/}
+        <p>Click para cambiar el tema</p>
+              <label>
+                <input
+                  type="checkbox"
+                  defaultChecked={checked}
+                  onChange={() => toggleThemeChange()}
+                />
+              </label>
+
           <NavBar setCurrentPage={setCurrentPage} />
           <div>
             <Pagination
@@ -127,7 +164,7 @@ function Home() {
               <div className="text">Contacto</div>
               <div className="text">About</div>
 
-           <div className="toggle"><Toogle/></div>
+           
 
               <div>
                 <div className="detail-description">
