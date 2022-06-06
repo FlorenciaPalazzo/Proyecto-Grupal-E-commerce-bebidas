@@ -35,3 +35,5 @@ export const GET_FAV = "GET_FAV";
 export const DEL_FAV = "DEL_FAV";
 export const GET_REVPAGE = "GET_REVPAGE";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
+export const GET_DIRECCIONES =  "GET_DIRECCIONES"
+export const ADD_DIRECCIONES =  "ADD_DIRECCIONES"

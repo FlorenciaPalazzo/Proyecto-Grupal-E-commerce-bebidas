@@ -1,0 +1,132 @@
+{
+    "Buenos Aires": [
+        "José C. Paz",
+        "Adolfo Gonzales Chaves",
+        "Tandil",
+        "General Juan Madariaga",
+        "Coronel Pringles",
+        "Tigre",
+        "Tornquist",
+        "Campana",
+        "Maipú",
+        "Adolfo Alsina",
+        "Puán",
+        "Villarino",
+        "General Roca",
+        "San Pedro","Chivilcoy"
+    ],
+    "Chaco": [
+        "O'Higgins",
+        "Sargento Cabral",
+        "Independencia",
+        "Mayor Luis J. Fontana",
+        "Fray Justo Santa María de Oro",
+        "1° de Mayo",
+        "12 de Octubre",
+        "General Güemes",
+        "San Fernando"
+    ],
+    "La Pampa": [
+        "Trenel",
+        "Quemú Quemú",
+        "Capital",
+        "Catriló",
+        "Atreucó",
+        "Guatraché",
+        "Utracán",
+        "Loventué",
+        "Hucal",
+        "Chalileo",
+        "Chical Co"
+    ],
+    "Santiago del Estero": [
+        "Alberdi",
+        "Rivadavia",
+        "Juan F. Ibarra",
+        "General Taboada",
+        "Choya","Guasayán",
+        "Río Hondo","Banda","Sarmiento","Belgrano", "Aguirre"
+    ],
+    "Mendoza": [
+        "La Paz",
+        "Santa Rosa",
+        "Rivadavia",
+        "Tupungato",
+        "General Alvear","San Carlos"
+    ],
+    "Corrientes": [
+        "Esquina",
+        "Curuzu Cuatia",
+        "Sauce",
+        "San Martín",
+        "Mercedes",
+        "Paso de los Libres",
+        "General Alvear",
+        "Capital"
+    ],
+    "Chubut": [
+        "Rawson","Cushamen","Mártires","Languiñeo"
+    ],
+    "La Rioja": [
+        "Chamical",
+        "Arauco",
+        "Capital"
+    ],
+    "Catamarca": [
+        "Santa Rosa",
+        "La Paz", "Belén","Capital","Ancasti", "Antofagasta de la Sierra"
+    ],
+    "Santa Cruz": [
+        "Magallanes",
+        "Corpen Aike","Lago Buenos Aires","Deseado"
+    ],
+    "Río Negro": [
+        "Conesa",
+        "Ñorquinco",
+        "Avellaneda",
+        "General Roca"
+    ],
+    "San Luis": [
+        "Ayacucho",
+        "Belgrano"
+    ],
+    "Córdoba": [
+        "Santa María",
+        "San Alberto",
+        "Río Segundo",
+        "San Justo",
+        "Unión",
+        "Tercero Arriba",
+        "Río Cuarto",
+        "Presidente Roque Sáenz Peña",
+        "Río Seco","Sobremonte", "Capital"
+    ],
+    "Salta": [
+        "Cerrillos",
+        "Rivadavia",
+        "Rosario de Lerma"
+    ],
+    "Formosa": [
+        "Pilagás",
+        "Laishí",
+        "Pirané", "Ramón Lista"
+    ],
+    "Jujuy": [
+        "Ledesma"
+    ],
+    "Misiones": [
+        "Capital",
+        "Iguazú",
+        "Oberá",
+        "San Ignacio"
+    ],
+   "Neuquén":["Los Lagos","Confluencia","Picunches","Añelo","Loncopué", "Ñorquín","Pehuenches","Minas",
+ "Chos Malal"
+    ] ,
+ 
+    "Ciudad Autónoma de Buenos Aires":[
+         "Comuna 2","Comuna 8","Comuna 14"
+    ]
+ 
+
+}

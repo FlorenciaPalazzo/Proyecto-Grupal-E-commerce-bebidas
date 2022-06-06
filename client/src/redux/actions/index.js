@@ -35,6 +35,9 @@ import {
   DELETE_REVIEW,
   GET_REVPAGE,
   GET_ALL_REVIEWS,
+  ADD_DIRECCIONES,
+  GET_DIRECCIONES,
+
   RESET_USER_DB,
 } from "./actionsTypes";
 import axios from "axios";
@@ -331,6 +334,8 @@ export const buyCart = () => {
   };
 };
 
+
+
 //ESTO ESTA ANDANDO LISTO...
 export const orderMercadoPago = (localStorage) => {
   return async function (dispatch) {
@@ -354,7 +359,7 @@ export const getMercadoPago = () => {
   return async function (dispatch) {
     try {
       let result = await axios.post("http://localhost:3001/usuario/checkout");
-      console.log(result.data);
+      console.log("soy result data",result.data);
       console.log("entro a getMercadoPago");
       return dispatch({
         type: GET_MERCADO_PAGO,
@@ -525,4 +530,31 @@ export const deleteFavorito = ({ id_user, id_prod }) => {
       console.log(err);
     }
   };
-};
+}
+ 
+export const addDirecciones= (payload)=>{
+  return async function (dispatch) {
+    try {
+      let result = await axios.post("http://localhost:3001/usuario/direcciones", payload);
+      return dispatch({
+        type: ADD_DIRECCIONES,
+   
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+export const getDirecciones =(id)=>{
+  return async function (dispatch) {
+    try {
+      let result = await axios.get(`http://localhost:3001/usuario/${id}` );
+      return dispatch({
+        type: GET_DIRECCIONES,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
