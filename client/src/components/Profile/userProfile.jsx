@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { use } from "../../../../api/src/routes/modules/review";
-import { getReview, getReviewPage } from "../../redux/actions";
-=======
 import { useDispatch, useSelector } from "react-redux";
 import ReactStars from "react-rating-stars-component";
 import { useNavigate } from "react-router-dom";
@@ -16,25 +10,11 @@ import {
   putReview,
 } from "../../redux/actions";
 import { ReviewCar } from "../Review/ReviewCar";
->>>>>>> 24c1d038592805e377735ed1f67037fe94c79947
 
 function UserProfile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.currentUser);
-<<<<<<< HEAD
-  // const dispatch = useDispatch();
-  let rev = useSelector((state) => state.review);
-  let revPage = useSelector((state) => state.reviewPage);
-
-  let revTotalus = rev.concat(revPage);
-  console.log(revTotalus, 'ASDSADASD');
-
-  // useEffect(() =>{
-  //   dispatch(getReview(id))
-  //   dispatch(getReviewPage())
-  // },[dispatch, id])
-=======
   let revs = useSelector((state) => state.allReviews);
   console.log("user", user);
 
@@ -54,7 +34,6 @@ function UserProfile() {
   useEffect(() => {
     dispatch(getAllReviews());
   }, [dispatch /* , allRevs */]);
->>>>>>> 24c1d038592805e377735ed1f67037fe94c79947
 
   return (
     <div>
