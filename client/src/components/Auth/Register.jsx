@@ -50,7 +50,12 @@ function Register() {
       setSurnameError
     );
   }
-
+  async function errorValidate(error){
+    setError(null)
+    if(error === "Firebase: Error (auth/email-already-in-use)."){
+      setError("Ya existe un usuario con este mail")
+    }
+  }
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
@@ -85,12 +90,12 @@ function Register() {
               telefono: input.telefono,
               isAdmin: input.email === process.env.REACT_APP_ADMIN_EMAIL,
               isVerified: user.emailVerified,
-              image: user.photoURL || null,
+              image: user.photoURL || null
             })
           );
         })
         .then(() => navigate("/"))
-        .catch((err) => setError(err.message));
+        .catch((err) => errorValidate(err.message));
     } catch (error) {
       console.log(error);
     }
