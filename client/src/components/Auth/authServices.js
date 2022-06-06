@@ -44,7 +44,7 @@ export default function validate(
   } else if (name === "apellido") {
     if (input.length === 0) {
       setSurnameError("El Apellido es requerido");
-    } else setSurnameError(null);
+    } else setSurnameError(null); 
   }
 }
 
