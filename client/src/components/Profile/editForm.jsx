@@ -13,8 +13,8 @@ export default function EditForm() {
     apellido: "",
   });
   const [image, setImage] = useState(null);
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function handleChange(e) {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -27,22 +27,24 @@ export default function EditForm() {
     sendPasswordResetEmail(auth, user.email);
     setDisabledBtn(true);
   }
-  async function handleSubmit(e){
-    //e.preventDefault()
-    //put 
-    console.log("se despacha esto",{
+  async function handleSubmit(e) {
+    e.preventDefault();
+    //put
+    console.log("se despacha esto", {
       id: user.uid,
       nombre: input.nombre,
       apellido: input.apellido,
-      image: image
+      image: image,
     });
-    dispatch(updateUser({
-      id: user.uid,
-      nombre: input.nombre,
-      apellido: input.apellido,
-      image: image.img
-    }))
-    navigate("/profile")
+    dispatch(
+      updateUser({
+        id: user.uid,
+        nombre: input.nombre,
+        apellido: input.apellido,
+        image: image.img,
+      })
+    );
+    navigate("/profile");
   }
   console.log("user selector", user);
   useEffect(() => {
@@ -53,13 +55,13 @@ export default function EditForm() {
         apellido: user.displayName.split(" ")[1],
       });
     }
-    return(() => {
-      if(user && user.isAdmin){
-        navigate("/profile")
-      } 
+    return () => {
+      if (user && user.isAdmin) {
+        navigate("/profile");
+      }
       console.log("Aactualizo y me voy a la mierda");
-      dispatch(resetUserDb())
-    })
+      dispatch(resetUserDb());
+    };
   }, [user]);
   console.log(input, user);
   return (
@@ -78,7 +80,7 @@ export default function EditForm() {
           <input
             type="text"
             value={input.apellido}
-            name="nombre"
+            name="apellido"
             onChange={handleChange}
           />
           <br />
@@ -94,14 +96,18 @@ export default function EditForm() {
             </div>
           )}
           <br />
-        <FileBase64
-          type="file"
-          multiple={false}
-          onDone={({ base64 }) => setImage({ img: base64 })}
-        />
-          <button type="submit" onClick={handleSubmit}>Guardar</button>
+          <FileBase64
+            type="file"
+            multiple={false}
+            onDone={({ base64 }) => setImage({ img: base64 })}
+          />
+          <button type="submit" onClick={handleSubmit}>
+            Guardar
+          </button>
         </form>
-        {user && <img src={user.photoURL} style={{ width: "100%", height: 300 }} />}
+        {user && (
+          <img src={user.photoURL} style={{ width: "100%", height: 300 }} />
+        )}
       </div>
     </div>
   );

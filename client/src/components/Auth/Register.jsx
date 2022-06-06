@@ -50,7 +50,12 @@ function Register() {
       setSurnameError
     );
   }
-
+  async function errorValidate(error){
+    setError(null)
+    if(error === "Firebase: Error (auth/email-already-in-use)."){
+      setError("Ya existe un usuario con este mail")
+    }
+  }
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
@@ -78,8 +83,8 @@ function Register() {
           dispatch(
             createUser({
               id: user.uid,
-              nombre: input.nombre,
-              apellido: input.apellido,
+              nombre: input.nombre || "Usuario",
+              apellido: input.apellido || "Google",
               email: input.email,
               nacimiento: input.nacimiento,
               telefono: input.telefono,
@@ -89,8 +94,8 @@ function Register() {
             })
           );
         })
-        .then(() => navigate("/home"))
-        .catch((err) => setError(err.message));
+        .then(() => navigate("/"))
+        .catch((err) => errorValidate(err.message));
     } catch (error) {
       console.log(error);
     }
@@ -99,7 +104,7 @@ function Register() {
   const loading = useSelector((state) => state.isLoading);
   const isLoged = useSelector((state) => state.isLoged);
   useEffect(() => {
-    isLoged && navigate("/home");
+    isLoged && navigate("/");
   }, [isLoged]);
   console.log(input);
 
@@ -112,7 +117,6 @@ function Register() {
       {loading && !isLoged ? (
         <Loading />
       ) : (
-
         <div className="register-main">
           <h1 className="forms-title">Registro</h1>
           <div className="register-container">
@@ -221,7 +225,6 @@ function Register() {
               <br />
 
               {!passwordError &&
-
               !surnameError &&
               !nameError &&
               !emailError &&
@@ -232,7 +235,6 @@ function Register() {
               input.nacimiento &&
               input.email ? (
                 <button className="button-register">Registrarse</button>
-
               ) : (
                 <button
                   className="button-register"

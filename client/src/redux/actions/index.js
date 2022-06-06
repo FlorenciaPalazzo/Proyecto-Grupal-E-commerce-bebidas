@@ -94,7 +94,7 @@ export function updateUser(user) {
     })
     .then((res) => res.data)
     .catch((e) => console.log(e));
-    console.log("updated", updated);
+  console.log("updated", updated);
   return async (dispatch) => {
     return dispatch({ type: UPDATE_USER, dispatch: updated });
   };
@@ -469,13 +469,12 @@ export const putReview = (id) => {
 export const deleteReview = (id) => {
   return async function (dispatch) {
     try {
-      let result = await axios.get("http://localhost:3001/review/" + id);
+      let result = await axios.delete("http://localhost:3001/review/" + id);
       return dispatch({
         type: DELETE_REVIEW,
-        payload: result.data,
       });
     } catch (e) {
-      console.log(e);
+      console.log("Error del action del deleteReview", e);
     }
   };
 };

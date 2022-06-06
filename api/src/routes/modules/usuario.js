@@ -40,9 +40,28 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  let = { id, nombre,apellido, email, nacimiento, direccion, telefono, isAdmin, image } =
-    req.body;
-  console.log("ruta", { id, nombre, email, nacimiento, direccion, telefono });
+  let = {
+    id,
+    nombre,
+    email,
+    nacimiento,
+    direccion,
+    telefono,
+    isAdmin,
+    apellido,
+    image,
+  } = req.body;
+  console.log("ruta", {
+    id,
+    nombre,
+    email,
+    nacimiento,
+    direccion,
+    telefono,
+    image,
+    apellido,
+    isAdmin,
+  });
   try {
     let [usuarioCreado, created] = await Usuario.findOrCreate({
       where: {
