@@ -30,6 +30,7 @@ function UserProfile() {
   let [bool, setBool] = useState(false);
   console.log("user", user);
   let allRevs = revs.filter((e) => user.uid === e.usuarioId);
+  
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -52,6 +53,7 @@ function UserProfile() {
     dispatch(getAllReviews());
     return () => {
       dispatch(resetUserDb());
+      dispatch(getAllReviews())
     };
   }, [dispatch, endLoading, bool]);
   return (
@@ -78,6 +80,9 @@ function UserProfile() {
                   titulo={r.titulo}
                   comentario={r.comentario}
                   puntaje={r.puntaje}
+                  producto={r.productoId}
+                  fecha={r.createdAt}
+
                 />
               <div></div>
                 <button onClick={handleDelete} value={r.id}>
