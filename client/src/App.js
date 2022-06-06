@@ -8,8 +8,7 @@ import AdminPanel from "./components/AdminPanel";
 import Detail from "./components/Details";
 import ShoppingCart from "./components/ShoppingCart";
 import Review from "./components/Review";
-
-import Landing from "./components/Landing/Landing";
+import EditProfile from "./components/Profile/editContainer";
 import "@fontsource/montserrat";
 import { Checkout } from "./components/Checkout";
 import { FeedBack } from "./components/FeedBack";
@@ -30,6 +29,7 @@ function App() {
         <Route path="/login" exact element={<Login />} />
         <Route path="/admin" exact element={<AdminPanel />} />
         <Route path="/profile" exact element={<Profile />} />
+        <Route path="/profile/edit" exact element={<EditProfile />} />
         <Route path="/contact" exact element={<Contact />} />
         <Route path="/register" exact element={<Register />} />
         <Route path="/bebida/:id" exact element={<Detail />} />

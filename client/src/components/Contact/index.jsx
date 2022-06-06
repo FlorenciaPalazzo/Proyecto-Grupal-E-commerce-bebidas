@@ -9,10 +9,10 @@ export default function Contact() {
 
     emailjs
       .sendForm(
-        "service_tsqv4go",
-        "template_lmj2k5k",
+        "service_2dgsvdb",
+        "template_qlxiwln",
         form.current,
-        "UcXhrFVfZhUn4qCR8"
+        "JV3oDD1_BLOeYcBhe"
       )
       .then(
         (result) => {
@@ -27,11 +27,11 @@ export default function Contact() {
 
   return (
     <form ref={form} onSubmit={sendEmail}>
-      <label>Name</label>
+      <label>Nombre</label>
       <input type="text" name="user_name" />
       <label>Email</label>
       <input type="email" name="user_email" />
-      <label>Message</label>
+      <label>Mensaje</label>
       <textarea name="message" />
       <input type="submit" value="Send" />
     </form>
