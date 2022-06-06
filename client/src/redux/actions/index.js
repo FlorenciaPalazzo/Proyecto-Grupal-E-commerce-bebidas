@@ -311,7 +311,7 @@ export const getMercadoPago = () => {
   return async function (dispatch) {
     try {
       let result = await axios.post("http://localhost:3001/usuario/checkout");
-      console.log(result.data);
+      console.log("soy result data",result.data);
       console.log("entro a getMercadoPago");
       return dispatch({
         type: GET_MERCADO_PAGO,
@@ -500,7 +500,7 @@ export const addDirecciones= (payload)=>{
 export const getDirecciones =(id)=>{
   return async function (dispatch) {
     try {
-      let result = await axios.get(`http://localhost:3001/usuario/direcciones/${id}` );
+      let result = await axios.get(`http://localhost:3001/usuario/${id}` );
       return dispatch({
         type: GET_DIRECCIONES,
         payload: result.data,

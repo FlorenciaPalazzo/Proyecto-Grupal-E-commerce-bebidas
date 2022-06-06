@@ -23,7 +23,9 @@ router.get("/:id", async (req, res) => {
   let { id } = req.params;
 
   try {
-    let usuario = await Usuario.findByPk(id);
+    let usuario = await Usuario.findOne( {
+      where:{ id}, 
+     include:{model: Direcciones}});
     res.status(200).json(usuario);
   } catch (e) {
     res.status(400);
@@ -187,14 +189,14 @@ router.delete("/:id", async (req, res) => {
 //_____________direcciones_______________
 
 router.post("/direcciones", async (req, res) => {
-  let = {id_user, delivery_type, calle_numero,  localidad, codigo_postal,provincia} =req.body;
+  
   try {
-    
-   
-
+  let = {id_user, delivery_type, calle_numero,  localidad, codigo_postal,provincia} =req.body;  
+   //const usuario = await Usuario.findOne({where:{id:id_user}})
+  // console.log('---------------------------',usuario);
   let direcciones = await Direcciones.findOrCreate({
     where: {
-      id_user:id_user,
+    usuarioId: id_user,
       delivery_type:delivery_type,
       calle_numero:calle_numero,  
       localidad: localidad, 
@@ -202,6 +204,8 @@ router.post("/direcciones", async (req, res) => {
       provincia:provincia
     },
   });
+
+  
   res.json(direcciones);
 } catch (error) {
     console.log(error)
@@ -210,7 +214,7 @@ router.post("/direcciones", async (req, res) => {
 router.get("/direcciones/:id", async (req, res) => {
   let { id } = req.params;
   try {
-    let direcciones = await Direcciones.findAll({ where: { id_user: id } });
+    let direcciones = await Direcciones.findAll({ where: {usuarioId: id } });
     res.status(200).json(direcciones);
   } catch (err) {
     res.status(404);

@@ -419,7 +419,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       case GET_DIRECCIONES:
         return{
           ...state,
-          direcciones: payload
+          direcciones: payload.direcciones
       }
     default:
       return state;
