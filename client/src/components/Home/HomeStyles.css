@@ -1,68 +1,119 @@
 a:link,
 a:visited,
 a:active {
-  text-decoration: none;
-  color: black;
-  cursor: pointer;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
 }
 
 .div-key-card {
-  width: 22%;
-  min-width: 250px;
+    width: 20.5%;
+    min-width: 250px;
 }
 
 .div-body {
-  background-color: rgb(255, 253, 239);
+    background-color: #F5F5F5;
 }
 
 .card-container {
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: auto;
 }
 
 .button {
-  font-size: 13px;
-  font-weight: bold;
-  font-family: "Montserrat";
-  width: fit-content;
-  height: 50px;
-  color: rgb(0, 0, 0);
-  border-radius: 5px;
-  margin: 10px;
-  transition: background-color 0.1s ease-in-out;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: "Montserrat";
+    color: rgb(0, 0, 0);
+    background-color: hsl(0, 0%, 69%);
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-left: 10px;
+    cursor: pointer;
+    text-align: center;
+    padding: 5px 10px;
+    color: white;
+    transition: background-color 0.1s ease-in-out;
 }
 
 .button-shop {
-  width: 50px;
-  margin-left: 0;
-  position: absolute;
-  color: rgb(0, 0, 0);
-  border-radius: 5px;
-  margin: 5px;
-  transition: background-color 0.1s ease-in-out;
+    width: 100%;
+    margin-left: 0;
+    color: #f5f5f5;
+    background-color: #3C3C3C;
+    border-radius: 5px;
+    margin: 5px;
+    transition: background-color 0.1s ease-in-out;
+    font-family: "Montserrat";
+    font-weight: bold;
+    bottom: 0;
+    top: auto;
+}
+
+.button-fav {
+    width: 30px;
+    height: 30px;
+    margin-left: 0;
+    right: 0;
+    left: auto;
+    top: 0;
+    bottom: auto;
+    position: absolute;
+    color: rgb(0, 0, 0);
+    border-radius: 100%;
+    margin: 5px;
+    font-size: large;
+    transition: background-color 0.1s ease-in-out;
 }
 
 .button:hover,
 .button-shop:hover {
-  cursor: pointer;
-  background-color: rgb(175, 175, 175);
-  transition: background-color 0.1s ease-in-out;
+    cursor: pointer;
+    background-color: rgb(100, 100, 100);
+    transition: background-color 0.1s ease-in-out;
+}
+
+.button-fav:hover {
+    cursor: pointer;
+    background-color: rgb(215, 60, 60);
+    transition: background-color 0.1s ease-in-out;
 }
 
 .button svg {
-  size: 50px;
+    size: 50px;
 }
 
 .forms-title,
 label {
-  margin: 15px;
-  font-size: 20px;
-  font-weight: bold;
-  font-family: "Montserrat";
-  width: fit-content;
+    margin: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Montserrat";
+    width: fit-content;
 }
 
 .forms-title {
-  font-size: 35px !important;
+    font-size: 35px !important;
+}
+
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height: 25vh;
+    width: 99vw;
+    background-color: #3C3C3C;
+    justify-content: center;
+}
+
+.footer .text {
+    margin-top: 15px;
+    margin-left: 50px;
+    margin-right: 50px;
+    color: #F5F5F5;
+    font-weight: bold;
+    font-family: "Montserrat";
 }

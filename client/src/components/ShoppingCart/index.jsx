@@ -1,24 +1,44 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCart, cleanCart, deleteOne } from "../../redux/actions";
+import { Link, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
+import "./ShoppingCart.css";
+
+import {
+  addCart,
+  cleanCart,
+  deleteMercadoPago,
+  deleteOne,
+  feedBack,
+  getMercadoPago,
+  orderMercadoPago,
+} from "../../redux/actions";
+import Loading from "../Loading";
 
 const ShoppingCart = () => {
-  const verified = useSelector((state) => state.currentUser); //isEmail
-  console.log("verified", verified);
-  const productReducer = useSelector((state) => state.productCart);
+  let navigate = useNavigate();
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.isLoading);
+
+  const verified = useSelector((state) => state.currentUser); //isEmail
+  const feedBackReducer = useSelector((state) => state.feedBackMP);
+  const productReducer = useSelector((state) => state.productCart);
   let productCart = JSON.parse(window.localStorage.getItem("product"));
   const localValue = () => {
     return JSON.parse(window.localStorage.getItem("product"));
   };
+  console.log("productCart", productCart);
+  console.log("feedbackReducer", feedBackReducer);
   useEffect(() => {
+    if (!feedBackReducer) dispatch(feedBack());
     localValue();
-  }, [dispatch, productReducer]);
+  }, [dispatch, productReducer, feedBackReducer]);
 
   let productArray = [];
   let subtotal = productCart?.map(
     (element) => element.precio * element.quantity
   );
+
   let total = 0;
   subtotal?.forEach((e) => (total += e));
   console.log("total-----", total);
@@ -33,47 +53,119 @@ const ShoppingCart = () => {
   };
   const cleanAllCart = (e) => {
     e.preventDefault();
-    dispatch(cleanCart());
+    //dispatch(cleanCart());
+    dispatch(deleteMercadoPago());
   };
+
+  let postCarrito = (e) => {
+    e.preventDefault();
+    console.log("productCart --- post carrito", productCart);
+    dispatch(orderMercadoPago(productCart));
+    navigate("/checkout");
+  };
+
+  const handleAlertCarrito = (e) => {
+    e.preventDefault();
+    swal({
+      title: "Debes ingresar con tu usuario",
+      text: "...para poder comprar 🛒🛒🛒!",
+      buttons: {
+        cancel: "Ahorita no joven",
+        register: {
+          text: "Registrarse",
+          value: "register",
+        },
+        login: {
+          text: "Iniciar sesion",
+          value: "login",
+        },
+      },
+      icon: "warning",
+    }).then((value) => {
+      if (value === "register") {
+        navigate("/register");
+      }
+
+      if (value === "login") {
+        navigate("/login");
+      }
+    });
+  };
+
   return (
-    <div>
-      <h1>Shopping Cart</h1>
-      <h3>Products: </h3>
-      <h3>Precio: ${total}</h3>
-      {productCart &&
-        productCart.map((element) => {
-          productArray.push(element);
-          console.log("subtotal-----", subtotal);
+    <div className="carrito-container">
+      {loading /* revisen esto!! */ ? (
+        <Loading />
+      ) : (
+        <div className="carrito-body">
+          <Link to="/">
+            <button className="button">Regresar</button>
+          </Link>
+          <div className="carrito-background">
+            <h1>Carrito</h1>
 
-          return (
-            <div>
-              <div key={element.id}>
-                <h3>{`${element.nombre}`}</h3>
-                <img src={element.imagen} alt="img not found" width="20%" />
-                <span>
-                  <button onClick={deleteProduct} value={element.id}>
-                    -
+            <div className="carrito-main">
+              {productCart &&
+                productCart.map((element) => {
+                  productArray.push(element);
+
+                  return (
+                    <div className="carrito-content">
+                      <div key={element.id} className="carrito-product">
+                        <img
+                          src={element.imagen}
+                          alt="img not found"
+                          width="20%"
+                        />
+                        <h3>{`${element.nombre}`}</h3>
+                        <span className="carrito-price">
+                          <button
+                            className="button"
+                            onClick={deleteProduct}
+                            value={element.id}
+                          >
+                            ❌
+                          </button>
+                          <div>
+                            ${element.precio} x {element.quantity} = $
+                            {element.precio * element.quantity}
+                          </div>
+                          <button
+                            className="button"
+                            onClick={addProduct}
+                            value={element.id}
+                          >
+                            ➕
+                          </button>
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+
+              <span>
+                {verified && verified.email && productCart.length ? (
+                  <div className="carrito-resumen">
+                    <button className="button" onClick={cleanAllCart}>
+                      Limpiar carrito
+                    </button>
+                    <h1 className="carrito-total">Precio: ${total}</h1>
+                    <button className="button-pagar" onClick={postCarrito}>
+                      PAGAR
+                    </button>
+                  </div>
+                ) : !verified ? (
+                  <button className="button" onClick={handleAlertCarrito}>
+                    PAGAR
                   </button>
-                  ${element.precio} x {element.quantity} = $
-                  {element.precio * element.quantity}
-                  <button onClick={addProduct} value={element.id}>
-                    +
-                  </button>
-                </span>
-              </div>
+                ) : (
+                  <div></div>
+                )}
+              </span>
             </div>
-          );
-        })}
-
-      <span>
-        {verified && verified.email ? (
-          <button>Buy Products</button>
-        ) : (
-          <h3>No podrás comprar hasta estar registrado</h3>
-        )}
-
-        <button onClick={cleanAllCart}>Clean Cart</button>
-      </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

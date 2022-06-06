@@ -6,6 +6,7 @@ import {
   SET_USER,
   RESET_USER,
   GET_USERS_LOGED,
+  GET_USER_DB,
   SET_LOADING,
   FILTER_BY_AZ,
   FILTER_BY_BRAND,
@@ -22,11 +23,26 @@ import {
   DELETE_ONE_PRODUCT,
   REMOVE_ALL_CARRITO,
   GET_MERCADO_PAGO,
-  SET_FAV, //---------> prueba!!!
+  ORDER_MERCADO_PAGO,
+  SET_FAV,
+  GET_FAV,
+  DEL_FAV,
+  DELETE_MERCADO_PAGO,
+  FEEDBACK_MERCADO_PAGO,
+  UPDATE_USER,
+  GET_REVIEW,
+  POST_REVIEW,
+  PUT_REVIEW,
+  DELETE_REVIEW,
+  GET_REVPAGE,
+  GET_ALL_REVIEWS,
+  RESET_USER_DB,
+  //---------> prueba!!!
 } from "../actions/actionsTypes";
 
 const initialState = {
   currentUser: null,
+  dbUser: null,
   isAdmin: null,
   isLoged: false,
   isLoading: true,
@@ -36,10 +52,16 @@ const initialState = {
   searchProduct: [],
   productsSort: [],
   detail: [],
-  favProducts: [],
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
+  mpSandBox: "",
+  orderMP: [],
+  feedBackMP: [],
+  review: [],
+  reviewPage: [],
+  allReviews: [],
+  favProducts: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -52,10 +74,17 @@ export default function rootReducer(state = initialState, { type, payload }) {
       };
     case SET_USER:
       return { ...state, currentUser: payload, isLoged: true };
+    case UPDATE_USER:
+      return { ...state, dbUser: payload };
     case RESET_USER:
       return { ...state, currentUser: {}, isLoged: false, favProducts: [] };
+
     case GET_USERS_LOGED:
       return { ...state, usersLoged: payload };
+    case GET_USER_DB:
+      return { ...state, dbUser: payload };
+    case RESET_USER_DB:
+      return { ...state, dbUser: {} };
     case SET_LOADING:
       return { ...state, isLoading: payload };
     case ADMIN_HANDLER: {
@@ -74,9 +103,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
     }
     case GET_PRODUCT_NAME:
       return { ...state, products: payload, searchProduct: payload };
-
-    case SET_FAV:
-      return { ...state, favProducts: payload };
 
     case GET_PRODUCT_ID:
       return { ...state, detail: payload };
@@ -271,9 +297,14 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case ADD_CARRITO:
       let repeated = state.productCart.find((e) => e.id === payload.id); //busca si existe ese id
       const cartProduct = [...state.productCart, payload]; //guarda todo
-      // element = payload.id === e.id
       let prodQuantity = state.productCart.map((prod) =>
-        prod.id === payload.id ? { ...prod, quantity: prod.quantity + 1 } : prod
+        prod.id === payload.id
+          ? {
+              ...prod,
+              quantity: prod.quantity + 1,
+              subtotal: prod.precio * (prod.quantity + 1),
+            }
+          : prod
       ); //modifica el quantity si el id ya existia
 
       repeated
@@ -292,7 +323,13 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case DELETE_ONE_PRODUCT:
       let filter = state.productCart.find((e) => e.id === payload);
       let quantityLess = state.productCart.map((prod) =>
-        prod.id === payload ? { ...prod, quantity: prod.quantity - 1 } : prod
+        prod.id === payload
+          ? {
+              ...prod,
+              quantity: prod.quantity - 1,
+              subtotal: prod.subtotal - prod.precio,
+            }
+          : prod
       );
       console.log("filter ---- > ", filter);
       console.log("quantityLess ---- > ", quantityLess);
@@ -312,7 +349,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
             ...state,
             productCart: state.productCart.filter((e) => e.id !== payload),
           };
-
     case REMOVE_ALL_CARRITO:
       let array = [];
       localStorage.setItem("product", JSON.stringify(array));
@@ -320,9 +356,80 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         productCart: array,
       };
-
+    case ORDER_MERCADO_PAGO:
+      return {
+        ...state,
+      };
     case GET_MERCADO_PAGO:
-      return { ...state };
+      return { ...state, mpSandBox: payload };
+    case DELETE_MERCADO_PAGO:
+      console.log("entro al reducer DELETE MP");
+      let carritoVacio = [];
+      localStorage.setItem("product", JSON.stringify(carritoVacio));
+      return {
+        ...state,
+        productCart: carritoVacio,
+      };
+    case FEEDBACK_MERCADO_PAGO:
+      return {
+        ...state,
+        feedBackMP: payload,
+      };
+    case POST_REVIEW:
+      return {
+        ...state,
+      };
+    case GET_ALL_REVIEWS:
+      return {
+        ...state,
+        allReviews: payload,
+      };
+    case GET_REVIEW: //de los productos
+      return {
+        ...state,
+        review: payload,
+      };
+    case GET_REVPAGE: // de la pag general
+      return {
+        ...state,
+        reviewPage: payload,
+      };
+    case PUT_REVIEW:
+      return {
+        ...state,
+        review: payload,
+      };
+    case DELETE_REVIEW:
+      return {
+        ...state,
+      };
+    case SET_FAV:
+      return { ...state, favProducts: payload };
+
+    case GET_FAV:
+      let productos = state.products; //te trae todos los productos
+
+      let ids = payload.map((e) => e.productoId); //mapea los prod fav
+      let arr = [];
+      console.log("SOY EL PAYLOAD", payload);
+
+      productos.map((e) => {
+        //mapea productos pregunta si hay id prod
+        if (ids.includes(e.id)) {
+          arr.push(e);
+        }
+      });
+
+      console.log("SOY EL FILTRO PROD", arr);
+
+      return {
+        ...state,
+        favProducts: arr,
+      };
+
+    case DEL_FAV:
+      return { ...state, favProducts: payload };
+
     default:
       return state;
   }
