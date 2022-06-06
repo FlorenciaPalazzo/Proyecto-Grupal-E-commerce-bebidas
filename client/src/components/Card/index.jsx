@@ -33,6 +33,7 @@ export default function Card({
     quantity: 1,
     subtotal: precio,
   };
+  
   const dispatch = useDispatch();
 
   const handleAddCarrito = (e) => {
