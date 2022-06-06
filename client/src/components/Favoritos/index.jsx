@@ -30,7 +30,7 @@ export const Favoritos = () => {
   };
   return (
     <div>
-      <Link to="/home">
+      <Link to="/">
         <button className="button">Home</button>
       </Link>
       <div>Lista de Favoritos</div>
@@ -40,7 +40,7 @@ export const Favoritos = () => {
           return (
             <div key={e.id}>
               <button className="button" value={e.id} onClick={handleDeleteFav}>
-                Delete
+                Borrar
               </button>
               {e.nombre}
               <img src={e.imagen} />

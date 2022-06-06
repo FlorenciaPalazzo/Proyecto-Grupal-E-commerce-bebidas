@@ -8,27 +8,29 @@ import AdminPanel from "./components/AdminPanel";
 import Detail from "./components/Details";
 import ShoppingCart from "./components/ShoppingCart";
 import Review from "./components/Review";
-
-import Landing from "./components/Landing/Landing";
+import EditProfile from "./components/Profile/editContainer";
 import "@fontsource/montserrat";
 import { Checkout } from "./components/Checkout";
 import { FeedBack } from "./components/FeedBack";
 import { Favoritos } from "./components/Favoritos";
+import Offers from "./components/Off/Offers";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" exact element={<Landing />} />
-        <Route path="/home" exact element={<Home />} />
+        {/* <Route path="/" exact element={<Landing />} /> */}
+        <Route path="/" exact element={<Home />} />
         <Route path="/cart" exact element={<ShoppingCart />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/admin" exact element={<AdminPanel />} />
         <Route path="/profile" exact element={<Profile />} />
+        <Route path="/profile/edit" exact element={<EditProfile />} />
         <Route path="/contact" exact element={<Contact />} />
         <Route path="/register" exact element={<Register />} />
         <Route path="/bebida/:id" exact element={<Detail />} />
         <Route path="/checkout/:id" exact element={<Checkout />} />
+        <Route path="/offers" exact element={<Offers />} />
         <Route path="/feedback" exact element={<FeedBack />} />
         <Route path="/review/:id" exact element={<Review />} />
         <Route path="/review" exact element={<Review />} />

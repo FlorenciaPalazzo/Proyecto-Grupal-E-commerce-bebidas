@@ -9,6 +9,7 @@ import {
   FILTER_BY_AZ,
   FILTER_BY_ZA,
   SET_USER,
+  UPDATE_USER,
   SET_LOADING,
   GET_PRODUCT_ID,
   GET_BRANDS,
@@ -27,6 +28,7 @@ import {
   ORDER_MERCADO_PAGO,
   DELETE_MERCADO_PAGO,
   FEEDBACK_MERCADO_PAGO,
+  GET_USER_DB,
   POST_REVIEW,
   GET_REVIEW,
   PUT_REVIEW,
@@ -36,6 +38,7 @@ import {
   ADD_DIRECCIONES,
   GET_DIRECCIONES,
 
+  RESET_USER_DB,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -63,14 +66,41 @@ export function createUser(user) {
     .post("http://localhost:3001/usuario", {
       id: user.id,
       nombre: user.nombre,
+      apellido: user.apellido,
       email: user.email,
       nacimiento: user.nacimiento,
       direccion: user.direccion,
       telefono: user.telefono,
       isAdmin: user.isAdmin,
+      isVerified: user.isVerified,
+      image: user.image,
     })
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
+}
+
+export function updateUser(user) {
+  // { id, nombre, email, nacimiento, direccion, telefono }
+  console.log("user", user);
+  let updated = axios
+    .put("http://localhost:3001/usuario", {
+      user,
+      // id: user.id,
+      // nombre: user.nombre,
+      // apellido: user.apellido,
+      // email: user.email,
+      // nacimiento: user.nacimiento,
+      // direccion: user.direccion,
+      // telefono: user.telefono,
+      // isAdmin: user.isAdmin,
+      // isVerified: user.isVerified
+    })
+    .then((res) => res.data)
+    .catch((e) => console.log(e));
+  console.log("updated", updated);
+  return async (dispatch) => {
+    return dispatch({ type: UPDATE_USER, dispatch: updated });
+  };
 }
 
 export function resetUser() {
@@ -92,9 +122,27 @@ export function getUsersLoged() {
   };
 }
 
+export function getUserDb(id) {
+  return async (dispatch) => {
+    try {
+      let userFound = await axios
+        .get("http://localhost:3001/usuario/" + id)
+        .then((users) => users.data);
+      return dispatch({ type: GET_USER_DB, payload: userFound });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
 export function setLoading(bool) {
   return async (dispatch) => {
     return dispatch({ type: SET_LOADING, payload: bool });
+  };
+}
+export function resetUserDb() {
+  return async (dispatch) => {
+    return dispatch({ type: RESET_USER_DB });
   };
 }
 

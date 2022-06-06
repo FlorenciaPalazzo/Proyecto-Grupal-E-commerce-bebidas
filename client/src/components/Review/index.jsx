@@ -40,7 +40,7 @@ export default function PostReview() {
       comentario: "",
       puntaje: "",
     });
-    navigate("/home");
+    navigate("/");
     console.log(setInput);
   };
   return (
@@ -84,7 +84,7 @@ export default function PostReview() {
           </button>
         </div>
         <div>
-          <Link to="/home">
+          <Link to="/">
             <button className="button">Back</button>
           </Link>
         </div>

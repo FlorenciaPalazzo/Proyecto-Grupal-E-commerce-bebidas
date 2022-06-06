@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getProductById, getReview } from "../../redux/actions";
+import { addCart, getProductById, getReview } from "../../redux/actions";
 import "./DetailStyles.css";
 import ReactStars from "react-rating-stars-component";
 import swal from "sweetalert";
@@ -16,6 +16,13 @@ export default function Detail() {
   const product = useSelector((state) => state.detail);
   const rev = useSelector((state) => state.review);
   console.log(rev, "SOY EL REV");
+  let cart = product;
+  const handleCart = (e) => {
+    e.preventDefault();
+    let cart = product;
+    cart.quantity = 1;
+    dispatch(addCart(cart));
+  };
   useEffect(() => {
     dispatch(getProductById(id));
     dispatch(getReview(id));
@@ -51,7 +58,7 @@ export default function Detail() {
 
   return (
     <div className="detail-background">
-      <Link to="/home">
+      <Link to="/">
         <button className="button">Back</button>
       </Link>
       {product ? (
@@ -59,7 +66,13 @@ export default function Detail() {
           <div className="detail-compra">
             <h1 className="detail-name">{product.nombre}</h1>
             <h1 className="detail-title">Price: $ {product.precio}</h1>
-            <button className="button-shop">Añadir al carrito</button>
+            <button
+              className="button-shop"
+              onClick={handleCart}
+              value={product}
+            >
+              Añadir al carrito
+            </button>
           </div>
           <div className="image-div">
             <img className="detail-image" src={product.imagen} alt="" />
@@ -80,15 +93,11 @@ export default function Detail() {
               />
             </div>
           </div>
-          {/* <p
-            className="detail-description"
-            dangerouslySetInnerHTML={{ __html: product.descripcion }}
-          /> */}
-          <div>
+          <div className="review-detail">
             {rev.length ? (
               rev.map((e) => {
                 return (
-                  <div className="detail-description">
+                  <div className="review-body">
                     <p>Titulo: {e.titulo}</p>
                     <p>Comentario: {e.comentario}</p>
                     <p>
@@ -108,12 +117,9 @@ export default function Detail() {
                 );
               })
             ) : (
-              <div className="detail-description">no hay reviews</div>
+              <div className="review-body">no hay reviews</div>
             )}
           </div>
-          <Link to="/home">
-            <button className="button">Back</button>
-          </Link>
           {isLoged ? (
             <Link to={`/Review/${id}`}>
               <button className="button">Contanos tu experiencia</button>

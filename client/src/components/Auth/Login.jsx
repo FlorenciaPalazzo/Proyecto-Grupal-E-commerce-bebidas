@@ -39,7 +39,7 @@ function Login() {
       }
       dispatch(isAdmin(user.email));
       dispatch(setUser({ ...user }));
-      navigate("/home");
+      navigate("/");
     } catch (error) {}
   }
 
@@ -53,9 +53,12 @@ function Login() {
         dispatch(
           createUser({
             id: userCred.uid,
-            nombre: userCred.displayName,
+            nombre: userCred.displayName || "Usuario",
+            apellido: userCred.displayName || "Google",
             email: userCred.email,
             isAdmin: userCred.email === process.env.REACT_APP_ADMIN_EMAIL,
+            isVerified: userCred.emailVerified,
+            image: userCred.photoURL || null,
           })
         );
         return userCred;
@@ -70,14 +73,14 @@ function Login() {
       });
   }
 
-//   let search = window.location.search;
-//   let params = new URLSearchParams(search);
-//   let foo = params.get("valen");
-//   console.log(foo)
-  
+  //   let search = window.location.search;
+  //   let params = new URLSearchParams(search);
+  //   let foo = params.get("valen");
+  //   console.log(foo)
+
   const user = useSelector((state) => state.currentUser);
   useEffect(() => {
-    isLoged && navigate("/home");
+    isLoged && navigate("/");
   }, [isLoged]);
 
   return (
@@ -86,8 +89,8 @@ function Login() {
         <Loading />
       ) : (
         <div>
-          <Link to="/home">
-          <button className="button">Home</button>
+          <Link to="/">
+            <button className="button">Home</button>
           </Link>
           <h1 className="forms-title">Login</h1>
           <div className="forms">
@@ -101,7 +104,7 @@ function Login() {
                 onChange={handleChange}
               />
 
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">Contraseña</label>
               <input
                 type="password"
                 name="password"
@@ -111,7 +114,7 @@ function Login() {
 
               <button>Login</button>
             </form>
-            <button onClick={googleHandleSubmit}>SignUp with Google</button>
+            <button onClick={googleHandleSubmit}>SignUp con Google</button>
           </div>
         </div>
       )}

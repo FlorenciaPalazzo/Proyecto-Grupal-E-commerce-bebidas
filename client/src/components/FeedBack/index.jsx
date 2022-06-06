@@ -16,7 +16,7 @@ export const FeedBack = () => {
     if (foo === "approved") {
       dispatch(deleteMercadoPago());
       console.log("APROBADO");
-      setTimeout(navigate("/home"), 10000);
+      setTimeout(navigate("/"), 10000);
     } else {
       navigate("/cart");
     }
