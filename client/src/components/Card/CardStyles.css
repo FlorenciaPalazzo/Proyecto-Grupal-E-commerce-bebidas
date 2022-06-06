@@ -31,64 +31,33 @@ a:active {
 }
 
 .card-main:hover {
-    box-shadow: 0 0 40px rgb(100, 100, 100);
-    transition: box-shadow 0.2s ease-in-out;
+  box-shadow: 0 0 40px rgb(100, 100, 100);
+  transition: box-shadow 0.2s ease-in-out;
 }
 
 .card {
   display: flex;
   flex-wrap: wrap;
   position: relative;
+  justify-content: center;
 }
 
 .card-imagen {
-    width: 100%;
-    margin: auto;
-}
-
-
-/* .card-body {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
-}
-
-.card:hover .card-body {
-    opacity: 1;
-    transition: opacity 0.2s ease-in-out;
-} */
-
-
-/* .card-brand,
-.card-alcohol,
-.card-ml {
-
-  font-size: large;
-}
-
-.card-price {
-  font-size: xx-large;
-  margin: 0;
-  justify-items: center;
-}
-
-.swal-overlay {
   width: 100%;
+  margin: auto;
 }
-.swal-button {
-  background-color: rgba(170, 150, 100, 0.744);
-}
-=======
-    font-size: large;
-} */
 
 .card-price,
 .card-title {
-    font-size: medium;
-    margin: 0;
-    justify-items: center;
+  font-size: medium;
+  margin: 0;
+  justify-items: center;
+}
+.card-price,
+.card-title {
+  font-size: medium;
+  margin: 0;
+  justify-items: center;
 }
 
 .swal-overlay {

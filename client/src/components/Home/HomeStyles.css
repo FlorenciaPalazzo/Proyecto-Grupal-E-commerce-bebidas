@@ -49,6 +49,8 @@ a:active {
     transition: background-color 0.1s ease-in-out;
     font-family: "Montserrat";
     font-weight: bold;
+    bottom: 0;
+    top: auto;
 }
 
 .button-fav {
@@ -57,6 +59,8 @@ a:active {
     margin-left: 0;
     right: 0;
     left: auto;
+    top: 0;
+    bottom: auto;
     position: absolute;
     color: rgb(0, 0, 0);
     border-radius: 100%;

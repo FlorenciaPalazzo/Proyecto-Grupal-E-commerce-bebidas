@@ -2,7 +2,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../fb";
-import { isAdmin, setUser, setLoading } from "../../redux/actions";
+import { isAdmin, setUser, setLoading, getUserDb } from "../../redux/actions";
 
 function Loading() {
   const loading = useSelector((state) => state.isLoading);
@@ -10,7 +10,7 @@ function Loading() {
   useEffect(() => {
     console.log("effect loading");
     console.log(auth.currentUser);
-
+    dispatch(getUserDb());
     onAuthStateChanged(auth, (currUser) => {
       if (currUser) {
         console.log("el loading enconrtro un usuario activo");
@@ -23,7 +23,6 @@ function Loading() {
       dispatch(setLoading(!loading));
     });
   }, []);
-
   return (
     <div>
       <p>Loading...</p>
