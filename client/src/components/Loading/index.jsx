@@ -10,7 +10,7 @@ function Loading() {
   useEffect(() => {
     console.log("effect loading");
     console.log(auth.currentUser);
-    dispatch(getUserDb())
+    dispatch(getUserDb());
     onAuthStateChanged(auth, (currUser) => {
       if (currUser) {
         console.log("el loading enconrtro un usuario activo");
@@ -23,7 +23,6 @@ function Loading() {
       dispatch(setLoading(!loading));
     });
   }, []);
-
   return (
     <div>
       <p>Loading...</p>
