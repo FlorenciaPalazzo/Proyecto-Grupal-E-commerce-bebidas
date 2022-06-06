@@ -78,6 +78,7 @@ export default function PostReview() {
             activeColor="#ffd700"
           />
         </div>
+        
         <div>
           <button className="button" type="submit">
             Puntuar

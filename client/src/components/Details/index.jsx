@@ -2,7 +2,12 @@ import React from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { addCart, getProductById, getReview } from "../../redux/actions";
+import {
+  addCart,
+  clearState,
+  getProductById,
+  getReview,
+} from "../../redux/actions";
 import "./DetailStyles.css";
 import ReactStars from "react-rating-stars-component";
 import swal from "sweetalert";
@@ -26,6 +31,10 @@ export default function Detail() {
   useEffect(() => {
     dispatch(getProductById(id));
     dispatch(getReview(id));
+    return () => {
+      //componen did unmount
+      dispatch(clearState()); // limpio el state de details
+    };
   }, [dispatch, id]);
 
   const handleAlertReview = (e) => {
