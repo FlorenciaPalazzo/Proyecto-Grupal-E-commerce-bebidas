@@ -1,9 +1,14 @@
 import React from "react";
 import ReactStars from "react-rating-stars-component";
 
-export const ReviewCar = ({ titulo, comentario, puntaje }) => {
+export const ReviewCar = ({ titulo, comentario, puntaje, nombre, imagen, createdAt }) => {
   return (
     <div>
+      <div>
+        <h4>{nombre}</h4>
+        <h4>{imagen}</h4>
+        <h4>Fecha: {createdAt}</h4>
+      </div>
       <p>Titulo: {titulo}</p>
       <p>Comentario: {comentario}</p>
       Puntaje:{" "}
