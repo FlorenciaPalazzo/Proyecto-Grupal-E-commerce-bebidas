@@ -40,9 +40,28 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  let = { id, nombre, email, nacimiento, direccion, telefono, isAdmin } =
-    req.body;
-  console.log("ruta", { id, nombre, email, nacimiento, direccion, telefono });
+  let = {
+    id,
+    nombre,
+    email,
+    nacimiento,
+    direccion,
+    telefono,
+    isAdmin,
+    apellido,
+    image,
+  } = req.body;
+  console.log("ruta", {
+    id,
+    nombre,
+    email,
+    nacimiento,
+    direccion,
+    telefono,
+    image,
+    apellido,
+    isAdmin,
+  });
   try {
     let [usuarioCreado, created] = await Usuario.findOrCreate({
       where: {
@@ -52,7 +71,9 @@ router.post("/", async (req, res) => {
         nacimiento: nacimiento ? nacimiento : null,
         direccion: direccion ? direccion : null,
         telefono: telefono ? telefono : null,
-        // isAdmin: isAdmin,
+        apellido: apellido,
+        isAdmin: isAdmin,
+        image: image,
       },
     });
     console.log("bien");
@@ -63,7 +84,16 @@ router.post("/", async (req, res) => {
   }
 });
 router.put("/", async (req, res) => {
-  let {id, nombre, email, contraseña, nacimiento, direccion, telefono, image } = req.body.user;
+  let {
+    id,
+    nombre,
+    email,
+    contraseña,
+    nacimiento,
+    direccion,
+    telefono,
+    image,
+  } = req.body.user;
   console.log(req.body.user);
   try {
     const usuarioPut = await Usuario.findOne({ where: { id: id } });
