@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { addDirecciones, deleteMercadoPago, getDirecciones, getMercadoPago } from "../../redux/actions"
+import Loading from "../Loading";
 export function validate(input) {
   let errors = {};
   if (!input.calle_numero) {
@@ -30,7 +31,7 @@ export function validate(input) {
 
 export const Checkout = () => {
   const sandbox = useSelector((state) => state.mpSandBox);
-
+  const loading = useSelector((state) => state.isLoading);
   const user = useSelector((state) => state.currentUser);
   const { id } = useParams();
   // let user ={
@@ -93,45 +94,55 @@ export const Checkout = () => {
   const handleAddress = function (e) {
     e.preventDefault();
     input.delivery_type === "envio" ?
-      setDireccion(input) : setDireccion(direccionSucursal)
-
+      setDireccion(input) :
+      setDireccion(direccionSucursal)
   }
    const handleDireccion = function (e) {
     e.preventDefault();
- 
+  
  let preventAddress= direcciones.find(el=> el.id_direcciones === e.target.value)
+ setInput(preventAddress)
      input.delivery_type === "sucursal" ?setDireccion(direccionSucursal): setDireccion(preventAddress) 
 
   }
   const handlesubmitDireccion = function (e) {
     e.preventDefault();
-    
-    Object.keys(errors).length === 0 ? 
-      dispatch(addDirecciones(input)) ?
-       setDireccion(input)?
-        setInput({
+    if( Object.keys(errors).length === 0 && input.calle_numero && input.codigo_postal && input.localidad &&  input.provincia){
+       dispatch(addDirecciones(input))
+      
+        setDireccion(input)
+         setInput({
           delivery_type: "",
           calle_numero: null,
           localidad: null,
           codigo_postal: 0,
           provincia: null,
-          id_user: id
-
-        })
-        : alert('Se agrego correctamente la direccion111')
-        :alert('Se agrego correctamente la direccion ')
-        : alert('Revisa los campos ingresados. ')
+          id_user: id})
+    
+    alert('Se agrego correctamente la direccion ')
+     dispatch(getDirecciones(id))
+  } else  alert('Revisa los campos ingresados. ')
+   
   }
   const handlePagar = function (e) {
     e.preventDefault();
     window.location.replace(sandbox)
 
   }
+  let subtotal = productCart?.map(
+    (element) => element.precio * element.quantity
+  );
+
+  let total = 0;
+  subtotal?.forEach((e) => (total += e));
   return (
     <div>
-      <button><Link to="/home">Home</Link></button>
+      <button><Link to="/">Home</Link></button>
       <h2>Detalle de compra</h2>
-      {!productCart.length ? (
+      {loading /* revisen esto!! */ ? (
+        <Loading />
+      ) :
+      !productCart.length ? (
         <span>Cargando</span>
       ) : sandbox ? (<div>
 
@@ -145,13 +156,25 @@ export const Checkout = () => {
             {productCart.length ? productCart.map((e) => {
               return (
                 <ul key={e.id}>
-                  <li><img src={e.imagen} alt="img not found" width="100px" /></li>
+                  <img src={e.imagen} alt="img not found"  width="10%"/>
+                  
                   <li>{e.nombre}</li>
                   <li>{e.precio}</li>
+                  <li>{e.quantity} unid.</li>
                 </ul>
               )
-            }) : null
+            })
+            : null
+            } 
+            {
+              direccion.delivery_type === "envio"?
+            <div>
+              <h2>Costo de envio : $749</h2>
+              <h2>Total: {total + 749}</h2>
+              </div>
+              : <h2>Total : {total}</h2>
             }
+            
           </div>
           <div>
             {
@@ -263,11 +286,24 @@ export const Checkout = () => {
           </div>
 
         </div>
-        <div>
+        {/* {
+          direcciones.some(e=>
+           e.calle_numero === direccion.calle_numero && e.provincia === direccion.provincia && e.localidad === direccion.localidad 
+            && e.codigo_postal === direccion.codigo_postal 
+            //|| input.delivery_type === "sucursal"
+          )? 
+          <div>
+          <button onClick={handleAddress}>Confirmar direccion</button>
+        </div> : 
+          <div>
+          <button disabled onClick={handleAddress}>Confirmar direccion</button>
+        </div>
+        } */}
+       <div>
           <button onClick={handleAddress}>Confirmar direccion</button>
         </div>
         <button><Link to="/cart">Volver al Carrito</Link></button>
-        {!direccion.delivery_type && !direccion.provincia && !direccion.localidad && !direccion.calle_numero?
+        {!direccion.delivery_type || !direccion.provincia||!direccion.localidad || !direccion.calle_numero?
          <button disabled > PAGAR  </button>
          
        : <button onClick={handlePagar}>PAGAR </button>}
@@ -276,7 +312,8 @@ export const Checkout = () => {
       
       ) : productCart.length === 0 && !sandbox ? (
         <span>Ya realizaste tu compra</span>
-      ) : null}
+      ) : null
+      }
     </div>
   );
 };
