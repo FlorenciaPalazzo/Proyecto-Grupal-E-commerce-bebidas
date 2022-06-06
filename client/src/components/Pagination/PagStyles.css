@@ -1,35 +1,35 @@
 .ul {
-    padding-left: 44.75%;
+  padding-left: 44.75%;
 }
 
 .pagination {
-    margin-bottom: 2%;
-    display: inline-flex;
-    justify-content: space-around;
-    height: 1em;
-    flex-wrap: wrap;
-    flex-direction: row;
+  margin-bottom: 4%;
+  display: inline-flex;
+  justify-content: space-around;
+  height: 1em;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
 .pagination-button,
 .pagination-number {
-    font-family: "Montserrat";
-    font-weight: 200;
-    font-size: 18px;
-    color: hsl(207, 19%, 9%);
-    background-color: hsl(0, 0%, 44%);
-    border: none;
-    border-radius: 2px;
-    padding: 4px 13px;
-    margin: 10px 10px;
-    box-shadow: 2px 2px 15px rgba(71, 71, 71, 0.3) 20%;
-    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+  font-family: "Montserrat";
+  font-weight: 200;
+  font-size: 18px;
+  color: hsl(207, 19%, 9%);
+  background-color: hsl(0, 0%, 44%);
+  border: none;
+  border-radius: 2px;
+  padding: 4px 13px;
+  margin: 10px 10px;
+  box-shadow: 2px 2px 15px rgba(71, 71, 71, 0.3) 20%;
+  text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
 
 .pagination-number {
-    background-color: hsl(0, 0%, 59%);
+  background-color: hsl(0, 0%, 59%);
 }
 
 .pagination-button:hover {
-    background-color: hsl(0, 0%, 75%);
+  background-color: hsl(0, 0%, 75%);
 }
