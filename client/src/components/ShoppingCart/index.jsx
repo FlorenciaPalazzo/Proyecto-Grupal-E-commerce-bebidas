@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import "./ShoppingCart.css";
 
 import {
   addCart,
@@ -92,55 +93,79 @@ const ShoppingCart = () => {
   };
 
   return (
-    <div>
+    <div className="carrito-container">
       {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
-        <div>
-          <h1>Shopping Cart</h1>
-          <h3>Products: </h3>
-          <h3>Precio: ${total}</h3>
-          {productCart &&
-            productCart.map((element) => {
-              productArray.push(element);
+        <div className="carrito-body">
+          <Link to="/">
+            <button className="button">Regresar</button>
+          </Link>
+          <div className="carrito-background">
+            <h1>Carrito</h1>
 
-              return (
-                <div>
-                  <div key={element.id}>
-                    <h3>{`${element.nombre}`}</h3>
-                    <img src={element.imagen} alt="img not found" width="20%" />
-                    <span>
-                      <button onClick={deleteProduct} value={element.id}>
-                        -
-                      </button>
-                      ${element.precio} x {element.quantity} = $
-                      {element.precio * element.quantity}
-                      <button onClick={addProduct} value={element.id}>
-                        +
-                      </button>
-                    </span>
+            <div className="carrito-main">
+              {productCart &&
+                productCart.map((element) => {
+                  productArray.push(element);
+
+                  return (
+                    <div className="carrito-content">
+                      <div key={element.id} className="carrito-product">
+                        <img
+                          src={element.imagen}
+                          alt="img not found"
+                          width="20%"
+                        />
+                        <h3>{`${element.nombre}`}</h3>
+                        <span className="carrito-price">
+                          <button
+                            className="button"
+                            onClick={deleteProduct}
+                            value={element.id}
+                          >
+                            ❌
+                          </button>
+                          <div>
+                            ${element.precio} x {element.quantity} = $
+                            {element.precio * element.quantity}
+                          </div>
+                          <button
+                            className="button"
+                            onClick={addProduct}
+                            value={element.id}
+                          >
+                            ➕
+                          </button>
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+
+              <span>
+                {verified && verified.email && productCart.length ? (
+                  <div className="carrito-resumen">
+                    <button className="button" onClick={cleanAllCart}>
+                      Limpiar carrito
+                    </button>
+                    <h1 className="carrito-total">Precio: ${total}</h1>
+                    <button className="button-pagar" onClick={postCarrito}>
+                      PAGAR
+                    </button>
                   </div>
-                </div>
-              );
-            })}
-
-          <span>
-            {verified && verified.email && productCart.length ? (
-              <div>
-                <button onClick={postCarrito}>PAGAR</button>
-                <button onClick={cleanAllCart}>Clean Cart</button>
-              </div>
-            ) : !verified ? (
-              <button onClick={handleAlertCarrito}>Pagar</button>
-            ) : (
-              <button onClick={handleAlertCarrito}>Pagar</button>
-            )}
-          </span>
+                ) : !verified ? (
+                  <button className="button" onClick={handleAlertCarrito}>
+                    PAGAR
+                  </button>
+                ) : (
+                  <div></div>
+                )}
+              </span>
+            </div>
+          </div>
         </div>
       )}
-      <Link to="/">
-        <button>Regresar.</button>
-      </Link>
     </div>
   );
 };

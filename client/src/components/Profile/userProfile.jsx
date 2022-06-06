@@ -1,7 +1,12 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import FileBase64 from "react-file-base64";
+import { auth } from "../../fb";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { getUserDb, resetUserDb } from "../../redux/actions";
 import ReactStars from "react-rating-stars-component";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useLayoutEffect } from "react";
+import { ReviewCar } from "../Review/ReviewCar";
+
 import {
   deleteReview,
   getAllReviews,
@@ -9,39 +14,59 @@ import {
   getReviewPage,
   putReview,
 } from "../../redux/actions";
-import { ReviewCar } from "../Review/ReviewCar";
+//import db from "../../../../api/src/db";
 
 function UserProfile() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const dbUser = useSelector((state) => state.dbUser);
   const user = useSelector((state) => state.currentUser);
-  let revs = useSelector((state) => state.allReviews);
-  console.log("user", user);
+  const [endLoading, setEndLoading] = useState(false);
 
+  let revs = useSelector((state) => state.allReviews);
+  let [bool, setBool] = useState(false);
+  console.log("user", user);
   let allRevs = revs.filter((e) => user.uid === e.usuarioId);
+
   const handleDelete = (e) => {
     e.preventDefault();
     console.log(e.target.value);
     dispatch(deleteReview(e.target.value));
-    window.location.reload();
+    setBool(!bool);
   };
   const handlePut = (e) => {
     e.preventDefault();
     dispatch(putReview(e.target.value));
-    //window.location.reload()
-    console.log("Me meto al put");
+    setBool(!bool);
   };
-  useEffect(() => {
-    dispatch(getAllReviews());
-  }, [dispatch /* , allRevs */]);
 
+  useEffect(() => {
+    if (user) {
+      dispatch(getUserDb(user.uid));
+    }
+
+    setEndLoading(true);
+    dispatch(getAllReviews());
+    return () => {
+      dispatch(resetUserDb());
+    };
+  }, [dispatch, endLoading, bool]);
   return (
     <div>
-      <h1>User Profile</h1>
+      <h1>Perfil de usuario</h1>
       <h2>{user && user.email}</h2>
+      <h2>{dbUser && dbUser.nombre} </h2>
       <div>
+        {
+          /* !user.photoURL && dbUser */ dbUser?.image ? (
+            <img src={dbUser.image} alt="" />
+          ) : user.photoURL ? (
+            <img src={user.photoURL} alt="" />
+          ) : (
+            <img src="./images/default.jpg" alt="" />
+          )
+        }
         <h2>Reviews</h2>
-        {allRevs &&
+        {allRevs.length ? (
           allRevs.map((r) => {
             return (
               <div key={r.id} value={r.id}>
@@ -58,7 +83,10 @@ function UserProfile() {
                 </button>
               </div>
             );
-          })}
+          })
+        ) : (
+          <div>No hay reviews!</div>
+        )}
       </div>
     </div>
   );
