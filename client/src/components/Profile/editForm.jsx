@@ -50,10 +50,18 @@ export default function EditForm() {
   useEffect(() => {
     if (user) {
       console.log("seteo input");
-      setInput({
-        nombre: user.displayName.split(" ")[0],
-        apellido: user.displayName.split(" ")[1],
-      });
+      if (user.displayName) {
+        let name = user.displayName.split(" ");
+        setInput({
+          nombre: name[0] ? name[0] : "",
+          apellido: name[1] ? name[1] : "",
+        });
+      } else {
+        setInput({
+          nombre: "",
+          apellido: "",
+        });
+      }
     }
     return () => {
       if (user && user.isAdmin) {
@@ -105,9 +113,7 @@ export default function EditForm() {
             Guardar
           </button>
         </form>
-        {user && (
-          <img src={user.photoURL} style={{ width: "100%", height: 300 }} />
-        )}
+        {user && <img src={user.photoURL} style={{ width: "20%" }} />}
       </div>
     </div>
   );
