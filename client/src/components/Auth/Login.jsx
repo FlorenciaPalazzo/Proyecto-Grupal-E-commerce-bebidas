@@ -20,16 +20,15 @@ function Login() {
   function handleChange(e) {
     setInput({ ...input, [e.target.name]: e.target.value });
   }
-  
+
   //
   //
-  async function errorValidate(error){
-    setError(null)
-    if(error === "Firebase: Error (auth/user-not-found)."){
-      setError("No existe un usuario con este mail")
-    }
-    else if(error === "Firebase: Error (auth/wrong-password)."){
-      setError("Se ingreso una contraseña incorrecta")
+  async function errorValidate(error) {
+    setError(null);
+    if (error === "Firebase: Error (auth/user-not-found).") {
+      setError("No existe un usuario con este mail");
+    } else if (error === "Firebase: Error (auth/wrong-password).") {
+      setError("Se ingreso una contraseña incorrecta");
     }
   }
 
@@ -52,8 +51,8 @@ function Login() {
       dispatch(isAdmin(user.email));
       dispatch(setUser({ ...user }));
       navigate("/");
-    } catch (err){
-      errorValidate(err.message)
+    } catch (err) {
+      errorValidate(err.message);
     }
   }
 
@@ -83,7 +82,7 @@ function Login() {
       })
       .catch((error) => {
         console.log(error);
-        errorValidate(error.message)
+        errorValidate(error.message);
       });
   }
 
@@ -127,6 +126,9 @@ function Login() {
 
               <button>Login</button>
             </form>
+            <Link to="/login/reset">
+              <p>¿Olvidaste tu constraseña?</p>
+            </Link>
             <button onClick={googleHandleSubmit}>SignUp con Google</button>
           </div>
         </div>
