@@ -10,6 +10,8 @@ import Loading from "../Loading";
 import ReactStars from "react-rating-stars-component";
 import "./HomeStyles.css";
 import Carousel from "../Carousel";
+import Toogle  from "../DarkMode/Toogle";
+
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
@@ -147,6 +149,8 @@ function Home() {
             <div className="footer">
               <div className="text">Contact</div>
               <div className="text">About</div>
+
+           <div className="toggle"><Toogle/></div>
 
               <div>
                 <div className="detail-description">

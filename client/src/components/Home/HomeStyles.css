@@ -117,3 +117,6 @@ label {
     font-weight: bold;
     font-family: "Montserrat";
 }
+.toggle{
+    z-index: 2;
+}
