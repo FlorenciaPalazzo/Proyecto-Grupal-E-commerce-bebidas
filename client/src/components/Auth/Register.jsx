@@ -50,10 +50,10 @@ function Register() {
       setSurnameError
     );
   }
-  async function errorValidate(error){
-    setError(null)
-    if(error === "Firebase: Error (auth/email-already-in-use)."){
-      setError("Ya existe un usuario con este mail")
+  async function errorValidate(error) {
+    setError(null);
+    if (error === "Firebase: Error (auth/email-already-in-use).") {
+      setError("Ya existe un usuario con este mail");
     }
   }
   async function handleSubmit(e) {
@@ -90,7 +90,7 @@ function Register() {
               telefono: input.telefono,
               isAdmin: input.email === process.env.REACT_APP_ADMIN_EMAIL,
               isVerified: user.emailVerified,
-              image: user.photoURL || null
+              image: user.photoURL || null,
             })
           );
         })
