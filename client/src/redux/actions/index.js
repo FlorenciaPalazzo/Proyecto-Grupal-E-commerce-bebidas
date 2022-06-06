@@ -36,6 +36,7 @@ import {
   GET_REVPAGE,
   GET_ALL_REVIEWS,
   RESET_USER_DB,
+  CLEAR_STATE,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -524,5 +525,12 @@ export const deleteFavorito = ({ id_user, id_prod }) => {
     } catch (err) {
       console.log(err);
     }
+  };
+};
+
+export const clearState = () => {
+  console.log("clearState");
+  return {
+    type: CLEAR_STATE,
   };
 };
