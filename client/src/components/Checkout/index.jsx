@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { addDirecciones, deleteMercadoPago, getDirecciones, getMercadoPago } from "../../redux/actions"
+import { addDirecciones, deleteDirecciones, deleteMercadoPago, getDirecciones, getMercadoPago } from "../../redux/actions"
 import Loading from "../Loading";
 export function validate(input) {
   let errors = {};
@@ -41,6 +41,7 @@ export const Checkout = () => {
   let productCart = JSON.parse(window.localStorage.getItem("product"));
   let navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [input, setInput] = useState({
     delivery_type: "",
     calle_numero: null,
@@ -60,11 +61,12 @@ export const Checkout = () => {
   console.log("soy input ", input);
   console.log("soy direccion ", direccion);
   console.log("soy errors ", errors);
+
   useEffect(() => {
     if (!sandbox) dispatch(getMercadoPago());
     dispatch(getDirecciones(id))
     console.log("sandbox ------>", sandbox);
-  }, [sandbox, dispatch, user]);
+  }, [sandbox, dispatch, user, direcciones]);
 
   const handleInputChangeDelivery = function (e) {
     e.target.value === "sucursal" ? setDisabled(true) : setDisabled(false)
@@ -105,6 +107,14 @@ export const Checkout = () => {
      input.delivery_type === "sucursal" ?setDireccion(direccionSucursal): setDireccion(preventAddress) 
 
   }
+
+  const handleDelDir =(e) =>{
+    e.preventDefault();
+    let id = e.target.value
+    dispatch(deleteDirecciones(id))
+    
+  }
+
   const handlesubmitDireccion = function (e) {
     e.preventDefault();
     if( Object.keys(errors).length === 0 && input.calle_numero && input.codigo_postal && input.localidad &&  input.provincia){
@@ -123,6 +133,9 @@ export const Checkout = () => {
      dispatch(getDirecciones(id))
   } else  alert('Revisa los campos ingresados. ')
    
+
+
+
   }
   const handlePagar = function (e) {
     e.preventDefault();
@@ -195,7 +208,7 @@ export const Checkout = () => {
               
                 <span>$749,00</span>
                   </li>
-              <div>Despechamos tu pedido dentro de las 24 hs. Demora entre 3 a 5 días hábiles.</div>
+              <div>Despachamos tu pedido dentro de las 24 hs. Demora entre 3 a 5 días hábiles.</div>
               {!disabled ?
 
 
@@ -205,10 +218,10 @@ export const Checkout = () => {
                       direcciones?.map((e) => {
                         return (
                           <li key ={e.id_direcciones}>
+                            {console.log(e.id_direcciones)}
                             <input type="radio" name="direcciones" value={e.id_direcciones} onClick={e => { handleDireccion(e) }} />
                             <label >{`${e.provincia} , ${e.localidad}, ${e.calle_numero}, CP ${e.codigo_postal} `}</label>
-
-              
+                           <button onClick={handleDelDir} value={e.id_direcciones}>Borrar direccion</button>
                           </li>
                         )
                       })

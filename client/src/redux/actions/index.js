@@ -37,6 +37,7 @@ import {
   GET_ALL_REVIEWS,
   ADD_DIRECCIONES,
   GET_DIRECCIONES,
+  DELETE_DIRECCIONES,
 
   RESET_USER_DB,
 } from "./actionsTypes";
@@ -558,3 +559,21 @@ export const getDirecciones =(id)=>{
     }
   };
 }
+
+export const deleteDirecciones =(id)=>{
+  return async function (dispatch) {
+    try {
+      let result = await axios.delete(`http://localhost:3001/usuario/direcciones/${id}` );
+     
+      return dispatch({
+        type: DELETE_DIRECCIONES,
+        
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
+
+

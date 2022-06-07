@@ -39,6 +39,7 @@ import {
   GET_REVPAGE,
   GET_ALL_REVIEWS,
   RESET_USER_DB,
+  DELETE_DIRECCIONES,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -435,6 +436,13 @@ export default function rootReducer(state = initialState, { type, payload }) {
           ...state,
           direcciones: payload.direcciones
       }
+
+      case DELETE_DIRECCIONES:
+        return{
+          ...state,
+         
+      }
+
     default:
       return state;
   }
