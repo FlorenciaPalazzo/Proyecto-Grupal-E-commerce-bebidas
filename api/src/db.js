@@ -50,6 +50,10 @@ Carrito.belongsTo(Usuario);
 
 Usuario.belongsToMany(Producto, { through: Favorito });
 
+
+Usuario.hasMany(Comprado)
+Comprado.belongsTo(Usuario)
+
 Usuario.hasMany(Review);
 Review.belongsTo(Usuario);
 

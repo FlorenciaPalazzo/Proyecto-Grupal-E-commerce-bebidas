@@ -45,7 +45,12 @@ export default function PostReview() {
   };
   return (
     <div>
-      <h1>Dejanos un comentario y ganate un tetra.</h1>
+      {id ? (
+        <h1>¡Contanos que tal te parecio el producto!</h1>
+      ) : (
+        <h1>¡Contanos tu opinion sobre nosotros!</h1>
+      )}
+
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
           <label>Titulo:</label>
@@ -59,8 +64,7 @@ export default function PostReview() {
         </div>
         <div>
           <label>Comentario:</label>
-          <input
-            type="text"
+          <textarea
             placeholder="comentario"
             value={input.comentario}
             name="comentario"
@@ -78,6 +82,7 @@ export default function PostReview() {
             activeColor="#ffd700"
           />
         </div>
+
         <div>
           <button className="button" type="submit">
             Puntuar

@@ -69,13 +69,13 @@ router.post("/", async (req, res) => {
       where: {
         id: id,
         nombre: nombre,
+        apellido: apellido,
         email: email,
         nacimiento: nacimiento ? nacimiento : null,
         direccion: direccion ? direccion : null,
         telefono: telefono ? telefono : null,
-        apellido: apellido,
         isAdmin: isAdmin,
-        image: image,
+        image: image
       },
     });
     console.log("bien");
@@ -85,36 +85,27 @@ router.post("/", async (req, res) => {
     return res.status(400);
   }
 });
-router.put("/", async (req, res) => {
-  let {
-    id,
-    nombre,
-    email,
-    contraseña,
-    nacimiento,
-    direccion,
-    telefono,
-    image,
-  } = req.body.user;
-  console.log(req.body.user);
-  try {
-    const usuarioPut = await Usuario.findOne({ where: { id: id } });
-    console.log("usuarioPut busqueda", usuarioPut);
-    let updated = await usuarioPut.update({
-      id: id || usuarioPut.id,
-      nombre: nombre || usuarioPut.nombre,
-      email: email || usuarioPut.email,
-      contraseña: contraseña || usuarioPut.contraseña,
-      nacimiento: nacimiento || usuarioPut.nacimiento,
-      direccion: direccion || usuarioPut.direccion,
-      telefono: telefono || usuarioPut.telefono,
-      image: image || usuarioPut.image,
-    });
-    res.json(updated);
-  } catch (err) {
-    console.log(err);
-  }
-});
+ router.put("/", async (req, res) => {
+    let {id, nombre, email, contraseña, nacimiento, direccion, telefono, image } = req.body.user;
+    console.log(req.body.user);
+    try {
+      const usuarioPut = await Usuario.findOne({ where: { id: id } });
+      console.log("usuarioPut busqueda", usuarioPut);
+      let updated = await usuarioPut.update({
+        id: id || usuarioPut.id,
+        nombre: nombre || usuarioPut.nombre,
+        email: email || usuarioPut.email,
+        contraseña: contraseña || usuarioPut.contraseña,
+        nacimiento: nacimiento || usuarioPut.nacimiento,
+        direccion: direccion || usuarioPut.direccion,
+        telefono: telefono || usuarioPut.telefono,
+        image: image || usuarioPut.image,
+      });
+      res.json(updated);
+    } catch (err) {
+      console.log(err);
+    }
+  });
 
 //------Mercado Pago-----
 

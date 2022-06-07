@@ -17,6 +17,8 @@ import { Favoritos } from "./components/Favoritos";
 
 
 import Offers from "./components/Off/Offers";
+import Historial from "./components/Historial";
+import ResetPassword from "./components/Auth/ResetPassword";
 
 
 function App() {
@@ -29,6 +31,7 @@ function App() {
         <Route path="/" exact element={<Home />} />
         <Route path="/cart" exact element={<ShoppingCart />} />
         <Route path="/login" exact element={<Login />} />
+        <Route path="/login/reset" exact element={<ResetPassword />} />
         <Route path="/admin" exact element={<AdminPanel />} />
         <Route path="/profile" exact element={<Profile />} />
         <Route path="/profile/edit" exact element={<EditProfile />} />
@@ -41,6 +44,7 @@ function App() {
         <Route path="/review/:id" exact element={<Review />} />
         <Route path="/review" exact element={<Review />} />
         <Route path="/favoritos/:id_user" exact element={<Favoritos />} />
+        <Route path= "/historial/:id" exact element = {<Historial/>} />
       </Routes>
     </div>
   );
