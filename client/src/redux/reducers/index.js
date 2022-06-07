@@ -37,7 +37,9 @@ import {
   GET_REVPAGE,
   GET_ALL_REVIEWS,
   RESET_USER_DB,
-  CLEAR_STATE,
+  ADD_HIST,
+  GET_HIST,
+  CLEAR_STATE
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -63,6 +65,7 @@ const initialState = {
   reviewPage: [],
   allReviews: [],
   favProducts: [],
+  historial : []
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -430,6 +433,31 @@ export default function rootReducer(state = initialState, { type, payload }) {
 
     case DEL_FAV:
       return { ...state, favProducts: payload };
+
+
+    case GET_HIST : 
+    // console.log(payload, "Soy payloaff")
+    let prodHist = state.products;
+
+    // console.log(prodHist, "soy los productos")
+    
+    let idHist = payload.map((e) => e.productoId)
+    // console.log(idHist, "soy los Los IDS")
+    let histArr = []
+
+    prodHist.map((e) => {
+      if(idHist.includes(e.id)){
+        histArr.push(e)
+      }
+    })
+    // console.log(histArr, "Teoricamente esto debería andar bien")
+    return{
+      ...state ,
+      historial : histArr
+    }
+
+    case ADD_HIST : 
+    return {...state}
 
     case CLEAR_STATE:
       return {
