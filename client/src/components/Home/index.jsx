@@ -119,14 +119,18 @@ function Home() {
             />
           </label>
           <NavBar setCurrentPage={setCurrentPage} />
+          <div className="banner">
+            <img className="banner-img" src="/images/bannermain.png" alt="banner" />
+          </div>
           <div>
+            
+            <Carousel />
             <Pagination
               currentPage={currentPage}
               productsPerPage={productsPerPage}
               product={product.length}
               pagination={pagination}
             />
-            <Carousel />
             <div className="card-container">
               {currentProducts.length > 0 ? (
                 currentProducts.map((e) => {
@@ -159,7 +163,11 @@ function Home() {
             </div>
 
             <div className="footer">
-              <div className="text">Contacto</div>
+
+            <Link to="/contact">
+            <button className="button">Contacto</button>
+          </Link>
+
               <div className="text">About</div>
 
               <div>

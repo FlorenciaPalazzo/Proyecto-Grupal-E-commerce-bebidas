@@ -7,10 +7,13 @@ import {
   clearState,
   getProductById,
   getReview,
+  getProducts,
 } from "../../redux/actions";
 import "./DetailStyles.css";
 import ReactStars from "react-rating-stars-component";
 import swal from "sweetalert";
+import Card from "../Card";
+import NavBar from "../NavBar";
 
 export default function Detail() {
   const dispatch = useDispatch();
@@ -20,6 +23,7 @@ export default function Detail() {
   const isLoged = useSelector((state) => state.isLoged);
   const product = useSelector((state) => state.detail);
   const rev = useSelector((state) => state.review);
+  const products = useSelector((state) => state.products);
   console.log(rev, "SOY EL REV");
   let cart = product;
   const handleCart = (e) => {
@@ -31,6 +35,7 @@ export default function Detail() {
   useEffect(() => {
     dispatch(getProductById(id));
     dispatch(getReview(id));
+    dispatch(getProducts());
     return () => {
       //componen did unmount
       dispatch(clearState()); // limpio el state de details
@@ -64,11 +69,11 @@ export default function Detail() {
       }
     });
   };
-
+  const filterRelacionados = products.filter((e) => e.tipo === product.tipo);
   return (
     <div className="detail-background">
       <Link to="/">
-        <button className="button">Back</button>
+        <img className="details-logo" src="/logo/logo.png" alt="logo" />
       </Link>
       {product ? (
         <div className="detail-content">
@@ -102,6 +107,7 @@ export default function Detail() {
               />
             </div>
           </div>
+
           <div className="review-detail">
             {rev.length ? (
               rev.map((e) => {
@@ -142,6 +148,28 @@ export default function Detail() {
       ) : (
         console.log("No hay nada acá")
       )}
+      <div>
+        <h3>Productos relacionados</h3>
+        {filterRelacionados
+          ? filterRelacionados.slice(0, 5).map((e) => {
+              return (
+                <div key={e.id} className="div-key-card">
+                  <Link to={"/bebida/" + e.id}>
+                    <Card
+                      nombre={e.nombre}
+                      imagen={e.imagen}
+                      id={e.id}
+                      marca={e.marca}
+                      ml={e.ml}
+                      graduacion={e.graduacion}
+                      precio={e.precio}
+                    />
+                  </Link>
+                </div>
+              );
+            })
+          : null}
+      </div>
     </div>
   );
 }
