@@ -36,6 +36,8 @@ import {
   GET_REVPAGE,
   GET_ALL_REVIEWS,
   RESET_USER_DB,
+  ADD_HIST,
+  GET_HIST
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -527,10 +529,31 @@ export const deleteFavorito = ({ id_user, id_prod }) => {
   };
 };
 
+    //====================================== HISTORIAL ========================//
+
+
 export const addHist = (payload) => {
-  return async function () {
+  return async function (dispatch) {
     let historial = await axios.post('http://localhost:3001/producto/historial', payload)
     console.log( payload , "<=================== Soy el payload de lo que debería estar recibiendo la funcion")
-    return historial
+    return dispatch({
+      type : ADD_HIST
+    })
   }
+}
+
+export const getHist = (id) => {
+  return async function (dispatch) {
+   try{ 
+
+    let historial = await axios.get(`http://localhost:3001/producto/historial/${id}`)
+
+    // console.log(historial.data, "El historial esta llegando correctamente a la funcion")
+    return dispatch({
+      type : GET_HIST,
+      payload : historial.data
+    })
+  } catch(err){
+    console.log(err)
+  }} 
 }

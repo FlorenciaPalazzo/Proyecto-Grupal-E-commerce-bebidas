@@ -14,6 +14,7 @@ import { Checkout } from "./components/Checkout";
 import { FeedBack } from "./components/FeedBack";
 import { Favoritos } from "./components/Favoritos";
 import Offers from "./components/Off/Offers";
+import Historial from "./components/Historial";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/review/:id" exact element={<Review />} />
         <Route path="/review" exact element={<Review />} />
         <Route path="/favoritos/:id_user" exact element={<Favoritos />} />
+        <Route path= "/historial/:id" exact element = {<Historial/>} />
       </Routes>
     </div>
   );

@@ -34,7 +34,7 @@ function Home() {
   );
   if (verified) {
     window.localStorage.setItem('pan', verified.uid)
-    console.log(verified.uid, 'SOY UN MILAGRO')
+    console.log(verified.uid, 'SOY UN MILAGRO') //podemos usar esto para arreglar shopping cart y para el favoritos
   }
 
 
