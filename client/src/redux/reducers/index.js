@@ -37,6 +37,7 @@ import {
   GET_REVPAGE,
   GET_ALL_REVIEWS,
   RESET_USER_DB,
+  ADD_HIST,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -429,6 +430,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
 
     case DEL_FAV:
       return { ...state, favProducts: payload };
+
+      case ADD_HIST : 
+      return {...state}
 
     default:
       return state;

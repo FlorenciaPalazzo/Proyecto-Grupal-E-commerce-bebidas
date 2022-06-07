@@ -32,6 +32,11 @@ function Home() {
     indexOfFirstProduct,
     indexOfLastProduct
   );
+  if (verified) {
+    window.localStorage.setItem('pan', verified.uid)
+    console.log(verified.uid, 'SOY UN MILAGRO')
+  }
+
 
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);

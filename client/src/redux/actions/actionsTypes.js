@@ -35,3 +35,4 @@ export const GET_FAV = "GET_FAV";
 export const DEL_FAV = "DEL_FAV";
 export const GET_REVPAGE = "GET_REVPAGE";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
+export const ADD_HIST = "ADD_HIST"

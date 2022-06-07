@@ -526,3 +526,11 @@ export const deleteFavorito = ({ id_user, id_prod }) => {
     }
   };
 };
+
+export const addHist = (payload) => {
+  return async function () {
+    let historial = await axios.post('http://localhost:3001/producto/historial', payload)
+    console.log( payload , "<=================== Soy el payload de lo que debería estar recibiendo la funcion")
+    return historial
+  }
+}
