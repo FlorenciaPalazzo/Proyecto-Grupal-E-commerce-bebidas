@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const axios = require("axios");
 
-const { Usuario, Carrito } = require("../../db");
+const { Usuario, Carrito, Direcciones} = require("../../db");
 
 const bodyParser = require("body-parser");
 
@@ -23,7 +23,9 @@ router.get("/:id", async (req, res) => {
   let { id } = req.params;
 
   try {
-    let usuario = await Usuario.findByPk(id);
+    let usuario = await Usuario.findOne( {
+      where:{ id}, 
+     include:{model: Direcciones}});
     res.status(200).json(usuario);
   } catch (e) {
     res.status(400);
@@ -206,4 +208,61 @@ router.delete("/:id", async (req, res) => {
   });
   return res.status(200).send("AL LOBBY");
 });
+//_____________direcciones_______________
+
+router.post("/direcciones", async (req, res) => {
+  
+  try {
+  let = {id_user, delivery_type, calle_numero,  localidad, codigo_postal,provincia} =req.body;  
+   //const usuario = await Usuario.findOne({where:{id:id_user}})
+  // console.log('---------------------------',usuario);
+  let direcciones = await Direcciones.findOrCreate({
+    where: {
+    usuarioId: id_user,
+      delivery_type:delivery_type,
+      calle_numero:calle_numero,  
+      localidad: localidad, 
+      codigo_postal:codigo_postal,
+      provincia:provincia
+    },
+  });
+
+  
+  res.json(direcciones);
+} catch (error) {
+    console.log(error)
+  }
+});
+router.get("/direcciones/:id", async (req, res) => {
+  let { id } = req.params;
+  try {
+    let direcciones = await Direcciones.findAll({ where: {usuarioId: id } });
+    res.status(200).json(direcciones);
+  } catch (err) {
+    res.status(404);
+  }
+});
+
+
+router.delete("/direcciones/:id", async (req, res) => {
+  let {id} = req.params
+
+  try {
+    // let findIdDir = await Direcciones.findOne({where : {id_direcciones: id}})
+
+    // let usuarioId = findIdDir.usuarioId
+
+    let deleteDire= await Direcciones.destroy({where: {id_direcciones: id}})
+    
+    // let direccion = await Direcciones.findAll({where:{usuarioId : usuarioId}})
+
+    res.status(200).json(deleteDire)
+    
+  } catch (error) {
+    console.log(error.message)
+  }
+
+
+});
+
 module.exports = router;

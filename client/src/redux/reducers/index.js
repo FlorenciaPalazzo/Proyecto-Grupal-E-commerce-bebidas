@@ -29,6 +29,8 @@ import {
   DEL_FAV,
   DELETE_MERCADO_PAGO,
   FEEDBACK_MERCADO_PAGO,
+  ADD_DIRECCIONES,
+  GET_DIRECCIONES,
   UPDATE_USER,
   GET_REVIEW,
   POST_REVIEW,
@@ -37,6 +39,7 @@ import {
   GET_REVPAGE,
   GET_ALL_REVIEWS,
   RESET_USER_DB,
+  DELETE_DIRECCIONES,
   ADD_HIST,
   GET_HIST,
   CLEAR_STATE
@@ -61,6 +64,8 @@ const initialState = {
   mpSandBox: "",
   orderMP: [],
   feedBackMP: [],
+  favProducts: [],
+  direcciones: [],
   review: [],
   reviewPage: [],
   allReviews: [],
@@ -97,14 +102,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         return { ...state, isAdmin: true };
       } else return { ...state, isAdmin: false };
     }
-    case SET_LOADING:
-      return { ...state, isLoading: payload };
-    case ADMIN_HANDLER: {
-      console.log(process.env.REACT_APP_ADMIN_EMAIL, payload);
-      if (process.env.REACT_APP_ADMIN_EMAIL === payload) {
-        return { ...state, isAdmin: true };
-      } else return { ...state, isAdmin: false };
-    }
+   
     case GET_PRODUCT_NAME:
       return { ...state, products: payload, searchProduct: payload };
 
@@ -210,8 +208,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
           products: state.productsSort.filter(
             (e) => e.ml >= 950 && e.ml < 1500
           ),
-        };
-      }
+        }
+      };
     case FILTER_BY_PRICE:
       if (payload === "all") {
         return {
@@ -433,6 +431,21 @@ export default function rootReducer(state = initialState, { type, payload }) {
 
     case DEL_FAV:
       return { ...state, favProducts: payload };
+    case ADD_DIRECCIONES:
+      return {
+        ...state
+      };
+      case GET_DIRECCIONES:
+        return{
+          ...state,
+          direcciones: payload.direcciones
+      }
+
+      case DELETE_DIRECCIONES:
+        return{
+          ...state,
+         
+      }
 
 
     case GET_HIST : 
