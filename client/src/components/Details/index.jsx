@@ -2,7 +2,12 @@ import React from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getProductById, getReview } from "../../redux/actions";
+import {
+  addCart,
+  clearState,
+  getProductById,
+  getReview,
+} from "../../redux/actions";
 import "./DetailStyles.css";
 import ReactStars from "react-rating-stars-component";
 import swal from "sweetalert";
@@ -17,9 +22,20 @@ export default function Detail() {
   const product = useSelector((state) => state.detail);
   const rev = useSelector((state) => state.review);
   console.log(rev, "SOY EL REV");
+  let cart = product;
+  const handleCart = (e) => {
+    e.preventDefault();
+    let cart = product;
+    cart.quantity = 1;
+    dispatch(addCart(cart));
+  };
   useEffect(() => {
     dispatch(getProductById(id));
     dispatch(getReview(id));
+    return () => {
+      //componen did unmount
+      dispatch(clearState()); // limpio el state de details
+    };
   }, [dispatch, id]);
 
   const handleAlertReview = (e) => {
@@ -28,7 +44,7 @@ export default function Detail() {
       title: "Debes ingresar con tu usuario",
       text: "...para dejar una reseña ⭐⭐⭐!",
       buttons: {
-        cancel: "Ahorita no joven",
+        cancel: "Seguir navegando",
         register: {
           text: "Registrarse",
           value: "register",
@@ -62,7 +78,13 @@ export default function Detail() {
           <div className="detail-compra">
             <h1 className="detail-name">{product.nombre}</h1>
             <h1 className="detail-title">Price: $ {product.precio}</h1>
-            <button className="button-shop">Añadir al carrito</button>
+            <button
+              className="button-shop"
+              onClick={handleCart}
+              value={product}
+            >
+              Añadir al carrito
+            </button>
           </div>
           <div className="image-div">
             <img className="detail-image" src={product.imagen} alt="" />
@@ -110,7 +132,7 @@ export default function Detail() {
               <div className="review-body">no hay reviews</div>
             )}
           </div>
-          {isLoged ? (
+          {/* {isLoged ? (
             <Link to={`/Review/${id}`}>
               <button className="button">Contanos tu experiencia</button>
             </Link>
@@ -118,7 +140,7 @@ export default function Detail() {
             <button onClick={handleAlertReview} className="button">
               Contanos tu experiencia
             </button>
-          )}
+          )} */}
         </div>
       ) : (
         console.log("No hay nada acá")

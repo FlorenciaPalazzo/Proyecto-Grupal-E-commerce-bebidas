@@ -40,19 +40,40 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  let = { id, nombre, email, nacimiento, direccion, telefono, isAdmin } =
-    req.body;
-  console.log("ruta", { id, nombre, email, nacimiento, direccion, telefono });
+  let = {
+    id,
+    nombre,
+    email,
+    nacimiento,
+    direccion,
+    telefono,
+    isAdmin,
+    apellido,
+    image,
+  } = req.body;
+  console.log("ruta", {
+    id,
+    nombre,
+    email,
+    nacimiento,
+    direccion,
+    telefono,
+    image,
+    apellido,
+    isAdmin,
+  });
   try {
     let [usuarioCreado, created] = await Usuario.findOrCreate({
       where: {
         id: id,
         nombre: nombre,
+        apellido: apellido,
         email: email,
         nacimiento: nacimiento ? nacimiento : null,
         direccion: direccion ? direccion : null,
         telefono: telefono ? telefono : null,
-        // isAdmin: isAdmin,
+        isAdmin: isAdmin,
+        image: image
       },
     });
     console.log("bien");
@@ -62,26 +83,27 @@ router.post("/", async (req, res) => {
     return res.status(400);
   }
 });
-router.put("/", async (req, res) => {
-  //let { nombre, email, contraseña, nacimiento, direccion, telefono } = req.body;
-  let { id } = req.body;
-  try {
-    const usuarioPut = await Usuario.findOne({ where: { id: id } });
-
-    await usuarioPut.update({
-      id: id,
-      nombre: nombre,
-      email: email,
-      contraseña: contraseña,
-      nacimiento: nacimiento,
-      direccion: direccion,
-      telefono: telefono,
-    });
-    res.json(usuarioPut);
-  } catch (err) {
-    console.log("error usuarios");
-  }
-});
+ router.put("/", async (req, res) => {
+    let {id, nombre, email, contraseña, nacimiento, direccion, telefono, image } = req.body.user;
+    console.log(req.body.user);
+    try {
+      const usuarioPut = await Usuario.findOne({ where: { id: id } });
+      console.log("usuarioPut busqueda", usuarioPut);
+      let updated = await usuarioPut.update({
+        id: id || usuarioPut.id,
+        nombre: nombre || usuarioPut.nombre,
+        email: email || usuarioPut.email,
+        contraseña: contraseña || usuarioPut.contraseña,
+        nacimiento: nacimiento || usuarioPut.nacimiento,
+        direccion: direccion || usuarioPut.direccion,
+        telefono: telefono || usuarioPut.telefono,
+        image: image || usuarioPut.image,
+      });
+      res.json(updated);
+    } catch (err) {
+      console.log(err);
+    }
+  });
 
 //------Mercado Pago-----
 

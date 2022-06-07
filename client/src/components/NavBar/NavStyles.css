@@ -1,9 +1,11 @@
 .nav-main {
+
     display: flex;
     background-color: #ffffff;
     flex-wrap: wrap;
     height: 15vh;
     min-height: max-content;
+
 }
 
 .logo {

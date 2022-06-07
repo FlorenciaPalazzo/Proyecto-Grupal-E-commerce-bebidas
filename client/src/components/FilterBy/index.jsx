@@ -50,8 +50,8 @@ export default function FilterBy({ setCurrentPage }) {
     <div className="div-filter">
       <div className="div-select">
         <select className="selector" name="" id="" onChange={handleBrand}>
-          <option>Brands</option>
-          <option value="all">All</option>
+          <option>Marcas</option>
+          <option value="all">Todas</option>
           {brands &&
             brands.map((b) => (
               <option key={b} name={b} value={b}>
@@ -62,13 +62,13 @@ export default function FilterBy({ setCurrentPage }) {
       </div>
       <div className="div-select">
         <select className="selector" onChange={handleType} defaultValue="Type">
-          <option value="">Type</option>
-          <option value="all">All</option>
+          <option value="">Tipos</option>
+          <option value="all">Todas</option>
           {/* puede sacarse */}
-          <option value="cerveza">Beer</option>
-          <option value="vino">Wine</option>
-          <option value="espumante">Sparkling Wine</option>
-          <option value="destilado">Destilled</option>
+          <option value="cerveza">Birras</option>
+          <option value="vino">Vinos</option>
+          <option value="espumante">Espumantes</option>
+          <option value="destilado">Destilados</option>
         </select>
       </div>
       <div className="div-select">
@@ -79,8 +79,8 @@ export default function FilterBy({ setCurrentPage }) {
           onChange={handleGraduation}
           defaultValue="Graduation"
         >
-          <option value="">Graduation</option>
-          <option value="all">All</option>
+          <option value="">Graduacion</option>
+          <option value="all">Todas</option>
           {/* puede sacarse */}
           <option value="low">3°-20°</option>
           <option value="medium">21°-38°</option>
@@ -96,7 +96,7 @@ export default function FilterBy({ setCurrentPage }) {
           defaultValue="ML"
         >
           <option value="">ML</option>
-          <option value="all">All</option>
+          <option value="all">Todos</option>
           {/* puede sacarse */}
           <option value="ml_1">150ml-400ml</option>
           <option value="ml_2">400ml-750ml</option>
@@ -112,8 +112,8 @@ export default function FilterBy({ setCurrentPage }) {
           onChange={handlePrice}
           defaultValue="Price"
         >
-          <option value="">Price</option>
-          <option value="all">All</option>
+          <option value="">Precio</option>
+          <option value="all">Todos</option>
           {/* puede sacarse */}
           <option value="price_1">-$500</option>
           <option value="price_2">$500-$2000</option>

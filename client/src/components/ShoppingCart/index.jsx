@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
-import "./ShoppingCart.css"
+import "./ShoppingCart.css";
 
 import {
   addCart,
@@ -70,7 +70,7 @@ const ShoppingCart = () => {
       title: "Debes ingresar con tu usuario",
       text: "...para poder comprar 🛒🛒🛒!",
       buttons: {
-        cancel: "Ahorita no joven",
+        cancel: "Seguir navegando",
         register: {
           text: "Registrarse",
           value: "register",
@@ -97,65 +97,80 @@ const ShoppingCart = () => {
       {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
-      <div className="carrito-body">
-        <Link to="/">
+
+
+        <div className="carrito-body">
+          <Link to="/">
             
             <img className="details-logo" src="/logo/logo.png" alt="logo"/>
                   
                 </Link>
-      <div className="carrito-background">
-        
-      <h1>Shopping Cart</h1>
-          
-        <div className="carrito-main">
-          
-          
-          {productCart &&
-            productCart.map((element) => {
-              productArray.push(element);
+          <div className="carrito-background">
+            <h1>Carrito</h1>
 
-              return (
-                <div className="carrito-content">
-                  <div key={element.id} className="carrito-product">
-                    <img src={element.imagen} alt="img not found" width="20%" />
-                    <h3>{`${element.nombre}`}</h3>
-                    <span className="carrito-price">
-                      <button className="button-minus" onClick={deleteProduct} value={element.id}>
-                      ➖
-                      </button>
-                      <div>
-                        ${element.precio} x {element.quantity} = $
-                      {element.precio * element.quantity}
+            <div className="carrito-main">
+              {productCart &&
+                productCart.map((element) => {
+                  productArray.push(element);
+
+                  return (
+                    <div className="carrito-content">
+                      <div key={element.id} className="carrito-product">
+                        <img
+                          src={element.imagen}
+                          alt="img not found"
+                          width="20%"
+                        />
+                        <h3>{`${element.nombre}`}</h3>
+                        <span className="carrito-price">
+                          <button
+                            className="button"
+                            onClick={deleteProduct}
+                            value={element.id}
+                          >
+                            ➖
+                          </button>
+                          <div>
+                            ${element.precio} x {element.quantity} = $
+                            {element.precio * element.quantity}
+                          </div>
+                          <button
+                            className="button"
+                            onClick={addProduct}
+                            value={element.id}
+                          >
+                            ➕
+                          </button>
+                        </span>
                       </div>
-                      <button className="button-plus" onClick={addProduct} value={element.id}>
-                      ➕
-                      </button>
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-            
+                    </div>
+                  );
+                })}
 
-          <span>
-            {verified && verified.email && productCart.length ? (
-              <div className="carrito-resumen">
-                <button className="button" onClick={cleanAllCart}>Clean Cart</button>
-                <h1 className="carrito-total">Precio: ${total}</h1>
-                <button className="button-pagar" onClick={postCarrito}>PAGAR</button>
-              </div>
-            ) : !verified ? (
-              <button className="button-pagar" onClick={handleAlertCarrito}>Pagar</button>
-            ) : (
-              <div>
-              </div>
-            )}
-          </span>
-        </div>
-        </div>
+              <span>
+                {verified && verified.email && productCart.length ? (
+                  <div className="carrito-resumen">
+                    <button className="button" onClick={cleanAllCart}>
+                      Limpiar carrito
+                    </button>
+                    <h1 className="carrito-total">Precio: ${total}</h1>
+                    <button className="button-pagar" onClick={postCarrito}>
+                      PAGAR
+                    </button>
+                  </div>
+                ) : !verified ? (
+                  <button className="button" onClick={handleAlertCarrito}>
+                    PAGAR
+                  </button>
+                ) : (
+                  <div></div>
+                )}
+              </span>
+            </div>
+          </div>
+
         </div>
       )}
-      
     </div>
   );
 };

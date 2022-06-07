@@ -33,6 +33,7 @@ export default function Card({
     quantity: 1,
     subtotal: precio,
   };
+
   const dispatch = useDispatch();
 
   const handleAddCarrito = (e) => {
@@ -55,7 +56,7 @@ export default function Card({
       title: "Debes ingresar con tu usuario",
       text: "...para agregar tus bebidas a favoritos❤!",
       buttons: {
-        cancel: "Ahorita no joven",
+        cancel: "Seguir navegando",
         register: {
           text: "Registrarse",
           value: "register",
@@ -83,7 +84,7 @@ export default function Card({
       title: "Debes ingresar con tu usuario",
       text: "...para poder comprar 🛒🛒🛒!",
       buttons: {
-        cancel: "Ahorita no joven",
+        cancel: "Seguir navegando",
         register: {
           text: "Registrarse",
           value: "register",
@@ -101,26 +102,22 @@ export default function Card({
     });
   };
 
-  //acá traigo todas las propiedades
+  //acá traigo todas las propiedadess
   return (
     //empiezo a renderizar
     <div className="card-main">
       {" "}
-      
       <div className="card">
         {" "}
-        
         <img
           className="card-imagen"
           src={imagen}
           alt="img not found"
           width="30%"
         />{" "}
-       
         <div className="card-content">
-          
           <h2 className="card-title"> {nombre} </h2>
-          <p className="card-price">Price: ${precio} </p>
+          <p className="card-price">Precio: ${precio} </p>
         </div>
         <div>
           <div>

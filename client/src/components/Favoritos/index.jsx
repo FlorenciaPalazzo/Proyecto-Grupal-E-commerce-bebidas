@@ -5,28 +5,27 @@ import { deleteFavorito, getFavorito } from "../../redux/actions";
 
 export const Favoritos = () => {
   const elFavorito = useSelector((state) => state.favProducts);
-  const usuario = useSelector((state) => state.currentUser);
+  //const usuario = useSelector((state) => state.currentUser);
 
   console.log("EL FAVORITO", elFavorito);
   const dispatch = useDispatch();
 
-  let a = usuario ? usuario.uid : null;
+  let user = localStorage.getItem("user");
 
-  console.log("SOY EL USUARIO--->", usuario.uid);
+  console.log("SOY EL USUARIO--->", user);
 
   useEffect(() => {
     if (!elFavorito.length) {
-      dispatch(getFavorito(usuario.uid));
+      dispatch(getFavorito(user));
     }
   }, [elFavorito]);
 
   const handleDeleteFav = (e) => {
     e.preventDefault();
     let idProd = e.target.value;
-    let payload = { id_prod: idProd, id_user: a };
+    let payload = { id_prod: idProd, id_user: user };
 
     dispatch(deleteFavorito(payload));
-    // dispatch(getFavorito(usuario.uid))
   };
   return (
     <div>
@@ -40,7 +39,7 @@ export const Favoritos = () => {
           return (
             <div key={e.id}>
               <button className="button" value={e.id} onClick={handleDeleteFav}>
-                Delete
+                Borrar
               </button>
               {e.nombre}
               <img src={e.imagen} />

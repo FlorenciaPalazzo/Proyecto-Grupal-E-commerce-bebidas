@@ -32,6 +32,10 @@ function Home() {
     indexOfFirstProduct,
     indexOfLastProduct
   );
+  if (verified) {
+    window.localStorage.setItem("user", verified.uid);
+    console.log(verified.uid, "SOY UN MILAGRO"); //podemos usar esto para arreglar shopping cart y para el favoritos
+  }
 
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -52,7 +56,7 @@ function Home() {
       title: "Debes ingresar con tu usuario",
       text: "...para dejar una reseña ⭐⭐⭐!",
       buttons: {
-        cancel: "Ahorita no joven",
+        cancel: "Seguir navegando",
         register: {
           text: "Registrarse",
           value: "register",
@@ -75,12 +79,45 @@ function Home() {
   };
 
   console.log("searchProduct", searchProduct);
+
+  //////////////👇👇👇aqui modo oscuro 👇👇👇///////////
+
+  const [checked, setChecked] = useState(
+    localStorage.getItem("theme") === "dark" ? true : false
+  );
+
+  useEffect(() => {
+    document
+      .getElementsByTagName("HTML")[0]
+      .setAttribute("data-theme", localStorage.getItem("theme"));
+  }, [checked]);
+
+  const toggleThemeChange = () => {
+    if (checked === false) {
+      localStorage.setItem("theme", "dark");
+      setChecked(true);
+    } else {
+      localStorage.setItem("theme", "light");
+      setChecked(false);
+    }
+  };
+
+  /////////////////👆👆👆aqui modo oscuro 👆👆👆/////////////////
   return (
     <div>
       {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
         <div className="div-body">
+          {/* 👇👇👇modo oscuro para el render 👇👇👇*/}
+          <p>Click para cambiar el tema</p>
+          <label>
+            <input
+              type="checkbox"
+              defaultChecked={checked}
+              onChange={() => toggleThemeChange()}
+            />
+          </label>
           <NavBar setCurrentPage={setCurrentPage} />
           <div className="banner">
             <img className="banner-img" src="/images/bannermain.png" alt="banner" />
@@ -115,47 +152,26 @@ function Home() {
                 })
               ) : !searchProduct.length ? (
                 <div>
-                  <h1 className="error">No hay productos con ese nombre</h1>
+                  <h1 className="error">No se encontraron productos</h1>
                 </div>
               ) : (
                 <div>
-                  <h1 className="error">No products were found</h1>
+                  <h1 className="error">No se encontraron productos</h1>
                 </div>
               )}
               <div></div>
             </div>
-            {/* <div>
-            <div className="detail-description">
-            {rev ? rev.map(e => {return(
-              <div key= {e.id}>
-                <p>Titulo: {e.titulo}</p>
-                <p>Comentario: {e.comentario}</p>
-                <p>Puntaje: <ReactStars
-                count={e.puntaje}
-                size={24}
-                isHalf={true}
-                emptyIcon={<i className="far fa-star"></i>}
-                halfIcon={<i className="fa fa-star-half-alt"></i>}
-                fullIcon={<i className="fa fa-star"></i>}
-                edit={false}
-                color="#ffd700"
-              /></p>
-              </div>
-            )}): 
-            
-            <p>no hay reviews</p>
-            }
-            </div>
-            </div>
-          </div> */}
+
             <div className="footer">
+
             <Link to="/contact">
-            <button className="button">Contact</button>
+            <button className="button">Contacto</button>
           </Link>
+
               <div className="text">About</div>
 
               <div>
-                <div className="detail-description">
+                <div>
                   {rev ? (
                     rev.map((e) => {
                       return (
@@ -183,17 +199,6 @@ function Home() {
                   )}
                 </div>
               </div>
-              {isLoged ? (
-                <Link to="/Review">
-                  <button className="button">Contanos tu experiencia</button>
-                </Link>
-              ) : (
-                <Link to="">
-                  <button onClick={handleAlertReview} className="button">
-                    Contanos tu experiencia
-                  </button>
-                </Link>
-              )}
             </div>
           </div>
         </div>

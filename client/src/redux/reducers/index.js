@@ -6,6 +6,7 @@ import {
   SET_USER,
   RESET_USER,
   GET_USERS_LOGED,
+  GET_USER_DB,
   SET_LOADING,
   FILTER_BY_AZ,
   FILTER_BY_BRAND,
@@ -28,17 +29,23 @@ import {
   DEL_FAV,
   DELETE_MERCADO_PAGO,
   FEEDBACK_MERCADO_PAGO,
+  UPDATE_USER,
   GET_REVIEW,
   POST_REVIEW,
   PUT_REVIEW,
   DELETE_REVIEW,
   GET_REVPAGE,
   GET_ALL_REVIEWS,
+  RESET_USER_DB,
+  ADD_HIST,
+  GET_HIST,
+  CLEAR_STATE
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
 const initialState = {
   currentUser: null,
+  dbUser: null,
   isAdmin: null,
   isLoged: false,
   isLoading: true,
@@ -58,6 +65,7 @@ const initialState = {
   reviewPage: [],
   allReviews: [],
   favProducts: [],
+  historial : []
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -70,12 +78,17 @@ export default function rootReducer(state = initialState, { type, payload }) {
       };
     case SET_USER:
       return { ...state, currentUser: payload, isLoged: true };
+    case UPDATE_USER:
+      return { ...state, dbUser: payload };
     case RESET_USER:
       return { ...state, currentUser: {}, isLoged: false, favProducts: [] };
 
     case GET_USERS_LOGED:
       return { ...state, usersLoged: payload };
-
+    case GET_USER_DB:
+      return { ...state, dbUser: payload };
+    case RESET_USER_DB:
+      return { ...state, dbUser: {} };
     case SET_LOADING:
       return { ...state, isLoading: payload };
     case ADMIN_HANDLER: {
@@ -391,7 +404,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
         review: payload,
       };
     case DELETE_REVIEW:
-      return { ...state };
+      return {
+        ...state,
+      };
     case SET_FAV:
       return { ...state, favProducts: payload };
 
@@ -400,6 +415,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
 
       let ids = payload.map((e) => e.productoId); //mapea los prod fav
       let arr = [];
+      console.log("SOY EL PAYLOAD", payload);
 
       productos.map((e) => {
         //mapea productos pregunta si hay id prod
@@ -407,6 +423,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
           arr.push(e);
         }
       });
+
+      console.log("SOY EL FILTRO PROD", arr);
+
       return {
         ...state,
         favProducts: arr,
@@ -415,6 +434,36 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case DEL_FAV:
       return { ...state, favProducts: payload };
 
+
+    case GET_HIST : 
+    // console.log(payload, "Soy payloaff")
+    let prodHist = state.products;
+
+    // console.log(prodHist, "soy los productos")
+    
+    let idHist = payload.map((e) => e.productoId)
+    // console.log(idHist, "soy los Los IDS")
+    let histArr = []
+
+    prodHist.map((e) => {
+      if(idHist.includes(e.id)){
+        histArr.push(e)
+      }
+    })
+    // console.log(histArr, "Teoricamente esto debería andar bien")
+    return{
+      ...state ,
+      historial : histArr
+    }
+
+    case ADD_HIST : 
+    return {...state}
+
+    case CLEAR_STATE:
+      return {
+        ...state,
+        detail: [],
+      };
     default:
       return state;
   }
