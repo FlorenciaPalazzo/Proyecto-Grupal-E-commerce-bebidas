@@ -159,7 +159,7 @@ function Home() {
                   )}
                 </div>
               </div>
-              {isLoged ? (
+              {/* {isLoged ? (
                 <Link to="/Review">
                   <button className="button">Contanos tu experiencia</button>
                 </Link>
@@ -169,7 +169,7 @@ function Home() {
                     Contanos tu experiencia
                   </button>
                 </Link>
-              )}
+              )} */}
             </div>
           </div>
         </div>
