@@ -92,20 +92,16 @@ const ShoppingCart = () => {
       }
     });
   };
-
+  console.log("object");
   return (
     <div className="carrito-container">
       {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
-
-
         <div className="carrito-body">
           <Link to="/">
-            
-            <img className="details-logo" src="/logo/logo.png" alt="logo"/>
-                  
-                </Link>
+            <img className="details-logo" src="/logo/logo.png" alt="logo" />
+          </Link>
           <div className="carrito-background">
             <h1>Carrito</h1>
 
@@ -168,7 +164,6 @@ const ShoppingCart = () => {
               </span>
             </div>
           </div>
-
         </div>
       )}
     </div>
