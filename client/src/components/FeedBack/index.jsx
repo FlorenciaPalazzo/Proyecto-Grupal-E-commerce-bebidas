@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 import { deleteMercadoPago, addHist } from "../../redux/actions";
 import Loading from "../Loading";
 
@@ -35,6 +36,22 @@ export const FeedBack = () => {
       dispatch(addHist(historial));
       console.log("APROBADO");
       setTimeout(navigate("/"), 10000);
+      swal({
+        title: "Dejanos tu opinion",
+        text: "... que tal te parecio el producto ⭐⭐⭐!",
+        buttons: {
+          cancel: "Ahorita no joven",
+          review: {
+            text: "Opina",
+            value: "Opina",
+          },
+        },
+        icon: "warning",
+      }).then((value) => {
+        if (value === "Opina") {
+          navigate("/review");
+        }
+      });
       return () => {
         dispatch(deleteMercadoPago())
       }

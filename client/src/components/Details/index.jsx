@@ -129,7 +129,7 @@ export default function Detail() {
               <div className="review-body">no hay reviews</div>
             )}
           </div>
-          {isLoged ? (
+          {/* {isLoged ? (
             <Link to={`/Review/${id}`}>
               <button className="button">Contanos tu experiencia</button>
             </Link>
@@ -137,7 +137,7 @@ export default function Detail() {
             <button onClick={handleAlertReview} className="button">
               Contanos tu experiencia
             </button>
-          )}
+          )} */}
         </div>
       ) : (
         console.log("No hay nada acá")
