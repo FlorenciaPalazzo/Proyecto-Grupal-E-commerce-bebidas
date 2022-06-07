@@ -33,10 +33,9 @@ function Home() {
     indexOfLastProduct
   );
   if (verified) {
-    window.localStorage.setItem('pan', verified.uid)
-    console.log(verified.uid, 'SOY UN MILAGRO') //podemos usar esto para arreglar shopping cart y para el favoritos
+    window.localStorage.setItem("pan", verified.uid);
+    console.log(verified.uid, "SOY UN MILAGRO"); //podemos usar esto para arreglar shopping cart y para el favoritos
   }
-
 
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -57,7 +56,7 @@ function Home() {
       title: "Debes ingresar con tu usuario",
       text: "...para dejar una reseña ⭐⭐⭐!",
       buttons: {
-        cancel: "Ahorita no joven",
+        cancel: "Seguir navegando",
         register: {
           text: "Registrarse",
           value: "register",
@@ -131,7 +130,7 @@ function Home() {
               <div className="text">About</div>
 
               <div>
-                <div className="detail-description">
+                <div>
                   {rev ? (
                     rev.map((e) => {
                       return (
@@ -159,17 +158,6 @@ function Home() {
                   )}
                 </div>
               </div>
-              {/* {isLoged ? (
-                <Link to="/Review">
-                  <button className="button">Contanos tu experiencia</button>
-                </Link>
-              ) : (
-                <Link to="">
-                  <button onClick={handleAlertReview} className="button">
-                    Contanos tu experiencia
-                  </button>
-                </Link>
-              )} */}
             </div>
           </div>
         </div>

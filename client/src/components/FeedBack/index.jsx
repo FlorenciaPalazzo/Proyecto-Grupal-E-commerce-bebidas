@@ -12,18 +12,18 @@ export const FeedBack = () => {
   const loading = useSelector((state) => state.isLoading);
   let productCart = JSON.parse(window.localStorage.getItem("product"));
   // const user = useSelector((state) => state.currentUser);
-  let user = localStorage.getItem('pan')
-  
-  console.log(user, "Hola, soy el user uid")
+  let user = localStorage.getItem("pan");
 
-  let map = productCart.map(e => e.id)
+  console.log(user, "Hola, soy el user uid");
+
+  let map = productCart.map((e) => e.id);
 
   const [historial, setHistorial] = useState({
     id_user: user,
-    id_prods: map
-  })
+    id_prods: map,
+  });
 
-  console.log(historial, "Todo se trajo bien a la primera")
+  console.log(historial, "Todo se trajo bien a la primera");
 
   let foo;
   useEffect(() => {
@@ -37,10 +37,10 @@ export const FeedBack = () => {
       console.log("APROBADO");
       setTimeout(navigate("/"), 10000);
       swal({
-        title: "Dejanos tu opinion",
-        text: "... que tal te parecio el producto ⭐⭐⭐!",
+        title: "Queremos saber tu opinion",
+        text: "... Dejá tu reseña de nuestra pagina!! ⭐⭐⭐!",
         buttons: {
-          cancel: "Ahorita no joven",
+          cancel: "Seguir navegando",
           review: {
             text: "Opina",
             value: "Opina",
@@ -53,18 +53,11 @@ export const FeedBack = () => {
         }
       });
       return () => {
-        dispatch(deleteMercadoPago())
-      }
+        dispatch(deleteMercadoPago());
+      };
     } else {
       navigate("/cart");
     }
-  }, [dispatch,historial,loading]);
-  return (
-    <div>
-    {loading ? ( <Loading/>) : (
-  <div>
-    Status: {foo}
-  </div>
-  )}
-    </div>
-  )};
+  }, [dispatch, historial, loading]);
+  return <div>{loading ? <Loading /> : <div>Status: {foo}</div>}</div>;
+};
