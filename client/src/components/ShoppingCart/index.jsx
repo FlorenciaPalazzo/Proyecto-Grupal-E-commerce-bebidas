@@ -145,23 +145,22 @@ const ShoppingCart = () => {
                 })}
 
               <span>
-                
-                  <div className="carrito-resumen">
-                    <button className="button" onClick={cleanAllCart}>
-                      Limpiar carrito
-                    </button>
-                    <h1 className="carrito-total">Precio: ${total}</h1>
-                 
-               {verified && !verified.emailVerified ? (
-                  <button className="button" onClick={handleAlertCarrito}>
-                    PAGAR
+                <div className="carrito-resumen">
+                  <button className="button" onClick={cleanAllCart}>
+                    Limpiar carrito
                   </button>
-                ) : (
-                  <button className="button-pagar" onClick={postCarrito}>
+                  <h1 className="carrito-total">Precio: ${total}</h1>
+
+                  {/* {verified && !verified.emailVerified ? (
+                    <button className="button" onClick={handleAlertCarrito}>
                       PAGAR
                     </button>
-                )}   
-                  </div>
+                  ) : ( */}
+                  <button className="button-pagar" onClick={postCarrito}>
+                    PAGAR
+                  </button>
+                  {/* )} */}
+                </div>
               </span>
             </div>
           </div>

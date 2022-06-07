@@ -36,7 +36,7 @@ export const FeedBack = () => {
       dispatch(addHist(historial));
       console.log("APROBADO");
       setTimeout(navigate("/"), 10000);
-      /*  swal({
+      swal({
         title: "Queremos saber tu opinion",
         text: "... Dejá tu reseña de nuestra pagina!! ⭐⭐⭐!",
         buttons: {
@@ -51,7 +51,7 @@ export const FeedBack = () => {
         if (value === "Opina") {
           navigate("/review");
         }
-      }); */
+      });
       return () => {
         dispatch(deleteMercadoPago());
       };
