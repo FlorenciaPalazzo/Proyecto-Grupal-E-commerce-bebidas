@@ -2,11 +2,12 @@
     font-size: 15px;
     font-weight: bold;
     font-family: "Montserrat";
-    background-color: hsl(0, 0%, 69%);
-    border-radius: 10px;
+   background-color: transparent;
+    /* border-radius: 10px; */
     margin-left: 10px;
     cursor: pointer;
     text-align: center;
     padding: 5px 5px;
-    color: white;
+    color: rgb(0, 0, 0);
+    border: 1px solid transparent;
 }
