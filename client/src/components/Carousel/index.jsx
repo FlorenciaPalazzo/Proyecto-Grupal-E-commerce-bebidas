@@ -16,7 +16,7 @@ export default function Carousel() {
           </li>
           <li>
             <img src="./images/bannercorona.jpeg" />
-          </li>  
+          </li>
         </ul>
           </Link>
       </div>

@@ -99,8 +99,10 @@ const ShoppingCart = () => {
       ) : (
       <div className="carrito-body">
         <Link to="/">
-        <button className="button">Regresar</button>
-      </Link>
+            
+            <img className="details-logo" src="/logo/logo.png" alt="logo"/>
+                  
+                </Link>
       <div className="carrito-background">
         
       <h1>Shopping Cart</h1>
@@ -118,14 +120,14 @@ const ShoppingCart = () => {
                     <img src={element.imagen} alt="img not found" width="20%" />
                     <h3>{`${element.nombre}`}</h3>
                     <span className="carrito-price">
-                      <button className="button" onClick={deleteProduct} value={element.id}>
-                      ❌
+                      <button className="button-minus" onClick={deleteProduct} value={element.id}>
+                      ➖
                       </button>
                       <div>
                         ${element.precio} x {element.quantity} = $
                       {element.precio * element.quantity}
                       </div>
-                      <button className="button" onClick={addProduct} value={element.id}>
+                      <button className="button-plus" onClick={addProduct} value={element.id}>
                       ➕
                       </button>
                     </span>
@@ -143,7 +145,7 @@ const ShoppingCart = () => {
                 <button className="button-pagar" onClick={postCarrito}>PAGAR</button>
               </div>
             ) : !verified ? (
-              <button className="button" onClick={handleAlertCarrito}>Pagar</button>
+              <button className="button-pagar" onClick={handleAlertCarrito}>Pagar</button>
             ) : (
               <div>
               </div>

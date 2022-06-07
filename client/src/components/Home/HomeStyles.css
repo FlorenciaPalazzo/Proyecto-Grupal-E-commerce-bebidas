@@ -29,7 +29,6 @@ a:active {
     font-family: "Montserrat";
     color: rgb(0, 0, 0);
     background-color: hsl(0, 0%, 69%);
-    border-radius: 10px;
     margin-top: 15px;
     margin-left: 10px;
     cursor: pointer;
@@ -105,7 +104,7 @@ label {
     flex-direction: row;
     height: 25vh;
     width: 99vw;
-    background-color: #3C3C3C;
+    background-color: rgb(50, 50, 50);
     justify-content: center;
 }
 
@@ -116,4 +115,9 @@ label {
     color: #F5F5F5;
     font-weight: bold;
     font-family: "Montserrat";
+}
+
+.banner-img {
+    width: 100vw;
+    min-width: 600px;
 }

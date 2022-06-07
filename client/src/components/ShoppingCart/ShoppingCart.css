@@ -6,6 +6,7 @@
 .carrito-background {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 3%;
     justify-content: center;
     font-family: "Montserrat";
 }
@@ -39,7 +40,6 @@
     align-content: center;
     border-top: solid 2px #3c3c3c;
     box-sizing: border-box;
-    margin: 3%;
     align-items: center;
     font-weight: bold;
     min-width: 100px;
@@ -67,18 +67,48 @@
     margin-left: 5%;
 }
 
-.button-pagar {
+.button-pagar,
+.button-minus,
+.button-plus {
     font-size: 15px;
     font-weight: bold;
     font-family: "Montserrat";
     color: rgb(0, 0, 0);
-    background-color: hsl(128, 100%, 38%);
     border-radius: 10px;
     margin-top: 15px;
     margin-left: 10px;
     cursor: pointer;
     text-align: center;
     padding: 5px 10px;
-    color: white;
+    color: rgba(0, 0, 0, 0.897);
+}
+
+.button-pagar {
+    background-color: hsl(128, 100%, 45%);
+    transition: background-color 0.1s ease-in-out;
+}
+
+.button-pagar:hover {
+    background-color: hsl(128, 99%, 31%);
+    transition: background-color 0.1s ease-in-out;
+}
+
+.button-minus {
+    background-color: rgb(255, 60, 60);
+    transition: background-color 0.1s ease-in-out;
+}
+
+.button-minus:hover {
+    background-color: rgb(255, 0, 0);
+    transition: background-color 0.1s ease-in-out;
+}
+
+.button-plus {
+    background-color: hsl(128, 97%, 73%);
+    transition: background-color 0.1s ease-in-out;
+}
+
+.button-plus:hover {
+    background-color: hsl(128, 63%, 53%);
     transition: background-color 0.1s ease-in-out;
 }

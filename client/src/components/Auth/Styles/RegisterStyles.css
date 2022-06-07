@@ -3,8 +3,8 @@
 }
 
 .register-background>img {
-    height: 99vh;
-    width: 99vw;
+    height: 100vh;
+    width: 100vw;
 }
 
 .button-home {
@@ -57,6 +57,7 @@
     left: 10vw;
     height: 55vh;
     width: 35vw;
+    min-width: 450px;
     background-color: #614e45b0;
 }
 
@@ -92,7 +93,6 @@
     font-weight: bold;
     font-family: "Montserrat";
     background-color: #f5f5f5;
-    border-radius: 10px;
     cursor: pointer;
     padding: 5px 10px;
     color: hsl(0, 0%, 40%);

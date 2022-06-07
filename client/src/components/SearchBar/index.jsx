@@ -27,7 +27,7 @@ export default function SearchBar() {
         value={name}
       />
       <button className="button" onClick={handleSubmit} type="submit">
-        Search
+      🔍
       </button>
     </div>
   );

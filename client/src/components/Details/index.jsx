@@ -6,6 +6,7 @@ import { getProductById, getReview } from "../../redux/actions";
 import "./DetailStyles.css";
 import ReactStars from "react-rating-stars-component";
 import swal from "sweetalert";
+import NavBar from "../NavBar";
 
 export default function Detail() {
   const dispatch = useDispatch();
@@ -52,8 +53,10 @@ export default function Detail() {
   return (
     <div className="detail-background">
       <Link to="/">
-        <button className="button">Back</button>
-      </Link>
+            
+      <img className="details-logo" src="/logo/logo.png" alt="logo"/>
+            
+          </Link>
       {product ? (
         <div className="detail-content">
           <div className="detail-compra">
