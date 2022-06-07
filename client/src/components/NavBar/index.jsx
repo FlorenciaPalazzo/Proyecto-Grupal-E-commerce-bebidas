@@ -42,6 +42,10 @@ export default function NavBar({ setCurrentPage }) {
             <Link to={`/favoritos/${usuarioActual.uid}`}>
               <button className="button">Ver Favoritos</button>
             </Link>
+
+            <Link to={`/historial/${usuarioActual.uid}`}>
+            <button className="button" > Historial de compras </button>
+            </Link>
             <Link to="/cart">
               <button className="button-cart">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">

@@ -32,6 +32,11 @@ function Home() {
     indexOfFirstProduct,
     indexOfLastProduct
   );
+  if (verified) {
+    window.localStorage.setItem('pan', verified.uid)
+    console.log(verified.uid, 'SOY UN MILAGRO') //podemos usar esto para arreglar shopping cart y para el favoritos
+  }
+
 
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
