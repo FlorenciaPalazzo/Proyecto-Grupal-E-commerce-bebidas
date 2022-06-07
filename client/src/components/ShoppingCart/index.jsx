@@ -98,10 +98,14 @@ const ShoppingCart = () => {
       {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
+
+
         <div className="carrito-body">
           <Link to="/">
-            <button className="button">Regresar</button>
-          </Link>
+            
+            <img className="details-logo" src="/logo/logo.png" alt="logo"/>
+                  
+                </Link>
           <div className="carrito-background">
             <h1>Carrito</h1>
 
@@ -164,6 +168,7 @@ const ShoppingCart = () => {
               </span>
             </div>
           </div>
+
         </div>
       )}
     </div>

@@ -1,84 +1,114 @@
 * {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .carrito-background {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    font-family: "Montserrat";
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 3%;
+  justify-content: center;
+  font-family: "Montserrat";
 }
 
 .carrito-main {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: space-evenly;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .carrito-content {
-    background-color: white;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-top: 2vh;
-    padding-left: 5px;
-    max-width: 95%;
-    max-height: 10%;
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 2vh;
+  padding-left: 5px;
+  max-width: 95%;
+  max-height: 10%;
 }
 
 .carrito-product {
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
-    justify-content: space-between;
-    align-content: center;
-    border-top: solid 2px #3c3c3c;
-    box-sizing: border-box;
-    margin: 3%;
-    align-items: center;
-    font-weight: bold;
-    min-width: 100px;
-    font-family: "Montserrat";
-    text-align: justify;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  justify-content: space-between;
+  align-content: center;
+  border-top: solid 2px #3c3c3c;
+  box-sizing: border-box;
+  align-items: center;
+  font-weight: bold;
+  min-width: 100px;
+  font-family: "Montserrat";
+  text-align: justify;
 }
 
 .carrito-resumen {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .carrito-price {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: center;
-    width: 40vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  width: 40vw;
 }
 
-.carrito-price>.button {
-    margin-right: 5%;
-    margin-left: 5%;
+.carrito-price > .button {
+  margin-right: 5%;
+  margin-left: 5%;
+}
+
+.button-pagar,
+.button-minus,
+.button-plus {
+  font-size: 15px;
+  font-weight: bold;
+  font-family: "Montserrat";
+  color: rgb(0, 0, 0);
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-left: 10px;
+  cursor: pointer;
+  text-align: center;
+  padding: 5px 10px;
+  color: rgba(0, 0, 0, 0.897);
 }
 
 .button-pagar {
-    font-size: 15px;
-    font-weight: bold;
-    font-family: "Montserrat";
-    color: rgb(0, 0, 0);
-    background-color: hsl(128, 100%, 38%);
-    border-radius: 10px;
-    margin-top: 15px;
-    margin-left: 10px;
-    cursor: pointer;
-    text-align: center;
-    padding: 5px 10px;
-    color: white;
-    transition: background-color 0.1s ease-in-out;
+  background-color: hsl(128, 100%, 45%);
+  transition: background-color 0.1s ease-in-out;
+}
+
+.button-pagar:hover {
+  background-color: hsl(128, 99%, 31%);
+  transition: background-color 0.1s ease-in-out;
+}
+
+.button-minus {
+  background-color: rgb(255, 60, 60);
+  transition: background-color 0.1s ease-in-out;
+}
+
+.button-minus:hover {
+  background-color: rgb(255, 0, 0);
+  transition: background-color 0.1s ease-in-out;
+}
+
+.button-plus {
+  background-color: hsl(128, 97%, 73%);
+  transition: background-color 0.1s ease-in-out;
+}
+
+.button-plus:hover {
+  background-color: hsl(128, 63%, 53%);
+  transition: background-color 0.1s ease-in-out;
 }

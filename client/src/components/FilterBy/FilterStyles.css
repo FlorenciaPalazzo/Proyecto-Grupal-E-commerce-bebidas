@@ -2,11 +2,21 @@
     font-size: 15px;
     font-weight: bold;
     font-family: "Montserrat";
-    background-color: hsl(0, 0%, 69%);
-    border-radius: 10px;
-    margin-left: 10px;
+    background-color: #ffffff;
+    border: none;
     cursor: pointer;
     text-align: center;
     padding: 5px 5px;
-    color: white;
+}
+
+.selector:focus,
+.selector:hover {
+    color: #ffb300;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
 }

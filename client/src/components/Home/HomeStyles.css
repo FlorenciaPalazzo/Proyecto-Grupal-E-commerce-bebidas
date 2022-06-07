@@ -21,19 +21,19 @@ a:active {
 }
 
 .button {
-  font-size: 15px;
-  font-weight: bold;
-  font-family: "Montserrat";
-  color: rgb(0, 0, 0);
-  background-color: hsl(0, 0%, 69%);
-  border-radius: 10px;
-  margin-top: 15px;
-  margin-left: 10px;
-  cursor: pointer;
-  text-align: center;
-  padding: 5px 10px;
-  color: white;
-  transition: background-color 0.1s ease-in-out;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: "Montserrat";
+    color: rgb(0, 0, 0);
+    background-color: hsl(0, 0%, 69%);
+    margin-top: 15px;
+    margin-left: 10px;
+    cursor: pointer;
+    text-align: center;
+    padding: 5px 10px;
+    color: white;
+    transition: background-color 0.1s ease-in-out;
+
 }
 
 .button-shop {
@@ -97,22 +97,28 @@ label {
 }
 
 .footer {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  height: 25vh;
-  width: 99vw;
-  background-color: #3c3c3c;
-  justify-content: center;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height: 25vh;
+    width: 99vw;
+    background-color: rgb(50, 50, 50);
+    justify-content: center;
 }
 
 .footer .text {
-  margin-top: 15px;
-  margin-left: 50px;
-  margin-right: 50px;
-  color: #f5f5f5;
-  font-weight: bold;
-  font-family: "Montserrat";
+    margin-top: 15px;
+    margin-left: 50px;
+    margin-right: 50px;
+    color: #F5F5F5;
+    font-weight: bold;
+    font-family: "Montserrat";
+}
+
+.banner-img {
+    width: 100vw;
+    min-width: 600px;
 }
 
 /* 👇👇👇aqui yacen los restos del modo oscuro 👇👇👇*/
@@ -130,3 +136,4 @@ html[data-theme="dark"] {
 body {
   background-color: var(--secondary-color);
 }
+
