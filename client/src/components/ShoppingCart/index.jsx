@@ -124,7 +124,7 @@ const ShoppingCart = () => {
                             onClick={deleteProduct}
                             value={element.id}
                           >
-                            ❌
+                            ➖
                           </button>
                           <div>
                             ${element.precio} x {element.quantity} = $

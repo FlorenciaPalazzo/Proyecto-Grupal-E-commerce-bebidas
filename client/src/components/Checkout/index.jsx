@@ -16,17 +16,13 @@ export const Checkout = () => {
     e.preventDefault();
     dispatch(deleteMercadoPago());
   }; */
-  
+
   useEffect(() => {
     if (!sandbox) dispatch(getMercadoPago());
     /* dispatch(deleteMercadoPago()); */
     console.log("sandbox ------>", sandbox);
-    return () => {
-    }
+    return () => {};
   }, [sandbox, dispatch]);
-
-
-
 
   return (
     <div>
@@ -35,9 +31,9 @@ export const Checkout = () => {
         <span>Cargando</span>
       ) : sandbox ? (
         <div>
-        <button onClick="">
-          <a href={sandbox}>PAGAR</a>
-        </button>
+          <button onClick="">
+            <a href={sandbox}>PAGAR</a>
+          </button>
         </div>
       ) : productCart.length === 0 && !sandbox ? (
         <span>Ya realizaste tu compra</span>
