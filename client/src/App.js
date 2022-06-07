@@ -1,3 +1,4 @@
+// import './App.css';
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Auth/Login";
@@ -13,11 +14,16 @@ import "@fontsource/montserrat";
 import { Checkout } from "./components/Checkout";
 import { FeedBack } from "./components/FeedBack";
 import { Favoritos } from "./components/Favoritos";
+
+
 import Offers from "./components/Off/Offers";
 
+
 function App() {
+ 
   return (
     <div className="App">
+   
       <Routes>
         {/* <Route path="/" exact element={<Landing />} /> */}
         <Route path="/" exact element={<Home />} />

@@ -68,7 +68,7 @@ const ShoppingCart = () => {
   const handleAlertCarrito = (e) => {
     e.preventDefault();
     swal({
-      title: "Debes ingresar con tu usuario",
+      title: "Debes ingresar con tu usuario Validado",
       text: "...para poder comprar 🛒🛒🛒!",
       buttons: {
         cancel: "Ahorita no joven",
@@ -145,23 +145,23 @@ const ShoppingCart = () => {
                 })}
 
               <span>
-                {verified && verified.email && productCart.length ? (
+                
                   <div className="carrito-resumen">
                     <button className="button" onClick={cleanAllCart}>
                       Limpiar carrito
                     </button>
                     <h1 className="carrito-total">Precio: ${total}</h1>
-                    <button className="button-pagar" onClick={postCarrito}>
-                      PAGAR
-                    </button>
-                  </div>
-                ) : !verified ? (
+                 
+               {verified && !verified.emailVerified ? (
                   <button className="button" onClick={handleAlertCarrito}>
                     PAGAR
                   </button>
                 ) : (
-                  <div></div>
-                )}
+                  <button className="button-pagar" onClick={postCarrito}>
+                      PAGAR
+                    </button>
+                )}   
+                  </div>
               </span>
             </div>
           </div>

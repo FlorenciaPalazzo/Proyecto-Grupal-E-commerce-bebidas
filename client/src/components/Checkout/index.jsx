@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { addDirecciones, deleteMercadoPago, getDirecciones, getMercadoPago } from "../../redux/actions"
+import { addDirecciones, deleteDirecciones, deleteMercadoPago, getDirecciones, getMercadoPago } from "../../redux/actions"
 import Loading from "../Loading";
 export function validate(input) {
   let errors = {};
@@ -34,13 +34,13 @@ export const Checkout = () => {
   const loading = useSelector((state) => state.isLoading);
   const user = useSelector((state) => state.currentUser);
   const { id } = useParams();
-  // let user ={
-  //   direccion: "Av siempre viva 123"
-  // }
+ 
+  const [boleano , setBoleano] = useState(false)
   console.log("soy el user", user);
   let productCart = JSON.parse(window.localStorage.getItem("product"));
   let navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [input, setInput] = useState({
     delivery_type: "",
     calle_numero: null,
@@ -60,14 +60,16 @@ export const Checkout = () => {
   console.log("soy input ", input);
   console.log("soy direccion ", direccion);
   console.log("soy errors ", errors);
+
   useEffect(() => {
     if (!sandbox) dispatch(getMercadoPago());
     dispatch(getDirecciones(id))
     console.log("sandbox ------>", sandbox);
-  }, [sandbox, dispatch, user, id]);
+  }, [sandbox, dispatch, user, boleano]);
 
   const handleInputChangeDelivery = function (e) {
     e.target.value === "sucursal" ? setDisabled(true) : setDisabled(false)
+    
     setInput({
       [e.target.name]: e.target.value,
       id_user: id
@@ -76,7 +78,7 @@ export const Checkout = () => {
       [e.target.name]: e.target.value,
       id_user: id
     })
-    
+    setBoleano(!boleano)
   };
   const direccionSucursal = {
     delivery_type: "sucursal", calle_numero: "Colectora Este Ramal Pilar 1250", localidad: "Pilar", provincia: "BUENOS AIRES"
@@ -96,6 +98,7 @@ export const Checkout = () => {
     input.delivery_type === "envio" ?
       setDireccion(input) :
       setDireccion(direccionSucursal)
+      setBoleano(!boleano)
   }
    const handleDireccion = function (e) {
     e.preventDefault();
@@ -103,14 +106,24 @@ export const Checkout = () => {
  let preventAddress= direcciones.find(el=> el.id_direcciones === e.target.value)
  setInput(preventAddress)
      input.delivery_type === "sucursal" ?setDireccion(direccionSucursal): setDireccion(preventAddress) 
-
+     setBoleano(!boleano)
   }
+
+  const handleDelDir =(e) =>{
+    e.preventDefault();
+    let id = e.target.value
+    dispatch(deleteDirecciones(id))
+    alert('Se borro correctamente la direccion ')
+    setBoleano(!boleano)
+  }
+
   const handlesubmitDireccion = function (e) {
     e.preventDefault();
     if( Object.keys(errors).length === 0 && input.calle_numero && input.codigo_postal && input.localidad &&  input.provincia){
        dispatch(addDirecciones(input))
       
         setDireccion(input)
+        alert('Se agrego correctamente la direccion ') 
          setInput({
           delivery_type: "",
           calle_numero: null,
@@ -119,15 +132,18 @@ export const Checkout = () => {
           provincia: null,
           id_user: id})
     
-    alert('Se agrego correctamente la direccion ')
-     dispatch(getDirecciones(id))
+          
+    setBoleano(!boleano)
   } else  alert('Revisa los campos ingresados. ')
    
+
+
+
   }
   const handlePagar = function (e) {
     e.preventDefault();
     window.location.replace(sandbox)
-
+    setBoleano(!boleano)
   }
   let subtotal = productCart?.map(
     (element) => element.precio * element.quantity
@@ -195,7 +211,7 @@ export const Checkout = () => {
               
                 <span>$749,00</span>
                   </li>
-              <div>Despechamos tu pedido dentro de las 24 hs. Demora entre 3 a 5 días hábiles.</div>
+              <div>Despachamos tu pedido dentro de las 24 hs. Demora entre 3 a 5 días hábiles.</div>
               {!disabled ?
 
 
@@ -205,10 +221,10 @@ export const Checkout = () => {
                       direcciones?.map((e) => {
                         return (
                           <li key ={e.id_direcciones}>
-                            <input type="radio" name="direcciones" value={e.id_direcciones} onClick={e => { handleDireccion(e) }} />
-                            <label >{`${e.provincia} , ${e.localidad}, ${e.calle_numero}, CP ${e.codigo_postal} `}</label>
-
-              
+                            {console.log(e.id_direcciones)}
+                          <label >  <input type="radio" name="direcciones" id ={e.id_direcciones}  value={e.id_direcciones} onClick={e => { handleDireccion(e) }} />
+                            {`${e.provincia} , ${e.localidad}, ${e.calle_numero}, CP ${e.codigo_postal} `}</label>
+                           <button onClick={handleDelDir} value={e.id_direcciones}>Borrar direccion</button>
                           </li>
                         )
                       })
@@ -217,15 +233,15 @@ export const Checkout = () => {
                   </ul>
                   <h2>Ingresar Nueva  direccion de envio:</h2>
                   <label> Calle y número</label>
-                  <input disabled={disabled} name="calle_numero" type="text" onChange={e => { handleInputChange(e) }} />
+                  <input disabled={disabled} name="calle_numero" type="text" onChange={e => { handleInputChange(e) }} placeholder= "Ingrese Calle y numero" />
                   {errors.calle_numero && <span>{errors.calle_numero}</span>}
                   <br></br>
                   <label> Codigo postal</label>
-                  <input disabled={disabled} name="codigo_postal" type="number" onChange={e => { handleInputChange(e) }} />
+                  <input disabled={disabled} name="codigo_postal" type="number" onChange={e => { handleInputChange(e) }} placeholder ="Codigo postal (4 digitos)"/>
                   {errors.codigo_postal && <span>{errors.codigo_postal}</span>}
                   <br></br>
                   <label> Provincia</label>
-                  <select name="provincia" onChange={e => { handleInputChange(e) }} id="provincia">
+                  <select name="provincia" onChange={e => { handleInputChange(e) }} id="provincia" placeholder=" Seleccione una provincia">
                     <option defaultValue value="">Seleccionar una Provincia</option>
                     <option value="BUENOS AIRES" id="1">BUENOS AIRES</option>
                     <option value="CATAMARCA" id="2">CATAMARCA</option>
@@ -254,7 +270,7 @@ export const Checkout = () => {
                   {errors.provincia && <span>{errors.provincia}</span>}
 
                   <label> Localidad</label>
-                  <input disabled={disabled} name="localidad" type="text" onChange={e => { handleInputChange(e) }} />
+                  <input disabled={disabled} name="localidad" type="text" onChange={e => { handleInputChange(e) }} placeholder="Ingrese una localidad" />
                   {errors.localidad && <span>{errors.localidad}</span>}
                   <button onClick={handlesubmitDireccion}>Agregar direccion</button>
 

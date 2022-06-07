@@ -252,4 +252,26 @@ router.get("/direcciones/:id", async (req, res) => {
   }
 });
 
+
+router.delete("/direcciones/:id", async (req, res) => {
+  let {id} = req.params
+
+  try {
+    // let findIdDir = await Direcciones.findOne({where : {id_direcciones: id}})
+
+    // let usuarioId = findIdDir.usuarioId
+
+    let deleteDire= await Direcciones.destroy({where: {id_direcciones: id}})
+    
+    // let direccion = await Direcciones.findAll({where:{usuarioId : usuarioId}})
+
+    res.status(200).json(deleteDire)
+    
+  } catch (error) {
+    console.log(error.message)
+  }
+
+
+});
+
 module.exports = router;
