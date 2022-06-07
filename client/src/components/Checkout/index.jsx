@@ -64,7 +64,7 @@ export const Checkout = () => {
     if (!sandbox) dispatch(getMercadoPago());
     dispatch(getDirecciones(id))
     console.log("sandbox ------>", sandbox);
-  }, [sandbox, dispatch, user]);
+  }, [sandbox, dispatch, user, id]);
 
   const handleInputChangeDelivery = function (e) {
     e.target.value === "sucursal" ? setDisabled(true) : setDisabled(false)
@@ -156,7 +156,7 @@ export const Checkout = () => {
             {productCart.length ? productCart.map((e) => {
               return (
                 <ul key={e.id}>
-                  <img src={e.imagen} alt="img not found"  width="10%"/>
+                  <img src={e.imagen} alt="img not found"  width="5%"/>
                   
                   <li>{e.nombre}</li>
                   <li>{e.precio}</li>
@@ -251,6 +251,7 @@ export const Checkout = () => {
                     <option value="TIERRA DEL FUEGO" id="22">TIERRA DEL FUEGO</option>
 
                   </select>
+                  {errors.provincia && <span>{errors.provincia}</span>}
 
                   <label> Localidad</label>
                   <input disabled={disabled} name="localidad" type="text" onChange={e => { handleInputChange(e) }} />
