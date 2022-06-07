@@ -12,7 +12,7 @@ export const FeedBack = () => {
   const loading = useSelector((state) => state.isLoading);
   let productCart = JSON.parse(window.localStorage.getItem("product"));
   // const user = useSelector((state) => state.currentUser);
-  let user = localStorage.getItem("pan");
+  let user = localStorage.getItem("user");
 
   console.log(user, "Hola, soy el user uid");
 

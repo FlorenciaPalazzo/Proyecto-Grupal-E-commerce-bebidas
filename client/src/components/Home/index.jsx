@@ -33,7 +33,7 @@ function Home() {
     indexOfLastProduct
   );
   if (verified) {
-    window.localStorage.setItem("pan", verified.uid);
+    window.localStorage.setItem("user", verified.uid);
     console.log(verified.uid, "SOY UN MILAGRO"); //podemos usar esto para arreglar shopping cart y para el favoritos
   }
 
@@ -79,12 +79,45 @@ function Home() {
   };
 
   console.log("searchProduct", searchProduct);
+
+  //////////////👇👇👇aqui modo oscuro 👇👇👇///////////
+
+  const [checked, setChecked] = useState(
+    localStorage.getItem("theme") === "dark" ? true : false
+  );
+
+  useEffect(() => {
+    document
+      .getElementsByTagName("HTML")[0]
+      .setAttribute("data-theme", localStorage.getItem("theme"));
+  }, [checked]);
+
+  const toggleThemeChange = () => {
+    if (checked === false) {
+      localStorage.setItem("theme", "dark");
+      setChecked(true);
+    } else {
+      localStorage.setItem("theme", "light");
+      setChecked(false);
+    }
+  };
+
+  /////////////////👆👆👆aqui modo oscuro 👆👆👆/////////////////
   return (
     <div>
       {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
         <div className="div-body">
+          {/* 👇👇👇modo oscuro para el render 👇👇👇*/}
+          <p>Click para cambiar el tema</p>
+          <label>
+            <input
+              type="checkbox"
+              defaultChecked={checked}
+              onChange={() => toggleThemeChange()}
+            />
+          </label>
           <NavBar setCurrentPage={setCurrentPage} />
           <div>
             <Pagination
