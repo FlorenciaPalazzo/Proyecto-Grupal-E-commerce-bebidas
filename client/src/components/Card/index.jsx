@@ -33,6 +33,7 @@ export default function Card({
     quantity: 1,
     subtotal: precio,
   };
+
   const dispatch = useDispatch();
 
   const handleAddCarrito = (e) => {
@@ -101,7 +102,7 @@ export default function Card({
     });
   };
 
-  //acá traigo todas las propiedades
+  //acá traigo todas las propiedadess
   return (
     //empiezo a renderizar
     <div className="card-main">

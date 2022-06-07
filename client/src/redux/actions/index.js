@@ -37,7 +37,8 @@ import {
   GET_ALL_REVIEWS,
   RESET_USER_DB,
   ADD_HIST,
-  GET_HIST
+  GET_HIST,
+  CLEAR_STATE,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -557,3 +558,9 @@ export const getHist = (id) => {
     console.log(err)
   }} 
 }
+export const clearState = () => {
+  console.log("clearState");
+  return {
+    type: CLEAR_STATE,
+  };
+};

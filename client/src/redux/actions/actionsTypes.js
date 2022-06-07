@@ -37,3 +37,4 @@ export const GET_REVPAGE = "GET_REVPAGE";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const ADD_HIST = "ADD_HIST"
 export const GET_HIST = "GET_HIST" 
+export const CLEAR_STATE = "CLEAR_STATE";

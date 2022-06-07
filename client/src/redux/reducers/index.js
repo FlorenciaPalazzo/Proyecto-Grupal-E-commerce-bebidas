@@ -38,7 +38,8 @@ import {
   GET_ALL_REVIEWS,
   RESET_USER_DB,
   ADD_HIST,
-  GET_HIST
+  GET_HIST,
+  CLEAR_STATE
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -458,6 +459,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case ADD_HIST : 
     return {...state}
 
+    case CLEAR_STATE:
+      return {
+        ...state,
+        detail: [],
+      };
     default:
       return state;
   }
