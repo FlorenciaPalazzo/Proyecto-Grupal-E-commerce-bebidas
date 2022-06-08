@@ -68,7 +68,7 @@ const ShoppingCart = () => {
   const handleAlertCarrito = (e) => {
     e.preventDefault();
     swal({
-      title: "Debes ingresar con tu usuario",
+      title: "Debes ingresar con tu usuario Validado",
       text: "...para poder comprar 🛒🛒🛒!",
       buttons: {
         cancel: "Seguir navegando",
@@ -92,7 +92,7 @@ const ShoppingCart = () => {
       }
     });
   };
-
+  console.log("object");
   return (
     <div className="carrito-container">
       {loading /* revisen esto!! */ ? (
@@ -100,7 +100,7 @@ const ShoppingCart = () => {
       ) : (
         <div className="carrito-body">
           <Link to="/">
-            <button className="button">Regresar</button>
+            <img className="details-logo" src="/logo/logo.png" alt="logo" />
           </Link>
           <div className="carrito-background">
             <h1>Carrito</h1>
@@ -125,7 +125,7 @@ const ShoppingCart = () => {
                             onClick={deleteProduct}
                             value={element.id}
                           >
-                            ❌
+                            ➖
                           </button>
                           <div>
                             ${element.precio} x {element.quantity} = $
@@ -145,23 +145,22 @@ const ShoppingCart = () => {
                 })}
 
               <span>
-                {verified && verified.email && productCart.length ? (
-                  <div className="carrito-resumen">
-                    <button className="button" onClick={cleanAllCart}>
-                      Limpiar carrito
-                    </button>
-                    <h1 className="carrito-total">Precio: ${total}</h1>
-                    <button className="button-pagar" onClick={postCarrito}>
+                <div className="carrito-resumen">
+                  <button className="button" onClick={cleanAllCart}>
+                    Limpiar carrito
+                  </button>
+                  <h1 className="carrito-total">Precio: ${total}</h1>
+
+                  {/* {verified && !verified.emailVerified ? (
+                    <button className="button" onClick={handleAlertCarrito}>
                       PAGAR
                     </button>
-                  </div>
-                ) : !verified ? (
-                  <button className="button" onClick={handleAlertCarrito}>
+                  ) : ( */}
+                  <button className="button-pagar" onClick={postCarrito}>
                     PAGAR
                   </button>
-                ) : (
-                  <div></div>
-                )}
+                  {/* )} */}
+                </div>
               </span>
             </div>
           </div>

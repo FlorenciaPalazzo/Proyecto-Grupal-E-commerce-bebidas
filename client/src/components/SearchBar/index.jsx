@@ -28,7 +28,9 @@ export default function SearchBar({ setCurrentPage }) {
         value={name}
       />
       <button className="button" onClick={handleSubmit} type="submit">
-        Buscar
+
+      🔍
+
       </button>
     </div>
   );

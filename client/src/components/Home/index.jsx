@@ -33,8 +33,8 @@ function Home() {
     indexOfLastProduct
   );
   if (verified) {
-    window.localStorage.setItem('pan', verified.uid)
-    console.log(verified.uid, 'SOY UN MILAGRO') //podemos usar esto para arreglar shopping cart y para el favoritos
+    window.localStorage.setItem("user", verified.uid);
+    console.log(verified.uid, "SOY UN MILAGRO"); //podemos usar esto para arreglar shopping cart y para el favoritos
   }
 
 
@@ -81,65 +81,57 @@ function Home() {
 
   console.log("searchProduct", searchProduct);
 
-  
-//////////////👇👇👇aqui modo oscuro 👇👇👇///////////
-  
-const [checked, setChecked] = useState(
-  localStorage.getItem("theme") === "dark" ? true : false
-);
+  //////////////👇👇👇aqui modo oscuro 👇👇👇///////////
 
-useEffect(() => {
-  document
-    .getElementsByTagName("HTML")[0]
-    .setAttribute("data-theme", localStorage.getItem("theme"));
-}, [checked]);
+  const [checked, setChecked] = useState(
+    localStorage.getItem("theme") === "dark" ? true : false
+  );
 
-const toggleThemeChange = () => {
-  if (checked === false) {
-    localStorage.setItem("theme", "dark");
-    setChecked(true);
-  } else {
-    localStorage.setItem("theme", "light");
-    setChecked(false);
-  }
-};
+  useEffect(() => {
+    document
+      .getElementsByTagName("HTML")[0]
+      .setAttribute("data-theme", localStorage.getItem("theme"));
+  }, [checked]);
 
-/////////////////👆👆👆aqui modo oscuro 👆👆👆/////////////////
+  const toggleThemeChange = () => {
+    if (checked === false) {
+      localStorage.setItem("theme", "dark");
+      setChecked(true);
+    } else {
+      localStorage.setItem("theme", "light");
+      setChecked(false);
+    }
+  };
 
-
-
-
-
-
+  /////////////////👆👆👆aqui modo oscuro 👆👆👆/////////////////
   return (
     <div>
       {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
         <div className="div-body">
-
-
           {/* 👇👇👇modo oscuro para el render 👇👇👇*/}
-        <p>Click para cambiar el tema</p>
-              <label>
-                <input
-                  type="checkbox"
-                  defaultChecked={checked}
-                  onChange={() => toggleThemeChange()}
-                />
-              </label>
-
-
-
+          <p>Click para cambiar el tema</p>
+          <label>
+            <input
+              type="checkbox"
+              defaultChecked={checked}
+              onChange={() => toggleThemeChange()}
+            />
+          </label>
           <NavBar setCurrentPage={setCurrentPage} />
+          <div className="banner">
+            <img className="banner-img" src="/images/bannermain.png" alt="banner" />
+          </div>
           <div>
+            
+            <Carousel />
             <Pagination
               currentPage={currentPage}
               productsPerPage={productsPerPage}
               product={product.length}
               pagination={pagination}
             />
-            <Carousel />
             <div className="card-container">
               {currentProducts.length > 0 ? (
                 currentProducts.map((e) => {
@@ -172,7 +164,11 @@ const toggleThemeChange = () => {
             </div>
 
             <div className="footer">
-              <div className="text">Contacto</div>
+
+            <Link to="/contact">
+            <button className="button">Contacto</button>
+          </Link>
+
               <div className="text">About</div>
 
               <div>
