@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getBrands, getProducts, getReviewPage, isAdmin, setLoading } from "../../redux/actions";
+import { getBrands, getProducts, getReviewPage } from "../../redux/actions";
 import swal from "sweetalert";
 import NavBar from "../NavBar";
 import Card from "../Card";
@@ -18,9 +18,9 @@ function Home() {
   const navigate = useNavigate();
   const loading = useSelector((state) => state.isLoading);
   const searchProduct = useSelector((state) => state.searchProduct);
-  const admin = useSelector((state) => state.isAdmin);
-  const isLoged = useSelector((state) => state.isLoged);
   const verified = useSelector((state) => state.currentUser);
+  const isLoged = useSelector((state) => state.isLoged);
+  const admin = useSelector((state) => state.isAdmin);
   const [, /*order*/ setOrder] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,15 +45,12 @@ function Home() {
     //no tocar :)
     dispatch(getProducts());
     dispatch(getReviewPage());
-
   }, []);
 
   useEffect(() => {
     dispatch(getBrands());
     if (admin) {
-      
-      navigate("/admin")
-
+      navigate("/admin");
     }
   }, [dispatch, product, loading, searchProduct, rev, admin]);
 
@@ -112,7 +109,7 @@ function Home() {
   /////////////////👆👆👆aqui modo oscuro 👆👆👆/////////////////
   return (
     <div>
-      {loading ? (
+      {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
         <div className="div-body">
@@ -127,10 +124,13 @@ function Home() {
           </label>
           <NavBar setCurrentPage={setCurrentPage} />
           <div className="banner">
-            <img className="banner-img" src="/images/bannermain.png" alt="banner" />
+            <img
+              className="banner-img"
+              src="/images/bannermain.png"
+              alt="banner"
+            />
           </div>
           <div>
-            
             <Carousel />
             <Pagination
               currentPage={currentPage}
@@ -170,10 +170,9 @@ function Home() {
             </div>
 
             <div className="footer">
-
-            <Link to="/contact">
-            <button className="button">Contacto</button>
-          </Link>
+              <Link to="/contact">
+                <button className="button">Contacto</button>
+              </Link>
 
               <div className="text">About</div>
 
