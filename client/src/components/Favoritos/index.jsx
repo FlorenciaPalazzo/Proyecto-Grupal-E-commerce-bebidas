@@ -25,6 +25,7 @@ export const Favoritos = () => {
   
     if(!elFavorito.length){
       dispatch(getFavorito(user));
+      
     }
   }, [dispatch]);
   
@@ -59,7 +60,32 @@ export const Favoritos = () => {
         })
       ) : (
         <div>
-          <h2>No hay favoritos</h2>
+          <Link to="/">
+            <button className="button">Home</button>
+          </Link>
+          <div>Lista de Favoritos</div>
+
+          {elFavorito.length > 0 ? (
+            elFavorito.map((e) => {
+              return (
+                <div key={e.id}>
+                  <button
+                    className="button"
+                    value={e.id}
+                    onClick={handleDeleteFav}
+                  >
+                    Borrar
+                  </button>
+                  {e.nombre}
+                  <img src={e.imagen} width="20%" />
+                </div>
+              );
+            })
+          ) : (
+            <div>
+              <h2>No hay favoritos</h2>
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -92,6 +92,7 @@ const ShoppingCart = () => {
       }
     });
   };
+
   console.log("object");
   return (
     <div className="carrito-container">

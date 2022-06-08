@@ -20,6 +20,7 @@ function Home() {
   const searchProduct = useSelector((state) => state.searchProduct);
   const verified = useSelector((state) => state.currentUser);
   const isLoged = useSelector((state) => state.isLoged);
+  const admin = useSelector((state) => state.isAdmin);
   const [, /*order*/ setOrder] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,7 +50,10 @@ function Home() {
 
   useEffect(() => {
     dispatch(getBrands());
-  }, [dispatch, product, loading, searchProduct, rev]);
+    if (admin) {
+      navigate("/admin");
+    }
+  }, [dispatch, product, loading, searchProduct, rev, admin]);
 
   const handleAlertReview = (e) => {
     e.preventDefault();
@@ -121,10 +125,13 @@ function Home() {
           </label>
           <NavBar setCurrentPage={setCurrentPage} />
           <div className="banner">
-            <img className="banner-img" src="/images/bannermain.png" alt="banner" />
+            <img
+              className="banner-img"
+              src="/images/bannermain.png"
+              alt="banner"
+            />
           </div>
           <div>
-            
             <Carousel />
             <Pagination
               currentPage={currentPage}
@@ -164,10 +171,9 @@ function Home() {
             </div>
 
             <div className="footer">
-
-            <Link to="/contact">
-            <button className="button">Contacto</button>
-          </Link>
+              <Link to="/contact">
+                <button className="button">Contacto</button>
+              </Link>
 
               <div className="text">About</div>
 
