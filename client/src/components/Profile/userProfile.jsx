@@ -22,15 +22,14 @@ function UserProfile() {
   const user = useSelector((state) => state.currentUser);
   const prod = useSelector((state) => state.products);
   const [endLoading, setEndLoading] = useState(false);
-   
+
   let revs = useSelector((state) => state.allReviews);
-  const prodFind = prod.filter(e => e.id === revs.productoId)
-  console.log(prodFind, 'productoId')
- 
+  const prodFind = prod.filter((e) => e.id === revs.productoId);
+  console.log(prodFind, "productoId");
+
   let [bool, setBool] = useState(false);
   console.log("user", user);
   let allRevs = revs.filter((e) => user.uid === e.usuarioId);
-  
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -53,7 +52,7 @@ function UserProfile() {
     dispatch(getAllReviews());
     return () => {
       dispatch(resetUserDb());
-      dispatch(getAllReviews())
+      dispatch(getAllReviews());
     };
   }, [dispatch, endLoading, bool]);
   return (
@@ -82,9 +81,8 @@ function UserProfile() {
                   puntaje={r.puntaje}
                   producto={r.productoId}
                   fecha={r.createdAt}
-
                 />
-              <div></div>
+                <div></div>
                 <button onClick={handleDelete} value={r.id}>
                   ❌
                 </button>
