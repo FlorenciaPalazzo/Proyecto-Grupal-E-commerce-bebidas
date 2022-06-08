@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import emailjs from "@emailjs/browser";
+import { Link } from "react-router-dom";
 
 export default function Contact() {
   const form = useRef();
@@ -26,7 +27,11 @@ export default function Contact() {
   };
 
   return (
-    <form ref={form} onSubmit={sendEmail}>
+    <div>
+      <Link to="/">
+        <button className="button">Home</button>
+      </Link>
+      <form ref={form} onSubmit={sendEmail}>
       <label>Nombre</label>
       <input type="text" name="user_name" />
       <label>Email</label>
@@ -35,5 +40,7 @@ export default function Contact() {
       <textarea name="message" />
       <input type="submit" value="Send" />
     </form>
+    </div>
+    
   );
 }

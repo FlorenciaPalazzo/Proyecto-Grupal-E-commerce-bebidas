@@ -39,7 +39,6 @@ function Home() {
     console.log(verified.uid, "SOY UN MILAGRO"); //podemos usar esto para arreglar shopping cart y para el favoritos
   }
 
-
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -128,7 +127,7 @@ function Home() {
           <div className="banner">
             <img
               className="banner-img"
-              src="/images/bannermain.png"
+              src="/images/bannerchico.png"
               alt="banner"
             />
           </div>
@@ -158,7 +157,7 @@ function Home() {
                       </Link>
                     </div>
                   );
-                })  
+                })
               ) : !searchProduct.length ? (
                 <div>
                   <h1 className="error">No se encontraron productos</h1>
@@ -170,6 +169,12 @@ function Home() {
               )}
               <div></div>
             </div>
+            <Pagination
+              currentPage={currentPage}
+              productsPerPage={productsPerPage}
+              product={product.length}
+              pagination={pagination}
+            />
             <div>
               <CarouselBrands />
             </div>
@@ -208,7 +213,6 @@ function Home() {
                   )}
                 </div>
               </div>
-             
             </div>
           </div>
         </div>

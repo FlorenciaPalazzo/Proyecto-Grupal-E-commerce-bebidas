@@ -3,25 +3,38 @@ import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/actions";
 
-export const ReviewCar = ({ titulo, comentario, puntaje, producto, fecha,nombreUsuario }) => {
+export const ReviewCar = ({
+  titulo,
+  comentario,
+  puntaje,
+  producto,
+  fecha,
+  emailUsuario,
+}) => {
   const dispatch = useDispatch();
   const prod = useSelector((state) => state.products);
-  const filt = prod.find(e => e.id === producto);
-  useEffect(()=>{
-    dispatch(getProducts())
-  }, []) 
+  const filt = prod.find((e) => e.id === producto);
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
   return (
     <div>
       <div>
-        {filt ? 
-        <div>
-        <h4>{filt.nombre}</h4>
-        <img width="10%" src={filt.imagen} alt="" />
-        <h4>Fecha: {fecha.split('T')[0]}</h4>
-        </div>
-        :
-        null
-        }
+        {filt ? (
+          <div>
+            {emailUsuario ? <h3>Email del usuario: {emailUsuario}</h3> : null}
+            <h4>{filt.nombre}</h4>
+            <img width="10%" src={filt.imagen} alt="" />
+            <h4>Fecha: {fecha.split("T")[0]}</h4>
+          </div>
+        ) : (
+          <div>
+            <h3>Review de la página</h3>
+
+            <img width="10%" src="./logo/logo.png" alt="" />
+            <h4>Fecha: {fecha.split("T")[0]}</h4>
+          </div>
+        )}
       </div>
       <p>Titulo: {titulo}</p>
       <p>Comentario: {comentario}</p>
@@ -35,12 +48,7 @@ export const ReviewCar = ({ titulo, comentario, puntaje, producto, fecha,nombreU
         fullIcon={<i className="fa fa-star"></i>}
         edit={false}
         color="#ffd700"
-        
-        
-        />
-
-        {nombreUsuario? <p>Nombre Usuario : {nombreUsuario}</p> : null}
-        
+      />
     </div>
   );
 };
