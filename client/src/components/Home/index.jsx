@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getBrands, getProducts, getReviewPage } from "../../redux/actions";
+import { getBrands, getProducts, getReviewPage, isAdmin } from "../../redux/actions";
 import swal from "sweetalert";
 import NavBar from "../NavBar";
 import Card from "../Card";
@@ -18,7 +18,7 @@ function Home() {
   const navigate = useNavigate();
   const loading = useSelector((state) => state.isLoading);
   const searchProduct = useSelector((state) => state.searchProduct);
-  const verified = useSelector((state) => state.currentUser);
+  const admin = useSelector((state) => state.isAdmin);
   const isLoged = useSelector((state) => state.isLoged);
   const [, /*order*/ setOrder] = useState("");
 
@@ -40,11 +40,15 @@ function Home() {
     //no tocar :)
     dispatch(getProducts());
     dispatch(getReviewPage());
+
   }, []);
 
   useEffect(() => {
     dispatch(getBrands());
-  }, [dispatch, product, loading, searchProduct, rev]);
+    if (admin) {
+      navigate("/admin")
+    }
+  }, [dispatch, product, loading, searchProduct, rev, admin]);
 
   const handleAlertReview = (e) => {
     e.preventDefault();
