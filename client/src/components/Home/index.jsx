@@ -10,6 +10,7 @@ import Loading from "../Loading";
 import ReactStars from "react-rating-stars-component";
 import "./HomeStyles.css";
 import Carousel from "../Carousel";
+import CarouselBrands from "../CarouselBrands";
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
@@ -156,7 +157,7 @@ function Home() {
                       </Link>
                     </div>
                   );
-                })
+                })  
               ) : !searchProduct.length ? (
                 <div>
                   <h1 className="error">No se encontraron productos</h1>
@@ -168,14 +169,15 @@ function Home() {
               )}
               <div></div>
             </div>
-
+            <div>
+              <CarouselBrands />
+            </div>
             <div className="footer">
               <Link to="/contact">
                 <button className="button">Contacto</button>
               </Link>
 
               <div className="text">About</div>
-
               <div>
                 <div>
                   {rev ? (
