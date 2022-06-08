@@ -42,7 +42,7 @@ import {
   DELETE_DIRECCIONES,
   ADD_HIST,
   GET_HIST,
-  CLEAR_STATE
+  CLEAR_STATE,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -70,7 +70,8 @@ const initialState = {
   reviewPage: [],
   allReviews: [],
   favProducts: [],
-  historial : []
+  historial: [],
+  favBoolean: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -102,7 +103,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         return { ...state, isAdmin: true };
       } else return { ...state, isAdmin: false };
     }
-   
+
     case GET_PRODUCT_NAME:
       return { ...state, products: payload, searchProduct: payload };
 
@@ -208,8 +209,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
           products: state.productsSort.filter(
             (e) => e.ml >= 950 && e.ml < 1500
           ),
-        }
-      };
+        };
+      }
     case FILTER_BY_PRICE:
       if (payload === "all") {
         return {
@@ -406,24 +407,22 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
       };
     case SET_FAV:
-      return { ...state, favProducts: payload };
+      return { ...state };
 
     case GET_FAV:
-      let productos = state.products; //te trae todos los productos
+      let productos = state.products;
+      let ids = payload.map((e) => e.productoId);
 
-      let ids = payload.map((e) => e.productoId); //mapea los prod fav
       let arr = [];
-      console.log("SOY EL PAYLOAD", payload);
 
-      productos.map((e) => {
+      productos.forEach((e) => {
         //mapea productos pregunta si hay id prod
+        console.log(e);
         if (ids.includes(e.id)) {
+          console.log("e", e);
           arr.push(e);
         }
       });
-
-      console.log("SOY EL FILTRO PROD", arr);
-
       return {
         ...state,
         favProducts: arr,
@@ -433,44 +432,42 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return { ...state, favProducts: payload };
     case ADD_DIRECCIONES:
       return {
-        ...state
+        ...state,
       };
-      case GET_DIRECCIONES:
-        return{
-          ...state,
-          direcciones: payload.direcciones
-      }
+    case GET_DIRECCIONES:
+      return {
+        ...state,
+        direcciones: payload.direcciones,
+      };
 
-      case DELETE_DIRECCIONES:
-        return{
-          ...state,
-         
-      }
+    case DELETE_DIRECCIONES:
+      return {
+        ...state,
+      };
 
+    case GET_HIST:
+      // console.log(payload, "Soy payloaff")
+      let prodHist = state.products;
 
-    case GET_HIST : 
-    // console.log(payload, "Soy payloaff")
-    let prodHist = state.products;
+      // console.log(prodHist, "soy los productos")
 
-    // console.log(prodHist, "soy los productos")
-    
-    let idHist = payload.map((e) => e.productoId)
-    // console.log(idHist, "soy los Los IDS")
-    let histArr = []
+      let idHist = payload.map((e) => e.productoId);
+      // console.log(idHist, "soy los Los IDS")
+      let histArr = [];
 
-    prodHist.map((e) => {
-      if(idHist.includes(e.id)){
-        histArr.push(e)
-      }
-    })
-    // console.log(histArr, "Teoricamente esto debería andar bien")
-    return{
-      ...state ,
-      historial : histArr
-    }
+      prodHist.map((e) => {
+        if (idHist.includes(e.id)) {
+          histArr.push(e);
+        }
+      });
+      // console.log(histArr, "Teoricamente esto debería andar bien")
+      return {
+        ...state,
+        historial: histArr,
+      };
 
-    case ADD_HIST : 
-    return {...state}
+    case ADD_HIST:
+      return { ...state };
 
     case CLEAR_STATE:
       return {
