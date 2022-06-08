@@ -1,12 +1,4 @@
 .nav-main {
-<<<<<<< HEAD
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  background-color: #3c3c3c;
-  height: 35vh;
-  min-height: max-content;
-=======
 
     display: flex;
     background-color: #ffffff;
@@ -14,7 +6,6 @@
     height: 15vh;
     min-height: max-content;
 
->>>>>>> 384b28e75cc1e96462ab05dcdd1c4d5ed00271d7
 }
 
 .logo {

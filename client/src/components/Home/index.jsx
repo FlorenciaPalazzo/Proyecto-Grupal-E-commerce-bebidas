@@ -11,7 +11,6 @@ import ReactStars from "react-rating-stars-component";
 import "./HomeStyles.css";
 import Carousel from "../Carousel";
 import CarouselBrands from "../CarouselBrands";
-import LocationMap from "../LocationMap/map";
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
