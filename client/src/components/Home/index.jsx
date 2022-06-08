@@ -206,17 +206,7 @@ function Home() {
                   )}
                 </div>
               </div>
-              {isLoged ? (
-                <Link to="/Review">
-                  <button className="button">Contanos tu experiencia</button>
-                </Link>
-              ) : (
-                <Link to="">
-                  <button onClick={handleAlertReview} className="button">
-                    Contanos tu experiencia
-                  </button>
-                </Link>
-              )}
+             
             </div>
           </div>
         </div>

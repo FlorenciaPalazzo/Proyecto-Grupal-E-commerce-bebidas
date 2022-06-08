@@ -3,7 +3,7 @@ import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/actions";
 
-export const ReviewCar = ({ titulo, comentario, puntaje, producto, fecha }) => {
+export const ReviewCar = ({ titulo, comentario, puntaje, producto, fecha,nombreUsuario }) => {
   const dispatch = useDispatch();
   const prod = useSelector((state) => state.products);
   const filt = prod.find(e => e.id === producto);
@@ -35,7 +35,12 @@ export const ReviewCar = ({ titulo, comentario, puntaje, producto, fecha }) => {
         fullIcon={<i className="fa fa-star"></i>}
         edit={false}
         color="#ffd700"
-      />
+        
+        
+        />
+
+        {nombreUsuario? <p>Nombre Usuario : {nombreUsuario}</p> : null}
+        
     </div>
   );
 };
