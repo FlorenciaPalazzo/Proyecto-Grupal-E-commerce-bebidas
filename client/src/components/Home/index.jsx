@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getBrands, getProducts, getReviewPage, isAdmin } from "../../redux/actions";
+import { getBrands, getProducts, getReviewPage, isAdmin, setLoading } from "../../redux/actions";
 import swal from "sweetalert";
 import NavBar from "../NavBar";
 import Card from "../Card";
@@ -20,6 +20,7 @@ function Home() {
   const searchProduct = useSelector((state) => state.searchProduct);
   const admin = useSelector((state) => state.isAdmin);
   const isLoged = useSelector((state) => state.isLoged);
+  const verified = useSelector((state) => state.currentUser);
   const [, /*order*/ setOrder] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -50,7 +51,9 @@ function Home() {
   useEffect(() => {
     dispatch(getBrands());
     if (admin) {
+      
       navigate("/admin")
+
     }
   }, [dispatch, product, loading, searchProduct, rev, admin]);
 
@@ -109,7 +112,7 @@ function Home() {
   /////////////////👆👆👆aqui modo oscuro 👆👆👆/////////////////
   return (
     <div>
-      {loading /* revisen esto!! */ ? (
+      {loading ? (
         <Loading />
       ) : (
         <div className="div-body">
