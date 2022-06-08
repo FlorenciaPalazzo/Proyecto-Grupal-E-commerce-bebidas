@@ -21,6 +21,7 @@ const ShoppingCart = () => {
   const loading = useSelector((state) => state.isLoading);
 
   const verified = useSelector((state) => state.currentUser); //isEmail
+  console.log("soy verified", verified);
   const feedBackReducer = useSelector((state) => state.feedBackMP);
   const productReducer = useSelector((state) => state.productCart);
   let productCart = JSON.parse(window.localStorage.getItem("product"));
@@ -61,16 +62,16 @@ const ShoppingCart = () => {
     e.preventDefault();
     console.log("productCart --- post carrito", productCart);
     dispatch(orderMercadoPago(productCart));
-    navigate("/checkout");
+    navigate(`/checkout/${verified.uid}`);
   };
 
   const handleAlertCarrito = (e) => {
     e.preventDefault();
     swal({
-      title: "Debes ingresar con tu usuario",
+      title: "Debes ingresar con tu usuario Validado",
       text: "...para poder comprar 🛒🛒🛒!",
       buttons: {
-        cancel: "Ahorita no joven",
+        cancel: "Seguir navegando",
         register: {
           text: "Registrarse",
           value: "register",
@@ -92,6 +93,7 @@ const ShoppingCart = () => {
     });
   };
 
+  console.log("object");
   return (
     <div className="carrito-container">
       {loading /* revisen esto!! */ ? (
@@ -99,7 +101,7 @@ const ShoppingCart = () => {
       ) : (
         <div className="carrito-body">
           <Link to="/">
-            <button className="button">Regresar</button>
+            <img className="details-logo" src="/logo/logo.png" alt="logo" />
           </Link>
           <div className="carrito-background">
             <h1>Carrito</h1>
@@ -124,7 +126,7 @@ const ShoppingCart = () => {
                             onClick={deleteProduct}
                             value={element.id}
                           >
-                            ❌
+                            ➖
                           </button>
                           <div>
                             ${element.precio} x {element.quantity} = $
@@ -144,23 +146,22 @@ const ShoppingCart = () => {
                 })}
 
               <span>
-                {verified && verified.email && productCart.length ? (
-                  <div className="carrito-resumen">
-                    <button className="button" onClick={cleanAllCart}>
-                      Limpiar carrito
-                    </button>
-                    <h1 className="carrito-total">Precio: ${total}</h1>
-                    <button className="button-pagar" onClick={postCarrito}>
+                <div className="carrito-resumen">
+                  <button className="button" onClick={cleanAllCart}>
+                    Limpiar carrito
+                  </button>
+                  <h1 className="carrito-total">Precio: ${total}</h1>
+
+                  {/* {verified && !verified.emailVerified ? (
+                    <button className="button" onClick={handleAlertCarrito}>
                       PAGAR
                     </button>
-                  </div>
-                ) : !verified ? (
-                  <button className="button" onClick={handleAlertCarrito}>
+                  ) : ( */}
+                  <button className="button-pagar" onClick={postCarrito}>
                     PAGAR
                   </button>
-                ) : (
-                  <div></div>
-                )}
+                  {/* )} */}
+                </div>
               </span>
             </div>
           </div>
@@ -169,5 +170,26 @@ const ShoppingCart = () => {
     </div>
   );
 };
+//           <span>
+//             {verified && verified.email && productCart.length ? (
+//               <div>
+//                 <button onClick={postCarrito}>Finalizar Compra</button>
+//                 <button> <Link to= "/home">Seguir Comprando</Link></button>
+//                 <button onClick={cleanAllCart}>Vaciar Carrito</button>
+//               </div>
+//             ) : !verified ? (
+//               <button onClick={handleAlertCarrito}>Pagar</button>
+//             ) : (
+//               <button onClick={handleAlertCarrito}>Pagar</button>
+//             )}
+//           </span>
+//         </div>
+//       )}
+//       <Link to="/home">
+//         <button>Regresar.</button>
+//       </Link>
+//     </div>
+//   );
+// };
 
 export default ShoppingCart;

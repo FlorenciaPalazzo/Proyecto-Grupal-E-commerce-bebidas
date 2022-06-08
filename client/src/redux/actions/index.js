@@ -35,7 +35,13 @@ import {
   DELETE_REVIEW,
   GET_REVPAGE,
   GET_ALL_REVIEWS,
+  ADD_DIRECCIONES,
+  GET_DIRECCIONES,
+  DELETE_DIRECCIONES,
   RESET_USER_DB,
+  ADD_HIST,
+  GET_HIST,
+  CLEAR_STATE,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -354,7 +360,7 @@ export const getMercadoPago = () => {
   return async function (dispatch) {
     try {
       let result = await axios.post("http://localhost:3001/usuario/checkout");
-      console.log(result.data);
+      console.log("soy result data", result.data);
       console.log("entro a getMercadoPago");
       return dispatch({
         type: GET_MERCADO_PAGO,
@@ -485,7 +491,6 @@ export const setFavorito = (payload) => {
       let result = await axios.post("http://localhost:3001/producto", payload);
       return dispatch({
         type: SET_FAV,
-        payload: result.data,
       });
     } catch (err) {
       console.log(err);
@@ -499,6 +504,7 @@ export const getFavorito = (id) => {
       let result = await axios.get(
         `http://localhost:3001/producto/favoritos/${id}`
       );
+      console.log("result.data", result.data);
       return dispatch({
         type: GET_FAV,
         payload: result.data,
@@ -524,5 +530,92 @@ export const deleteFavorito = ({ id_user, id_prod }) => {
     } catch (err) {
       console.log(err);
     }
+  };
+};
+
+export const addDirecciones = (payload) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.post(
+        "http://localhost:3001/usuario/direcciones",
+        payload
+      );
+      return dispatch({
+        type: ADD_DIRECCIONES,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+export const getDirecciones = (id) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.get(`http://localhost:3001/usuario/${id}`);
+      return dispatch({
+        type: GET_DIRECCIONES,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const deleteDirecciones = (id) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.delete(
+        `http://localhost:3001/usuario/direcciones/${id}`
+      );
+
+      return dispatch({
+        type: DELETE_DIRECCIONES,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+//====================================== HISTORIAL ========================//
+
+export const addHist = (payload) => {
+  return async function (dispatch) {
+    let historial = await axios.post(
+      "http://localhost:3001/producto/historial",
+      payload
+    );
+    console.log(
+      payload,
+      "<=================== Soy el payload de lo que debería estar recibiendo la funcion"
+    );
+    return dispatch({
+      type: ADD_HIST,
+    });
+  };
+};
+
+export const getHist = (id) => {
+  return async function (dispatch) {
+    try {
+      let historial = await axios.get(
+        `http://localhost:3001/producto/historial/${id}`
+      );
+
+      // console.log(historial.data, "El historial esta llegando correctamente a la funcion")
+      return dispatch({
+        type: GET_HIST,
+        payload: historial.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+export const clearState = () => {
+  console.log("clearState");
+  return {
+    type: CLEAR_STATE,
   };
 };

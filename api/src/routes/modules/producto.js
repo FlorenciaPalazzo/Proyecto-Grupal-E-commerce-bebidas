@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const axios = require("axios");
 
-const { Producto, Usuario, Favorito } = require("../../db");
+const { Producto, Usuario, Favorito, Comprado } = require("../../db");
 
 const bodyParser = require("body-parser");
 
@@ -173,6 +173,7 @@ router.post("/", async (req, res) => {
     let usuarioFavorito = await Usuario.findByPk(id_user, {});
     let productoFavorito = await Producto.findByPk(id_prod, {});
     usuarioFavorito.addProducto(productoFavorito);
+    console.log("usuarioFavorito", usuarioFavorito);
     res.json(usuarioFavorito);
   } catch (err) {
     console.log(err.message);
@@ -183,6 +184,7 @@ router.get("/favoritos/:id_user", async (req, res) => {
   let { id_user } = req.params;
   try {
     let favs = await Favorito.findAll({ where: { usuarioId: id_user } });
+    console.log("favs", favs);
     res.status(200).json(favs);
   } catch (error) {
     console.log(error);
@@ -249,5 +251,40 @@ router.delete("/favoritos", async (req, res) => {
 //   }
 
 //#endregion  //////////////////////////////////////////////////////////////////////
+
+//=============== Historial  ========================//
+
+router.get("/historial/:id", async (req, res) => {
+  let { id } = req.params;
+
+  try {
+    let user = await Usuario.findByPk(id);
+    console.log(user, "Usuario encontrado");
+    let comprado = await Comprado.findAll({ where: { usuarioId: id } });
+
+    res.status(200).json(comprado);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.post("/historial", async (req, res) => {
+  let { id_user, id_prods } = req.body;
+  try {
+    let user = await Usuario.findByPk(id_user);
+    console.log(user, "Soy el usuario");
+    // console.log(id_prods, "Soy el producto")
+    id_prods.forEach(async (e) => {
+      console.log(e, "Soy un solo ID");
+      await Comprado.findOrCreate({
+        where: { productoId: e, usuarioId: id_user },
+      });
+    });
+    // let product = await Producto.findByPk(id_prods)
+    res.status(200).json("Llegue hasta el final sin romperme");
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 module.exports = router;

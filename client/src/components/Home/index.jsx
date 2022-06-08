@@ -22,6 +22,7 @@ function Home() {
   const searchProduct = useSelector((state) => state.searchProduct);
   const verified = useSelector((state) => state.currentUser);
   const isLoged = useSelector((state) => state.isLoged);
+  const admin = useSelector((state) => state.isAdmin);
   const [, /*order*/ setOrder] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,6 +35,10 @@ function Home() {
     indexOfFirstProduct,
     indexOfLastProduct
   );
+  if (verified) {
+    window.localStorage.setItem("user", verified.uid);
+    console.log(verified.uid, "SOY UN MILAGRO"); //podemos usar esto para arreglar shopping cart y para el favoritos
+  }
 
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -46,7 +51,10 @@ function Home() {
 
   useEffect(() => {
     dispatch(getBrands());
-  }, [dispatch, product, loading, searchProduct, rev]);
+    if (admin) {
+      navigate("/admin");
+    }
+  }, [dispatch, product, loading, searchProduct, rev, admin]);
 
   const handleAlertReview = (e) => {
     e.preventDefault();
@@ -54,7 +62,7 @@ function Home() {
       title: "Debes ingresar con tu usuario",
       text: "...para dejar una reseña ⭐⭐⭐!",
       buttons: {
-        cancel: "Ahorita no joven",
+        cancel: "Seguir navegando",
         register: {
           text: "Registrarse",
           value: "register",
@@ -77,21 +85,61 @@ function Home() {
   };
 
   console.log("searchProduct", searchProduct);
+
+  //////////////👇👇👇aqui modo oscuro 👇👇👇///////////
+
+  const [checked, setChecked] = useState(
+    localStorage.getItem("theme") === "dark" ? true : false
+  );
+
+  useEffect(() => {
+    document
+      .getElementsByTagName("HTML")[0]
+      .setAttribute("data-theme", localStorage.getItem("theme"));
+  }, [checked]);
+
+  const toggleThemeChange = () => {
+    if (checked === false) {
+      localStorage.setItem("theme", "dark");
+      setChecked(true);
+    } else {
+      localStorage.setItem("theme", "light");
+      setChecked(false);
+    }
+  };
+
+  /////////////////👆👆👆aqui modo oscuro 👆👆👆/////////////////
   return (
     <div>
       {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
         <div className="div-body">
+          {/* 👇👇👇modo oscuro para el render 👇👇👇*/}
+          <p>Click para cambiar el tema</p>
+          <label>
+            <input
+              type="checkbox"
+              defaultChecked={checked}
+              onChange={() => toggleThemeChange()}
+            />
+          </label>
           <NavBar setCurrentPage={setCurrentPage} />
+          <div className="banner">
+            <img
+              className="banner-img"
+              src="/images/bannermain.png"
+              alt="banner"
+            />
+          </div>
           <div>
+            <Carousel />
             <Pagination
               currentPage={currentPage}
               productsPerPage={productsPerPage}
               product={product.length}
               pagination={pagination}
             />
-            <Carousel />
             <div className="card-container">
               {currentProducts.length > 0 ? (
                 currentProducts.map((e) => {
@@ -126,10 +174,13 @@ function Home() {
               <CarouselBrands />
             </div>
             <div className="footer">
-              <div className="text">Contacto</div>
+              <Link to="/contact">
+                <button className="button">Contacto</button>
+              </Link>
+
               <div className="text">About</div>
               <div>
-                <div className="detail-description">
+                <div>
                   {rev ? (
                     rev.map((e) => {
                       return (
@@ -157,17 +208,6 @@ function Home() {
                   )}
                 </div>
               </div>
-              {isLoged ? (
-                <Link to="/Review">
-                  <button className="button">Contanos tu experiencia</button>
-                </Link>
-              ) : (
-                <Link to="">
-                  <button onClick={handleAlertReview} className="button">
-                    Contanos tu experiencia
-                  </button>
-                </Link>
-              )}
             </div>
           </div>
         </div>

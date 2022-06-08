@@ -33,6 +33,7 @@ export default function Card({
     quantity: 1,
     subtotal: precio,
   };
+
   const dispatch = useDispatch();
 
   const handleAddCarrito = (e) => {
@@ -44,9 +45,9 @@ export default function Card({
     console.log("fav", fav);
     e.preventDefault();
     dispatch(setFavorito(fav));
-    return () => {
+    /* return () => {
       setFav({ id_user: a });
-    };
+    }; */
   };
 
   const handleAlertFav = (e) => {
@@ -55,7 +56,7 @@ export default function Card({
       title: "Debes ingresar con tu usuario",
       text: "...para agregar tus bebidas a favoritos❤!",
       buttons: {
-        cancel: "Ahorita no joven",
+        cancel: "Seguir navegando",
         register: {
           text: "Registrarse",
           value: "register",
@@ -83,7 +84,7 @@ export default function Card({
       title: "Debes ingresar con tu usuario",
       text: "...para poder comprar 🛒🛒🛒!",
       buttons: {
-        cancel: "Ahorita no joven",
+        cancel: "Seguir navegando",
         register: {
           text: "Registrarse",
           value: "register",
@@ -101,7 +102,7 @@ export default function Card({
     });
   };
 
-  //acá traigo todas las propiedades
+  //acá traigo todas las propiedadess
   return (
     //empiezo a renderizar
     <div className="card-main">

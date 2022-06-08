@@ -36,7 +36,7 @@
     border-top: solid 2px #3c3c3c;
     border-bottom: solid 2px #3c3c3c;
     box-sizing: border-box;
-    margin-top: 40%;
+    margin-top: 30%;
     margin-left: 5%;
     margin-right: 5%;
     padding: 3%;
@@ -121,17 +121,17 @@
 }
 
 .detail-compra .button-shop {
-    position: absolute;
+    position: relative;
     max-width: 75%;
     min-width: 75%;
     max-height: 20%;
-    min-height: 20%;
+    min-height: 40px;
     margin-left: 25%;
     bottom: 0;
     top: auto;
     color: #f5f5f5;
     background-color: #3C3C3C;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     transition: background-color 0.1s ease-in-out;
     font-family: "Montserrat";
     font-weight: bold;
@@ -171,4 +171,22 @@
     min-width: 100px;
     font-family: "Montserrat";
     text-align: justify;
+}
+
+.details-logo {
+    position: absolute;
+    z-index: 1;
+    top: 1%;
+    bottom: auto;
+    left: 1%;
+    right: auto;
+    height: 15%;
+    opacity: 80%;
+    min-height: 100px;
+    transition: opacity 0.1s ease-in-out;
+}
+
+.details-logo:hover {
+    opacity: 100%;
+    transition: opacity 0.1s ease-in-out
 }

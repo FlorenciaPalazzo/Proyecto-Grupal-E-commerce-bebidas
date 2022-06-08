@@ -52,8 +52,8 @@ router.post("/", async (req, res) => {
         titulo: titulo,
         comentario: comentario,
         puntaje: puntaje,
-        productoId: productoId ? productoId : null,
         usuarioId: usuarioId,
+        productoId: productoId ? productoId : null,
       },
     });
     res.status(200).json(rev);
