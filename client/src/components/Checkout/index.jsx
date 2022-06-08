@@ -9,6 +9,8 @@ import {
   getMercadoPago,
 } from "../../redux/actions";
 import Loading from "../Loading";
+import "./CheckoutStyles.css";
+
 export function validate(input) {
   let errors = {};
   if (!input.calle_numero) {
@@ -174,8 +176,8 @@ export const Checkout = () => {
   let total = 0;
   subtotal?.forEach((e) => (total += e));
   return (
-    <div>
-      <button>
+    <div className="checkout-div-main">
+      <button className="button">
         <Link to="/">Home</Link>
       </button>
       <h2>Detalle de compra</h2>
@@ -184,37 +186,33 @@ export const Checkout = () => {
       ) : !productCart.length ? (
         <span>Cargando</span>
       ) : sandbox ? (
-        <div>
-          <div>
-            <ul>
-              <li>Producto</li>
-              <li>Cantidad</li>
-              <li>Precio</li>
-            </ul>
-            <div>
+        <div className="checkout-div-render">
+          <div className="checkout-div-info">
+            <div className="checkout-product-delivery">
+              <div className="checkout-product">
               {productCart.length
                 ? productCart.map((e) => {
                     return (
-                      <ul key={e.id}>
-                        <img src={e.imagen} alt="img not found" width="5%" />
-
+                      <div className="checkout-product-detail">
+                        <ul className="checkout-ul" key={e.id}>
                         <li>{e.nombre}</li>
-                        <li>{e.precio}</li>
                         <li>{e.quantity} unid.</li>
-                      </ul>
+                        <li>${e.precio}</li>
+                      </ul> 
+                      </div>
+                      
                     );
                   })
                 : null}
               {direccion.delivery_type === "envio" ? (
-                <div>
+                <div className="checkout-delivery-info">
                   <h2>Costo de envio : $749</h2>
                   <h2>Total: {total + 749}</h2>
                 </div>
               ) : (
                 <h2>Total : {total}</h2>
               )}
-            </div>
-            <div>
+              <div>
               {direccion.provincia &&
               direccion.localidad &&
               direccion.calle_numero &&
@@ -225,7 +223,9 @@ export const Checkout = () => {
                 </h2>
               ) : null}
             </div>
-            <div>
+            </div>
+            
+            <div className="checkout-delivery">
               <h3>Elegir metodo de entrega</h3>
               <ul>
                 <li>
@@ -268,6 +268,7 @@ export const Checkout = () => {
                               {`${e.provincia} , ${e.localidad}, ${e.calle_numero}, CP ${e.codigo_postal} `}
                             </label>
                             <button
+                            className="button"
                               onClick={handleDelDir}
                               value={e.id_direcciones}
                             >
@@ -396,7 +397,7 @@ export const Checkout = () => {
                       placeholder="Ingrese una localidad"
                     />
                     {errors.localidad && <span>{errors.localidad}</span>}
-                    <button onClick={handlesubmitDireccion}>
+                    <button className="button" onClick={handlesubmitDireccion}>
                       Agregar direccion
                     </button>
                   </div>
@@ -431,6 +432,8 @@ export const Checkout = () => {
                 </li>
               </ul>
             </div>
+            </div>
+            
           </div>
           {/* {
           direcciones.some(e=>
@@ -446,9 +449,9 @@ export const Checkout = () => {
         </div>
         } */}
           <div>
-            <button onClick={handleAddress}>Confirmar direccion</button>
+            <button className="button" onClick={handleAddress}>Confirmar direccion</button>
           </div>
-          <button>
+          <button className="button">
             <Link to="/cart">Volver al Carrito</Link>
           </button>
           {!direccion.delivery_type ||
