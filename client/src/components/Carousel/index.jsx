@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Carousel() {
   return (
+
     <Link to='/offers'>
     <div class="slider">
       <ul>

@@ -6,7 +6,7 @@
   margin-bottom: 10%;
   display: inline-flex;
   justify-content: space-around;
-  height: 1em;
+  height: 3em;
   flex-wrap: wrap;
   flex-direction: row;
 }

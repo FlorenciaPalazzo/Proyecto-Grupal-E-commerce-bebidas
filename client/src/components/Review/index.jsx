@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactStars from "react-rating-stars-component";
-import { postReview } from "../../redux/actions";
+import { getProducts, postReview } from "../../redux/actions";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 export default function PostReview() {
@@ -9,8 +9,10 @@ export default function PostReview() {
   const navigate = useNavigate();
   const { id } = useParams();
   const usuario = useSelector((state) => state.currentUser);
-  let idUser = usuario ? usuario.uid : "toni";
+  let products = useSelector((state) => state.products);
 
+  let prod = products.filter((e) => e.id === id);
+  let idUser = localStorage.getItem("user");
   useEffect(() => {}, [usuario]);
   const [input, setInput] = useState({
     titulo: "",
@@ -43,9 +45,23 @@ export default function PostReview() {
     navigate("/");
     console.log(setInput);
   };
+  useEffect(() => {
+    dispatch(getProducts());
+    return () => {
+      dispatch(getProducts());
+    };
+  }, []);
   return (
     <div>
-      <h1>Dejanos un comentario y ganate un tetra.</h1>
+      {prod && prod[0] ? (
+        <div>
+          <h1>¡Contanos que te parecio {prod[0].nombre}!</h1>
+          <img src={prod[0].imagen} width="30%" />
+        </div>
+      ) : (
+        <h1>¡Contanos tu opinion sobre nosotros!</h1>
+      )}
+
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
           <label>Titulo:</label>
@@ -59,8 +75,7 @@ export default function PostReview() {
         </div>
         <div>
           <label>Comentario:</label>
-          <input
-            type="text"
+          <textarea
             placeholder="comentario"
             value={input.comentario}
             name="comentario"
@@ -78,7 +93,7 @@ export default function PostReview() {
             activeColor="#ffd700"
           />
         </div>
-        
+
         <div>
           <button className="button" type="submit">
             Puntuar
