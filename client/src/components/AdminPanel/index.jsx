@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../../fb";
 import {
   getAllReviews,
+  getReviewPage,
   getUserDb,
   getUsersLoged,
   resetUser,
@@ -17,9 +18,11 @@ export default function AdminPanel() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let revs = useSelector((state) => state.allReviews);
+  let revsPage= useSelector((state)=>state.reviewPage)
   const usersLoged = useSelector((state) => state.usersLoged);
   console.log("userisLoged", usersLoged);
   console.log("REVSS", revs);
+  console.log("REVS PAGE--->",revsPage)
 
   //tiene el id del usuario
   let array = [];
@@ -31,6 +34,27 @@ export default function AdminPanel() {
       }
     });
   });
+
+
+
+  
+  let pagePuntaje =[]
+
+ revsPage.forEach((e)=>{
+    pagePuntaje.push(e.puntaje)
+  })  
+console.log("SOY ELL PAGE PUNTAJE-->",pagePuntaje)
+  let accio = 0
+  let larguen= pagePuntaje.length
+  let sumaPage = pagePuntaje.forEach((e)=>accio += e)
+
+  
+
+  let promPage= accio/larguen
+
+  console.log("SOY EL PROM WEON-->",promPage)
+
+
 
   function out() {
     signOut(auth)
@@ -50,6 +74,7 @@ export default function AdminPanel() {
   useEffect(() => {
     dispatch(getAllReviews());
     dispatch(getUsersLoged());
+    dispatch(getReviewPage())
   }, [dispatch]);
 
   return (
@@ -82,10 +107,14 @@ export default function AdminPanel() {
                 producto={r.productoId}
                 fecha={r.createdAt}
                 emailUsuario={otroArray}
+
               />
             </div>
           );
         })}
+        <div>
+          Promedio de la página:{Math.round(promPage)}
+        </div>
       </div>
     </div>
   );
