@@ -27,12 +27,20 @@ export default function ViewUsers() {
           </span>
         ) : (
           usersLoged.map((e) => {
+            
             if (e.email === process.env.REACT_APP_ADMIN_EMAIL) return;
             return (
               <div key={e.nombre}>
                 <hr />
-                <p>Nombre: {e.nombre}</p>
+                <p>Nombre: {e.nombre} {e.apellido && e.apellido}</p>
                 <p>Email: {e.email}</p>
+                {
+                  e.isVerified ? 
+                  <p>Verificado</p>
+                  :
+                  <p>No verificado</p>
+
+                }
               </div>
             );
           })
