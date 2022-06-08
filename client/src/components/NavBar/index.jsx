@@ -31,15 +31,8 @@ export default function NavBar({ setCurrentPage }) {
     <div className="nav-main">
       {isLoged ? (
         <div className="nav-links">
-          <div className="nav-left">
-            <img className="logo" src="./logo/logo.png" alt="loguito" />
-          </div>
 
           <div className="nav-right">
-
-            <Link to="/contact">
-              <button className="button">Contacto</button>
-            </Link>
             <Link to={`/favoritos/${usuarioActual.uid}`}>
               <button className="button">Ver Favoritos</button>
             </Link>
@@ -70,12 +63,6 @@ export default function NavBar({ setCurrentPage }) {
         </div>
       ) : (
         <div className="nav-links">
-          {/* <div className="nav-left">
-            <Link to="/">
-              <img className="logo" src="./logo/logo.png" alt="loguito" />
-            </Link>
-          
-          </div> */}
 
           <div className="nav-right">
           

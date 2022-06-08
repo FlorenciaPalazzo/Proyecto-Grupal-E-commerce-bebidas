@@ -126,7 +126,7 @@ function Home() {
           <div className="banner">
             <img
               className="banner-img"
-              src="/images/bannermain.png"
+              src="/images/bannerchico.png"
               alt="banner"
             />
           </div>
@@ -168,7 +168,12 @@ function Home() {
               )}
               <div></div>
             </div>
-
+            <Pagination
+              currentPage={currentPage}
+              productsPerPage={productsPerPage}
+              product={product.length}
+              pagination={pagination}
+            />
             <div className="footer">
               <Link to="/contact">
                 <button className="button">Contacto</button>
