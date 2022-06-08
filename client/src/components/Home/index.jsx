@@ -10,8 +10,6 @@ import Loading from "../Loading";
 import ReactStars from "react-rating-stars-component";
 import "./HomeStyles.css";
 import Carousel from "../Carousel";
-
-
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
@@ -34,6 +32,11 @@ function Home() {
     indexOfFirstProduct,
     indexOfLastProduct
   );
+  if (verified) {
+    window.localStorage.setItem('pan', verified.uid)
+    console.log(verified.uid, 'SOY UN MILAGRO') //podemos usar esto para arreglar shopping cart y para el favoritos
+  }
+
 
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -76,41 +79,47 @@ function Home() {
     });
   };
 
-  //////////////👇👇👇aqui modo oscuro 👇👇👇///////////
-  
-  const [checked, setChecked] = useState(
-    localStorage.getItem("theme") === "dark" ? true : false
-  );
+  console.log("searchProduct", searchProduct);
 
-  useEffect(() => {
-    document
-      .getElementsByTagName("HTML")[0]
-      .setAttribute("data-theme", localStorage.getItem("theme"));
-  }, [checked]);
-
-  const toggleThemeChange = () => {
-    if (checked === false) {
-      localStorage.setItem("theme", "dark");
-      setChecked(true);
-    } else {
-      localStorage.setItem("theme", "light");
-      setChecked(false);
-    }
-  };
   
+//////////////👇👇👇aqui modo oscuro 👇👇👇///////////
+  
+const [checked, setChecked] = useState(
+  localStorage.getItem("theme") === "dark" ? true : false
+);
+
+useEffect(() => {
+  document
+    .getElementsByTagName("HTML")[0]
+    .setAttribute("data-theme", localStorage.getItem("theme"));
+}, [checked]);
+
+const toggleThemeChange = () => {
+  if (checked === false) {
+    localStorage.setItem("theme", "dark");
+    setChecked(true);
+  } else {
+    localStorage.setItem("theme", "light");
+    setChecked(false);
+  }
+};
+
 /////////////////👆👆👆aqui modo oscuro 👆👆👆/////////////////
 
-  console.log("searchProduct", searchProduct);
+
+
+
+
+
   return (
     <div>
       {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
         <div className="div-body">
-        
 
 
-    {/* 👇👇👇modo oscuro para el render 👇👇👇*/}
+          {/* 👇👇👇modo oscuro para el render 👇👇👇*/}
         <p>Click para cambiar el tema</p>
               <label>
                 <input
@@ -119,6 +128,8 @@ function Home() {
                   onChange={() => toggleThemeChange()}
                 />
               </label>
+
+
 
           <NavBar setCurrentPage={setCurrentPage} />
           <div>
@@ -163,8 +174,6 @@ function Home() {
             <div className="footer">
               <div className="text">Contacto</div>
               <div className="text">About</div>
-
-           
 
               <div>
                 <div className="detail-description">

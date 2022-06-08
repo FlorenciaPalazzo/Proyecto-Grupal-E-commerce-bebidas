@@ -2,7 +2,12 @@ import React from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { addCart, getProductById, getReview } from "../../redux/actions";
+import {
+  addCart,
+  clearState,
+  getProductById,
+  getReview,
+} from "../../redux/actions";
 import "./DetailStyles.css";
 import ReactStars from "react-rating-stars-component";
 import swal from "sweetalert";
@@ -26,6 +31,10 @@ export default function Detail() {
   useEffect(() => {
     dispatch(getProductById(id));
     dispatch(getReview(id));
+    return () => {
+      //componen did unmount
+      dispatch(clearState()); // limpio el state de details
+    };
   }, [dispatch, id]);
 
   const handleAlertReview = (e) => {
@@ -34,7 +43,7 @@ export default function Detail() {
       title: "Debes ingresar con tu usuario",
       text: "...para dejar una reseña ⭐⭐⭐!",
       buttons: {
-        cancel: "Ahorita no joven",
+        cancel: "Seguir navegando",
         register: {
           text: "Registrarse",
           value: "register",
@@ -120,7 +129,7 @@ export default function Detail() {
               <div className="review-body">no hay reviews</div>
             )}
           </div>
-          {isLoged ? (
+          {/* {isLoged ? (
             <Link to={`/Review/${id}`}>
               <button className="button">Contanos tu experiencia</button>
             </Link>
@@ -128,7 +137,7 @@ export default function Detail() {
             <button onClick={handleAlertReview} className="button">
               Contanos tu experiencia
             </button>
-          )}
+          )} */}
         </div>
       ) : (
         console.log("No hay nada acá")

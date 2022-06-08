@@ -40,6 +40,9 @@ import {
   DELETE_DIRECCIONES,
 
   RESET_USER_DB,
+  ADD_HIST,
+  GET_HIST,
+  CLEAR_STATE,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -74,7 +77,7 @@ export function createUser(user) {
       telefono: user.telefono,
       isAdmin: user.isAdmin,
       isVerified: user.isVerified,
-      image: user.image,
+      image: user.image
     })
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
@@ -577,3 +580,39 @@ export const deleteDirecciones =(id)=>{
 
 
 
+
+
+    //====================================== HISTORIAL ========================//
+
+
+export const addHist = (payload) => {
+  return async function (dispatch) {
+    let historial = await axios.post('http://localhost:3001/producto/historial', payload)
+    console.log( payload , "<=================== Soy el payload de lo que debería estar recibiendo la funcion")
+    return dispatch({
+      type : ADD_HIST
+    })
+  }
+}
+
+export const getHist = (id) => {
+  return async function (dispatch) {
+   try{ 
+
+    let historial = await axios.get(`http://localhost:3001/producto/historial/${id}`)
+
+    // console.log(historial.data, "El historial esta llegando correctamente a la funcion")
+    return dispatch({
+      type : GET_HIST,
+      payload : historial.data
+    })
+  } catch(err){
+    console.log(err)
+  }} 
+}
+export const clearState = () => {
+  console.log("clearState");
+  return {
+    type: CLEAR_STATE,
+  };
+};

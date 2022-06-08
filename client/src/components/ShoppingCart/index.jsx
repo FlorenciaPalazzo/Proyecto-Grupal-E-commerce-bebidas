@@ -71,7 +71,7 @@ const ShoppingCart = () => {
       title: "Debes ingresar con tu usuario",
       text: "...para poder comprar 🛒🛒🛒!",
       buttons: {
-        cancel: "Ahorita no joven",
+        cancel: "Seguir navegando",
         register: {
           text: "Registrarse",
           value: "register",
