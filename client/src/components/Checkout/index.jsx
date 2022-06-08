@@ -9,6 +9,8 @@ import {
   getMercadoPago,
 } from "../../redux/actions";
 import Loading from "../Loading";
+
+
 export function validate(input) {
   let errors = {};
   if (!input.calle_numero) {

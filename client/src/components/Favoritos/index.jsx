@@ -1,43 +1,63 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { deleteFavorito, getFavorito } from "../../redux/actions";
-import Loading from "../Loading";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { deleteFavorito, getFavorito,getProducts } from "../../redux/actions";
 
 export const Favoritos = () => {
   const elFavorito = useSelector((state) => state.favProducts);
-  const loading = useSelector((state) => state.isLoading);
-  //const product = useSelector((state) => state.products);
-  const [bool, setBool] = useState(true);
-
+  //const usuario = useSelector((state) => state.currentUser);
+  let navigate = useNavigate();
+  console.log("EL FAVORITO", elFavorito);
   const dispatch = useDispatch();
 
   let user = localStorage.getItem("user");
 
+  console.log("SOY EL USUARIO--->", user);
+
+// Toni dice que tiene que existir ↧↧↧↧
   useEffect(() => {
-    console.log("Antes del if", bool);
-    console.log("Elfavorito antes del if", elFavorito);
-    if (bool && elFavorito) {
+    //no tocar :), 
+    dispatch(getProducts());
+}, []);
+
+// y este tb ↧↧↧
+  useEffect(() => { 
+  
+    if(!elFavorito.length){
       dispatch(getFavorito(user));
-      setBool(false);
+      
     }
-    console.log("Elfavorito despues del if", elFavorito);
-
-    console.log("despues del if", bool);
-  }, [dispatch, elFavorito, bool]);
-
+  }, [dispatch]);
+  
   const handleDeleteFav = (e) => {
     e.preventDefault();
     let idProd = e.target.value;
     let payload = { id_prod: idProd, id_user: user };
 
-    dispatch(deleteFavorito(payload));
-    setBool(true);
+    dispatch(deleteFavorito(payload)) //↤ No tocar 😈
+     window.location.reload()
+    
+    
   };
   return (
     <div>
-      {loading /* revisen esto!! */ ? (
-        <Loading />
+      <Link to="/">
+        <button className="button">Home</button>
+      </Link>
+      <div>Lista de Favoritos</div>
+
+      {elFavorito.length  ? (
+        elFavorito.map((e) => {
+          return (
+            <div key={e.id}>
+              <button className="button" value={e.id} onClick={handleDeleteFav}>
+                Borrar
+              </button>
+              {e.nombre}
+              <img src={e.imagen} />
+            </div>
+          );
+        })
       ) : (
         <div>
           <Link to="/">
