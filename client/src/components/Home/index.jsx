@@ -120,7 +120,7 @@ function Home() {
           </label>
           <NavBar setCurrentPage={setCurrentPage} />
           <div className="banner">
-            <img className="banner-img" src="/images/bannermain.png" alt="banner" />
+            <img className="banner-img" src="/images/bannerchico.png" alt="banner" />
           </div>
           <div>
             
@@ -161,7 +161,12 @@ function Home() {
               )}
               <div></div>
             </div>
-
+            <Pagination
+              currentPage={currentPage}
+              productsPerPage={productsPerPage}
+              product={product.length}
+              pagination={pagination}
+            />
             <div className="footer">
 
             <Link to="/contact">

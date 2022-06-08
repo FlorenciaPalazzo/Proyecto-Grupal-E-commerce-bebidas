@@ -44,6 +44,9 @@ const Historial = () => {
 
   return (
     <div>
+      <Link to="/">
+      <button className="button">Home</button>
+      </Link>
       Historial de compras de {id}
       <div>
         {historial.length > 0 ? (

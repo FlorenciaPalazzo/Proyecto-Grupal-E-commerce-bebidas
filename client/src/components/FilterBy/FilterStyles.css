@@ -20,3 +20,9 @@ select {
     text-indent: 1px;
     text-overflow: '';
 }
+
+@media (max-width: 880px) {
+    .selector {
+        background-color: rgb(146, 253, 253);
+    }
+}
