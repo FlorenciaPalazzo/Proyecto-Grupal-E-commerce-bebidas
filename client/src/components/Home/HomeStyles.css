@@ -30,7 +30,7 @@ a:active {
     cursor: pointer;
     text-align: center;
     padding: 5px 10px;
-    color: white;
+    color: rgb(255, 255, 255);
     transition: background-color 0.1s ease-in-out;
 }
 
@@ -64,7 +64,7 @@ a:active {
     transition: background-color 0.1s ease-in-out;
 }
 
-.button:hover,
+ .button:hover,
 .button-shop:hover {
     cursor: pointer;
     background-color: rgb(100, 100, 100);
@@ -96,7 +96,7 @@ label {
 
 .footer {
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     flex-direction: row;
     height: 25vh;
     width: 99vw;

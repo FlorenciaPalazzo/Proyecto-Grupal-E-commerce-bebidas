@@ -55,6 +55,7 @@ function UserProfile() {
       dispatch(getAllReviews());
     };
   }, [dispatch, endLoading, bool]);
+
   return (
     <div>
       <h1>Perfil de usuario</h1>
