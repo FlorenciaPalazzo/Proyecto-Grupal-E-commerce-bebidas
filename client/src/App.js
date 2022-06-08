@@ -15,21 +15,17 @@ import { Checkout } from "./components/Checkout";
 import { FeedBack } from "./components/FeedBack";
 import { Favoritos } from "./components/Favoritos";
 
-
 import Offers from "./components/Off/Offers";
 import Historial from "./components/Historial";
 import ResetPassword from "./components/Auth/ResetPassword";
 
-
 function App() {
- 
   return (
     <div className="App">
-   
       <Routes>
         {/* <Route path="/" exact element={<Landing />} /> */}
         <Route path="/" exact element={<Home />} />
-        <Route path="/admin" exact element={<AdminPanel/>} />
+        <Route path="/admin" exact element={<AdminPanel />} />
         <Route path="/cart" exact element={<ShoppingCart />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/login/reset" exact element={<ResetPassword />} />
@@ -45,7 +41,7 @@ function App() {
         <Route path="/review/:id" exact element={<Review />} />
         <Route path="/review" exact element={<Review />} />
         <Route path="/favoritos/:id_user" exact element={<Favoritos />} />
-        <Route path= "/historial/:id" exact element = {<Historial/>} />
+        <Route path="/historial/:id" exact element={<Historial />} />
       </Routes>
     </div>
   );

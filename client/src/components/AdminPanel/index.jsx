@@ -7,17 +7,17 @@ import { resetUser } from "../../redux/actions";
 import ViewUsers from "../ViewUsers";
 
 export default function AdminPanel() {
-const dispatch = useDispatch()
-const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-function out() {
+  function out() {
     signOut(auth)
       .then(() => {
         console.log("logout");
         //dispatch(setLoading(true))
         dispatch(resetUser());
         //dispatch(setLoading(false))
-        navigate("/")
+        navigate("/");
       })
       .catch((error) => {
         // An error happened.

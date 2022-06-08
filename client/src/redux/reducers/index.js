@@ -87,7 +87,13 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case UPDATE_USER:
       return { ...state, dbUser: payload };
     case RESET_USER:
-      return { ...state, currentUser: {}, isLoged: false, favProducts: [] };
+      return {
+        ...state,
+        currentUser: {},
+        isLoged: false,
+        favProducts: [],
+        isAdmin: false,
+      };
 
     case GET_USERS_LOGED:
       return { ...state, usersLoged: payload };
