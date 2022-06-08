@@ -18,11 +18,11 @@ export default function AdminPanel() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let revs = useSelector((state) => state.allReviews);
-  let revsPage= useSelector((state)=>state.reviewPage)
+  let revsPage = useSelector((state) => state.reviewPage);
   const usersLoged = useSelector((state) => state.usersLoged);
   console.log("userisLoged", usersLoged);
   console.log("REVSS", revs);
-  console.log("REVS PAGE--->",revsPage)
+  console.log("REVS PAGE--->", revsPage);
 
   //tiene el id del usuario
   let array = [];
@@ -35,26 +35,19 @@ export default function AdminPanel() {
     });
   });
 
+  let pagePuntaje = [];
 
+  revsPage.forEach((e) => {
+    pagePuntaje.push(e.puntaje);
+  });
+  console.log("SOY ELL PAGE PUNTAJE-->", pagePuntaje);
+  let accio = 0;
+  let larguen = pagePuntaje.length;
+  let sumaPage = pagePuntaje.forEach((e) => (accio += e));
 
-  
-  let pagePuntaje =[]
+  let promPage = accio / larguen;
 
- revsPage.forEach((e)=>{
-    pagePuntaje.push(e.puntaje)
-  })  
-console.log("SOY ELL PAGE PUNTAJE-->",pagePuntaje)
-  let accio = 0
-  let larguen= pagePuntaje.length
-  let sumaPage = pagePuntaje.forEach((e)=>accio += e)
-
-  
-
-  let promPage= accio/larguen
-
-  console.log("SOY EL PROM WEON-->",promPage)
-
-
+  console.log("SOY EL PROM WEON-->", promPage);
 
   function out() {
     signOut(auth)
@@ -74,7 +67,7 @@ console.log("SOY ELL PAGE PUNTAJE-->",pagePuntaje)
   useEffect(() => {
     dispatch(getAllReviews());
     dispatch(getUsersLoged());
-    dispatch(getReviewPage())
+    dispatch(getReviewPage());
   }, [dispatch]);
 
   return (
@@ -107,14 +100,11 @@ console.log("SOY ELL PAGE PUNTAJE-->",pagePuntaje)
                 producto={r.productoId}
                 fecha={r.createdAt}
                 emailUsuario={otroArray}
-
               />
             </div>
           );
         })}
-        <div>
-          Promedio de la página:{Math.round(promPage)}
-        </div>
+        <div>Promedio de la página:{Math.round(promPage)}</div>
       </div>
     </div>
   );
