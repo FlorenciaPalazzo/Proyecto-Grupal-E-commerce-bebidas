@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { deleteFavorito, getFavorito } from "../../redux/actions";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { deleteFavorito, getFavorito,getProducts } from "../../redux/actions";
 
 export const Favoritos = () => {
   const elFavorito = useSelector((state) => state.favProducts);
   //const usuario = useSelector((state) => state.currentUser);
-
+  let navigate = useNavigate();
   console.log("EL FAVORITO", elFavorito);
   const dispatch = useDispatch();
 
@@ -14,18 +14,29 @@ export const Favoritos = () => {
 
   console.log("SOY EL USUARIO--->", user);
 
+// Toni dice que tiene que existir ↧↧↧↧
   useEffect(() => {
-    if (!elFavorito.length) {
+    //no tocar :), 
+    dispatch(getProducts());
+}, []);
+
+// y este tb ↧↧↧
+  useEffect(() => { 
+  
+    if(!elFavorito.length){
       dispatch(getFavorito(user));
     }
-  }, [elFavorito]);
-
+  }, [dispatch]);
+  
   const handleDeleteFav = (e) => {
     e.preventDefault();
     let idProd = e.target.value;
     let payload = { id_prod: idProd, id_user: user };
 
-    dispatch(deleteFavorito(payload));
+    dispatch(deleteFavorito(payload)) //↤ No tocar 😈
+     window.location.reload()
+    
+    
   };
   return (
     <div>
@@ -34,7 +45,7 @@ export const Favoritos = () => {
       </Link>
       <div>Lista de Favoritos</div>
 
-      {elFavorito.length > 0 ? (
+      {elFavorito.length  ? (
         elFavorito.map((e) => {
           return (
             <div key={e.id}>
