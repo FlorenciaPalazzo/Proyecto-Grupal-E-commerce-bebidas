@@ -18,9 +18,7 @@ export default function ViewUsers() {
   }, [usersLoged]);
   return (
     <div className="container">
-      <Link to="/">
-        <button>Home</button>
-      </Link>
+      
       <div className="usersContainer">
         {usersLoged.length === 0 && firstReq ? (
           <span>

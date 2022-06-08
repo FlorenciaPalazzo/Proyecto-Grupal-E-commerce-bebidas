@@ -29,6 +29,7 @@ function App() {
       <Routes>
         {/* <Route path="/" exact element={<Landing />} /> */}
         <Route path="/" exact element={<Home />} />
+        <Route path="/admin" exact element={<AdminPanel/>} />
         <Route path="/cart" exact element={<ShoppingCart />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/login/reset" exact element={<ResetPassword />} />
@@ -50,5 +51,4 @@ function App() {
   );
 }
 
-// base 64 como codificar y decodificar
 export default App;
