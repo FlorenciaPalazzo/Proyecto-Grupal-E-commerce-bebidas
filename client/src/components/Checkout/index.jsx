@@ -183,9 +183,7 @@ export const Checkout = () => {
       <h2>Detalle de compra</h2>
       {loading /* revisen esto!! */ ? (
         <Loading />
-      ) : !productCart.length ? (
-        <span>Cargando</span>
-      ) : sandbox ? (
+      ) :  (
         <div className="checkout-div-render">
           <div className="checkout-div-info">
             <div className="checkout-product-delivery">
@@ -440,19 +438,7 @@ export const Checkout = () => {
               </div>
             </div>
           </div>
-          {/* {
-          direcciones.some(e=>
-           e.calle_numero === direccion.calle_numero && e.provincia === direccion.provincia && e.localidad === direccion.localidad 
-            && e.codigo_postal === direccion.codigo_postal 
-            //|| input.delivery_type === "sucursal"
-          )? 
-          <div>
-          <button onClick={handleAddress}>Confirmar direccion</button>
-        </div> : 
-          <div>
-          <button disabled onClick={handleAddress}>Confirmar direccion</button>
-        </div>
-        } */}
+        
           <div>
             <button className="button" onClick={handleAddress}>
               Confirmar direccion
@@ -470,9 +456,7 @@ export const Checkout = () => {
             <button onClick={handlePagar}>PAGAR </button>
           )}
         </div>
-      ) : productCart.length === 0 && !sandbox ? (
-        <span>Ya realizaste tu compra</span>
-      ) : null}
+      ) }
     </div>
   );
 };
