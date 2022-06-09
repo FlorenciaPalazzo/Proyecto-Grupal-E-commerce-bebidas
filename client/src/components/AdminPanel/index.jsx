@@ -20,9 +20,6 @@ export default function AdminPanel() {
   let revs = useSelector((state) => state.allReviews);
   let revsPage = useSelector((state) => state.reviewPage);
   const usersLoged = useSelector((state) => state.usersLoged);
-  console.log("userisLoged", usersLoged);
-  console.log("REVSS", revs);
-  console.log("REVS PAGE--->", revsPage);
 
   //tiene el id del usuario
   let array = [];
