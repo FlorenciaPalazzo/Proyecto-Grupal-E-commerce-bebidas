@@ -30,6 +30,13 @@ export default function Detail() {
     e.preventDefault();
     let cart = product;
     cart.quantity = 1;
+    swal({
+      title: "Producto agregado al carrito ",
+      type: 'success',
+      icon: 'success',
+      buttons: false,
+      timer: 800
+    })
     dispatch(addCart(cart));
   };
   useEffect(() => {
