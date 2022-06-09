@@ -9,7 +9,7 @@ export default class Pagination extends React.Component {
     for (let i = 1; i < Math.ceil(product / productsPerPage); i++) {
       pageNumbers.push(i);
     }
-    //Este componente va a renderizar los numeritos en si
+
     return (
       <nav className="nav-pag">
         <ul className="ul">
