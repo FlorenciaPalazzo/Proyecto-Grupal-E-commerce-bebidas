@@ -9,7 +9,7 @@ import {
   filterByType,
   getBrands,
 } from "../../redux/actions";
-import "./FilterStyles.css";
+// import "./FilterStyles.css";
 
 export default function FilterBy({ setCurrentPage }) {
   const dispatch = useDispatch(); ///ver si lo dejo aca o lo saco

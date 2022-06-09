@@ -6,7 +6,7 @@ import { auth } from "../../fb";
 import { resetUser } from "../../redux/actions";
 import FilterBy from "../FilterBy";
 import SearchBar from "../SearchBar";
-import "./NavStyles.css";
+// import "./NavStyles.css";
 import swal from "sweetalert";
 export default function NavBar({ setCurrentPage }) {
   const isLoged = useSelector((state) => state.isLoged);
@@ -26,79 +26,62 @@ export default function NavBar({ setCurrentPage }) {
         console.log(error);
       });
   }
-
+let idPrueba="50"
   return (
-    <div className="nav-main">
-      {isLoged ? (
-        <div className="nav-links">
+      
+<nav class="navbar navbar-expand-lg bg-light">
+{/* {isLoged ? ( */}
+  <div class="container-fluid">
 
-          <div className="nav-right">
-            <Link to={`/favoritos/${usuarioActual.uid}`}>
-              <button className="button">Ver Favoritos</button>
-            </Link>
+    {/* <a class="navbar-brand" href="#">Navbar</a> */}
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {/* <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li> */}
+        {/* <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li> */}
 
-            <Link to={`/historial/${usuarioActual.uid}`}>
-            <button className="button" > Historial de compras </button>
-            </Link>
+        <li class="nav-item dropdown">
 
-            <Link to="/cart">
-              <button className="button-cart">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                  <path d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z" />
-                </svg>
-              </button>
-            </Link>
-            <div className="dropdown">
-              <button className="dropbtn"> Tu cuenta </button>
-              <div className="dropdown-content">
-                <button className="button" onClick={out}>
-                  Logout
-                </button>
-                <button className="button" onClick={() => navigate("/profile")}>
-                  Perfil
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="nav-links">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Mi Cuenta
+          </a>
 
-          <div className="nav-right">
-          
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><Link to="/profile" class="dropdown-item">Mi Perfil</Link></li>
 
-            <Link to="/cart">
-              <button className="button-cart">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                  <path d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z" />
-                </svg>
-              </button>
-            </Link>
-            <div className="dropdown">
-              <button className="dropbtn"> Tu cuenta </button>
-              <div className="dropdown-content">
-                <button className="button" onClick={() => navigate("/login")}>
-                  Login
-                </button>
-                <button
-                  className="button"
-                  onClick={() => navigate("/register")}
-                >
-                  Registrarse
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+            <li> <Link to={`/favoritos/${usuarioActual.uid}`} class="dropdown-item">Favoritos</Link></li>
+           
+            <li><Link to={`/historial/${usuarioActual.uid}`}class="dropdown-item">Historial</Link></li>
 
-      <div className="div-filter-main">
-        <FilterBy setCurrentPage={setCurrentPage} />
-        <SearchBar setCurrentPage={setCurrentPage}/>
-      </div>
-      {/* <div className="div-searchbar">
-        
-      </div> */}
+            <li><hr class="dropdown-divider"/></li>
+             <li><a onClick={out} class="dropdown-item">Salir</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <Link to="/cart"><button type="button" class="btn btn-outline-dark"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+</svg></button></Link>
+
+{/* ):(<h1>Esperando info</h1>)} */}
+
+    <SearchBar  setCurrentPage={setCurrentPage}/>     
     </div>
+  </div>
+
+
+
+      </nav>
+
   );
 }
+
+
+
+

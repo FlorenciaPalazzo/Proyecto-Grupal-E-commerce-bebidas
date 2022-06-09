@@ -8,7 +8,7 @@ import Card from "../Card";
 import Pagination from "../Pagination";
 import Loading from "../Loading";
 import ReactStars from "react-rating-stars-component";
-import "./HomeStyles.css";
+// import "./HomeStyles.css";
 import Carousel from "../Carousel";
 import CarouselBrands from "../CarouselBrands";
 function Home() {
