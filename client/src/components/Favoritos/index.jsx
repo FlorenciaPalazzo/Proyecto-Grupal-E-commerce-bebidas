@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { deleteFavorito, getFavorito,getProducts } from "../../redux/actions";
+import swal from "sweetalert";
 
 export const Favoritos = () => {
   const elFavorito = useSelector((state) => state.favProducts);
@@ -33,7 +34,14 @@ export const Favoritos = () => {
     e.preventDefault();
     let idProd = e.target.value;
     let payload = { id_prod: idProd, id_user: user };
-
+    
+    swal({
+      title: "Favorito eliminado ",
+      type: 'warning',
+      icon: 'warning',
+      buttons: false,
+      timer: 1000
+    })
     dispatch(deleteFavorito(payload)) //↤ No tocar 😈
      window.location.reload()
     

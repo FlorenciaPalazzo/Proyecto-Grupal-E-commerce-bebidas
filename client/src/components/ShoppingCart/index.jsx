@@ -55,6 +55,12 @@ const ShoppingCart = () => {
   const cleanAllCart = (e) => {
     e.preventDefault();
     //dispatch(cleanCart());
+    swal({
+      title: "Carrito vaciado ",
+      type: 'warning',
+      buttons: false,
+      timer: 500
+    })
     dispatch(deleteMercadoPago());
   };
 
