@@ -10,6 +10,7 @@ import Loading from "../Loading";
 import ReactStars from "react-rating-stars-component";
 import "./HomeStyles.css";
 import Carousel from "../Carousel";
+import CarouselBrands from "../CarouselBrands";
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
@@ -60,7 +61,7 @@ function Home() {
       title: "Debes ingresar con tu usuario",
       text: "...para dejar una reseña ⭐⭐⭐!",
       buttons: {
-        cancel: "Seguir navegando",
+        cancel: "Ahorita no joven",
         register: {
           text: "Registrarse",
           value: "register",
@@ -126,7 +127,7 @@ function Home() {
           <div className="banner">
             <img
               className="banner-img"
-              src="/images/bannermain.png"
+              src="/images/bannerchico.png"
               alt="banner"
             />
           </div>
@@ -168,16 +169,23 @@ function Home() {
               )}
               <div></div>
             </div>
-
+            <Pagination
+              currentPage={currentPage}
+              productsPerPage={productsPerPage}
+              product={product.length}
+              pagination={pagination}
+            />
+            <div>
+              <CarouselBrands />
+            </div>
             <div className="footer">
               <Link to="/contact">
                 <button className="button">Contacto</button>
               </Link>
 
               <div className="text">About</div>
-
               <div>
-                <div>
+                <div className="detail-description">
                   {rev ? (
                     rev.map((e) => {
                       return (

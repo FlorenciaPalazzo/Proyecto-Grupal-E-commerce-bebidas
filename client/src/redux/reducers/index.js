@@ -435,7 +435,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
       };
 
     case DEL_FAV:
-      return { ...state, favProducts: payload };
+      return { ...state};
+
     case ADD_DIRECCIONES:
       return {
         ...state,
@@ -484,3 +485,5 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return state;
   }
 }
+
+

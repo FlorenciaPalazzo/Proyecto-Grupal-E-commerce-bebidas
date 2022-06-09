@@ -491,6 +491,7 @@ export const setFavorito = (payload) => {
       let result = await axios.post("http://localhost:3001/producto", payload);
       return dispatch({
         type: SET_FAV,
+        return: payload,
       });
     } catch (err) {
       console.log(err);
