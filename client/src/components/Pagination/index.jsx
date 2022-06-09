@@ -44,7 +44,7 @@ export default class Pagination extends React.Component {
             </button>
           </li>
           <li className="pagination">
-            {currentPage > pageNumbers.length -1 && currentPage > 10 ? null : (
+            {currentPage > pageNumbers.length  ? null : (
               <button
                 className="pagination-button"
                 onClick={() => pagination(currentPage + 1)}
