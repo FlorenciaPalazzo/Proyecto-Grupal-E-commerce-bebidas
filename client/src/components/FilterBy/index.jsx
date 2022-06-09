@@ -16,7 +16,6 @@ export default function FilterBy({ setCurrentPage }) {
   const brands = useSelector((state) => state.brands); //ver esto
   // const [ order, setOrder] = useState("");
 
-
   const handleBrand = (e) => {
     e.preventDefault(); ///agregar a todos.
     setCurrentPage(1);

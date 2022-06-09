@@ -9,7 +9,7 @@ export default class Pagination extends React.Component {
     for (let i = 1; i < Math.ceil(product / productsPerPage); i++) {
       pageNumbers.push(i);
     }
-    //Este componente va a renderizar los numeritos en si
+
     return (
       <nav className="nav-pag">
         <ul className="ul">
@@ -44,7 +44,7 @@ export default class Pagination extends React.Component {
             </button>
           </li>
           <li className="pagination">
-            {currentPage > pageNumbers.length  ? null : (
+            {currentPage > pageNumbers.length ? null : (
               <button
                 className="pagination-button"
                 onClick={() => pagination(currentPage + 1)}
