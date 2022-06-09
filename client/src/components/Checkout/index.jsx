@@ -62,7 +62,7 @@ export const Checkout = () => {
   console.log("soy errors ", errors);
 
   useEffect(() => {
-    if (!sandbox) dispatch(getMercadoPago());
+    dispatch(getMercadoPago());
     dispatch(getDirecciones(id))
     console.log("sandbox ------>", sandbox);
   }, [sandbox, dispatch, user, boleano]);
