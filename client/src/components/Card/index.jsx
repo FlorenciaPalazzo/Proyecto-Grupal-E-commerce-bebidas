@@ -45,9 +45,9 @@ export default function Card({
     console.log("fav", fav);
     e.preventDefault();
     dispatch(setFavorito(fav));
-    return () => {
+    /* return () => {
       setFav({ id_user: a });
-    };
+    }; */
   };
 
   const handleAlertFav = (e) => {

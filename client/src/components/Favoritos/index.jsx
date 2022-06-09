@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { deleteFavorito, getFavorito } from "../../redux/actions";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { deleteFavorito, getFavorito,getProducts } from "../../redux/actions";
 
 export const Favoritos = () => {
   const elFavorito = useSelector((state) => state.favProducts);
   //const usuario = useSelector((state) => state.currentUser);
-
+  let navigate = useNavigate();
   console.log("EL FAVORITO", elFavorito);
   const dispatch = useDispatch();
 
@@ -14,18 +14,30 @@ export const Favoritos = () => {
 
   console.log("SOY EL USUARIO--->", user);
 
+// Toni dice que tiene que existir ↧↧↧↧
   useEffect(() => {
-    if (!elFavorito.length) {
-      dispatch(getFavorito(user));
-    }
-  }, [elFavorito]);
+    //no tocar :), 
+    dispatch(getProducts());
+}, []);
 
+// y este tb ↧↧↧
+  useEffect(() => { 
+  
+    if(!elFavorito.length){
+      dispatch(getFavorito(user));
+      
+    }
+  }, [dispatch]);
+  
   const handleDeleteFav = (e) => {
     e.preventDefault();
     let idProd = e.target.value;
     let payload = { id_prod: idProd, id_user: user };
 
-    dispatch(deleteFavorito(payload));
+    dispatch(deleteFavorito(payload)) //↤ No tocar 😈
+     window.location.reload()
+    
+    
   };
   return (
     <div>
@@ -34,7 +46,7 @@ export const Favoritos = () => {
       </Link>
       <div>Lista de Favoritos</div>
 
-      {elFavorito.length > 0 ? (
+      {elFavorito.length  ? (
         elFavorito.map((e) => {
           return (
             <div key={e.id}>
@@ -48,7 +60,32 @@ export const Favoritos = () => {
         })
       ) : (
         <div>
-          <h2>No hay favoritos</h2>
+          <Link to="/">
+            <button className="button">Home</button>
+          </Link>
+          <div>Lista de Favoritos</div>
+
+          {elFavorito.length > 0 ? (
+            elFavorito.map((e) => {
+              return (
+                <div key={e.id}>
+                  <button
+                    className="button"
+                    value={e.id}
+                    onClick={handleDeleteFav}
+                  >
+                    Borrar
+                  </button>
+                  {e.nombre}
+                  <img src={e.imagen} width="20%" />
+                </div>
+              );
+            })
+          ) : (
+            <div>
+              <h2>No hay favoritos</h2>
+            </div>
+          )}
         </div>
       )}
     </div>

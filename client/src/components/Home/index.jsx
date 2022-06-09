@@ -10,6 +10,7 @@ import Loading from "../Loading";
 import ReactStars from "react-rating-stars-component";
 import "./HomeStyles.css";
 import Carousel from "../Carousel";
+import CarouselBrands from "../CarouselBrands";
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
@@ -20,6 +21,7 @@ function Home() {
   const searchProduct = useSelector((state) => state.searchProduct);
   const verified = useSelector((state) => state.currentUser);
   const isLoged = useSelector((state) => state.isLoged);
+  const admin = useSelector((state) => state.isAdmin);
   const [, /*order*/ setOrder] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -48,7 +50,10 @@ function Home() {
 
   useEffect(() => {
     dispatch(getBrands());
-  }, [dispatch, product, loading, searchProduct, rev]);
+    if (admin) {
+      navigate("/admin");
+    }
+  }, [dispatch, product, loading, searchProduct, rev, admin]);
 
   const handleAlertReview = (e) => {
     e.preventDefault();
@@ -56,7 +61,7 @@ function Home() {
       title: "Debes ingresar con tu usuario",
       text: "...para dejar una reseña ⭐⭐⭐!",
       buttons: {
-        cancel: "Seguir navegando",
+        cancel: "Ahorita no joven",
         register: {
           text: "Registrarse",
           value: "register",
@@ -119,14 +124,21 @@ function Home() {
             />
           </label>
           <NavBar setCurrentPage={setCurrentPage} />
+          <div className="banner">
+            <img
+              className="banner-img"
+              src="/images/bannerchico.png"
+              alt="banner"
+            />
+          </div>
           <div>
+            <Carousel />
             <Pagination
               currentPage={currentPage}
               productsPerPage={productsPerPage}
               product={product.length}
               pagination={pagination}
             />
-            <Carousel />
             <div className="card-container">
               {currentProducts.length > 0 ? (
                 currentProducts.map((e) => {
@@ -157,13 +169,23 @@ function Home() {
               )}
               <div></div>
             </div>
-
+            <Pagination
+              currentPage={currentPage}
+              productsPerPage={productsPerPage}
+              product={product.length}
+              pagination={pagination}
+            />
+            <div>
+              <CarouselBrands />
+            </div>
             <div className="footer">
-              <div className="text">Contacto</div>
-              <div className="text">About</div>
+              <Link to="/contact">
+                <button className="button">Contacto</button>
+              </Link>
 
+              <div className="text">About</div>
               <div>
-                <div>
+                <div className="detail-description">
                   {rev ? (
                     rev.map((e) => {
                       return (

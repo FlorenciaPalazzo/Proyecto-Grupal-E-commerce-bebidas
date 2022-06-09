@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Carousel() {
   return (
+
     <Link to='/offers'>
     <div class="slider">
       <ul>
@@ -17,7 +18,6 @@ export default function Carousel() {
           <img src="./images/bannercorona.jpeg" alt="" />
         </li>
       </ul>
-
     </div>
     </Link>
   );

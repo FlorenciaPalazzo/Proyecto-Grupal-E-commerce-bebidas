@@ -93,6 +93,7 @@ const ShoppingCart = () => {
     });
   };
 
+  console.log("object");
   return (
     <div className="carrito-container">
       {loading /* revisen esto!! */ ? (
@@ -100,7 +101,7 @@ const ShoppingCart = () => {
       ) : (
         <div className="carrito-body">
           <Link to="/">
-            <button className="button">Regresar</button>
+            <img className="details-logo" src="/logo/logo.png" alt="logo" />
           </Link>
           <div className="carrito-background">
             <h1>Carrito</h1>
@@ -125,7 +126,7 @@ const ShoppingCart = () => {
                             onClick={deleteProduct}
                             value={element.id}
                           >
-                            ❌
+                            ➖
                           </button>
                           <div>
                             ${element.precio} x {element.quantity} = $
@@ -145,23 +146,22 @@ const ShoppingCart = () => {
                 })}
 
               <span>
-                
-                  <div className="carrito-resumen">
-                    <button className="button" onClick={cleanAllCart}>
-                      Limpiar carrito
-                    </button>
-                    <h1 className="carrito-total">Precio: ${total}</h1>
-                 
-               {verified && !verified.emailVerified ? (
-                  <button className="button" onClick={handleAlertCarrito}>
-                    PAGAR
+                <div className="carrito-resumen">
+                  <button className="button" onClick={cleanAllCart}>
+                    Limpiar carrito
                   </button>
-                ) : (
-                  <button className="button-pagar" onClick={postCarrito}>
+                  <h1 className="carrito-total">Precio: ${total}</h1>
+
+                  {/* {verified && !verified.emailVerified ? (
+                    <button className="button" onClick={handleAlertCarrito}>
                       PAGAR
                     </button>
-                )}   
-                  </div>
+                  ) : ( */}
+                  <button className="button-pagar" onClick={postCarrito}>
+                    PAGAR
+                  </button>
+                  {/* )} */}
+                </div>
               </span>
             </div>
           </div>
