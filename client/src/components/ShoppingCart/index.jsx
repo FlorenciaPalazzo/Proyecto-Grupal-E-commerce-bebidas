@@ -176,14 +176,18 @@ const ShoppingCart = () => {
                   </button>
                   <h1 className="carrito-total">Precio: ${total}</h1>
 
-                  {/* {verified && !verified.emailVerified ? (
+                  {
+                    /* verified && !verified.emailVerified ? (
                     <button className="button" onClick={handleAlertCarrito}>
                       PAGAR
                     </button>
-                  ) : (  {/* )} */}
-                  <button className="button-pagar" onClick={postCarrito}>
-                    PAGAR
-                  </button>
+                  ) :  */ <button
+                      className="button-pagar"
+                      onClick={postCarrito}
+                    >
+                      PAGAR
+                    </button>
+                  }
                 </div>
               </span>
             </div>
