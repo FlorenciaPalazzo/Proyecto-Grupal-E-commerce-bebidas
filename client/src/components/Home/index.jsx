@@ -8,9 +8,10 @@ import Card from "../Card";
 import Pagination from "../Pagination";
 import Loading from "../Loading";
 import ReactStars from "react-rating-stars-component";
-// import "./HomeStyles.css";
+import "./HomeStyles.css";
 import Carousel from "../Carousel";
 import CarouselBrands from "../CarouselBrands";
+import FilterBy from "../FilterBy";
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
@@ -85,52 +86,17 @@ function Home() {
 
   console.log("searchProduct", searchProduct);
 
-  //////////////👇👇👇aqui modo oscuro 👇👇👇///////////
-
-  const [checked, setChecked] = useState(
-    localStorage.getItem("theme") === "dark" ? true : false
-  );
-
-  useEffect(() => {
-    document
-      .getElementsByTagName("HTML")[0]
-      .setAttribute("data-theme", localStorage.getItem("theme"));
-  }, [checked]);
-
-  const toggleThemeChange = () => {
-    if (checked === false) {
-      localStorage.setItem("theme", "dark");
-      setChecked(true);
-    } else {
-      localStorage.setItem("theme", "light");
-      setChecked(false);
-    }
-  };
-
-  /////////////////👆👆👆aqui modo oscuro 👆👆👆/////////////////
   return (
     <div>
       {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
         <div className="div-body">
-          {/* 👇👇👇modo oscuro para el render 👇👇👇*/}
-          <p>Click para cambiar el tema</p>
-          <label>
-            <input
-              type="checkbox"
-              defaultChecked={checked}
-              onChange={() => toggleThemeChange()}
-            />
-          </label>
           <NavBar setCurrentPage={setCurrentPage} />
-          <div className="banner">
-            <img
-              className="banner-img"
-              src="/images/bannerchico.png"
-              alt="banner"
-            />
-          </div>
+          <FilterBy setCurrentPage={setCurrentPage} />
+
+          <img src="/images/imagen-Registrate3.jpg" class="img-fluid" />
+
           <div>
             <Carousel />
             <Pagination
