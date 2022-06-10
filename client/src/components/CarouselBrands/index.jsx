@@ -6,13 +6,13 @@ export default function CarouselBrands() {
     <div class="sliderBrands">
       <ul>
         <li>
-          <img src="./images/bannermarcas.jpeg" width="100%" alt="" />
+          <img src="./images/bannermarcas.jpg" width="100%" alt="" />
         </li>
         <li>
-          <img src="./images/bannermarcas2.jpeg" width="100%" alt="" />
+          <img src="./images/bannermarcas2.jpg" width="100%" alt="" />
         </li>
         <li>
-          <img src="./images/bannermarcas3.jpeg" width="100%" alt="" />
+          <img src="./images/bannermarcas3.jpg" width="100%" alt="" />
         </li>
       </ul>
     </div>
