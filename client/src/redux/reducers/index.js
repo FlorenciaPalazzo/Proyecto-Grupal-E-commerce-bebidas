@@ -43,6 +43,7 @@ import {
   ADD_HIST,
   GET_HIST,
   CLEAR_STATE,
+  PUT_PRODUCTO,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -312,6 +313,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
               ...prod,
               quantity: prod.quantity + 1,
               subtotal: prod.precio * (prod.quantity + 1),
+              stock: prod.stock -1
             }
           : prod
       ); //modifica el quantity si el id ya existia
@@ -337,6 +339,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
               ...prod,
               quantity: prod.quantity - 1,
               subtotal: prod.subtotal - prod.precio,
+              stock: prod.stock +1
             }
           : prod
       );
@@ -480,6 +483,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         detail: [],
+      };
+    case PUT_PRODUCTO:
+      return {
+        ...state,
+       
       };
     default:
       return state;

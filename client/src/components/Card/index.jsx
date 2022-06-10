@@ -12,6 +12,7 @@ export default function Card({
   ml,
   graduacion,
   precio,
+  stock
 }) {
   const usuario = useSelector((state) => state.currentUser);
   const isLoged = useSelector((state) => state.isLoged);
@@ -32,12 +33,31 @@ export default function Card({
     precio,
     quantity: 1,
     subtotal: precio,
+    stock
   };
 
   const dispatch = useDispatch();
 
   const handleAddCarrito = (e) => {
     e.preventDefault();
+    console.log( "stock",productObject.stock);
+    productObject.stock === 0?
+     swal({
+      title: "Producto sin stock...",
+      text: "...Subcribete para que te informemos cuando este disponible nuevamente...🛒🛒🛒!",
+      buttons: {
+        cancel: "Seguir navegando",
+        register: {
+          text: "Subcribirse",
+          value: "subcribirse",
+        },
+      },
+      icon: "warning",
+    }).then((value) => {
+      if (value === "subcribirse") {
+        navigate("/subcribirse");
+      }
+    }):
     dispatch(addCart(productObject));
   };
 

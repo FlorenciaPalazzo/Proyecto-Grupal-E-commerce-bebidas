@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
-import { deleteMercadoPago, addHist } from "../../redux/actions";
+import { deleteMercadoPago, addHist, putProduct } from "../../redux/actions";
 import Loading from "../Loading";
 
 export const FeedBack = () => {
@@ -33,7 +33,9 @@ export const FeedBack = () => {
 
     console.log("foo", foo);
     if (foo === "approved") {
-      dispatch(addHist(historial));
+      dispatch(addHist(historial))
+      productCart?.map(e=>dispatch(putProduct(e)) )
+      ;
       console.log("APROBADO");
       setTimeout(navigate("/"), 10000);
       swal({

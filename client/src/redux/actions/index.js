@@ -42,6 +42,7 @@ import {
   ADD_HIST,
   GET_HIST,
   CLEAR_STATE,
+  PUT_PRODUCTO
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -618,5 +619,18 @@ export const clearState = () => {
   console.log("clearState");
   return {
     type: CLEAR_STATE,
+  };
+};
+export const putProduct = (payload) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.get("http://localhost:3001/review/" , payload);
+      return dispatch({
+        type: PUT_PRODUCTO,
+        payload: result.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 };

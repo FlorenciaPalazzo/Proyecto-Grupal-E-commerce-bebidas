@@ -46,6 +46,24 @@ const ShoppingCart = () => {
   const addProduct = (e) => {
     e.preventDefault();
     let productObject = productArray.find((el) => el.id === e.target.value);
+   console.log("stock", productObject.stock); 
+    productObject.stock?
+    swal({
+      title: "Producto sin stock...",
+      text: "...Subcribete para que te informemos cuando este disponible nuevamente...🛒🛒🛒!",
+      buttons: {
+        cancel: "Seguir navegando",
+        register: {
+          text: "Subcribirse",
+          value: "subcribirse",
+        },
+      },
+      icon: "warning",
+    }).then((value) => {
+      if (value === "subcribirse") {
+        navigate("/subcribirse");
+      }
+    }):
     dispatch(addCart(productObject));
   };
   const deleteProduct = (e) => {
