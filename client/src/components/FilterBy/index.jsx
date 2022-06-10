@@ -14,11 +14,13 @@ import {
 export default function FilterBy({ setCurrentPage }) {
   const dispatch = useDispatch(); ///ver si lo dejo aca o lo saco
   const brands = useSelector((state) => state.brands); //ver esto
+  // const [ order, setOrder] = useState("");
 
   const handleBrand = (e) => {
     e.preventDefault(); ///agregar a todos.
     setCurrentPage(1);
     dispatch(filterByBrand(e.target.value));
+    // setOrder(`Organized ${e.target.value}`)
   };
   const handleType = (e) => {
     e.preventDefault();

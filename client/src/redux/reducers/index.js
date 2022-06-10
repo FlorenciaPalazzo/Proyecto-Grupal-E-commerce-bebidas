@@ -52,6 +52,7 @@ const initialState = {
   isLoading: true,
   usersLoged: [],
   brands: [],
+  brandsCopy: [],
   products: [],
   searchProduct: [],
   productsSort: [],
@@ -124,6 +125,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         brands: brandFilter,
+        brandsCopy: brandFilter,
       };
     case FILTER_BY_BRAND:
       if (payload === "all") {
@@ -435,7 +437,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       };
 
     case DEL_FAV:
-      return { ...state};
+      return { ...state };
 
     case ADD_DIRECCIONES:
       return {

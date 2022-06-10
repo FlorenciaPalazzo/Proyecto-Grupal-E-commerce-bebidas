@@ -22,7 +22,6 @@ export const ReviewCar = ({
       <div>
         {filt ? (
           <div>
-            {emailUsuario ? <h3>Email del usuario: {emailUsuario}</h3> : null}
             <h4>{filt.nombre}</h4>
             <img width="10%" src={filt.imagen} alt="" />
             <h4>Fecha: {fecha.split("T")[0]}</h4>
@@ -30,12 +29,12 @@ export const ReviewCar = ({
         ) : (
           <div>
             <h3>Review de la página</h3>
-
             <img width="10%" src="./logo/logo.png" alt="" />
             <h4>Fecha: {fecha.split("T")[0]}</h4>
           </div>
         )}
       </div>
+      {emailUsuario ? <p>Email del usuario: {emailUsuario}</p> : null}
       <p>Titulo: {titulo}</p>
       <p>Comentario: {comentario}</p>
       Puntaje:{" "}

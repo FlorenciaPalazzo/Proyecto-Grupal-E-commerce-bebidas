@@ -23,7 +23,7 @@ function Home() {
   const verified = useSelector((state) => state.currentUser);
   const isLoged = useSelector((state) => state.isLoged);
   const admin = useSelector((state) => state.isAdmin);
-  const [, /*order*/ setOrder] = useState("");
+  const [ order, setOrder] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage /*setProductsPerPage*/] = useState(20); //15 productos por pagina

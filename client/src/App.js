@@ -18,6 +18,7 @@ import { Favoritos } from "./components/Favoritos";
 import Offers from "./components/Off/Offers";
 import Historial from "./components/Historial";
 import ResetPassword from "./components/Auth/ResetPassword";
+import { AdminReview } from "./components/Review/AdminReview";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         <Route path="/review" exact element={<Review />} />
         <Route path="/favoritos/:id_user" exact element={<Favoritos />} />
         <Route path="/historial/:id" exact element={<Historial />} />
+        <Route path="/adminreview" exact element={<AdminReview />} />
       </Routes>
     </div>
   );

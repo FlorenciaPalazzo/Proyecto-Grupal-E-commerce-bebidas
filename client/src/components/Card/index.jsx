@@ -58,12 +58,25 @@ export default function Card({
         navigate("/subcribirse");
       }
     }):
+    swal({
+      title : "Producto agregado al carrito ",
+      type : 'success',
+      icon: 'success',
+      buttons: false,
+      timer : 800
+    })
     dispatch(addCart(productObject));
   };
 
   const handleAddFavorito = (e) => {
     console.log("fav", fav);
     e.preventDefault();
+    swal({
+      title: "Agregado a favoritos ",
+      type: 'success',
+      buttons: false,
+      timer: 500
+    })
     dispatch(setFavorito(fav));
     /* return () => {
       setFav({ id_user: a });
