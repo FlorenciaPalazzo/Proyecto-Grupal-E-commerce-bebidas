@@ -42,6 +42,7 @@ import {
   CLEAR_STATE,
   PUT_PRODUCTO,
   GET_REVIEW_BY_USER,
+  GET_USER_BY_ID,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -58,6 +59,7 @@ const initialState = {
   searchProduct: [],
   productsSort: [],
   detail: [],
+  userId : {},
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
@@ -418,18 +420,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
       };
     case GET_REVIEW_BY_USER:
-      let revs = state.allReviews;
-      console.log(revs);
+      return {
+        ...state,
+        userReviews : payload
+      }
 
-      let filt = [];
-
-      /* revs.forEach((e) => {
-         if (e.usuarioId === payload) {
-          filt.push(e);
-        }  
-      });*/
-
-      console.log("hola desde el reducer", filt);
     case SET_FAV:
       return { ...state };
 
@@ -451,6 +446,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         favProducts: arr,
       };
+
+    case GET_USER_BY_ID : 
+      return {
+        ...state ,
+        userId : payload
+      }
 
     case DEL_FAV:
       return { ...state };
@@ -499,6 +500,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         detail: [],
         review: [],
+        userReviews : [],
       };
     case PUT_PRODUCTO:
       return {

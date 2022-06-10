@@ -83,7 +83,6 @@ function UserProfile() {
                   producto={r.productoId}
                   fecha={r.createdAt}
                 />
-                <div></div>
                 <button onClick={handleDelete} value={r.id}>
                   ❌
                 </button>
