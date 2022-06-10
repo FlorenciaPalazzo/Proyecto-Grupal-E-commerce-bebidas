@@ -79,28 +79,3 @@ export const AdminRevDetail = (/* { id } */) => {
     </div>
   );
 };
-
-/*   <div className="review-detail">
-      {filterReviews?.map((r) => {
-        let otroArray;
-        array.find((e) => {
-          if (e.id === r.usuarioId) {
-            otroArray = e.email;
-            console.log("otroArray", otroArray);
-          }
-        });
-        return (
-          <div key={r.id} value={r.id}>
-            <ReviewCar
-              titulo={r.titulo}
-              comentario={r.comentario}
-              puntaje={r.puntaje}
-              producto={r.productoId}
-              fecha={r.createdAt}
-              emailUsuario={otroArray}
-            />
-          </div>
-        );
-      })}{" "}
-      : (<div className="review-body">no hay reviews</div>)
-    </div> */
