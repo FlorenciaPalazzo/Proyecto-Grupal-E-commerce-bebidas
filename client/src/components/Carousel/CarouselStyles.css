@@ -17,6 +17,7 @@
 .slider li {
   width: 100%;
   list-style: none;
+  height: 100%;
 }
 
 .slider img {

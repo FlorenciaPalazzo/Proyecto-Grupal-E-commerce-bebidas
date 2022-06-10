@@ -2,6 +2,7 @@
 	width: 72%;
 	margin: auto;
 	overflow: hidden;
+	
 }
 
 .sliderBrands ul {
@@ -9,11 +10,12 @@
 	padding: 0;
 	width: 300%;
 	
-	animation: cambio 6s infinite alternate linear;
+	animation: cambio 10s infinite alternate linear;
 }
 
 .sliderBrands li {
 	width: 100%;
+	height: 100%;
 	list-style: none;
 }
 
