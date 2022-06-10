@@ -1,6 +1,3 @@
-/* import { onAuthStateChanged } from "firebase/auth";
-import { auth, currentUser } from "../../fb"; */
-//import { SET_FAV } from "../actions/actionsTypes";
 import {
   ADMIN_HANDLER,
   SET_USER,
@@ -43,6 +40,8 @@ import {
   ADD_HIST,
   GET_HIST,
   CLEAR_STATE,
+  PUT_PRODUCTO,
+  GET_REVIEW_BY_USER,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -70,6 +69,8 @@ const initialState = {
   review: [],
   reviewPage: [],
   allReviews: [],
+  userReviews: [],
+  searchProduct: [],
   favProducts: [],
   historial: [],
   favBoolean: [],
@@ -314,6 +315,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
               ...prod,
               quantity: prod.quantity + 1,
               subtotal: prod.precio * (prod.quantity + 1),
+              stock: prod.stock - 1,
             }
           : prod
       ); //modifica el quantity si el id ya existia
@@ -339,6 +341,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
               ...prod,
               quantity: prod.quantity - 1,
               subtotal: prod.subtotal - prod.precio,
+              stock: prod.stock + 1,
             }
           : prod
       );
@@ -414,6 +417,19 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
       };
+    case GET_REVIEW_BY_USER:
+      let revs = state.allReviews;
+      console.log(revs);
+
+      let filt = [];
+
+      /* revs.forEach((e) => {
+         if (e.usuarioId === payload) {
+          filt.push(e);
+        }  
+      });*/
+
+      console.log("hola desde el reducer", filt);
     case SET_FAV:
       return { ...state };
 
@@ -482,6 +498,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         detail: [],
+        review: [],
+      };
+    case PUT_PRODUCTO:
+      return {
+        ...state,
       };
     default:
       return state;

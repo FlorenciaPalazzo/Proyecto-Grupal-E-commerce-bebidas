@@ -1,10 +1,12 @@
 .slider {
-  width: 95%;
+  
+  width:100%;
   margin: auto;
   overflow: hidden;
 }
 
 .slider ul {
+  margin-top: 1%;
   display: flex;
   padding: 0;
   width: 300%;
@@ -15,6 +17,7 @@
 .slider li {
   width: 100%;
   list-style: none;
+  height: 100%;
 }
 
 .slider img {

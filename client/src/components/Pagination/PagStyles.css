@@ -15,27 +15,27 @@
     height: 3em;
     flex-wrap: wrap;
     flex-direction: row;
+    border-bottom-width: 1px solid #000
 }
 
 .pagination-button,
 .pagination-number {
     font-family: "Montserrat";
-    font-weight: 200;
-    font-size: 18px;
-    color: hsl(207, 19%, 9%);
-    background-color: hsl(0, 0%, 44%);
+    font-weight: 150%;
+    font-size: 150%;
+    color: #eeb305;
+     background-color: transparent; 
     border: none;
     border-radius: 2px;
     padding: 4px 13px;
     margin: 10px 10px;
-    box-shadow: 2px 2px 15px rgba(71, 71, 71, 0.3) 20%;
-    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+    /* box-shadow: 2px 2px 15px rgba(71, 71, 71, 0.3) 20%; */
+    /* text-shadow: 1px 1px 1px rgb(0, 0, 0); */
+  
+    border-radius: 30px;
 }
 
 .pagination-number {
-    background-color: hsl(0, 0%, 59%);
+    background-color: #ffc10700;
 }
 
-.pagination-button:hover {
-    background-color: hsl(0, 0%, 75%);
-}
