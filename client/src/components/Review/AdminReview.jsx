@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   getAllReviews,
   getReviewPage,
@@ -14,7 +15,8 @@ export const AdminReview = () => {
   let revs = useSelector((state) => state.allReviews);
   let revsPage = useSelector((state) => state.reviewPage);
   const usersLoged = useSelector((state) => state.usersLoged);
-  const [int, setInt] = useState(0);
+  const [filterReviews, setfilterReviews] = useState([]);
+
   //tiene el id del usuario
   let array = [];
   revs.forEach((e) => {
@@ -24,9 +26,7 @@ export const AdminReview = () => {
       }
     });
   });
-
   let pagePuntaje = [];
-
   revsPage.forEach((e) => {
     pagePuntaje.push(e.puntaje);
   });
@@ -34,10 +34,26 @@ export const AdminReview = () => {
   let larguen = pagePuntaje.length;
   let sumaPage = pagePuntaje.forEach((e) => (accio += e));
   let promPage = accio / larguen;
-
   let prom = 0;
   prom = Math.round(promPage);
 
+  const handleSelector = (e) => {
+    e.preventDefault();
+    console.log(e.target.value);
+    if (e.target.value === "pagina") {
+      setfilterReviews([...revsPage]);
+    } else if (e.target.value === "productos") {
+      let arr = [];
+      revs.forEach((e) => {
+        if (e.productoId !== null) {
+          arr.push(e);
+        }
+      });
+      setfilterReviews([...arr]);
+    } else {
+      setfilterReviews([...revs]);
+    }
+  };
   useEffect(() => {
     dispatch(getAllReviews());
     dispatch(getUsersLoged());
@@ -63,7 +79,13 @@ export const AdminReview = () => {
             ) : null}
           </div>
           <h1>Reviews</h1>
-          {revs?.map((r) => {
+          <select name="" id="" onChange={handleSelector}>
+            <option disabled>Filtrar reviews</option>
+            <option value="all">Todas</option>
+            <option value="pagina">Página</option>
+            <option value="productos">Productos</option>
+          </select>
+          {filterReviews?.map((r) => {
             let otroArray;
             array.find((e) => {
               if (e.id === r.usuarioId) {
@@ -81,6 +103,11 @@ export const AdminReview = () => {
                   fecha={r.createdAt}
                   emailUsuario={otroArray}
                 />
+                {r.productoId ? (
+                  <Link to={`/adminreview/${r.id}`}>
+                    Ver reviews de este producto
+                  </Link>
+                ) : null}
               </div>
             );
           })}

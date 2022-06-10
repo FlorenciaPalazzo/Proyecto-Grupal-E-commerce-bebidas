@@ -39,11 +39,11 @@ export default function PostReview() {
     e.preventDefault();
     swal({
       title: "Review dejada con exito ",
-      type: 'success',
-      icon: 'success',
+      type: "success",
+      icon: "success",
       buttons: false,
-      timer: 800
-    })
+      timer: 800,
+    });
     dispatch(postReview(input));
     setInput({
       titulo: "",

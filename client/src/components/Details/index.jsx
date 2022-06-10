@@ -32,11 +32,11 @@ export default function Detail() {
     cart.quantity = 1;
     swal({
       title: "Producto agregado al carrito ",
-      type: 'success',
-      icon: 'success',
+      type: "success",
+      icon: "success",
       buttons: false,
-      timer: 800
-    })
+      timer: 800,
+    });
     dispatch(addCart(cart));
   };
   useEffect(() => {
