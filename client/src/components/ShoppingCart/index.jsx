@@ -174,7 +174,7 @@ const ShoppingCart = () => {
                     <button className="button" onClick={handleAlertCarrito}>
                       PAGAR
                     </button>
-                  ) : ( */}
+                  ) : ( 
                   <button className="button-pagar" onClick={postCarrito}>
                     PAGAR
                   </button>

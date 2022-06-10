@@ -10,6 +10,8 @@
     "@testing-library/react": "^11.2.1",
     "@testing-library/user-event": "^12.2.2",
     "axios": "^0.27.2",
+    "bootstrap": "^5.2.0-beta1",
+    "bootstrap-icons": "^1.8.3",
     "firebase": "^9.8.1",
     "i": "^0.3.7",
     "npm": "^8.12.1",

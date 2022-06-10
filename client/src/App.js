@@ -19,9 +19,11 @@ import Offers from "./components/Off/Offers";
 import Historial from "./components/Historial";
 import ResetPassword from "./components/Auth/ResetPassword";
 
+
 function App() {
   return (
     <div className="App">
+      
       <Routes>
         {/* <Route path="/" exact element={<Landing />} /> */}
         <Route path="/" exact element={<Home />} />
