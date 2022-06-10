@@ -1,4 +1,4 @@
-* {
+/* * {
     margin: 0;
     padding: 0;
 }
@@ -34,9 +34,7 @@
     justify-content: space-between;
     align-content: center;
     border-top: solid 2px #3c3c3c;
-    
     box-sizing: border-box;
-    
     margin-left: 5%;
     margin-right: 5%;
     padding: 3%;
@@ -131,7 +129,7 @@
     top: auto;
     color: #f5f5f5;
     background-color: #3C3C3C;
-    /* border-radius: 5px; */
+    border-radius: 5px;
     transition: background-color 0.1s ease-in-out;
     font-family: "Montserrat";
     font-weight: bold;
@@ -189,4 +187,51 @@
 .details-logo:hover {
     opacity: 100%;
     transition: opacity 0.1s ease-in-out
+} */
+
+body {
+    background-color: #ebebeb;
+    margin-top: 20px;
+    font-family: "Montserrat";
+}
+
+.card {
+    margin-bottom: 30px;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid transparent;
+    border-radius: 0;
+}
+
+.card .card-subtitle {
+    font-weight: 300;
+    margin-bottom: 10px;
+    color: #8898aa;
+}
+
+.table-product.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f3f8fa!important
+}
+
+.table-product td {
+    border-top: 0px solid #dee2e6 !important;
+    color: #728299!important;
+}
+
+.card-group .card {
+    margin: 10px;
+    transition: box-shadow 0.1s ease-in-out;
+}
+
+.card-group .card:hover {
+    box-shadow: 0 0 5px rgb(100, 100, 100);
+    transition: box-shadow 0.1s ease-in-out;
 }
