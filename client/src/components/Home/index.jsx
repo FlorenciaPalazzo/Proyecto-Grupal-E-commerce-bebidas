@@ -11,6 +11,8 @@ import ReactStars from "react-rating-stars-component";
 import "./HomeStyles.css";
 import Carousel from "../Carousel";
 import CarouselBrands from "../CarouselBrands";
+import FilterBy from "../FilterBy";
+import Contact from "../Contact";
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
@@ -22,7 +24,7 @@ function Home() {
   const verified = useSelector((state) => state.currentUser);
   const isLoged = useSelector((state) => state.isLoged);
   const admin = useSelector((state) => state.isAdmin);
-  const [ order, setOrder] = useState("");
+  const [order, setOrder] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage /*setProductsPerPage*/] = useState(20); //15 productos por pagina
@@ -85,52 +87,17 @@ function Home() {
 
   console.log("searchProduct", searchProduct);
 
-  //////////////👇👇👇aqui modo oscuro 👇👇👇///////////
-
-  const [checked, setChecked] = useState(
-    localStorage.getItem("theme") === "dark" ? true : false
-  );
-
-  useEffect(() => {
-    document
-      .getElementsByTagName("HTML")[0]
-      .setAttribute("data-theme", localStorage.getItem("theme"));
-  }, [checked]);
-
-  const toggleThemeChange = () => {
-    if (checked === false) {
-      localStorage.setItem("theme", "dark");
-      setChecked(true);
-    } else {
-      localStorage.setItem("theme", "light");
-      setChecked(false);
-    }
-  };
-
-  /////////////////👆👆👆aqui modo oscuro 👆👆👆/////////////////
   return (
     <div>
       {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
         <div className="div-body">
-          {/* 👇👇👇modo oscuro para el render 👇👇👇*/}
-          <p>Click para cambiar el tema</p>
-          <label>
-            <input
-              type="checkbox"
-              defaultChecked={checked}
-              onChange={() => toggleThemeChange()}
-            />
-          </label>
           <NavBar setCurrentPage={setCurrentPage} />
-          <div className="banner">
-            <img
-              className="banner-img"
-              src="/images/bannerchico.png"
-              alt="banner"
-            />
-          </div>
+          <FilterBy setCurrentPage={setCurrentPage} />
+
+          <img src="/images/imagen-Registrate3.jpg" class="img-fluid" />
+
           <div>
             <Carousel />
             <Pagination
@@ -153,6 +120,7 @@ function Home() {
                           ml={e.ml}
                           graduacion={e.graduacion}
                           precio={e.precio}
+                          stock={e.stock}
                         />
                       </Link>
                     </div>
@@ -178,41 +146,51 @@ function Home() {
             <div>
               <CarouselBrands />
             </div>
+            <div class="container ">
+              <div class="row">
+                <div class="col bg-dark">GOOGLE MAPS</div>
+                <div class="col bg-secondary">
+                  CONTACTANOS
+                  <Contact />
+                </div>
+              </div>
+            </div>
+
+            <div className="detail-description">
+              {rev ? (
+                rev.map((e) => {
+                  return (
+                    <div key={e.id}>
+                      <p>Titulo: {e.titulo}</p>
+                      <p>Comentario: {e.comentario}</p>
+                      <div>
+                        Puntaje:{" "}
+                        <ReactStars
+                          count={e.puntaje}
+                          size={24}
+                          isHalf={true}
+                          emptyIcon={<i className="far fa-star"></i>}
+                          halfIcon={<i className="fa fa-star-half-alt"></i>}
+                          fullIcon={<i className="fa fa-star"></i>}
+                          edit={false}
+                          color="#ffd700"
+                        />
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <span>No hay reviews</span> // esto es lo que tiraba error del pDOM en la consola
+              )}
+            </div>
+
             <div className="footer">
               <Link to="/contact">
                 <button className="button">Contacto</button>
               </Link>
 
               <div className="text">About</div>
-              <div>
-                <div className="detail-description">
-                  {rev ? (
-                    rev.map((e) => {
-                      return (
-                        <div key={e.id}>
-                          <p>Titulo: {e.titulo}</p>
-                          <p>Comentario: {e.comentario}</p>
-                          <div>
-                            Puntaje:{" "}
-                            <ReactStars
-                              count={e.puntaje}
-                              size={24}
-                              isHalf={true}
-                              emptyIcon={<i className="far fa-star"></i>}
-                              halfIcon={<i className="fa fa-star-half-alt"></i>}
-                              fullIcon={<i className="fa fa-star"></i>}
-                              edit={false}
-                              color="#ffd700"
-                            />
-                          </div>
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <span>No hay reviews</span> // esto es lo que tiraba error del pDOM en la consola
-                  )}
-                </div>
-              </div>
+              <div></div>
             </div>
           </div>
         </div>

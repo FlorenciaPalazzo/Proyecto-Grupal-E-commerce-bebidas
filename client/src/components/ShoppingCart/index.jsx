@@ -46,7 +46,25 @@ const ShoppingCart = () => {
   const addProduct = (e) => {
     e.preventDefault();
     let productObject = productArray.find((el) => el.id === e.target.value);
-    dispatch(addCart(productObject));
+    console.log("stock", productObject.stock);
+    productObject.stock === 0
+      ? swal({
+          title: "Producto sin stock...",
+          text: "...Subcribete para que te informemos cuando este disponible nuevamente...🛒🛒🛒!",
+          buttons: {
+            cancel: "Seguir navegando",
+            register: {
+              text: "Subcribirse",
+              value: "subcribirse",
+            },
+          },
+          icon: "warning",
+        }).then((value) => {
+          if (value === "subcribirse") {
+            navigate("/subcribirse");
+          }
+        })
+      : dispatch(addCart(productObject));
   };
   const deleteProduct = (e) => {
     e.preventDefault();
@@ -57,10 +75,10 @@ const ShoppingCart = () => {
     //dispatch(cleanCart());
     swal({
       title: "Carrito vaciado ",
-      type: 'warning',
+      type: "warning",
       buttons: false,
-      timer: 500
-    })
+      timer: 500,
+    });
     dispatch(deleteMercadoPago());
   };
 
@@ -158,15 +176,18 @@ const ShoppingCart = () => {
                   </button>
                   <h1 className="carrito-total">Precio: ${total}</h1>
 
-                  {/* {verified && !verified.emailVerified ? (
+                  {
+                    /* verified && !verified.emailVerified ? (
                     <button className="button" onClick={handleAlertCarrito}>
                       PAGAR
                     </button>
-                  ) : ( */}
-                  <button className="button-pagar" onClick={postCarrito}>
-                    PAGAR
-                  </button>
-                  {/* )} */}
+                  ) :  */ <button
+                      className="button-pagar"
+                      onClick={postCarrito}
+                    >
+                      PAGAR
+                    </button>
+                  }
                 </div>
               </span>
             </div>
