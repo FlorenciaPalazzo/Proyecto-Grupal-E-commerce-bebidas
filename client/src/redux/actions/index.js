@@ -44,6 +44,7 @@ import {
   CLEAR_STATE,
   PUT_PRODUCTO,
   GET_REVIEW_BY_USER,
+  GET_USER_BY_ID,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -490,9 +491,10 @@ export const deleteReview = (id) => {
 export const getReviewByUser = (id) => {
   return async function (dispatch) {
     try {
+      let result = await axios.get("http://localhost:3001/review/all/" + id)
       return dispatch({
         type: GET_REVIEW_BY_USER,
-        payload: id,
+        payload: result.data,
       });
     } catch (err) {
       console.log("Error del action del getReviewByUser", err);
@@ -513,6 +515,20 @@ export const setFavorito = (payload) => {
     }
   };
 };
+
+export const getUserById = (id) => {
+  return async function (dispatch){
+    try{
+      let result = await axios.get("http://localhost:3001/usuario/" + id)
+      return dispatch({
+        type : GET_USER_BY_ID,
+        payload: result.data 
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
 
 export const getFavorito = (id) => {
   return async function (dispatch) {

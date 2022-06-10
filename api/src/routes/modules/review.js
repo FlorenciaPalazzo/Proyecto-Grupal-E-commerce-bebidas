@@ -93,4 +93,18 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+
+router.get("/all/:id", async (req,res) => {
+  const {id} = req.params
+  try {
+    const all = await Review.findAll({
+      where: { usuarioId  : id}
+    })
+
+    res.status(200).json(all)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 module.exports = router;

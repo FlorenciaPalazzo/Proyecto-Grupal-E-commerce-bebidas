@@ -1,44 +1,43 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getAllReviews, getReviewByUser } from "../../redux/actions";
+import { clearState, getAllReviews, getReviewByUser, getUserById } from "../../redux/actions";
 import { ReviewCar } from "./ReviewCar";
 
 export const AdminEmailUser = () => {
   const { id } = useParams();
   /*  console.log(id); */
   const dispatch = useDispatch();
-  const allRevs = useSelector((state) => state.allReviews);
+  // const allRevs = useSelector((state) => state.allReviews);
+  const allRevs = useSelector((state) => state.userReviews);
   console.log("allRevs", allRevs);
-
-  let idsFiltereds = allRevs.map((e) => {
-    if (e.id === id) {
-      idsFiltereds.push(e);
-    }
-  });
-  /* console.log(idsFiltereds); */
+  const userdb = useSelector((state) => state.userId)
+  
   useEffect(() => {
-    dispatch(getAllReviews());
-  }, [dispatch]);
-  useEffect(() => {
-    if (allRevs.length) {
+      dispatch(getUserById(id));
       dispatch(getReviewByUser(id));
-    }
+    return () => {
+      dispatch(clearState());
+    };
   }, [dispatch]);
 
   return (
     <div>
-      {/* {idsFiltereds && idsFiltereds.map(e => {
+      <h1>Reviews del usuario {userdb.email}</h1>
+      {allRevs.length? allRevs.map(e => {
+        return(
              <ReviewCar
-             titulo={r.titulo}
-             comentario={r.comentario}
-             puntaje={r.puntaje}
-             producto={r.productoId}
-             fecha={r.createdAt}
-             emailUsuario={otroArray}
-             usuarioId={r.usuarioId}
-           />
-        })} */}
+             titulo={e.titulo}
+             comentario={e.comentario}
+             puntaje={e.puntaje}
+             producto={e.productoId}
+             fecha={e.createdAt}
+             emailUsuario={userdb.email}
+             usuarioId={e.usuarioId} 
+             key = {e.id}
+             id = {e.id}
+           />)
+        }) : <p>Ahuevo no hay nada pendejo wey tequila wajuuuu</p>} 
     </div>
   );
 };

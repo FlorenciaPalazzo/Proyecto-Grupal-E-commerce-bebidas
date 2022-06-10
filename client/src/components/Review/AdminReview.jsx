@@ -131,6 +131,7 @@ export const AdminReview = () => {
                       fecha={r.createdAt}
                       emailUsuario={otroArray}
                       usuarioId={r.usuarioId}
+                      id = {r.id}
                     />
                   </div>
                 );
