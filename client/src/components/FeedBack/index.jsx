@@ -24,17 +24,19 @@ export const FeedBack = () => {
   });
 
   console.log(historial, "Todo se trajo bien a la primera");
-
+useEffect(()=>{
+   productCart.map(e=>dispatch(putProduct(e)) )
+},[dispatch, productCart])
   let foo;
   useEffect(() => {
     let search = window.location.search;
     let params = new URLSearchParams(search);
     foo = params.get("status");
 
-    console.log("foo", foo);
+    // console.log("foo", foo);
     if (foo === "approved") {
       dispatch(addHist(historial))
-      productCart?.map(e=>dispatch(putProduct(e)) )
+     
       ;
       console.log("APROBADO");
       setTimeout(navigate("/"), 10000);

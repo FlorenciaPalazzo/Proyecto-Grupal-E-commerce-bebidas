@@ -624,7 +624,7 @@ export const clearState = () => {
 export const putProduct = (payload) => {
   return async function (dispatch) {
     try {
-      let result = await axios.get("http://localhost:3001/review/" , payload);
+      let result = await axios.put("http://localhost:3001/producto/bebida" , payload);
       return dispatch({
         type: PUT_PRODUCTO,
         payload: result.data,

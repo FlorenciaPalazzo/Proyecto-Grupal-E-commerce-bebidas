@@ -47,7 +47,7 @@ const ShoppingCart = () => {
     e.preventDefault();
     let productObject = productArray.find((el) => el.id === e.target.value);
    console.log("stock", productObject.stock); 
-    productObject.stock?
+    productObject.stock === 0?
     swal({
       title: "Producto sin stock...",
       text: "...Subcribete para que te informemos cuando este disponible nuevamente...🛒🛒🛒!",
@@ -174,11 +174,11 @@ const ShoppingCart = () => {
                     <button className="button" onClick={handleAlertCarrito}>
                       PAGAR
                     </button>
-                  ) : ( */}
+                  ) : (  {/* )} */}
                   <button className="button-pagar" onClick={postCarrito}>
                     PAGAR
                   </button>
-                  {/* )} */}
+                 
                 </div>
               </span>
             </div>
