@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   getAllReviews,
   getReviewPage,
@@ -102,6 +103,11 @@ export const AdminReview = () => {
                   fecha={r.createdAt}
                   emailUsuario={otroArray}
                 />
+                {r.productoId ? (
+                  <Link to={`/adminreview/${r.id}`}>
+                    Ver reviews de este producto
+                  </Link>
+                ) : null}
               </div>
             );
           })}

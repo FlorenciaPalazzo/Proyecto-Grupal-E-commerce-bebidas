@@ -12,6 +12,7 @@ import "./HomeStyles.css";
 import Carousel from "../Carousel";
 import CarouselBrands from "../CarouselBrands";
 import FilterBy from "../FilterBy";
+import Contact from "../Contact";
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
@@ -23,7 +24,7 @@ function Home() {
   const verified = useSelector((state) => state.currentUser);
   const isLoged = useSelector((state) => state.isLoged);
   const admin = useSelector((state) => state.isAdmin);
-  const [ order, setOrder] = useState("");
+  const [order, setOrder] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage /*setProductsPerPage*/] = useState(20); //15 productos por pagina
@@ -145,41 +146,51 @@ function Home() {
             <div>
               <CarouselBrands />
             </div>
+            <div class="container ">
+              <div class="row">
+                <div class="col bg-dark">GOOGLE MAPS</div>
+                <div class="col bg-secondary">
+                  CONTACTANOS
+                  <Contact />
+                </div>
+              </div>
+            </div>
+
+            <div className="detail-description">
+              {rev ? (
+                rev.map((e) => {
+                  return (
+                    <div key={e.id}>
+                      <p>Titulo: {e.titulo}</p>
+                      <p>Comentario: {e.comentario}</p>
+                      <div>
+                        Puntaje:{" "}
+                        <ReactStars
+                          count={e.puntaje}
+                          size={24}
+                          isHalf={true}
+                          emptyIcon={<i className="far fa-star"></i>}
+                          halfIcon={<i className="fa fa-star-half-alt"></i>}
+                          fullIcon={<i className="fa fa-star"></i>}
+                          edit={false}
+                          color="#ffd700"
+                        />
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <span>No hay reviews</span> // esto es lo que tiraba error del pDOM en la consola
+              )}
+            </div>
+
             <div className="footer">
               <Link to="/contact">
                 <button className="button">Contacto</button>
               </Link>
 
               <div className="text">About</div>
-              <div>
-                <div className="detail-description">
-                  {rev ? (
-                    rev.map((e) => {
-                      return (
-                        <div key={e.id}>
-                          <p>Titulo: {e.titulo}</p>
-                          <p>Comentario: {e.comentario}</p>
-                          <div>
-                            Puntaje:{" "}
-                            <ReactStars
-                              count={e.puntaje}
-                              size={24}
-                              isHalf={true}
-                              emptyIcon={<i className="far fa-star"></i>}
-                              halfIcon={<i className="fa fa-star-half-alt"></i>}
-                              fullIcon={<i className="fa fa-star"></i>}
-                              edit={false}
-                              color="#ffd700"
-                            />
-                          </div>
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <span>No hay reviews</span> // esto es lo que tiraba error del pDOM en la consola
-                  )}
-                </div>
-              </div>
+              <div></div>
             </div>
           </div>
         </div>

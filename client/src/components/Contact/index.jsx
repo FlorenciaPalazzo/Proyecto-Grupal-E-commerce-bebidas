@@ -28,19 +28,19 @@ export default function Contact() {
 
   return (
     <div>
-      <Link to="/">
+      {/* <Link to="/">
         <button className="button">Home</button>
-      </Link>
+      </Link> */}
+
       <form ref={form} onSubmit={sendEmail}>
-      <label>Nombre</label>
-      <input type="text" name="user_name" />
-      <label>Email</label>
-      <input type="email" name="user_email" />
-      <label>Mensaje</label>
-      <textarea name="message" />
-      <input type="submit" value="Send" />
-    </form>
+        <label>Nombre</label>
+        <input type="text" name="user_name" />
+        <label>Email</label>
+        <input type="email" name="user_email" />
+        <label>Mensaje</label>
+        <textarea name="message" />
+        <input type="submit" value="Send" />
+      </form>
     </div>
-    
   );
 }

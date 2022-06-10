@@ -126,14 +126,22 @@ label {
 html {
     --primary-color: #000000;
     --secondary-color: #ebebeb;
+    --third-color: #000000;
+            
 }
 
 html[data-theme="dark"] {
     --primary-color: #ebebeb;
     --secondary-color: #000000;
+    --third-color: #eeb305;
 }
 
 body {
     background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
+.pagination-button, 
+.pagination-number{
+    color: var(--third-color);
+}
