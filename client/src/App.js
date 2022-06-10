@@ -20,12 +20,11 @@ import Historial from "./components/Historial";
 import ResetPassword from "./components/Auth/ResetPassword";
 import { AdminReview } from "./components/Review/AdminReview";
 import { AdminRevDetail } from "./components/Review/AdminRevDetail";
-
+import { AdminEmailUser } from "./components/Review/AdminEmailUser";
 
 function App() {
   return (
     <div className="App">
-      
       <Routes>
         {/* <Route path="/" exact element={<Landing />} /> */}
         <Route path="/" exact element={<Home />} />
@@ -48,6 +47,7 @@ function App() {
         <Route path="/historial/:id" exact element={<Historial />} />
         <Route path="/adminreview" exact element={<AdminReview />} />
         <Route path="/adminreview/:id" exact element={<AdminRevDetail />} />
+        <Route path="/adminemail/:id" exact element={<AdminEmailUser />} />
       </Routes>
     </div>
   );

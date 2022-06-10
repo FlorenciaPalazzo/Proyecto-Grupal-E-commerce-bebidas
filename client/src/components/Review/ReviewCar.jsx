@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../redux/actions";
-
+import { getProducts , deleteReview } from "../../redux/actions";
+import { Link } from "react-router-dom";
+import swal from "sweetalert";
 export const ReviewCar = ({
   titulo,
   comentario,
@@ -10,13 +11,42 @@ export const ReviewCar = ({
   producto,
   fecha,
   emailUsuario,
+  usuarioId,
+  id
 }) => {
+
   const dispatch = useDispatch();
   const prod = useSelector((state) => state.products);
+  let [bool, setBool] = useState(false);
   const filt = prod.find((e) => e.id === producto);
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    swal({
+      title : "¿Seguro que quieres borrar esta review?",
+      text : "Le notificaremos al usuario que infrigió las normas de la página",
+      type : "warning",
+      buttons : {
+        cancel : "Cancelar",
+        cofirm : {
+          text : "Borrar review",
+          value : "confirm"
+        },
+      },
+    }).then((value) => {
+      if(value === "confirm"){ 
+      dispatch(deleteReview(id));
+      setBool(!bool)}
+      // window.location.reload
+    }) 
+    .catch((err) => {
+      console.log(err)
+    })
+  };
+
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  }, [bool]);
   return (
     <div>
       <div>
@@ -34,7 +64,11 @@ export const ReviewCar = ({
           </div>
         )}
       </div>
-      {emailUsuario ? <p>Email del usuario: {emailUsuario}</p> : null}
+      {emailUsuario ? (
+        <Link to={`/adminemail/${usuarioId}`}>
+          <p>Email del usuario: {emailUsuario}</p>
+        </Link>
+      ) : null}
       <p>Titulo: {titulo}</p>
       <p>Comentario: {comentario}</p>
       Puntaje:{" "}
@@ -48,6 +82,9 @@ export const ReviewCar = ({
         edit={false}
         color="#ffd700"
       />
+      <button onClick={handleDelete} value={usuarioId}>
+        ❌
+      </button>
     </div>
   );
 };

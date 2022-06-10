@@ -41,6 +41,8 @@ import {
   GET_HIST,
   CLEAR_STATE,
   PUT_PRODUCTO,
+  GET_REVIEW_BY_USER,
+  GET_USER_BY_ID,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -57,6 +59,7 @@ const initialState = {
   searchProduct: [],
   productsSort: [],
   detail: [],
+  userId : {},
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
@@ -68,6 +71,8 @@ const initialState = {
   review: [],
   reviewPage: [],
   allReviews: [],
+  userReviews: [],
+  searchProduct: [],
   favProducts: [],
   historial: [],
   favBoolean: [],
@@ -414,6 +419,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
       };
+    case GET_REVIEW_BY_USER:
+      return {
+        ...state,
+        userReviews : payload
+      }
+
     case SET_FAV:
       return { ...state };
 
@@ -435,6 +446,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         favProducts: arr,
       };
+
+    case GET_USER_BY_ID : 
+      return {
+        ...state ,
+        userId : payload
+      }
 
     case DEL_FAV:
       return { ...state };
@@ -482,6 +499,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         detail: [],
+        review: [],
+        userReviews : [],
       };
     case PUT_PRODUCTO:
       return {

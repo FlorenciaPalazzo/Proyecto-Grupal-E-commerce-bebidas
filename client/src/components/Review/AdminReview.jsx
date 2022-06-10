@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   getAllReviews,
+  getProducts,
   getReviewPage,
   getUsersLoged,
 } from "../../redux/actions";
@@ -12,10 +13,28 @@ import { ReviewCar } from "../Review/ReviewCar";
 export const AdminReview = () => {
   const dispatch = useDispatch(); /////////////////////////////////
 
-  let revs = useSelector((state) => state.allReviews);
   let revsPage = useSelector((state) => state.reviewPage);
+  let revs = useSelector((state) => state.allReviews);
   const usersLoged = useSelector((state) => state.usersLoged);
   const [filterReviews, setfilterReviews] = useState([]);
+  const products = useSelector((state) => state.products);
+  console.log("products", products);
+
+  /* if (products.length) {
+    let filterProdId = products.map((e) => e.id);
+    console.log("filterProdId", filterProdId);
+    let searchId;
+    let coso = revs.map((e) => {
+      console.log("entra");
+      filterProdId.forEach((f) => {
+        console.log("entra al otro");
+        if (e.productoId === f) {
+          searchId.push(e);
+        }
+      });
+    });
+    console.log("searchId", searchId);
+  } */
 
   //tiene el id del usuario
   let array = [];
@@ -55,6 +74,7 @@ export const AdminReview = () => {
     }
   };
   useEffect(() => {
+    dispatch(getProducts());
     dispatch(getAllReviews());
     dispatch(getUsersLoged());
     dispatch(getReviewPage());
@@ -78,6 +98,7 @@ export const AdminReview = () => {
               />
             ) : null}
           </div>
+          <div></div>
           <h1>Reviews</h1>
           <select name="" id="" onChange={handleSelector}>
             <option disabled>Filtrar reviews</option>
@@ -85,34 +106,42 @@ export const AdminReview = () => {
             <option value="pagina">Página</option>
             <option value="productos">Productos</option>
           </select>
-          {filterReviews?.map((r) => {
-            let otroArray;
-            array.find((e) => {
-              if (e.id === r.usuarioId) {
-                otroArray = e.email;
-                console.log("otroArray", otroArray);
-              }
-            });
-            return (
-              <div key={r.id} value={r.id}>
-                <ReviewCar
-                  titulo={r.titulo}
-                  comentario={r.comentario}
-                  puntaje={r.puntaje}
-                  producto={r.productoId}
-                  fecha={r.createdAt}
-                  emailUsuario={otroArray}
-                />
-                {r.productoId ? (
-                  <Link to={`/adminreview/${r.id}`}>
-                    Ver reviews de este producto
-                  </Link>
-                ) : null}
-              </div>
-            );
-          })}
+          {filterReviews
+            ? filterReviews.map((r) => {
+                let otroArray;
+                array.find((e) => {
+                  if (e.id === r.usuarioId) {
+                    otroArray = e.email;
+                    console.log("otroArray", otroArray);
+                  }
+                });
+                return (
+                  <div key={r.id} value={r.id}>
+                    {r.productoId ? (
+                      <Link to={`/adminreview/${r.productoId}`}>
+                        Ver todas las reviews de este producto
+                      </Link>
+                    ) : null}
+
+                    <ReviewCar
+                      titulo={r.titulo}
+                      comentario={r.comentario}
+                      puntaje={r.puntaje}
+                      producto={r.productoId}
+                      fecha={r.createdAt}
+                      emailUsuario={otroArray}
+                      usuarioId={r.usuarioId}
+                      id = {r.id}
+                    />
+                  </div>
+                );
+              })
+            : null}
         </div>
       }
+      <Link to={`/admin`}>
+        <button>Volver al panel del admin</button>
+      </Link>
     </div>
   );
 };

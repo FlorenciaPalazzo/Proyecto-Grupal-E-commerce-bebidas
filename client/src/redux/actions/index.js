@@ -42,7 +42,9 @@ import {
   ADD_HIST,
   GET_HIST,
   CLEAR_STATE,
-  PUT_PRODUCTO
+  PUT_PRODUCTO,
+  GET_REVIEW_BY_USER,
+  GET_USER_BY_ID,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -486,6 +488,20 @@ export const deleteReview = (id) => {
   };
 };
 
+export const getReviewByUser = (id) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.get("http://localhost:3001/review/all/" + id)
+      return dispatch({
+        type: GET_REVIEW_BY_USER,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log("Error del action del getReviewByUser", err);
+    }
+  };
+};
+
 export const setFavorito = (payload) => {
   return async function (dispatch) {
     try {
@@ -499,6 +515,20 @@ export const setFavorito = (payload) => {
     }
   };
 };
+
+export const getUserById = (id) => {
+  return async function (dispatch){
+    try{
+      let result = await axios.get("http://localhost:3001/usuario/" + id)
+      return dispatch({
+        type : GET_USER_BY_ID,
+        payload: result.data 
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
 
 export const getFavorito = (id) => {
   return async function (dispatch) {
@@ -624,7 +654,10 @@ export const clearState = () => {
 export const putProduct = (payload) => {
   return async function (dispatch) {
     try {
-      let result = await axios.put("http://localhost:3001/producto/bebida" , payload);
+      let result = await axios.put(
+        "http://localhost:3001/producto/bebida",
+        payload
+      );
       return dispatch({
         type: PUT_PRODUCTO,
         payload: result.data,
