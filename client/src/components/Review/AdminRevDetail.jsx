@@ -71,7 +71,7 @@ export const AdminRevDetail = (/* { id } */) => {
                 producto={r.productoId}
                 fecha={r.createdAt}
                 emailUsuario={email}
-                id = {r.id}
+                id={r.id}
               />
             </div>
           );
