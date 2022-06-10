@@ -42,7 +42,8 @@ import {
   ADD_HIST,
   GET_HIST,
   CLEAR_STATE,
-  PUT_PRODUCTO
+  PUT_PRODUCTO,
+  GET_REVIEW_BY_USER,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -486,6 +487,19 @@ export const deleteReview = (id) => {
   };
 };
 
+export const getReviewByUser = (id) => {
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: GET_REVIEW_BY_USER,
+        payload: id,
+      });
+    } catch (err) {
+      console.log("Error del action del getReviewByUser", err);
+    }
+  };
+};
+
 export const setFavorito = (payload) => {
   return async function (dispatch) {
     try {
@@ -624,7 +638,10 @@ export const clearState = () => {
 export const putProduct = (payload) => {
   return async function (dispatch) {
     try {
-      let result = await axios.put("http://localhost:3001/producto/bebida" , payload);
+      let result = await axios.put(
+        "http://localhost:3001/producto/bebida",
+        payload
+      );
       return dispatch({
         type: PUT_PRODUCTO,
         payload: result.data,

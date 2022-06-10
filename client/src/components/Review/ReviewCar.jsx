@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/actions";
+import { Link } from "react-router-dom";
 
 export const ReviewCar = ({
   titulo,
@@ -10,6 +11,7 @@ export const ReviewCar = ({
   producto,
   fecha,
   emailUsuario,
+  usuarioId,
 }) => {
   const dispatch = useDispatch();
   const prod = useSelector((state) => state.products);
@@ -34,7 +36,11 @@ export const ReviewCar = ({
           </div>
         )}
       </div>
-      {emailUsuario ? <p>Email del usuario: {emailUsuario}</p> : null}
+      {emailUsuario ? (
+        <Link to={`/adminemail/${usuarioId}`}>
+          <p>Email del usuario: {emailUsuario}</p>
+        </Link>
+      ) : null}
       <p>Titulo: {titulo}</p>
       <p>Comentario: {comentario}</p>
       Puntaje:{" "}

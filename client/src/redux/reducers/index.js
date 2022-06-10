@@ -41,6 +41,7 @@ import {
   GET_HIST,
   CLEAR_STATE,
   PUT_PRODUCTO,
+  GET_REVIEW_BY_USER,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -68,6 +69,8 @@ const initialState = {
   review: [],
   reviewPage: [],
   allReviews: [],
+  userReviews: [],
+  searchProduct: [],
   favProducts: [],
   historial: [],
   favBoolean: [],
@@ -414,6 +417,19 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
       };
+    case GET_REVIEW_BY_USER:
+      let revs = state.allReviews;
+      console.log(revs);
+
+      let filt = [];
+
+      /* revs.forEach((e) => {
+         if (e.usuarioId === payload) {
+          filt.push(e);
+        }  
+      });*/
+
+      console.log("hola desde el reducer", filt);
     case SET_FAV:
       return { ...state };
 
@@ -482,6 +498,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         detail: [],
+        review: [],
       };
     case PUT_PRODUCTO:
       return {
