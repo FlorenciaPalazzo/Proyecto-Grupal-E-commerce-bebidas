@@ -13,6 +13,7 @@ import Carousel from "../Carousel";
 import CarouselBrands from "../CarouselBrands";
 import FilterBy from "../FilterBy";
 import Contact from "../Contact";
+import Footer from "../Footer";
 function Home() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
@@ -183,16 +184,8 @@ function Home() {
                 <span>No hay reviews</span> // esto es lo que tiraba error del pDOM en la consola
               )}
             </div>
-
-            <div className="footer">
-              <Link to="/contact">
-                <button className="button">Contacto</button>
-              </Link>
-
-              <div className="text">About</div>
-              <div></div>
-            </div>
           </div>
+          <Footer />
         </div>
       )}
     </div>
