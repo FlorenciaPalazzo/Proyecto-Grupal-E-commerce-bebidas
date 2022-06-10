@@ -1,4 +1,4 @@
-zdiv,
+
 a {
   width: fit-content;
 }
@@ -15,7 +15,7 @@ a:active {
 .card-content,
 .card-title,
 .card-body {
-  background-color: rgb(255, 255, 255, 0.5);
+  background-color: rgb(255, 255, 255);
 }
 
 .card-main {
@@ -64,4 +64,4 @@ a:active {
 .swal-overlay {
   background-color: rgba(67, 65, 65, 0.464);
   width: 100%;
-}
+} 

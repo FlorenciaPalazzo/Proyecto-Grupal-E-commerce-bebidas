@@ -128,6 +128,7 @@ router.post("/checkout", async (req, res) => {
       pending: "http://localhost:3000/feedback",
     },
     auto_return: "approved",
+  
   };
 
   mercadopago.preferences

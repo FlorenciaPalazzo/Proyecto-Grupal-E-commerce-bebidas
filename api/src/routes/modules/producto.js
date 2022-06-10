@@ -70,6 +70,7 @@ const getBebidasApi = async () => {
 };
 
 router.get("/bebidas", async (req, res, next) => {
+
   try {
     let dataInfo = await getDataBase();
     if (dataInfo.length === 0) {

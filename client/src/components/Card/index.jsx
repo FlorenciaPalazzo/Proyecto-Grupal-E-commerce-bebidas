@@ -12,6 +12,7 @@ export default function Card({
   ml,
   graduacion,
   precio,
+  stock,
 }) {
   const usuario = useSelector((state) => state.currentUser);
   const isLoged = useSelector((state) => state.isLoged);
@@ -32,6 +33,7 @@ export default function Card({
     precio,
     quantity: 1,
     subtotal: precio,
+    stock,
   };
 
   const dispatch = useDispatch();
@@ -39,13 +41,31 @@ export default function Card({
   const handleAddCarrito = (e) => {
     e.preventDefault();
     swal({
-      title : "Producto agregado al carrito ",
-      type : 'success',
-      icon: 'success',
+      title: "Producto agregado al carrito ",
+      type: "success",
+      icon: "success",
       buttons: false,
-      timer : 800
-    })
-    dispatch(addCart(productObject));
+      timer: 800,
+    });
+    console.log("stock", productObject.stock);
+    productObject.stock === 0
+      ? swal({
+          title: "Producto sin stock...",
+          text: "...Subcribete para que te informemos cuando este disponible nuevamente...🛒🛒🛒!",
+          buttons: {
+            cancel: "Seguir navegando",
+            register: {
+              text: "Subcribirse",
+              value: "subcribirse",
+            },
+          },
+          icon: "warning",
+        }).then((value) => {
+          if (value === "subcribirse") {
+            navigate("/subcribirse");
+          }
+        })
+      : dispatch(addCart(productObject));
   };
 
   const handleAddFavorito = (e) => {
@@ -53,10 +73,10 @@ export default function Card({
     e.preventDefault();
     swal({
       title: "Agregado a favoritos ",
-      type: 'success',
+      type: "success",
       buttons: false,
-      timer: 500
-    })
+      timer: 500,
+    });
     dispatch(setFavorito(fav));
     /* return () => {
       setFav({ id_user: a });

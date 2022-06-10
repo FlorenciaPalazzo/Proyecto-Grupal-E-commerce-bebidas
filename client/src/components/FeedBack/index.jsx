@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
-import { deleteMercadoPago, addHist } from "../../redux/actions";
+import { deleteMercadoPago, addHist, putProduct } from "../../redux/actions";
 import Loading from "../Loading";
 
 export const FeedBack = () => {
@@ -24,16 +24,20 @@ export const FeedBack = () => {
   });
 
   console.log(historial, "Todo se trajo bien a la primera");
-
+useEffect(()=>{
+   productCart.map(e=>dispatch(putProduct(e)) )
+},[dispatch, productCart])
   let foo;
   useEffect(() => {
     let search = window.location.search;
     let params = new URLSearchParams(search);
     foo = params.get("status");
 
-    console.log("foo", foo);
+    // console.log("foo", foo);
     if (foo === "approved") {
-      dispatch(addHist(historial));
+      dispatch(addHist(historial))
+     
+      ;
       console.log("APROBADO");
       setTimeout(navigate("/"), 10000);
       swal({

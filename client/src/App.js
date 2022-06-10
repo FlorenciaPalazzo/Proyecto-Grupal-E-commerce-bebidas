@@ -21,9 +21,11 @@ import ResetPassword from "./components/Auth/ResetPassword";
 import { AdminReview } from "./components/Review/AdminReview";
 import { AdminRevDetail } from "./components/Review/AdminRevDetail";
 
+
 function App() {
   return (
     <div className="App">
+      
       <Routes>
         {/* <Route path="/" exact element={<Landing />} /> */}
         <Route path="/" exact element={<Home />} />
