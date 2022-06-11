@@ -19,7 +19,7 @@ export default function ViewUsers() {
   return (
     <div>
       <div className="viewUsers-cont">
-        <div className="viewUsers-cont-row">
+        <div className="viewUsers-cont-row-title">
           <div className="title-items">Nombre</div>
           <div className="title-items">E-mail</div>
         </div>
