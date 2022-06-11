@@ -69,15 +69,22 @@ export const AdminReview = () => {
         }
       });
       setfilterReviews([...arr]);
+    } else if(e.target.value === "all") {
+      setfilterReviews([...revs]);
     } else {
       setfilterReviews([...revs]);
     }
   };
+  // useEffect(() => {
+  //   setfilterReviews([...revs]);
+  // }, []);
+
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getAllReviews());
     dispatch(getUsersLoged());
     dispatch(getReviewPage());
+    setfilterReviews([...revs]);
   }, [dispatch]);
   return (
     <div>
