@@ -46,6 +46,7 @@ import {
   GET_REVIEW_BY_USER,
   GET_USER_BY_ID,
   FIND_REVIEW_ID,
+  FILTER_USER_REVIEW,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -682,3 +683,18 @@ export const putProduct = (payload) => {
     }
   };
 };
+
+export const filterUserReview = (payload) => {
+  return {
+    type : FILTER_USER_REVIEW,
+    payload
+  }
+}
+
+
+
+
+
+
+
+// TONI ESTUVO AQUI WOWOWOOWOWOWOWOWOOW
