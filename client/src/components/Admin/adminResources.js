@@ -76,4 +76,6 @@ export default function validate(
 }
 
 
+var producto ={nombre: "cerveza"}
 
+console.log(producto.nombre.charAt(0).toUpperCase() + producto.nombre.slice(1));
