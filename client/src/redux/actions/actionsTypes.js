@@ -45,3 +45,4 @@ export const PUT_PRODUCTO = "PUT_PRODUCTO";
 export const GET_REVIEW_BY_USER = "GET_REVIEW_BY_USER";
 export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const FIND_REVIEW_ID = "FIND_REVIEW_ID";
+export const FILTER_USER_REVIEW = "FILTER_USER_REVIEW"
