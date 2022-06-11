@@ -190,16 +190,15 @@
 } */
 
 body {
-  background-color: #ebebeb;
-  margin-top: 20px;
+  
   font-family: "Montserrat";
 }
 
-.card {
+.container .card {
   margin-bottom: 30px;
 }
 
-.card {
+.container .card {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -211,7 +210,7 @@ body {
   border-radius: 0;
 }
 
-.card .card-subtitle {
+.container .card .card-subtitle {
   font-weight: 300;
   margin-bottom: 10px;
   color: #8898aa;

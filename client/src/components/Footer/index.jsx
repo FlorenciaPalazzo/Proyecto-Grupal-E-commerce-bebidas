@@ -1,17 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Footer.css";
 
 function Footer() {
   return (
     <div>
       <div className="footer">
-        <Link to="/contact">
-          <button className="button">Contacto</button>
+        <Link to="/contact" className="contact">
+          <button class="btn btn-outline-warning">Contacto</button>
         </Link>
 
-        <div className="text">About</div>
-        <div>
-          Hecho por alumnos de Henry con{" "}
+        <div className="about">
+          <button class="btn btn-outline-warning">About</button>
+        </div>
+        <div className="hecho">
+          <h4>Hecho por alumnos de Henry con</h4>{" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
