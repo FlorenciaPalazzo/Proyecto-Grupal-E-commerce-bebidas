@@ -14,14 +14,17 @@ import {
   getReviewPage,
   putReview,
 } from "../../redux/actions";
+import { Link, useNavigate, useParams } from "react-router-dom";
 //import db from "../../../../api/src/db";
 
 function UserProfile() {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const dbUser = useSelector((state) => state.dbUser);
   const user = useSelector((state) => state.currentUser);
   const prod = useSelector((state) => state.products);
   const [endLoading, setEndLoading] = useState(false);
+  const {id} = useParams();
 
   let revs = useSelector((state) => state.allReviews);
   const prodFind = prod.filter((e) => e.id === revs.productoId);
@@ -37,10 +40,11 @@ function UserProfile() {
     dispatch(deleteReview(e.target.value));
     setBool(!bool);
   };
-  const handlePut = (e) => {
+  const handleLocalStorage = (e) => {
     e.preventDefault();
-    dispatch(putReview(e.target.value));
-    setBool(!bool);
+  localStorage.setItem("userputid", e.target.value)
+  console.log(e.target.value, 'soy el console')
+    navigate(`/putreview/${e.target.name}`)
   };
 
   useEffect(() => {
@@ -83,12 +87,12 @@ function UserProfile() {
                   producto={r.productoId}
                   fecha={r.createdAt}
                 />
-                <button onClick={handleDelete} value={r.id}>
-                  ❌
-                </button>
-                <button onClick={handlePut} value={r.id}>
+                
+                <button onClick={handleLocalStorage} value={JSON.stringify(r)} name={r.id}>
+                
                   ✏️
                 </button>
+                
               </div>
             );
           })

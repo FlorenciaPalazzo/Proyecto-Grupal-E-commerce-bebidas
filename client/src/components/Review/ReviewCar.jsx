@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts , deleteReview } from "../../redux/actions";
+import { getProducts , deleteReview, isAdmin } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 export const ReviewCar = ({
@@ -19,6 +19,7 @@ export const ReviewCar = ({
   const prod = useSelector((state) => state.products);
   let [bool, setBool] = useState(false);
   const filt = prod.find((e) => e.id === producto);
+  const admin = useSelector((state) => state.isAdmin)
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -82,9 +83,14 @@ export const ReviewCar = ({
         edit={false}
         color="#ffd700"
       />
-      <button onClick={handleDelete} value={usuarioId}>
+      {
+        admin ? 
+        <button onClick={handleDelete} value={usuarioId}>
         ❌
       </button>
+      : null
+      }
+      
     </div>
   );
 };
