@@ -17,25 +17,23 @@ a:active {
     flex-wrap: wrap;
     width: 90%;
     margin: auto;
-} 
+}
 
- .button {
+.button {
     font-size: 15px;
     font-weight: bold;
     font-family: "Montserrat";
     color: rgb(0, 0, 0);
     background-color: hsl(0, 0%, 0%);
- 
     cursor: pointer;
     text-align: center;
-  
     color: white;
     transition: background-color 0.1s ease-in-out;
     display: flex;
     margin-bottom: -2%;
-   
-} 
- .button-shop {
+}
+
+.button-shop {
     width: 94%;
     margin-left: 0;
     color: #f5f5f5;
@@ -117,8 +115,7 @@ label {
 .banner-img {
     width: 100%;
     min-width: 600px;
-}  
-
+}
 
 
 /* 👇👇👇aqui yacen los restos del modo oscuro 👇👇👇*/
@@ -127,7 +124,6 @@ html {
     --primary-color: #000000;
     --secondary-color: #ebebeb;
     --third-color: #000000;
-            
 }
 
 html[data-theme="dark"] {
@@ -141,7 +137,7 @@ body {
     color: var(--primary-color);
 }
 
-.pagination-button, 
-.pagination-number{
+.pagination-button,
+.pagination-number {
     color: var(--third-color);
 }
