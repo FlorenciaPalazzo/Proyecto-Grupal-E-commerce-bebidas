@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { auth } from "../../fb";
 import { firebaseUsers, getUsersLoged } from "../../redux/actions";
+import "./ViewUsers.css"
 
 export default function ViewUsers() {
   const usersLoged = useSelector((state) => state.usersLoged);
@@ -18,7 +19,6 @@ export default function ViewUsers() {
   }, [usersLoged]);
   return (
     <div className="container">
-      
       <div className="usersContainer">
         {usersLoged.length === 0 && firstReq ? (
           <span>
@@ -26,24 +26,37 @@ export default function ViewUsers() {
             Loading users...
           </span>
         ) : (
-          usersLoged.map((e) => {
-            
-            if (e.email === process.env.REACT_APP_ADMIN_EMAIL) return;
-            return (
-              <div key={e.nombre}>
-                <hr />
-                <p>Nombre: {e.nombre} {e.apellido && e.apellido}</p>
-                <p>Email: {e.email}</p>
-                {
-                  e.isVerified ? 
-                  <p>Verificado</p>
-                  :
-                  <p>No verificado</p>
+          <table border="groove">
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Verificado</th>
+              <th>Creado</th>
+            </tr>
 
-                }
-              </div>
-            );
-          })
+            
+            {usersLoged.map((e) => {
+              if (e.email === process.env.REACT_APP_ADMIN_EMAIL) return;
+              return (
+                <tr>
+                  <td  >
+                    
+                    {e.nombre} {e.apellido && e.apellido}
+                  </td>
+                  <td>{e.email}</td>
+                  <td>{e.isVerified ? "Verificado" : "No verificado"}</td>
+                  <td>
+                    {
+                      e.createdAt.slice(0,10)
+                    }
+                  </td>
+                
+                </tr>
+            
+                
+              );
+            })}
+          </table>
         )}
       </div>
     </div>

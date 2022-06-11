@@ -11,7 +11,7 @@ export default class Pagination extends React.Component {
     }
     //Este componente va a renderizar los numeritos en si
     return (
-      <nav>
+      <nav className="nav-pag">
         <ul className="ul">
           <li className="pagination">
             {currentPage !== 1 ? (

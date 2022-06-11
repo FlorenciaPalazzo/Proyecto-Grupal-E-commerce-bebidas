@@ -1,0 +1,38 @@
+.checkout-div-main {
+    font-family: "Montserrat";
+}
+
+.checkout-div-render {
+    display: flex;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
+}
+
+.checkout-product {
+    width: 100vw;
+}
+
+.checkout-product h2 {
+    text-align: center;
+    max-width: 33%;
+    margin-left: 66%;
+}
+
+.checkout-product-delivery {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+    height: 70vh;
+    min-height: 500px;
+}
+
+.checkout-ul {
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+}
+
+.checkout-ul li {
+    list-style: none;
+    text-align: center;
+    padding: 1%;
+}

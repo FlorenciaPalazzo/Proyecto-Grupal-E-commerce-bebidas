@@ -38,11 +38,11 @@ import {
   ADD_DIRECCIONES,
   GET_DIRECCIONES,
   DELETE_DIRECCIONES,
-
   RESET_USER_DB,
   ADD_HIST,
   GET_HIST,
   CLEAR_STATE,
+  UPDATE_PRODUCT,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -77,7 +77,7 @@ export function createUser(user) {
       telefono: user.telefono,
       isAdmin: user.isAdmin,
       isVerified: user.isVerified,
-      image: user.image
+      image: user.image,
     })
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
@@ -201,6 +201,24 @@ export const getProductById = (id) => {
     }
   };
 };
+export const updateProduct = (prod) => {
+  console.log("prod update",prod);
+  return async function (dispatch) {
+    try {
+      let result = await axios.put(
+        "http://localhost:3001/producto/bebida", prod
+      );
+      return dispatch({
+        type: UPDATE_PRODUCT,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log("Error desde el catch de updateProduct", err);
+    }
+  };
+};
+
+
 //trae las marcas
 export const getBrands = () => {
   return async function (dispatch) {
@@ -338,8 +356,6 @@ export const buyCart = () => {
   };
 };
 
-
-
 //ESTO ESTA ANDANDO LISTO...
 export const orderMercadoPago = (localStorage) => {
   return async function (dispatch) {
@@ -363,7 +379,7 @@ export const getMercadoPago = () => {
   return async function (dispatch) {
     try {
       let result = await axios.post("http://localhost:3001/usuario/checkout");
-      console.log("soy result data",result.data);
+      console.log("soy result data", result.data);
       console.log("entro a getMercadoPago");
       return dispatch({
         type: GET_MERCADO_PAGO,
@@ -494,7 +510,7 @@ export const setFavorito = (payload) => {
       let result = await axios.post("http://localhost:3001/producto", payload);
       return dispatch({
         type: SET_FAV,
-        payload: result.data,
+        return: payload,
       });
     } catch (err) {
       console.log(err);
@@ -508,6 +524,7 @@ export const getFavorito = (id) => {
       let result = await axios.get(
         `http://localhost:3001/producto/favoritos/${id}`
       );
+      console.log("result.data", result.data);
       return dispatch({
         type: GET_FAV,
         payload: result.data,
@@ -534,25 +551,27 @@ export const deleteFavorito = ({ id_user, id_prod }) => {
       console.log(err);
     }
   };
-}
- 
-export const addDirecciones= (payload)=>{
+};
+
+export const addDirecciones = (payload) => {
   return async function (dispatch) {
     try {
-      let result = await axios.post("http://localhost:3001/usuario/direcciones", payload);
+      let result = await axios.post(
+        "http://localhost:3001/usuario/direcciones",
+        payload
+      );
       return dispatch({
         type: ADD_DIRECCIONES,
-   
       });
     } catch (err) {
       console.log(err);
     }
   };
-}
-export const getDirecciones =(id)=>{
+};
+export const getDirecciones = (id) => {
   return async function (dispatch) {
     try {
-      let result = await axios.get(`http://localhost:3001/usuario/${id}` );
+      let result = await axios.get(`http://localhost:3001/usuario/${id}`);
       return dispatch({
         type: GET_DIRECCIONES,
         payload: result.data,
@@ -561,55 +580,59 @@ export const getDirecciones =(id)=>{
       console.log(err);
     }
   };
-}
+};
 
-export const deleteDirecciones =(id)=>{
+export const deleteDirecciones = (id) => {
   return async function (dispatch) {
     try {
-      let result = await axios.delete(`http://localhost:3001/usuario/direcciones/${id}` );
-     
+      let result = await axios.delete(
+        `http://localhost:3001/usuario/direcciones/${id}`
+      );
+
       return dispatch({
         type: DELETE_DIRECCIONES,
-        
       });
     } catch (err) {
       console.log(err);
     }
   };
-}
+};
 
-
-
-
-
-    //====================================== HISTORIAL ========================//
-
+//====================================== HISTORIAL ========================//
 
 export const addHist = (payload) => {
   return async function (dispatch) {
-    let historial = await axios.post('http://localhost:3001/producto/historial', payload)
-    console.log( payload , "<=================== Soy el payload de lo que debería estar recibiendo la funcion")
+    let historial = await axios.post(
+      "http://localhost:3001/producto/historial",
+      payload
+    );
+    console.log(
+      payload,
+      "<=================== Soy el payload de lo que debería estar recibiendo la funcion"
+    );
     return dispatch({
-      type : ADD_HIST
-    })
-  }
-}
+      type: ADD_HIST,
+    });
+  };
+};
 
 export const getHist = (id) => {
   return async function (dispatch) {
-   try{ 
+    try {
+      let historial = await axios.get(
+        `http://localhost:3001/producto/historial/${id}`
+      );
 
-    let historial = await axios.get(`http://localhost:3001/producto/historial/${id}`)
-
-    // console.log(historial.data, "El historial esta llegando correctamente a la funcion")
-    return dispatch({
-      type : GET_HIST,
-      payload : historial.data
-    })
-  } catch(err){
-    console.log(err)
-  }} 
-}
+      // console.log(historial.data, "El historial esta llegando correctamente a la funcion")
+      return dispatch({
+        type: GET_HIST,
+        payload: historial.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
 export const clearState = () => {
   console.log("clearState");
   return {

@@ -9,6 +9,8 @@ import {
   getMercadoPago,
 } from "../../redux/actions";
 import Loading from "../Loading";
+import "./CheckoutStyles.css";
+
 export function validate(input) {
   let errors = {};
   if (!input.calle_numero) {
@@ -174,8 +176,8 @@ export const Checkout = () => {
   let total = 0;
   subtotal?.forEach((e) => (total += e));
   return (
-    <div>
-      <button>
+    <div className="checkout-div-main">
+      <button className="button">
         <Link to="/">Home</Link>
       </button>
       <h2>Detalle de compra</h2>
@@ -184,252 +186,258 @@ export const Checkout = () => {
       ) : !productCart.length ? (
         <span>Cargando</span>
       ) : sandbox ? (
-        <div>
-          <div>
-            <ul>
-              <li>Producto</li>
-              <li>Cantidad</li>
-              <li>Precio</li>
-            </ul>
-            <div>
-              {productCart.length
-                ? productCart.map((e) => {
-                    return (
-                      <ul key={e.id}>
-                        <img src={e.imagen} alt="img not found" width="5%" />
-
-                        <li>{e.nombre}</li>
-                        <li>{e.precio}</li>
-                        <li>{e.quantity} unid.</li>
-                      </ul>
-                    );
-                  })
-                : null}
-              {direccion.delivery_type === "envio" ? (
+        <div className="checkout-div-render">
+          <div className="checkout-div-info">
+            <div className="checkout-product-delivery">
+              <div className="checkout-product">
+                {productCart.length
+                  ? productCart.map((e) => {
+                      return (
+                        <div className="checkout-product-detail">
+                          <ul className="checkout-ul" key={e.id}>
+                            <li>{e.nombre}</li>
+                            <li>{e.quantity} unid.</li>
+                            <li>${e.precio}</li>
+                          </ul>
+                        </div>
+                      );
+                    })
+                  : null}
+                {direccion.delivery_type === "envio" ? (
+                  <div className="checkout-delivery-info">
+                    <h2>Costo de envio : $749</h2>
+                    <h2>Total: {total + 749}</h2>
+                  </div>
+                ) : (
+                  <h2>Total : {total}</h2>
+                )}
                 <div>
-                  <h2>Costo de envio : $749</h2>
-                  <h2>Total: {total + 749}</h2>
+                  {direccion.provincia &&
+                  direccion.localidad &&
+                  direccion.calle_numero &&
+                  direccion.codigo_postal ? (
+                    <h2>
+                      Envio a:{" "}
+                      {`${direccion.provincia} , ${direccion.localidad}, ${direccion.calle_numero}, CP ${direccion.codigo_postal} `}
+                    </h2>
+                  ) : null}
                 </div>
-              ) : (
-                <h2>Total : {total}</h2>
-              )}
-            </div>
-            <div>
-              {direccion.provincia &&
-              direccion.localidad &&
-              direccion.calle_numero &&
-              direccion.codigo_postal ? (
-                <h2>
-                  Envio a:{" "}
-                  {`${direccion.provincia} , ${direccion.localidad}, ${direccion.calle_numero}, CP ${direccion.codigo_postal} `}
-                </h2>
-              ) : null}
-            </div>
-            <div>
-              <h3>Elegir metodo de entrega</h3>
-              <ul>
-                <li>
-                  <input
-                    type="radio"
-                    name="delivery_type"
-                    value="envio"
-                    id="delivery_type_envio"
-                    onClick={(e) => {
-                      handleInputChangeDelivery(e);
-                    }}
-                  />
-                  <label>Envio a Domicilio estándar Provincia e Interior</label>
+              </div>
 
-                  <span>$749,00</span>
-                </li>
-                <div>
-                  Despachamos tu pedido dentro de las 24 hs. Demora entre 3 a 5
-                  días hábiles.
-                </div>
-                {!disabled ? (
+              <div className="checkout-delivery">
+                <h3>Elegir metodo de entrega</h3>
+                <ul>
+                  <li>
+                    <input
+                      type="radio"
+                      name="delivery_type"
+                      value="envio"
+                      id="delivery_type_envio"
+                      onClick={(e) => {
+                        handleInputChangeDelivery(e);
+                      }}
+                    />
+                    <label>
+                      Envio a Domicilio estándar Provincia e Interior
+                    </label>
+
+                    <span>$749,00</span>
+                  </li>
                   <div>
-                    <div>Enviar al domicilio:</div>
-                    <ul>
-                      {direcciones?.map((e) => {
-                        return (
-                          <li key={e.id_direcciones}>
-                            {console.log(e.id_direcciones)}
-                            <label>
-                              {" "}
-                              <input
-                                type="radio"
-                                name="direcciones"
-                                id={e.id_direcciones}
+                    Despachamos tu pedido dentro de las 24 hs. Demora entre 3 a
+                    5 días hábiles.
+                  </div>
+                  {!disabled ? (
+                    <div>
+                      <div>Enviar al domicilio:</div>
+                      <ul>
+                        {direcciones?.map((e) => {
+                          return (
+                            <li key={e.id_direcciones}>
+                              {console.log(e.id_direcciones)}
+                              <label>
+                                {" "}
+                                <input
+                                  type="radio"
+                                  name="direcciones"
+                                  id={e.id_direcciones}
+                                  value={e.id_direcciones}
+                                  onClick={(e) => {
+                                    handleDireccion(e);
+                                  }}
+                                />
+                                {`${e.provincia} , ${e.localidad}, ${e.calle_numero}, CP ${e.codigo_postal} `}
+                              </label>
+                              <button
+                                className="button"
+                                onClick={handleDelDir}
                                 value={e.id_direcciones}
-                                onClick={(e) => {
-                                  handleDireccion(e);
-                                }}
-                              />
-                              {`${e.provincia} , ${e.localidad}, ${e.calle_numero}, CP ${e.codigo_postal} `}
-                            </label>
-                            <button
-                              onClick={handleDelDir}
-                              value={e.id_direcciones}
-                            >
-                              Borrar direccion
-                            </button>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                    <h2>Ingresar Nueva direccion de envio:</h2>
-                    <label> Calle y número</label>
-                    <input
-                      disabled={disabled}
-                      name="calle_numero"
-                      type="text"
-                      onChange={(e) => {
-                        handleInputChange(e);
-                      }}
-                      placeholder="Ingrese Calle y numero"
-                    />
-                    {errors.calle_numero && <span>{errors.calle_numero}</span>}
-                    <br></br>
-                    <label> Codigo postal</label>
-                    <input
-                      disabled={disabled}
-                      name="codigo_postal"
-                      type="number"
-                      onChange={(e) => {
-                        handleInputChange(e);
-                      }}
-                      placeholder="Codigo postal (4 digitos)"
-                    />
-                    {errors.codigo_postal && (
-                      <span>{errors.codigo_postal}</span>
-                    )}
-                    <br></br>
-                    <label> Provincia</label>
-                    <select
-                      name="provincia"
-                      onChange={(e) => {
-                        handleInputChange(e);
-                      }}
-                      id="provincia"
-                      placeholder=" Seleccione una provincia"
-                    >
-                      <option defaultValue value="">
-                        Seleccionar una Provincia
-                      </option>
-                      <option value="BUENOS AIRES" id="1">
-                        BUENOS AIRES
-                      </option>
-                      <option value="CATAMARCA" id="2">
-                        CATAMARCA
-                      </option>
-                      <option value="CHACO" id="5">
-                        CHACO
-                      </option>
-                      <option value="CHUBUT" id="6">
-                        CHUBUT
-                      </option>
-                      <option value="CIUDAD AUTONOMA DE Bs As" id="50">
-                        CIUDAD AUTONOMA DE Bs As
-                      </option>
-                      <option value="CORDOBA" id="3">
-                        CORDOBA
-                      </option>
-                      <option value="CORRIENTES" id="4">
-                        CORRIENTES
-                      </option>
-                      <option value="ENTRE RIOS" id="7">
-                        ENTRE RIOS
-                      </option>
-                      <option value="FORMOSA" id="8">
-                        FORMOSA
-                      </option>
-                      <option value="JUJUY" id="9">
-                        JUJUY
-                      </option>
-                      <option value="LA PAMPA" id="10">
-                        LA PAMPA
-                      </option>
-                      <option value="LA RIOJA" id="11">
-                        LA RIOJA
-                      </option>
-                      <option value="MENDOZA" id="12">
-                        MENDOZA
-                      </option>
-                      <option value="MISIONES" id="13">
-                        MISIONES
-                      </option>
-                      <option value="NEUQUEN" id="14">
-                        NEUQUEN
-                      </option>
-                      <option value="RIO NEGRO" id="15">
-                        RIO NEGRO
-                      </option>
-                      <option value="SALTA" id="16">
-                        SALTA
-                      </option>
-                      <option value="SAN LUIS" id="17">
-                        SAN LUIS
-                      </option>
-                      <option value="SANTA CRUZ" id="19">
-                        SANTA CRUZ
-                      </option>
-                      <option value="SANTA FE" id="20">
-                        SANTA FE
-                      </option>
-                      <option value="ANTIAGO DEL ESTERO" id="21">
-                        SANTIAGO DEL ESTERO
-                      </option>
-                      <option value="TIERRA DEL FUEGO" id="22">
-                        TIERRA DEL FUEGO
-                      </option>
-                    </select>
-                    {errors.provincia && <span>{errors.provincia}</span>}
+                              >
+                                Borrar direccion
+                              </button>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                      <h2>Ingresar Nueva direccion de envio:</h2>
+                      <label> Calle y número</label>
+                      <input
+                        disabled={disabled}
+                        name="calle_numero"
+                        type="text"
+                        onChange={(e) => {
+                          handleInputChange(e);
+                        }}
+                        placeholder="Ingrese Calle y numero"
+                      />
+                      {errors.calle_numero && (
+                        <span>{errors.calle_numero}</span>
+                      )}
+                      <br></br>
+                      <label> Codigo postal</label>
+                      <input
+                        disabled={disabled}
+                        name="codigo_postal"
+                        type="number"
+                        onChange={(e) => {
+                          handleInputChange(e);
+                        }}
+                        placeholder="Codigo postal (4 digitos)"
+                      />
+                      {errors.codigo_postal && (
+                        <span>{errors.codigo_postal}</span>
+                      )}
+                      <br></br>
+                      <label> Provincia</label>
+                      <select
+                        name="provincia"
+                        onChange={(e) => {
+                          handleInputChange(e);
+                        }}
+                        id="provincia"
+                        placeholder=" Seleccione una provincia"
+                      >
+                        <option defaultValue value="">
+                          Seleccionar una Provincia
+                        </option>
+                        <option value="BUENOS AIRES" id="1">
+                          BUENOS AIRES
+                        </option>
+                        <option value="CATAMARCA" id="2">
+                          CATAMARCA
+                        </option>
+                        <option value="CHACO" id="5">
+                          CHACO
+                        </option>
+                        <option value="CHUBUT" id="6">
+                          CHUBUT
+                        </option>
+                        <option value="CIUDAD AUTONOMA DE Bs As" id="50">
+                          CIUDAD AUTONOMA DE Bs As
+                        </option>
+                        <option value="CORDOBA" id="3">
+                          CORDOBA
+                        </option>
+                        <option value="CORRIENTES" id="4">
+                          CORRIENTES
+                        </option>
+                        <option value="ENTRE RIOS" id="7">
+                          ENTRE RIOS
+                        </option>
+                        <option value="FORMOSA" id="8">
+                          FORMOSA
+                        </option>
+                        <option value="JUJUY" id="9">
+                          JUJUY
+                        </option>
+                        <option value="LA PAMPA" id="10">
+                          LA PAMPA
+                        </option>
+                        <option value="LA RIOJA" id="11">
+                          LA RIOJA
+                        </option>
+                        <option value="MENDOZA" id="12">
+                          MENDOZA
+                        </option>
+                        <option value="MISIONES" id="13">
+                          MISIONES
+                        </option>
+                        <option value="NEUQUEN" id="14">
+                          NEUQUEN
+                        </option>
+                        <option value="RIO NEGRO" id="15">
+                          RIO NEGRO
+                        </option>
+                        <option value="SALTA" id="16">
+                          SALTA
+                        </option>
+                        <option value="SAN LUIS" id="17">
+                          SAN LUIS
+                        </option>
+                        <option value="SANTA CRUZ" id="19">
+                          SANTA CRUZ
+                        </option>
+                        <option value="SANTA FE" id="20">
+                          SANTA FE
+                        </option>
+                        <option value="ANTIAGO DEL ESTERO" id="21">
+                          SANTIAGO DEL ESTERO
+                        </option>
+                        <option value="TIERRA DEL FUEGO" id="22">
+                          TIERRA DEL FUEGO
+                        </option>
+                      </select>
+                      {errors.provincia && <span>{errors.provincia}</span>}
 
-                    <label> Localidad</label>
-                    <input
-                      disabled={disabled}
-                      name="localidad"
-                      type="text"
-                      onChange={(e) => {
-                        handleInputChange(e);
-                      }}
-                      placeholder="Ingrese una localidad"
-                    />
-                    {errors.localidad && <span>{errors.localidad}</span>}
-                    <button onClick={handlesubmitDireccion}>
-                      Agregar direccion
-                    </button>
-                  </div>
-                ) : null}
+                      <label> Localidad</label>
+                      <input
+                        disabled={disabled}
+                        name="localidad"
+                        type="text"
+                        onChange={(e) => {
+                          handleInputChange(e);
+                        }}
+                        placeholder="Ingrese una localidad"
+                      />
+                      {errors.localidad && <span>{errors.localidad}</span>}
+                      <button
+                        className="button"
+                        onClick={handlesubmitDireccion}
+                      >
+                        Agregar direccion
+                      </button>
+                    </div>
+                  ) : null}
 
-                <li>
-                  <input
-                    type="radio"
-                    name="delivery_type"
-                    value="sucursal"
-                    id="delivery_12"
-                    onClick={(e) => {
-                      handleInputChangeDelivery(e);
-                    }}
-                  />
-                  <label>Retiro por sucursal Pilar</label>
-                  <span>Gratuito</span>
-                  <div>
-                    Retirá tu pedido sin costo de envío en nuestra sucursal de
-                    Pilar.
-                    <br></br>
-                    <br></br>
-                    Disponible Lunes a Miércoles de 11 a 21 hs | Jueves a
-                    Sábados de 11 a 00 hs.
-                    <br></br>
-                    <br></br>
-                    Colectora Este Ramal Pilar 1250, B1669 Del Viso, Provincia
-                    de Buenos Aires
-                    <br></br>
-                    <br></br>
-                  </div>
-                </li>
-              </ul>
+                  <li>
+                    <input
+                      type="radio"
+                      name="delivery_type"
+                      value="sucursal"
+                      id="delivery_12"
+                      onClick={(e) => {
+                        handleInputChangeDelivery(e);
+                      }}
+                    />
+                    <label>Retiro por sucursal Pilar</label>
+                    <span>Gratuito</span>
+                    <div>
+                      Retirá tu pedido sin costo de envío en nuestra sucursal de
+                      Pilar.
+                      <br></br>
+                      <br></br>
+                      Disponible Lunes a Miércoles de 11 a 21 hs | Jueves a
+                      Sábados de 11 a 00 hs.
+                      <br></br>
+                      <br></br>
+                      Colectora Este Ramal Pilar 1250, B1669 Del Viso, Provincia
+                      de Buenos Aires
+                      <br></br>
+                      <br></br>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
           {/* {
@@ -446,9 +454,11 @@ export const Checkout = () => {
         </div>
         } */}
           <div>
-            <button onClick={handleAddress}>Confirmar direccion</button>
+            <button className="button" onClick={handleAddress}>
+              Confirmar direccion
+            </button>
           </div>
-          <button>
+          <button className="button">
             <Link to="/cart">Volver al Carrito</Link>
           </button>
           {!direccion.delivery_type ||

@@ -126,10 +126,10 @@ router.get("/bebida/:id", async (req, res) => {
 });
 
 router.put("/bebida", async (req, res) => {
-  let { nombre, imagen, marca, ml, graduacion, descripcion, precio, stock } =
+  let { nombre, imagen, marca, ml, graduacion, descripcion, precio, stock, tipo } =
     req.body;
   let { id } = req.body;
-
+  console.log(req.body)
   try {
     const bebidaPut = await Producto.findOne({ where: { id: id } });
 
@@ -140,6 +140,7 @@ router.put("/bebida", async (req, res) => {
       marca: marca,
       descripcion: descripcion,
       ml: ml,
+      tipo: tipo,
       graduacion: graduacion,
       precio: precio,
       stock: stock,
@@ -173,6 +174,7 @@ router.post("/", async (req, res) => {
     let usuarioFavorito = await Usuario.findByPk(id_user, {});
     let productoFavorito = await Producto.findByPk(id_prod, {});
     usuarioFavorito.addProducto(productoFavorito);
+    console.log("usuarioFavorito", usuarioFavorito);
     res.json(usuarioFavorito);
   } catch (err) {
     console.log(err.message);
@@ -183,6 +185,7 @@ router.get("/favoritos/:id_user", async (req, res) => {
   let { id_user } = req.params;
   try {
     let favs = await Favorito.findAll({ where: { usuarioId: id_user } });
+    console.log("favs", favs);
     res.status(200).json(favs);
   } catch (error) {
     console.log(error);
@@ -250,41 +253,39 @@ router.delete("/favoritos", async (req, res) => {
 
 //#endregion  //////////////////////////////////////////////////////////////////////
 
+//=============== Historial  ========================//
 
-  //=============== Historial  ========================// 
+router.get("/historial/:id", async (req, res) => {
+  let { id } = req.params;
 
-  router.get("/historial/:id",async (req,res) => {
-    let {id} = req.params
+  try {
+    let user = await Usuario.findByPk(id);
+    console.log(user, "Usuario encontrado");
+    let comprado = await Comprado.findAll({ where: { usuarioId: id } });
 
-    try {
-      let user = await Usuario.findByPk(id)
-      console.log(user, "Usuario encontrado")
-    let comprado = await Comprado.findAll({where :{usuarioId : id}})  
+    res.status(200).json(comprado);
+  } catch (e) {
+    console.log(e);
+  }
+});
 
-    res.status(200).json(comprado)
-    } catch (e) {
-      console.log(e)
-    }
-  })
-
-  router.post("/historial", async(req,res) => {
-    let {id_user , id_prods} = req.body
-    try {
-      let user = await Usuario.findByPk(id_user)
-      console.log(user, "Soy el usuario")
-      // console.log(id_prods, "Soy el producto")
-      id_prods.forEach( async (e) => {
-        console.log(e, "Soy un solo ID")
-         await Comprado.findOrCreate({
-          where : {productoId : e,
-          usuarioId : id_user}
-        })
-      })
-      // let product = await Producto.findByPk(id_prods)
-      res.status(200).json("Llegue hasta el final sin romperme")
-    } catch (e) {
-      console.log(e)
-    }
-  })
+router.post("/historial", async (req, res) => {
+  let { id_user, id_prods } = req.body;
+  try {
+    let user = await Usuario.findByPk(id_user);
+    console.log(user, "Soy el usuario");
+    // console.log(id_prods, "Soy el producto")
+    id_prods.forEach(async (e) => {
+      console.log(e, "Soy un solo ID");
+      await Comprado.findOrCreate({
+        where: { productoId: e, usuarioId: id_user },
+      });
+    });
+    // let product = await Producto.findByPk(id_prods)
+    res.status(200).json("Llegue hasta el final sin romperme");
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 module.exports = router;
