@@ -57,7 +57,7 @@ function Home() {
       navigate("/admin");
     }
   }, [dispatch, product, loading, searchProduct, rev, admin]);
-console.log("admin", admin);
+  console.log("admin", admin);
   const handleAlertReview = (e) => {
     e.preventDefault();
     swal({
@@ -147,13 +147,24 @@ console.log("admin", admin);
             <div>
               <CarouselBrands />
             </div>
-            <div class="container ">
-              <div class="row">
-                <div class="col bg-dark">GOOGLE MAPS</div>
-                <div class="col bg-secondary">
-                  CONTACTANOS
-                  <Contact />
-                </div>
+
+            <div className="cont-contact">
+              <div className="form-cont">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  id="gmap_canvas"
+                  src="https://maps.google.com/maps?q=Distribuidora%20Henry&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                  frameborder="0"
+                  scrolling="no"
+                  marginheight="0"
+                  marginwidth="0"
+                ></iframe>
+              </div>
+
+              <div className="form-cont">
+                <div className="form-text">Contáctanos</div>
+                <Contact />
               </div>
             </div>
 
@@ -184,8 +195,8 @@ console.log("admin", admin);
                 <span>No hay reviews</span> // esto es lo que tiraba error del pDOM en la consola
               )}
             </div>
+            <Footer />
           </div>
-          <Footer />
         </div>
       )}
     </div>

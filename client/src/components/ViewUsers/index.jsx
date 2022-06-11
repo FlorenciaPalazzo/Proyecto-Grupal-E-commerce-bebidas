@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { auth } from "../../fb";
 import { firebaseUsers, getUsersLoged } from "../../redux/actions";
-import "./ViewUsers.css"
-
+import "./ViewUsers.css";
 export default function ViewUsers() {
   const usersLoged = useSelector((state) => state.usersLoged);
   const dispatch = useDispatch();
@@ -34,26 +33,17 @@ export default function ViewUsers() {
               <th>Creado</th>
             </tr>
 
-            
             {usersLoged.map((e) => {
               if (e.email === process.env.REACT_APP_ADMIN_EMAIL) return;
               return (
                 <tr>
-                  <td  >
-                    
+                  <td>
                     {e.nombre} {e.apellido && e.apellido}
                   </td>
                   <td>{e.email}</td>
                   <td>{e.isVerified ? "Verificado" : "No verificado"}</td>
-                  <td>
-                    {
-                      e.createdAt.slice(0,10)
-                    }
-                  </td>
-                
+                  <td>{e.createdAt.slice(0, 10)}</td>
                 </tr>
-            
-                
               );
             })}
           </table>
