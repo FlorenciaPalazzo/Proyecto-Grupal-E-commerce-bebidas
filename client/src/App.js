@@ -21,6 +21,7 @@ import ResetPassword from "./components/Auth/ResetPassword";
 import { AdminReview } from "./components/Review/AdminReview";
 import { AdminRevDetail } from "./components/Review/AdminRevDetail";
 import { AdminEmailUser } from "./components/Review/AdminEmailUser";
+import PutReview from "./components/Profile/PutReview";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
         <Route path="/adminreview" exact element={<AdminReview />} />
         <Route path="/adminreview/:id" exact element={<AdminRevDetail />} />
         <Route path="/adminemail/:id" exact element={<AdminEmailUser />} />
+        <Route path="/putreview/:id" exact element={<PutReview />} />
       </Routes>
     </div>
   );

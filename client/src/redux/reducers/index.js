@@ -43,6 +43,7 @@ import {
   PUT_PRODUCTO,
   GET_REVIEW_BY_USER,
   GET_USER_BY_ID,
+  FIND_REVIEW_ID,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -72,6 +73,7 @@ const initialState = {
   reviewPage: [],
   allReviews: [],
   userReviews: [],
+  findreview: [],
   searchProduct: [],
   favProducts: [],
   historial: [],
@@ -413,7 +415,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case PUT_REVIEW:
       return {
         ...state,
-        review: payload,
+      };
+    case FIND_REVIEW_ID:
+      return{
+        ...state,
+        findreview: payload,
       };
     case DELETE_REVIEW:
       return {
