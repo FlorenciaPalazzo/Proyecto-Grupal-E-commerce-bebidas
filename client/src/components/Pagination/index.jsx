@@ -9,10 +9,21 @@ export default class Pagination extends React.Component {
     for (let i = 1; i < Math.ceil(product / productsPerPage); i++) {
       pageNumbers.push(i);
     }
-    //Este componente va a renderizar los numeritos en si
+
     return (
       <nav className="nav-pag">
         <ul className="ul">
+          <li className="pagination">
+            {currentPage >= 3 ? (
+              <button
+                className="pagination-button"
+                onClick={() => pagination(currentPage - 2)}
+              >
+                {" "}
+                {"<<"}
+              </button>
+            ) : null}
+          </li>
           <li className="pagination">
             {currentPage !== 1 ? (
               <button
@@ -20,7 +31,7 @@ export default class Pagination extends React.Component {
                 onClick={() => pagination(currentPage - 1)}
               >
                 {" "}
-                {"<"}
+                {currentPage - 1}
               </button>
             ) : null}
           </li>
@@ -33,12 +44,22 @@ export default class Pagination extends React.Component {
             </button>
           </li>
           <li className="pagination">
-            {currentPage > pageNumbers.length - 1 ? null : (
+            {currentPage > pageNumbers.length ? null : (
               <button
                 className="pagination-button"
                 onClick={() => pagination(currentPage + 1)}
               >
-                {">"}
+                {currentPage + 1}
+              </button>
+            )}
+          </li>
+          <li className="pagination">
+            {currentPage > pageNumbers.length - 1 ? null : (
+              <button
+                className="pagination-button"
+                onClick={() => pagination(currentPage + 2)}
+              >
+                {">>"}
               </button>
             )}
           </li>

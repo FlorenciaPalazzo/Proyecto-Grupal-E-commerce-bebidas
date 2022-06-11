@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import swal from 'sweetalert'
 import {
   addDirecciones,
   deleteDirecciones,
@@ -135,9 +136,26 @@ export const Checkout = () => {
     e.preventDefault();
     let id = e.target.value;
     dispatch(deleteDirecciones(id));
-    alert("Se borro correctamente la direccion ");
+    swal({
+      title: "Dirección borrada con éxito ",
+      type: 'warning',
+      icon: 'warning',
+      buttons: false,
+      timer: 800
+    });
     setBoleano(!boleano);
   };
+
+  const handleAlertPagar = (e) => {
+    e.preventDefault()
+    swal({
+      title: "Favor de confirmar dirección ",
+      type: 'warning',
+      icon: 'warning',
+      buttons: false,
+      timer: 800
+    })
+  }
 
   const handlesubmitDireccion = function (e) {
     e.preventDefault();
@@ -151,7 +169,6 @@ export const Checkout = () => {
       dispatch(addDirecciones(input));
 
       setDireccion(input);
-      alert("Se agrego correctamente la direccion ");
       setInput({
         delivery_type: "",
         calle_numero: null,
@@ -160,9 +177,20 @@ export const Checkout = () => {
         provincia: null,
         id_user: id,
       });
+      swal({
+        title: "Dirección agregada ",
+        type: 'success',
+        icon: 'success',
+        buttons: false,
+        timer: 900
+      })
 
       setBoleano(!boleano);
-    } else alert("Revisa los campos ingresados. ");
+    } else swal({
+      title: "Revisa los campos ingresados",
+      type: 'warning',
+      icon: 'warning',
+    });
   };
   const handlePagar = function (e) {
     e.preventDefault();
@@ -183,9 +211,7 @@ export const Checkout = () => {
       <h2>Detalle de compra</h2>
       {loading /* revisen esto!! */ ? (
         <Loading />
-      ) : !productCart.length ? (
-        <span>Cargando</span>
-      ) : sandbox ? (
+      ) :  (
         <div className="checkout-div-render">
           <div className="checkout-div-info">
             <div className="checkout-product-delivery">
@@ -440,19 +466,7 @@ export const Checkout = () => {
               </div>
             </div>
           </div>
-          {/* {
-          direcciones.some(e=>
-           e.calle_numero === direccion.calle_numero && e.provincia === direccion.provincia && e.localidad === direccion.localidad 
-            && e.codigo_postal === direccion.codigo_postal 
-            //|| input.delivery_type === "sucursal"
-          )? 
-          <div>
-          <button onClick={handleAddress}>Confirmar direccion</button>
-        </div> : 
-          <div>
-          <button disabled onClick={handleAddress}>Confirmar direccion</button>
-        </div>
-        } */}
+        
           <div>
             <button className="button" onClick={handleAddress}>
               Confirmar direccion
@@ -465,14 +479,12 @@ export const Checkout = () => {
           !direccion.provincia ||
           !direccion.localidad ||
           !direccion.calle_numero ? (
-            <button disabled> PAGAR </button>
+            <button onClick={handleAlertPagar}> PAGAR </button>
           ) : (
             <button onClick={handlePagar}>PAGAR </button>
           )}
         </div>
-      ) : productCart.length === 0 && !sandbox ? (
-        <span>Ya realizaste tu compra</span>
-      ) : null}
+      ) }
     </div>
   );
 };

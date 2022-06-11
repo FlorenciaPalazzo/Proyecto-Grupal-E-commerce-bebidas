@@ -19,6 +19,10 @@ import Offers from "./components/Off/Offers";
 import Historial from "./components/Historial";
 import ResetPassword from "./components/Auth/ResetPassword";
 import EditForm from "./components/Admin/ProductForm";
+import { AdminReview } from "./components/Review/AdminReview";
+import { AdminRevDetail } from "./components/Review/AdminRevDetail";
+import { AdminEmailUser } from "./components/Review/AdminEmailUser";
+import PutReview from "./components/Profile/PutReview";
 
 function App() {
   return (
@@ -44,6 +48,10 @@ function App() {
         <Route path="/review" exact element={<Review />} />
         <Route path="/favoritos/:id_user" exact element={<Favoritos />} />
         <Route path="/historial/:id" exact element={<Historial />} />
+        <Route path="/adminreview" exact element={<AdminReview />} />
+        <Route path="/adminreview/:id" exact element={<AdminRevDetail />} />
+        <Route path="/adminemail/:id" exact element={<AdminEmailUser />} />
+        <Route path="/putreview/:id" exact element={<PutReview />} />
       </Routes>
     </div>
   );

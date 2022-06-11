@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ReactStars from "react-rating-stars-component";
 import { getProducts, postReview } from "../../redux/actions";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 export default function PostReview() {
   const dispatch = useDispatch();
@@ -36,6 +37,13 @@ export default function PostReview() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    swal({
+      title: "Review dejada con exito ",
+      type: "success",
+      icon: "success",
+      buttons: false,
+      timer: 800,
+    });
     dispatch(postReview(input));
     setInput({
       titulo: "",
