@@ -28,18 +28,35 @@ export default function Contact() {
 
   return (
     <div>
-      {/* <Link to="/">
-        <button className="button">Home</button>
-      </Link> */}
-
       <form ref={form} onSubmit={sendEmail}>
-        <label>Nombre</label>
-        <input type="text" name="user_name" />
-        <label>Email</label>
-        <input type="email" name="user_email" />
-        <label>Mensaje</label>
-        <textarea name="message" />
-        <input type="submit" value="Send" />
+        <input
+          type="text"
+          name="user_name"
+          class="form-control my-3"
+          id="exampleFormControlInput1"
+          placeholder="Tu nombre"
+        />
+
+        <input
+          type="email"
+          name="user_email"
+          class="form-control my-3"
+          id="exampleFormControlInput1"
+          placeholder="tu-email@example.com"
+        />
+
+        <textarea
+          name="message"
+          class="form-control my-3"
+          id="exampleFormControlTextarea1"
+          rows="3"
+          placeholder="Dejanos un mensaje"
+        />
+        <input
+          type="submit"
+          value="Enviar Mensaje"
+          class="btn btn-outline-warning "
+        />
       </form>
     </div>
   );
