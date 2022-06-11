@@ -62,17 +62,18 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { titulo, comentario, puntaje } = req.body;
+router.put("/", async (req, res) => {
+  const { titulo, comentario, puntaje,  id, productoId, usuarioId } = req.body;
   try {
     let mod = await Review.findOne({ where: { id: id } });
-
+console.log(req.body, 'DIRECTO DEL BACK')
     await mod.update({
       id: id,
       titulo: titulo,
       comentario: comentario,
       puntaje: puntaje,
+      productoId: productoId,
+      usuarioId: usuarioId
     });
 
     res.status(200).json(mod);
@@ -92,5 +93,31 @@ router.delete("/:id", async (req, res) => {
     console.log(e);
   }
 });
+
+
+router.get("/all/:id", async (req,res) => {
+  const {id} = req.params
+  try {
+    const all = await Review.findAll({
+      where: { usuarioId  : id}
+    })
+
+    res.status(200).json(all)
+  } catch (error) {
+    console.log(error)
+  }
+})
+router.get("/putreview/:id", async (req,res) => {
+  const {id} = req.params
+  try {
+    const all = await Review.findAll({
+      where: { id  : id}
+    })
+
+    res.status(200).json(all)
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 module.exports = router;

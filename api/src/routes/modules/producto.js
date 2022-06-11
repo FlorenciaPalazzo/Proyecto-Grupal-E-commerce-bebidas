@@ -127,10 +127,10 @@ router.get("/bebida/:id", async (req, res) => {
 });
 
 router.put("/bebida", async (req, res) => {
-  let { nombre, imagen, marca, ml, graduacion, descripcion, precio, stock } =
+  let { nombre, imagen, marca, ml, graduacion, descripcion, precio, stock, tipo } =
     req.body;
   let { id } = req.body;
-
+  console.log(req.body)
   try {
     const bebidaPut = await Producto.findOne({ where: { id: id } });
 
@@ -141,6 +141,7 @@ router.put("/bebida", async (req, res) => {
       marca: marca,
       descripcion: descripcion,
       ml: ml,
+      tipo: tipo,
       graduacion: graduacion,
       precio: precio,
       stock: stock,

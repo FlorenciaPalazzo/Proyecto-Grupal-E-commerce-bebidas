@@ -20,7 +20,7 @@ export default class Pagination extends React.Component {
                 onClick={() => pagination(currentPage - 2)}
               >
                 {" "}
-                {"<"}
+                {"<<"}
               </button>
             ) : null}
           </li>
@@ -59,7 +59,7 @@ export default class Pagination extends React.Component {
                 className="pagination-button"
                 onClick={() => pagination(currentPage + 2)}
               >
-                {">"}
+                {">>"}
               </button>
             )}
           </li>

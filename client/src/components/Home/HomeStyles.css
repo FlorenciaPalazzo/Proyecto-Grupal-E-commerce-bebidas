@@ -157,7 +157,7 @@ html[data-theme="dark"] {
 
 body {
     background-color: var(--secondary-color);
-    color: var(--primary-color);
+    /* color: var(--primary-color); */
 }
 
 .pagination-button, 

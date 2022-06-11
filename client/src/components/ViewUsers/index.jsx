@@ -17,27 +17,36 @@ export default function ViewUsers() {
     console.log(usersLoged);
   }, [usersLoged]);
   return (
-    <div>
-      <div className="viewUsers-cont">
-        <div className="viewUsers-cont-row-title">
-          <div className="title-items">Nombre</div>
-          <div className="title-items">E-mail</div>
-        </div>
+    <div className="container">
+      <div className="usersContainer">
         {usersLoged.length === 0 && firstReq ? (
           <span>
             {console.log("loading")}
             Loading users...
           </span>
         ) : (
-          usersLoged.map((e) => {
-            if (e.email === process.env.REACT_APP_ADMIN_EMAIL) return;
-            return (
-              <div key={e.nombre} className="viewUsers-cont-row">
-                <div className="items">{e.nombre}</div>
-                <div className="items">{e.email}</div>
-              </div>
-            );
-          })
+          <table border="groove">
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Verificado</th>
+              <th>Creado</th>
+            </tr>
+
+            {usersLoged.map((e) => {
+              if (e.email === process.env.REACT_APP_ADMIN_EMAIL) return;
+              return (
+                <tr>
+                  <td>
+                    {e.nombre} {e.apellido && e.apellido}
+                  </td>
+                  <td>{e.email}</td>
+                  <td>{e.isVerified ? "Verificado" : "No verificado"}</td>
+                  <td>{e.createdAt.slice(0, 10)}</td>
+                </tr>
+              );
+            })}
+          </table>
         )}
       </div>
     </div>
