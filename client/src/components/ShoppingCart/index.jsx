@@ -20,7 +20,7 @@ const ShoppingCart = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.isLoading);
 
-  const verified = useSelector((state) => state.currentUser); //isEmail
+  const verified = useSelector((state) => state.currentUser);
   console.log("soy verified", verified);
   const feedBackReducer = useSelector((state) => state.feedBackMP);
   const productReducer = useSelector((state) => state.productCart);
