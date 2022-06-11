@@ -14,7 +14,6 @@ import "@fontsource/montserrat";
 import { Checkout } from "./components/Checkout";
 import { FeedBack } from "./components/FeedBack";
 import { Favoritos } from "./components/Favoritos";
-
 import Offers from "./components/Off/Offers";
 import Historial from "./components/Historial";
 import ResetPassword from "./components/Auth/ResetPassword";
@@ -23,6 +22,7 @@ import { AdminReview } from "./components/Review/AdminReview";
 import { AdminRevDetail } from "./components/Review/AdminRevDetail";
 import { AdminEmailUser } from "./components/Review/AdminEmailUser";
 import PutReview from "./components/Profile/PutReview";
+import ViewProducts from "./components/Admin/ViewProducts";
 
 function App() {
   return (
@@ -31,7 +31,8 @@ function App() {
         {/* <Route path="/" exact element={<Landing />} /> */}
         <Route path="/" exact element={<Home />} />
         <Route path="/admin" exact element={<AdminPanel />} />
-        <Route path="/admin/edit/:id" exact element={<EditForm/>} />
+        <Route path="/admin/products/edit/:id" exact element={<EditForm/>} />
+        <Route path="/admin/products" exact element={<ViewProducts/>} />
         <Route path="/cart" exact element={<ShoppingCart />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/login/reset" exact element={<ResetPassword />} />
