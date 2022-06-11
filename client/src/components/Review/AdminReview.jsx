@@ -7,6 +7,7 @@ import {
   getProducts,
   getReviewPage,
   getUsersLoged,
+  filterUserReview
 } from "../../redux/actions";
 import { ReviewCar } from "../Review/ReviewCar";
 
@@ -56,28 +57,34 @@ export const AdminReview = () => {
   let prom = 0;
   prom = Math.round(promPage);
 
-  const handleSelector = (e) => {
-    e.preventDefault();
-    console.log(e.target.value);
-    if (e.target.value === "pagina") {
-      setfilterReviews([...revsPage]);
-    } else if (e.target.value === "productos") {
-      let arr = [];
-      revs.forEach((e) => {
-        if (e.productoId !== null) {
-          arr.push(e);
-        }
-      });
-      setfilterReviews([...arr]);
-    } else if(e.target.value === "all") {
-      setfilterReviews([...revs]);
-    } else {
-      setfilterReviews([...revs]);
-    }
-  };
+  // const handleSelector = (e) => {
+  //   e.preventDefault();
+  //   console.log(e.target.value);
+  //   if (e.target.value === "pagina") {
+  //     setfilterReviews([...revsPage]);
+  //   } else if (e.target.value === "productos") {
+  //     let arr = [];
+  //     revs.forEach((e) => {
+  //       if (e.productoId !== null) {
+  //         arr.push(e);
+  //       }
+  //     });
+  //     setfilterReviews([...arr]);
+  //   } else if(e.target.value === "all") {
+  //     setfilterReviews([...revs]);
+  //   } else {
+  //     setfilterReviews([...revs]);
+  //   }
+  // };
   // useEffect(() => {
   //   setfilterReviews([...revs]);
   // }, []);
+
+  const handleSelector = (e) => { 
+    e.preventDefault()
+    dispatch(filterUserReview(e.target.value))
+
+  }
 
   useEffect(() => {
     dispatch(getProducts());
@@ -113,8 +120,8 @@ export const AdminReview = () => {
             <option value="pagina">Página</option>
             <option value="productos">Productos</option>
           </select>
-          {filterReviews
-            ? filterReviews.map((r) => {
+          {revs
+            ? revs.map((r) => {
                 let otroArray;
                 array.find((e) => {
                   if (e.id === r.usuarioId) {
