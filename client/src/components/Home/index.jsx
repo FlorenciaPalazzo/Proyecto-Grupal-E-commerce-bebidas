@@ -57,7 +57,7 @@ function Home() {
       navigate("/admin");
     }
   }, [dispatch, product, loading, searchProduct, rev, admin]);
-
+console.log("admin", admin);
   const handleAlertReview = (e) => {
     e.preventDefault();
     swal({
