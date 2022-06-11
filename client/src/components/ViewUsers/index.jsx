@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { auth } from "../../fb";
 import { firebaseUsers, getUsersLoged } from "../../redux/actions";
-
+import "./ViewUsers.css";
 export default function ViewUsers() {
   const usersLoged = useSelector((state) => state.usersLoged);
   const dispatch = useDispatch();
@@ -17,9 +17,12 @@ export default function ViewUsers() {
     console.log(usersLoged);
   }, [usersLoged]);
   return (
-    <div className="container">
-      
-      <div className="usersContainer">
+    <div>
+      <div className="viewUsers-cont">
+        <div className="viewUsers-cont-row">
+          <div className="title-items">Nombre</div>
+          <div className="title-items">E-mail</div>
+        </div>
         {usersLoged.length === 0 && firstReq ? (
           <span>
             {console.log("loading")}
@@ -29,10 +32,9 @@ export default function ViewUsers() {
           usersLoged.map((e) => {
             if (e.email === process.env.REACT_APP_ADMIN_EMAIL) return;
             return (
-              <div key={e.nombre}>
-                <hr />
-                <p>Nombre: {e.nombre}</p>
-                <p>Email: {e.email}</p>
+              <div key={e.nombre} className="viewUsers-cont-row">
+                <div className="items">{e.nombre}</div>
+                <div className="items">{e.email}</div>
               </div>
             );
           })
