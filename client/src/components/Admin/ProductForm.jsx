@@ -86,6 +86,9 @@ function ProductForm() {
         stock: prod.stock,
         imagen: prod.imagen
       });
+      return () => {
+          dispatch(clearState())
+      }
     }
   }, [prod]);
   prod && console.log(input.tipo)
