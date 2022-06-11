@@ -24,23 +24,23 @@ export default function FilterBy({ setCurrentPage }) {
   };
   const handleType = (e) => {
     e.preventDefault();
-    setCurrentPage(1);
     dispatch(filterByType(e.target.value));
+    setCurrentPage(1);
   };
   const handleGraduation = (e) => {
     e.preventDefault();
-    setCurrentPage(1);
     dispatch(filterByGraduation(e.target.value));
+    setCurrentPage(1);
   };
   const handleML = (e) => {
     e.preventDefault();
-    setCurrentPage(1);
     dispatch(filterByML(e.target.value));
+    setCurrentPage(1);
   };
   const handlePrice = (e) => {
     e.preventDefault();
-    setCurrentPage(1);
     dispatch(filterByPrice(e.target.value));
+    setCurrentPage(1);
   };
   const handleAZ = (e) => {
     e.preventDefault();
@@ -78,7 +78,7 @@ export default function FilterBy({ setCurrentPage }) {
           <a class="navbar-brand" href="#"></a>
           <select class="form-select mx-3" name="" id="" onChange={handleBrand}>
             <option>Marcas</option>
-            <option value="all">Todas</option>
+            <option value="all">Todas las marcas</option>
             {brands &&
               brands.map((b) => (
                 <option key={b} name={b} value={b}>
@@ -93,8 +93,6 @@ export default function FilterBy({ setCurrentPage }) {
             defaultValue="Type"
           >
             <option value="">Tipos</option>
-            <option value="all">Todas</option>
-            {/* puede sacarse */}
             <option value="cerveza">Birras</option>
             <option value="vino">Vinos</option>
             <option value="espumante">Espumantes</option>
@@ -109,8 +107,6 @@ export default function FilterBy({ setCurrentPage }) {
             defaultValue="Graduation"
           >
             <option value="">Graduacion</option>
-            <option value="all">Todas</option>
-            {/* puede sacarse */}
             <option value="low">3°-20°</option>
             <option value="medium">21°-38°</option>
             <option value="high">39°-55°</option>
@@ -124,8 +120,6 @@ export default function FilterBy({ setCurrentPage }) {
             defaultValue="ML"
           >
             <option value="">ML</option>
-            <option value="all">Todos</option>
-            {/* puede sacarse */}
             <option value="ml_1">150ml-400ml</option>
             <option value="ml_2">400ml-750ml</option>
             <option value="ml_3">750ml-950ml</option>
@@ -140,8 +134,6 @@ export default function FilterBy({ setCurrentPage }) {
             defaultValue="Price"
           >
             <option value="">Precio</option>
-            <option value="all">Todos</option>
-            {/* puede sacarse */}
             <option value="price_1">-$500</option>
             <option value="price_2">$500-$2000</option>
             <option value="price_3">$2000-$5000</option>

@@ -54,6 +54,8 @@ const initialState = {
   brands: [],
   brandsCopy: [],
   products: [],
+  productsCopy: [],
+  productsCopyTwo: [],
   searchProduct: [],
   productsSort: [],
   detail: [],
@@ -79,6 +81,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         products: payload,
+        productsCopy: payload,
+        productsCopyTwo: payload,
         productsSort: payload,
       };
     case SET_USER:
@@ -128,30 +132,38 @@ export default function rootReducer(state = initialState, { type, payload }) {
         brandsCopy: brandFilter,
       };
     case FILTER_BY_BRAND:
-      if (payload === "all") {
-        return { ...state, products: state.productsSort };
-      } else {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.marca.includes(payload)),
-        };
-      }
-    case FILTER_BY_TYPE:
-      if (payload === "all") {
-        return { ...state, products: state.products };
-      }
-      console.log("LLEGA A REDUCER");
-      console.log(payload);
-      let typeFilter = [];
-      state.productsSort.forEach((e) => {
-        if (e.tipo === payload) {
-          typeFilter.push(e);
-        }
+      let brands = state.productsCopy.filter((b) => {
+        if (b.marca?.includes(payload)) return b;
       });
-      console.log("TYPEFILTER ", typeFilter);
+      if (payload === "all") {
+        brands = state.productsSort;
+      }
+      console.log("soy el actual product", brands);
       return {
         ...state,
-        products: typeFilter,
+        products: brands,
+      };
+
+    case FILTER_BY_TYPE:
+      let filterToFilter = [];
+      let filterType = [];
+      console.log("filterTO", filterToFilter);
+      console.log("filterTYPE", filterType);
+      if (state.products.length <= 7) {
+        console.log("entre al filterTO");
+        state.products.forEach((e) => {
+          if (e.tipo?.includes(payload)) return filterToFilter.push(e);
+        });
+      } else {
+        state.productsSort.forEach((p) => {
+          console.log("entre al filterTYPE");
+          if (p.tipo?.includes(payload)) return filterType.push(p);
+        });
+      }
+
+      return {
+        ...state,
+        products: !filterType.length ? [...state.products, filterToFilter] : filterType,
       };
 
     case FILTER_BY_GRADUATION:
