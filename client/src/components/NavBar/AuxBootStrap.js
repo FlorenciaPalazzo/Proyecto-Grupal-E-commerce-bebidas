@@ -173,7 +173,7 @@
 
 ////////////////////////card///////////////////////
 
-<div className="card-main">
+{/* <div className="card-main">
       {" "}
       <div className="card">
         {" "}
@@ -200,13 +200,34 @@
                 onClick={handleAlertFav}
               >
                 ❤ {/* el corazon de toni (es chiquito) */}
-              </button>
-            ) : (
-              <button onClick={handleAddFavorito} className="button-fav">
-                ❤
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
+    //           </button>
+    //         ) : (
+    //           <button onClick={handleAddFavorito} className="button-fav">
+    //             ❤
+    //           </button>
+    //         )}
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div> */}
+
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+  </tbody>
+</table>;

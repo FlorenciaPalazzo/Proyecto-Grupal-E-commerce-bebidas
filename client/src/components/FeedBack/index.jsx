@@ -8,6 +8,9 @@ import Loading from "../Loading";
 export const FeedBack = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // let revs = useSelector((state) => state.allReviews);
+
+
 
   const loading = useSelector((state) => state.isLoading);
   let productCart = JSON.parse(window.localStorage.getItem("product"));

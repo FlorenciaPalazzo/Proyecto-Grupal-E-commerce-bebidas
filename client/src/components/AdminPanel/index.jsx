@@ -13,6 +13,18 @@ export default function AdminPanel() {
 
   const usersLoged = useSelector((state) => state.usersLoged);
 
+  const handleOnClickAdminProduct = (e) => {
+    e.preventDefault();
+    navigate("/admin/products")
+    window.location.reload()
+  }
+
+  const handleOnClickAdminReview = (e) => {
+    e.preventDefault();
+    navigate("/adminreview")
+    window.location.reload();
+  }
+
   function out() {
     signOut(auth)
       .then(() => {
@@ -21,6 +33,7 @@ export default function AdminPanel() {
         dispatch(resetUser());
         //dispatch(setLoading(false))
         navigate("/");
+        window.location.reload();
       })
       .catch((error) => {
         // An error happened.
@@ -112,7 +125,7 @@ export default function AdminPanel() {
                 </li>
 
                 <li class="nav-item">
-                  <Link to="/admin" class="nav-link" href="#">
+                  <Link to="/admin/usuarios" class="nav-link" href="#">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"
@@ -133,7 +146,7 @@ export default function AdminPanel() {
                 </li>
 
                 <li class="nav-item">
-                  <Link to="/adminreview" class="nav-link" href="#">
+                  <a onClick={handleOnClickAdminReview} class="nav-link" href="#">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"
@@ -145,11 +158,11 @@ export default function AdminPanel() {
                       <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                     </svg>{" "}
                     Reviews Usuarios
-                  </Link>
+                  </a>
                 </li>
 
                 <li class="nav-item">
-                  <Link to="/admin/products" class="nav-link" href="#">
+                  <a onClick={handleOnClickAdminProduct} class="nav-link" href="#">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"
@@ -162,7 +175,7 @@ export default function AdminPanel() {
                       <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
                     </svg>{" "}
                     Productos
-                  </Link>
+                  </a>
                 </li>
 
                 <li class="nav-item">
