@@ -33,6 +33,7 @@ export default function AdminPanel() {
         dispatch(resetUser());
         //dispatch(setLoading(false))
         navigate("/");
+        window.location.reload();
       })
       .catch((error) => {
         // An error happened.
