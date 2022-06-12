@@ -6,7 +6,7 @@ import {
   GET_USER_DB,
   SET_LOADING,
   FILTER_BY_AZ,
-  FILTER_BY_BRAND,
+  FILTER_BY_BRAND_CERVEZA,
   FILTER_BY_GRADUATION,
   FILTER_BY_ML,
   FILTER_BY_PRICE,
@@ -41,6 +41,17 @@ import {
   GET_HIST,
   CLEAR_STATE,
   PUT_PRODUCTO,
+<<<<<<< HEAD
+=======
+  GET_REVIEW_BY_USER,
+  GET_USER_BY_ID,
+  FIND_REVIEW_ID,
+  FILTER_USER_REVIEW,
+  FILTER_BY_BRAND_VINO,
+  FILTER_BY_BRAND_ESPUMANTE,
+  FILTER_BY_BRAND_DESTILADO,
+  ORDER_BY,
+>>>>>>> 2f09826943f8a75b3bd9543b400c31758f7a981d
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -57,6 +68,10 @@ const initialState = {
   searchProduct: [],
   productsSort: [],
   detail: [],
+<<<<<<< HEAD
+=======
+  userId: {},
+>>>>>>> 2f09826943f8a75b3bd9543b400c31758f7a981d
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
@@ -68,18 +83,62 @@ const initialState = {
   review: [],
   reviewPage: [],
   allReviews: [],
+  allReviewsCopy: [],
+  userReviews: [],
+  findreview: [],
+  searchProduct: [],
   favProducts: [],
   historial: [],
   favBoolean: [],
+  cervezas: [],
+  cervezasCopy: [],
+  vinos: [],
+  vinosCopy: [],
+  espumantes: [],
+  espumantesCopy: [],
+  destilados: [],
+  destiladosCopy: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
   switch (type) {
     case GET_PRODUCTS:
+      let cervezasReturn = [];
+      payload.forEach((e) => {
+        if (e.tipo === "cerveza") {
+          cervezasReturn.push(e);
+        }
+      });
+      let vinosReturn = [];
+      payload.forEach((e) => {
+        if (e.tipo === "vino") {
+          vinosReturn.push(e);
+        }
+      });
+      let espumanteReturn = [];
+      payload.forEach((e) => {
+        if (e.tipo === "espumante") {
+          espumanteReturn.push(e);
+        }
+      });
+      let destiladoReturn = [];
+      payload.forEach((e) => {
+        if (e.tipo === "destilado") {
+          destiladoReturn.push(e);
+        }
+      });
+
       return {
         ...state,
         products: payload,
         productsSort: payload,
+        cervezas: cervezasReturn,
+        cervezasCopy: cervezasReturn,
+        vinos: vinosReturn,
+        espumantes: espumanteReturn,
+        espumantesCopy: espumanteReturn,
+        destilados: destiladoReturn,
+        destiladosCopy: destiladoReturn,
       };
     case SET_USER:
       return { ...state, currentUser: payload, isLoged: true };
@@ -127,60 +186,109 @@ export default function rootReducer(state = initialState, { type, payload }) {
         brands: brandFilter,
         brandsCopy: brandFilter,
       };
-    case FILTER_BY_BRAND:
+    case FILTER_BY_BRAND_CERVEZA:
       if (payload === "all") {
-        return { ...state, products: state.productsSort };
+        return { ...state, products: [...state.cervezasCopy] };
       } else {
         return {
           ...state,
-          products: state.productsSort.filter((e) => e.marca.includes(payload)),
-        };
-      }
-    case FILTER_BY_TYPE:
-      if (payload === "all") {
-        return { ...state, products: state.products };
-      }
-      console.log("LLEGA A REDUCER");
-      console.log(payload);
-      let typeFilter = [];
-      state.productsSort.forEach((e) => {
-        if (e.tipo === payload) {
-          typeFilter.push(e);
-        }
-      });
-      console.log("TYPEFILTER ", typeFilter);
-      return {
-        ...state,
-        products: typeFilter,
-      };
-
-    case FILTER_BY_GRADUATION:
-      if (payload === "all") {
-        return {
-          ...state,
-          products: state.productsSort,
-        };
-      }
-      if (payload === "low") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.graduacion < 20),
-        };
-      }
-      if (payload === "medium") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.graduacion > 20 && e.graduacion < 38
+          products: [...state.cervezasCopy].filter((e) =>
+            e.marca.includes(payload)
+          ),
+          cervezas: [...state.cervezasCopy].filter((e) =>
+            e.marca.includes(payload)
           ),
         };
       }
-      if (payload === "high") {
+    case FILTER_BY_BRAND_VINO:
+      if (payload === "all") {
+        return { ...state, products: [...state.vinosCopy] };
+      } else {
         return {
           ...state,
-          products: state.productsSort.filter((e) => e.graduacion > 38),
+          products: [...state.vinosCopy].filter((e) =>
+            e.marca.includes(payload)
+          ),
+          vinos: [...state.vinosCopy].filter((e) => e.marca.includes(payload)),
         };
       }
+    case FILTER_BY_BRAND_ESPUMANTE:
+      if (payload === "all") {
+        return { ...state, products: [...state.espumantesCopy] };
+      } else {
+        return {
+          ...state,
+          products: [...state.espumantesCopy].filter((e) =>
+            e.marca.includes(payload)
+          ),
+          espumantes: [...state.espumantesCopy].filter((e) =>
+            e.marca.includes(payload)
+          ),
+        };
+      }
+    case FILTER_BY_BRAND_DESTILADO:
+      if (payload === "all") {
+        return { ...state, products: [...state.destiladosCopy] };
+      } else {
+        return {
+          ...state,
+          products: [...state.destiladosCopy].filter((e) =>
+            e.marca.includes(payload)
+          ),
+          destilados: [...state.destiladosCopy].filter((e) =>
+            e.marca.includes(payload)
+          ),
+        };
+      }
+    case ORDER_BY:
+      switch (payload) {
+        case "low":
+          return {
+            ...state,
+            products: [...state.products].filter((e) => e.graduacion < 20), //dudas
+            /* cervezas: [...state.cervezasCopy].filter((e) => e.graduacion < 20),
+            vinos: [...state.vinosCopy].filter((e) => e.graduacion < 20),
+            espumantes: [...state.espumantesCopy].filter(
+              (e) => e.graduacion < 20
+            ),
+            destilados: [...state.destiladosCopy].filter(
+              (e) => e.graduacion < 20
+            ), */
+          };
+        case "medium":
+          return {
+            ...state,
+            products: [...state.products].filter(
+              (e) => e.graduacion > 20 && e.graduacion < 38
+            ),
+            cervezas: [...state.cervezasCopy].filter(
+              (e) => e.graduacion > 20 && e.graduacion < 38
+            ),
+            vinos: [...state.vinosCopy].filter(
+              (e) => e.graduacion > 20 && e.graduacion < 38
+            ),
+            espumantes: [...state.espumantesCopy].filter(
+              (e) => e.graduacion > 20 && e.graduacion < 38
+            ),
+            destilados: [...state.destiladosCopy].filter(
+              (e) => e.graduacion > 20 && e.graduacion < 38
+            ),
+          };
+        case "high":
+          return {
+            ...state,
+            products: state.productsSort.filter((e) => e.graduacion > 38),
+            cervezas: state.cervezasCopy.filter((e) => e.graduacion > 38),
+            vinos: state.vinosCopy.filter((e) => e.graduacion > 38),
+            espumantes: state.espumantesCopy.filter((e) => e.graduacion > 38),
+            destilados: state.destiladosCopy.filter((e) => e.graduacion > 38),
+          };
+        default:
+          return state;
+      }
+    /// todo esto de abajo hay que meterlo en el switch de arriba con cada case
+    case FILTER_BY_GRADUATION:
+
     case FILTER_BY_ML:
       if (payload === "all") {
         return {
@@ -394,6 +502,10 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         allReviews: payload,
+<<<<<<< HEAD
+=======
+        allReviewsCopy: payload,
+>>>>>>> 2f09826943f8a75b3bd9543b400c31758f7a981d
       };
     case GET_REVIEW: //de los productos
       return {
@@ -408,12 +520,29 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case PUT_REVIEW:
       return {
         ...state,
+<<<<<<< HEAD
         review: payload,
+=======
+      };
+    case FIND_REVIEW_ID:
+      return {
+        ...state,
+        findreview: payload,
+>>>>>>> 2f09826943f8a75b3bd9543b400c31758f7a981d
       };
     case DELETE_REVIEW:
       return {
         ...state,
       };
+<<<<<<< HEAD
+=======
+    case GET_REVIEW_BY_USER:
+      return {
+        ...state,
+        userReviews: payload,
+      };
+
+>>>>>>> 2f09826943f8a75b3bd9543b400c31758f7a981d
     case SET_FAV:
       return { ...state };
 
@@ -436,6 +565,15 @@ export default function rootReducer(state = initialState, { type, payload }) {
         favProducts: arr,
       };
 
+<<<<<<< HEAD
+=======
+    case GET_USER_BY_ID:
+      return {
+        ...state,
+        userId: payload,
+      };
+
+>>>>>>> 2f09826943f8a75b3bd9543b400c31758f7a981d
     case DEL_FAV:
       return { ...state };
 
@@ -478,10 +616,31 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case ADD_HIST:
       return { ...state };
 
+<<<<<<< HEAD
+=======
+    case FILTER_USER_REVIEW:
+      let reviews = state.allReviewsCopy;
+      let filteredReviews =
+        payload === "pagina"
+          ? state.reviewPage
+          : reviews.filter((r) => r.productoId);
+
+      return {
+        ...state,
+        allReviews: payload === "all" ? state.allReviewsCopy : filteredReviews,
+      };
+
+>>>>>>> 2f09826943f8a75b3bd9543b400c31758f7a981d
     case CLEAR_STATE:
       return {
         ...state,
         detail: [],
+<<<<<<< HEAD
+=======
+        editProduct: null,
+        review: [],
+        userReviews: [],
+>>>>>>> 2f09826943f8a75b3bd9543b400c31758f7a981d
       };
     case PUT_PRODUCTO:
       return {
