@@ -85,6 +85,7 @@ export default function Detail() {
 {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
+        
   <div>
   <NavBar/>
   <div class="container">
