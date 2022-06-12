@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     imagen: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     marca: {
       type: DataTypes.STRING,

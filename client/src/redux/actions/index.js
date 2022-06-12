@@ -42,6 +42,7 @@ import {
   ADD_HIST,
   GET_HIST,
   CLEAR_STATE,
+  UPDATE_PRODUCT,
   PUT_PRODUCTO,
   GET_REVIEW_BY_USER,
   GET_USER_BY_ID,
@@ -205,6 +206,24 @@ export const getProductById = (id) => {
     }
   };
 };
+export const updateProduct = (prod) => {
+  console.log("prod update",prod);
+  return async function (dispatch) {
+    try {
+      let result = await axios.put(
+        "http://localhost:3001/producto/bebida", prod
+      );
+      return dispatch({
+        type: UPDATE_PRODUCT,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log("Error desde el catch de updateProduct", err);
+    }
+  };
+};
+
+
 //trae las marcas
 export const getBrands = () => {
   return async function (dispatch) {

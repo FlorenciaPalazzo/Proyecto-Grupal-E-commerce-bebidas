@@ -95,30 +95,49 @@ label {
     font-size: 35px !important;
 }
 
-.footer {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    height: 25vh;
-    width: 100%;
-    background-color: rgb(50, 50, 50);
-    justify-content: center;
-}
-
-.footer .text {
-    margin-top: 15px;
-    margin-left: 50px;
-    margin-right: 50px;
-    color: #F5F5F5;
-    font-weight: bold;
-    font-family: "Montserrat";
-}
 
 .banner-img {
     width: 100%;
     min-width: 600px;
 }  
 
+.cont-contact{
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    width: 72%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 1%;
+}
+
+.cont-contact .form-cont{
+    width: 50%;
+    background-color: #FFFFFF;
+    padding: 1%;
+    
+
+}
+.form-cont .form-text{
+    font-size:170%;
+    text-align: center;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    .cont-contact{
+        flex-direction:column;
+        
+    }
+
+    .cont-contact .form-cont{
+        width: 100%;
+        background-color: #FFFFFF;
+        padding: 1%;
+        
+    
+    }
+  } 
 
 
 /* 👇👇👇aqui yacen los restos del modo oscuro 👇👇👇*/
@@ -138,7 +157,7 @@ html[data-theme="dark"] {
 
 body {
     background-color: var(--secondary-color);
-    color: var(--primary-color);
+    /* color: var(--primary-color); */
 }
 
 .pagination-button, 
