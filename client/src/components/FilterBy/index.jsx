@@ -1,53 +1,88 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  filterByAZ,
   filterByBrand,
+  filterByBrandCerveza,
+  filterByBrandDestilado,
+  filterByBrandEspumante,
+  filterByBrandVino,
   filterByGraduation,
   filterByML,
   filterByPrice,
   filterByType,
   getBrands,
+  getProducts,
+  orderBy,
 } from "../../redux/actions";
 // import "./FilterStyles.css";
 
 export default function FilterBy({ setCurrentPage }) {
   const dispatch = useDispatch(); ///ver si lo dejo aca o lo saco
   const brands = useSelector((state) => state.brands); //ver esto
-  // const [ order, setOrder] = useState("");
+  const products = useSelector((state) => state.products);
+  const cervezas = useSelector((state) => state.cervezas);
+  const vinos = useSelector((state) => state.vinos);
+  const espumantes = useSelector((state) => state.espumantes);
+  const destilados = useSelector((state) => state.destilados);
 
-  const handleBrand = (e) => {
+  let filterCervezaMarca = [];
+  let filterVinoMarca = [];
+  let filterEspumanteMarca = [];
+  let filterDestiladoMarca = [];
+
+  cervezas.forEach((e) => {
+    if (!filterCervezaMarca.includes(e.marca)) {
+      filterCervezaMarca.push(e.marca);
+    }
+  });
+
+  vinos.forEach((e) => {
+    if (!filterVinoMarca.includes(e.marca)) {
+      filterVinoMarca.push(e.marca);
+    }
+  });
+  espumantes.forEach((e) => {
+    if (!filterEspumanteMarca.includes(e.marca)) {
+      filterEspumanteMarca.push(e.marca);
+    }
+  });
+  destilados.forEach((e) => {
+    if (!filterDestiladoMarca.includes(e.marca)) {
+      filterDestiladoMarca.push(e.marca);
+    }
+  });
+
+  const handleBrandCerveza = (e) => {
     e.preventDefault(); ///agregar a todos.
     setCurrentPage(1);
-    dispatch(filterByBrand(e.target.value));
-    // setOrder(`Organized ${e.target.value}`)
-  };
-  const handleType = (e) => {
-    e.preventDefault();
-    setCurrentPage(1);
-    dispatch(filterByType(e.target.value));
-  };
-  const handleGraduation = (e) => {
-    e.preventDefault();
-    setCurrentPage(1);
-    dispatch(filterByGraduation(e.target.value));
-  };
-  const handleML = (e) => {
-    e.preventDefault();
-    setCurrentPage(1);
-    dispatch(filterByML(e.target.value));
-  };
-  const handlePrice = (e) => {
-    e.preventDefault();
-    setCurrentPage(1);
-    dispatch(filterByPrice(e.target.value));
-  };
-  const handleAZ = (e) => {
-    e.preventDefault();
-    setCurrentPage(1);
-    dispatch(filterByAZ(e.target.value));
+    dispatch(filterByBrandCerveza(e.target.value));
   };
 
+  const handleBrandVino = (e) => {
+    e.preventDefault(); ///agregar a todos.
+    setCurrentPage(1);
+    dispatch(filterByBrandVino(e.target.value));
+  };
+  const handleBrandEspumante = (e) => {
+    e.preventDefault(); ///agregar a todos.
+    setCurrentPage(1);
+    dispatch(filterByBrandEspumante(e.target.value));
+  };
+  const handleBrandDestilado = (e) => {
+    e.preventDefault(); ///agregar a todos.
+    setCurrentPage(1);
+    dispatch(filterByBrandDestilado(e.target.value));
+  };
+  const handleOrder = (e) => {
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(orderBy(e.target.value));
+  };
+  const resetButton = (e) => {
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(getProducts(e.target.value));
+  };
   //////////////👇👇👇aqui modo oscuro 👇👇👇///////////
 
   const [checked, setChecked] = useState(
@@ -55,6 +90,7 @@ export default function FilterBy({ setCurrentPage }) {
   );
 
   useEffect(() => {
+    dispatch(getProducts());
     document
       .getElementsByTagName("HTML")[0]
       .setAttribute("data-theme", localStorage.getItem("theme"));
@@ -76,11 +112,17 @@ export default function FilterBy({ setCurrentPage }) {
       <nav class="navbar navbar-expand-lg bg-light py-4">
         <div class="container-md">
           <a class="navbar-brand" href="#"></a>
-          <select class="form-select mx-3" name="" id="" onChange={handleBrand}>
-            <option>Marcas</option>
+          <select
+            class="form-select mx-3"
+            name=""
+            id=""
+            onChange={handleBrandCerveza}
+          >
+            <option>Cervezas</option>
             <option value="all">Todas</option>
-            {brands &&
-              brands.map((b) => (
+
+            {filterCervezaMarca &&
+              filterCervezaMarca.map((b) => (
                 <option key={b} name={b} value={b}>
                   {b}
                 </option>
@@ -88,60 +130,72 @@ export default function FilterBy({ setCurrentPage }) {
           </select>
 
           <select
-            class="form-select mx-3 "
-            onChange={handleType}
-            defaultValue="Type"
+            class="form-select mx-3"
+            name=""
+            id=""
+            onChange={handleBrandVino}
           >
-            <option value="">Tipos</option>
-            <option value="all">Todas</option>
-            {/* puede sacarse */}
-            <option value="cerveza">Birras</option>
-            <option value="vino">Vinos</option>
-            <option value="espumante">Espumantes</option>
-            <option value="destilado">Destilados</option>
+            <option>Vinos</option>
+            <option value="all">Todos</option>
+
+            {filterVinoMarca &&
+              filterVinoMarca.map((b) => (
+                <option key={b} name={b} value={b}>
+                  {b}
+                </option>
+              ))}
           </select>
 
           <select
             class="form-select mx-3"
             name=""
             id=""
-            onChange={handleGraduation}
-            defaultValue="Graduation"
+            onChange={handleBrandEspumante}
           >
-            <option value="">Graduacion</option>
-            <option value="all">Todas</option>
-            {/* puede sacarse */}
+            <option>Espumantes</option>
+            <option value="all">Todos</option>
+
+            {filterEspumanteMarca &&
+              filterEspumanteMarca.map((b) => (
+                <option key={b} name={b} value={b}>
+                  {b}
+                </option>
+              ))}
+          </select>
+
+          <select
+            class="form-select mx-3"
+            name=""
+            id=""
+            onChange={handleBrandDestilado}
+          >
+            <option>Destilados</option>
+            <option value="all">Todos</option>
+
+            {filterDestiladoMarca &&
+              filterDestiladoMarca.map((b) => (
+                <option key={b} name={b} value={b}>
+                  {b}
+                </option>
+              ))}
+          </select>
+
+          <select class="form-select mx-3" name="" id="" onChange={handleOrder}>
+            <option>Ordenar por:</option>
+            <option disabled>ABC</option>
+            <option value="az">A-Z</option>
+            <option value="za">Z-A</option>
+            <option disabled>ABC</option>
+            <option disabled>Graduacion</option>
             <option value="low">3°-20°</option>
             <option value="medium">21°-38°</option>
             <option value="high">39°-55°</option>
-          </select>
-
-          <select
-            class="form-select mx-3"
-            name=""
-            id=""
-            onChange={handleML}
-            defaultValue="ML"
-          >
-            <option value="">ML</option>
-            <option value="all">Todos</option>
-            {/* puede sacarse */}
+            <option disabled>ML</option>
             <option value="ml_1">150ml-400ml</option>
             <option value="ml_2">400ml-750ml</option>
             <option value="ml_3">750ml-950ml</option>
             <option value="ml_4">950ml-1500ml</option>
-          </select>
-
-          <select
-            class="form-select mx-3"
-            name=""
-            id=""
-            onChange={handlePrice}
-            defaultValue="Price"
-          >
-            <option value="">Precio</option>
-            <option value="all">Todos</option>
-            {/* puede sacarse */}
+            <option disabled>Precio</option>
             <option value="price_1">-$500</option>
             <option value="price_2">$500-$2000</option>
             <option value="price_3">$2000-$5000</option>
@@ -150,18 +204,7 @@ export default function FilterBy({ setCurrentPage }) {
             <option value="price_6">$20000-$35000</option>
             <option value="price_7">+$35000</option>
           </select>
-
-          <select
-            class="form-select mx-3"
-            name=""
-            id=""
-            onChange={handleAZ}
-            defaultValue="ABC"
-          >
-            <option value="all">ABC</option>
-            <option value="az">A-Z</option>
-            <option value="za">Z-A</option>
-          </select>
+          <button onClick={resetButton}>Resetear filtros</button>
 
           {/* 👇👇👇modo oscuro para el render 👇👇👇*/}
           <div class="d-flex justify-content-between me-4">

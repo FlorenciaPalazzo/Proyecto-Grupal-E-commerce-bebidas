@@ -7,9 +7,9 @@ export default function ViewProducts() {
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  function handleLink(id){
-    navigate(`/admin/products/edit/${id}`)
+
+  function handleLink(id) {
+    navigate(`/admin/products/edit/${id}`);
   }
   useEffect(() => {
     !products.length && dispatch(getProducts());
@@ -36,8 +36,7 @@ export default function ViewProducts() {
             <tbody>
               {products.map((product) => {
                 return (
-                      
-                    <tr>
+                  <tr>
                     <td>
                       <img src={product.imagen} width="150" />
                     </td>
@@ -51,9 +50,12 @@ export default function ViewProducts() {
                     <td>{product.graduacion}%</td>
                     <td>{product.stock}</td>
                     <td>${product.precio}</td>
-                    <td><button onClick={() => handleLink(product.id)}>Editar</button></td>
+                    <td>
+                      <button onClick={() => handleLink(product.id)}>
+                        Editar
+                      </button>
+                    </td>
                   </tr>
-                        
                 );
               })}
             </tbody>
