@@ -1,13 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getProducts } from "../../redux/actions";
 import AdminPanel from "../AdminPanel";
+import Pagination from "../Pagination";
 
 export default function ViewProducts() {
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage /*setProductsPerPage*/] = useState(10); //15 productos por pagina
+
+  const indexOfLastProduct = currentPage * productsPerPage; // 15
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
+
+  //Productos que estan en la pagina actual
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
+  const pagination = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   function handleLink(id) {
     navigate(`/admin/products/edit/${id}`);
@@ -21,6 +38,12 @@ export default function ViewProducts() {
       <div class="container">
         <div class="col-lg-12 col-md-12 col-sm-12">
           <h3 class="box-title mt-5">Tabla de Productos: </h3>
+      <Pagination
+        currentPage={currentPage}
+        productsPerPage={productsPerPage}
+        product={products.length}
+        pagination={pagination}
+      />
           <div class="table-responsive">
             <table class="table table-striped ">
               <thead class="thead-dark">
@@ -37,7 +60,7 @@ export default function ViewProducts() {
                 </tr>
               </thead>
               <tbody>
-                {products.map((product) => {
+                {currentProducts.map((product) => {
                   return (
                     <tr>
                       <td>
