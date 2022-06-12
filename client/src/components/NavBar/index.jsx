@@ -56,6 +56,13 @@ export default function NavBar({ setCurrentPage }) {
               </svg>
             </span>
           </button>
+
+          <Link to="/">
+            <button>
+              <img src="./images/Logo-Letras.jpg" height="50px" />
+            </button>
+          </Link>
+
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item dropdown">
@@ -133,6 +140,11 @@ export default function NavBar({ setCurrentPage }) {
         </div>
       ) : (
         <div class="container-fluid">
+          <Link to="/">
+            <button>
+              <img src="./images/Logo-Letras.jpg" height="50px" />
+            </button>
+          </Link>
           <Link to="/login">
             <button
               type="button "
