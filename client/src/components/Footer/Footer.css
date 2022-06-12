@@ -1,7 +1,3 @@
-h4{
-    color:#eeb305;
-}
-
 .footer {
     display: flex;
     flex-wrap: wrap;
@@ -10,7 +6,6 @@ h4{
     width: 100%;
     background-color: rgb(50, 50, 50);
     padding: 1%;
-    
 }
 
 .footer .text {
@@ -22,19 +17,16 @@ h4{
     font-family: "Montserrat";
 }
 
-
-
 .footer .contact {
     /* flex: 1 1 auto; */
     width: 50%;
-   text-align: center;
+    text-align: center;
 }
 
 .footer .about {
     /* flex: 1 1 auto; */
     width: 50%;
     text-align: center;
-   
 }
 
 .footer .hecho {
