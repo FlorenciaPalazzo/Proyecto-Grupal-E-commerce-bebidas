@@ -137,7 +137,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         destiladosCopy: destiladoReturn,
         orderAZ: payload,
       };
-      
+
     case SET_USER:
       return { ...state, currentUser: payload, isLoged: true };
     case UPDATE_USER:
@@ -185,186 +185,181 @@ export default function rootReducer(state = initialState, { type, payload }) {
     //     brandsCopy: brandFilter,
     //   };
     case FILTER_BY_BRAND_CERVEZA:
-      if (payload === "all") return {...state,  products: state.cervezas} 
+      if (payload === "all") return { ...state, products: state.cervezas };
 
       let birrita = [];
       state.cervezas.filter((e) => {
         // console.log()
-        if(e.marca === payload) {
-          birrita.push(e)
+        if (e.marca === payload) {
+          birrita.push(e);
         }
-      })
+      });
       // console.log("BIRRITA",birrita, 'SOYPAYLOAD',payload)
       return {
         ...state,
         products: birrita,
-        orderAZ: birrita
-      }
+        orderAZ: birrita,
+      };
 
-      
-  
     case FILTER_BY_BRAND_VINO:
-      case FILTER_BY_BRAND_CERVEZA:
-        if (payload === "all") return {...state,  products: state.vinos} 
-  
-        let vinito = [];
-        state.vinos.filter((e) => {
-          // console.log()
-          if(e.marca === payload) {
-            vinito.push(e)
-          }
-        })
-        // console.log("BIRRITA",birrita, 'SOYPAYLOAD',payload)
-        return {
-          ...state,
-          products: vinito,
-          orderAZ: [...state.products]
+    case FILTER_BY_BRAND_CERVEZA:
+      if (payload === "all") return { ...state, products: state.vinos };
+
+      let vinito = [];
+      state.vinos.filter((e) => {
+        // console.log()
+        if (e.marca === payload) {
+          vinito.push(e);
         }
-        case FILTER_BY_BRAND_ESPUMANTE:
-          if (payload === "all") return {...state,  products: state.espumantes} 
-    
-          let champusiño = [];
-          state.espumantes.filter((e) => {
-            // console.log()
-            if(e.marca === payload) {
-              champusiño.push(e)
-            }
-          })
-          // console.log("champusiño",champusiño, 'SOYPAYLOAD',payload)
-          return {
-            ...state,
-            products: champusiño,
-            orderAZ: [...state.products]
-          }
-          case FILTER_BY_BRAND_DESTILADO:
-            if (payload === "all") return {...state,  products: state.destilados} 
-      
-            let puri = [];
-            state.destilados.filter((e) => {
-              // console.log()
-              if(e.marca === payload) {
-                puri.push(e)
-              }
-            })
-            // console.log("puri",puri, 'SOYPAYLOAD',payload)
-            return {
-              ...state,
-              products: puri,
-              orderAZ: puri
-            }
+      });
+      // console.log("BIRRITA",birrita, 'SOYPAYLOAD',payload)
+      return {
+        ...state,
+        products: vinito,
+        orderAZ: [...state.products],
+      };
+    case FILTER_BY_BRAND_ESPUMANTE:
+      if (payload === "all") return { ...state, products: state.espumantes };
+
+      let champusiño = [];
+      state.espumantes.filter((e) => {
+        // console.log()
+        if (e.marca === payload) {
+          champusiño.push(e);
+        }
+      });
+      // console.log("champusiño",champusiño, 'SOYPAYLOAD',payload)
+      return {
+        ...state,
+        products: champusiño,
+        orderAZ: [...state.products],
+      };
+    case FILTER_BY_BRAND_DESTILADO:
+      if (payload === "all") return { ...state, products: state.destilados };
+
+      let puri = [];
+      state.destilados.filter((e) => {
+        // console.log()
+        if (e.marca === payload) {
+          puri.push(e);
+        }
+      });
+      // console.log("puri",puri, 'SOYPAYLOAD',payload)
+      return {
+        ...state,
+        products: puri,
+        orderAZ: puri,
+      };
     case ORDER_BY:
-      console.log('SOY PAYLOAD', payload)
-    console.log('STATE' , state.products)
-    let sort = payload === 'az' ? state.products.sort(function(a, b) {
-        // console.log(a, b)
-        if(a.nombre > b.nombre) {
-          return 1
-        };
-        if(b.nombre > a.nombre) {
-          return -1
-        };
-        return 0
-      })
-      : payload === 'za' ? 
-      state.products.sort(function(a, b) {
-        if (a.nombre > b.nombre) {
-          return -1;
-        }
-        if (b.nombre > a.nombre) {
-          return 1;
-        }
-        return 0;
-      })  
-      :
-      payload === 'menorGraduacion' ? state.products.sort(function(a, b) {
-        if(a.graduacion > b.graduacion) {
-          return 1
-        };
-        if(b.graduacion > a.graduacion) {
-          return -1
-        };
-        return 0
-      })
-      :
-      payload === 'mayorGraduacion' ? state.products.sort(function(a, b) {
-        if (a.graduacion > b.graduacion) {
-          return -1;
-        }
-        if (b.graduacion > a.graduacion) {
-          return 1;
-        }
-        return 0;
-      }) 
-      :
-      payload === 'ml_1' ? state.products.sort(function(a, b) {
-        if(a.ml > b.ml) {
-          return 1
-        };
-        if(b.ml > a.ml) {
-          return -1
-        };
-        return 0
-      })
-      :
-      payload === 'ml_2' ? state.products.sort(function(a, b) {
-        if (a.ml > b.ml) {
-          return -1;
-        }
-        if (b.ml > a.ml) {
-          return 1;
-        }
-        return 0;
-      })
-      :
-      payload === "price_1" ? state.products.sort(function(a, b) {
-        if(a.precio > b.precio) {
-          return 1
-        };
-        if(b.precio > a.precio) {
-          return -1
-        };
-        return 0
-      })
-      :
-      state.products.sort(function(a, b) {
-        if (a.precio > b.precio) {
-          return -1;
-        }
-        if (b.precio > a.precio) {
-          return 1;
-        }
-        return 0;
-      })
+      console.log("SOY PAYLOAD", payload);
+      console.log("STATE", state.products);
+      let sort =
+        payload === "az"
+          ? state.products.sort(function (a, b) {
+              // console.log(a, b)
+              if (a.nombre > b.nombre) {
+                return 1;
+              }
+              if (b.nombre > a.nombre) {
+                return -1;
+              }
+              return 0;
+            })
+          : payload === "za"
+          ? state.products.sort(function (a, b) {
+              if (a.nombre > b.nombre) {
+                return -1;
+              }
+              if (b.nombre > a.nombre) {
+                return 1;
+              }
+              return 0;
+            })
+          : payload === "menorGraduacion"
+          ? state.products.sort(function (a, b) {
+              if (a.graduacion > b.graduacion) {
+                return 1;
+              }
+              if (b.graduacion > a.graduacion) {
+                return -1;
+              }
+              return 0;
+            })
+          : payload === "mayorGraduacion"
+          ? state.products.sort(function (a, b) {
+              if (a.graduacion > b.graduacion) {
+                return -1;
+              }
+              if (b.graduacion > a.graduacion) {
+                return 1;
+              }
+              return 0;
+            })
+          : payload === "ml_1"
+          ? state.products.sort(function (a, b) {
+              if (a.ml > b.ml) {
+                return 1;
+              }
+              if (b.ml > a.ml) {
+                return -1;
+              }
+              return 0;
+            })
+          : payload === "ml_2"
+          ? state.products.sort(function (a, b) {
+              if (a.ml > b.ml) {
+                return -1;
+              }
+              if (b.ml > a.ml) {
+                return 1;
+              }
+              return 0;
+            })
+          : payload === "price_1"
+          ? state.products.sort(function (a, b) {
+              if (a.precio > b.precio) {
+                return 1;
+              }
+              if (b.precio > a.precio) {
+                return -1;
+              }
+              return 0;
+            })
+          : state.products.sort(function (a, b) {
+              if (a.precio > b.precio) {
+                return -1;
+              }
+              if (b.precio > a.precio) {
+                return 1;
+              }
+              return 0;
+            });
 
       return {
         ...state,
-        products : [...sort]
-      }
-      // : payload === 'mayorGraduacion'?
-      // state.orderAZ.sort(function(a, b) {
-      //   if (a.graduacion > b.graduacion) {
-      //     return 1;
-      //   }
-      //   if (b.graduacion > a.graduacion) {
-      //     return -1;
-      //   }
-      //   return 0;
-      // }) 
-      // : (payload === 'menorGraduacion')? 
-      // state.orderAZ.sort(function(a, b) {
-      //   if (a.graduacion > b.graduacion) {
-      //     return 1;
-      //   }
-      //   if (b.graduacion > a.graduacion) {
-      //     return -1;
-      //   }
-      //   return 0;
-      // }) : null
+        products: [...sort],
+      };
+    // : payload === 'mayorGraduacion'?
+    // state.orderAZ.sort(function(a, b) {
+    //   if (a.graduacion > b.graduacion) {
+    //     return 1;
+    //   }
+    //   if (b.graduacion > a.graduacion) {
+    //     return -1;
+    //   }
+    //   return 0;
+    // })
+    // : (payload === 'menorGraduacion')?
+    // state.orderAZ.sort(function(a, b) {
+    //   if (a.graduacion > b.graduacion) {
+    //     return 1;
+    //   }
+    //   if (b.graduacion > a.graduacion) {
+    //     return -1;
+    //   }
+    //   return 0;
+    // }) : null
 
-
-      
-  
-   
     case ADD_CARRITO:
       let repeated = state.productCart.find((e) => e.id === payload.id); //busca si existe ese id
       const cartProduct = [...state.productCart, payload]; //guarda todo

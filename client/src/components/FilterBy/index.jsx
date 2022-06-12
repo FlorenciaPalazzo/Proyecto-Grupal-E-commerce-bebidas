@@ -196,7 +196,7 @@ export default function FilterBy({ setCurrentPage }) {
             <option value="price_1">$ Menor precio</option>
             <option value="price_2">$ Mayor precio</option>
           </select>
-          <button onClick={resetButton}>Resetear filtros</button>
+          <button onClick={resetButton}>Todos los productos</button>
 
           {/* 👇👇👇modo oscuro para el render 👇👇👇*/}
           <div class="d-flex justify-content-between me-4">
