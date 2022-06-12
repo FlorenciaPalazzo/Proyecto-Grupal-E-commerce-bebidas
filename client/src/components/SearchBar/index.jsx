@@ -24,7 +24,7 @@ export default function SearchBar({ setCurrentPage }) {
         <input
           class="form-control me-2 border border-warning"
           type="text"
-          placeholder="Buscar"
+          placeholder="Buscar producto"
           onChange={handleInputChange}
           value={name}
         />

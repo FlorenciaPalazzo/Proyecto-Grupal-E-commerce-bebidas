@@ -57,7 +57,7 @@ function Home() {
       navigate("/admin");
     }
   }, [dispatch, product, loading, searchProduct, rev, admin]);
-
+  console.log("admin", admin);
   const handleAlertReview = (e) => {
     e.preventDefault();
     swal({
@@ -151,8 +151,8 @@ function Home() {
             <div className="cont-contact">
               <div className="form-cont">
                 <iframe
-                  width="480"
-                  height="330"
+                  width="100%"
+                  height="100%"
                   id="gmap_canvas"
                   src="https://maps.google.com/maps?q=Distribuidora%20Henry&t=&z=13&ie=UTF8&iwloc=&output=embed"
                   frameborder="0"

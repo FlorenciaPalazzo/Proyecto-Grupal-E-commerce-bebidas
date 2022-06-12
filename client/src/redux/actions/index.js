@@ -42,7 +42,12 @@ import {
   ADD_HIST,
   GET_HIST,
   CLEAR_STATE,
-  PUT_PRODUCTO
+  UPDATE_PRODUCT,
+  PUT_PRODUCTO,
+  GET_REVIEW_BY_USER,
+  GET_USER_BY_ID,
+  FIND_REVIEW_ID,
+  FILTER_USER_REVIEW,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -201,6 +206,24 @@ export const getProductById = (id) => {
     }
   };
 };
+export const updateProduct = (prod) => {
+  console.log("prod update",prod);
+  return async function (dispatch) {
+    try {
+      let result = await axios.put(
+        "http://localhost:3001/producto/bebida", prod
+      );
+      return dispatch({
+        type: UPDATE_PRODUCT,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log("Error desde el catch de updateProduct", err);
+    }
+  };
+};
+
+
 //trae las marcas
 export const getBrands = () => {
   return async function (dispatch) {
@@ -435,6 +458,7 @@ export const getReview = (id) => {
   return async function (dispatch) {
     try {
       let result = await axios.get("http://localhost:3001/review/" + id);
+      console.log(result.data, 'soy la action')
       return dispatch({
         type: GET_REVIEW,
         payload: result.data,
@@ -460,13 +484,13 @@ export const getReviewPage = () => {
   };
 };
 
-export const putReview = (id) => {
+export const putReview = (payload) => {
   return async function (dispatch) {
     try {
-      let result = await axios.get("http://localhost:3001/review/" + id);
+      let result = await axios.put("http://localhost:3001/review/", payload);
+      console.log('entre al baaaaaaaack')
       return dispatch({
         type: PUT_REVIEW,
-        payload: result.data,
       });
     } catch (e) {
       console.log(e);
@@ -486,6 +510,33 @@ export const deleteReview = (id) => {
   };
 };
 
+export const findReviewId = (id) => {
+  return async function(dispatch) {
+    try{
+      let result = await axios.get("http://localhost:3001/review/putreview/" + id)
+      console.log(result.data, 'me traigo las review por su id');
+      return dispatch({
+        type: FIND_REVIEW_ID,
+        payload: result.data,
+      })
+    }catch(e){console.log(e)}
+  }
+}
+
+export const getReviewByUser = (id) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.get("http://localhost:3001/review/all/" + id)
+      return dispatch({
+        type: GET_REVIEW_BY_USER,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log("Error del action del getReviewByUser", err);
+    }
+  };
+};
+
 export const setFavorito = (payload) => {
   return async function (dispatch) {
     try {
@@ -499,6 +550,20 @@ export const setFavorito = (payload) => {
     }
   };
 };
+
+export const getUserById = (id) => {
+  return async function (dispatch){
+    try{
+      let result = await axios.get("http://localhost:3001/usuario/" + id)
+      return dispatch({
+        type : GET_USER_BY_ID,
+        payload: result.data 
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
 
 export const getFavorito = (id) => {
   return async function (dispatch) {
@@ -624,7 +689,10 @@ export const clearState = () => {
 export const putProduct = (payload) => {
   return async function (dispatch) {
     try {
-      let result = await axios.put("http://localhost:3001/producto/bebida" , payload);
+      let result = await axios.put(
+        "http://localhost:3001/producto/bebida",
+        payload
+      );
       return dispatch({
         type: PUT_PRODUCTO,
         payload: result.data,
@@ -634,3 +702,18 @@ export const putProduct = (payload) => {
     }
   };
 };
+
+export const filterUserReview = (payload) => {
+  return {
+    type : FILTER_USER_REVIEW,
+    payload
+  }
+}
+
+
+
+
+
+
+
+// TONI ESTUVO AQUI WOWOWOOWOWOWOWOWOOW

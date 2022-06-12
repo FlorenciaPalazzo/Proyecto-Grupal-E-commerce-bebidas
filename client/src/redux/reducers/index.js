@@ -41,6 +41,10 @@ import {
   GET_HIST,
   CLEAR_STATE,
   PUT_PRODUCTO,
+  GET_REVIEW_BY_USER,
+  GET_USER_BY_ID,
+  FIND_REVIEW_ID,
+  FILTER_USER_REVIEW,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -54,9 +58,11 @@ const initialState = {
   brands: [],
   brandsCopy: [],
   products: [],
+  editProduct: null,
   searchProduct: [],
   productsSort: [],
   detail: [],
+  userId : {},
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
@@ -68,6 +74,10 @@ const initialState = {
   review: [],
   reviewPage: [],
   allReviews: [],
+  allReviewsCopy : [],
+  userReviews: [],
+  findreview: [],
+  searchProduct: [],
   favProducts: [],
   historial: [],
   favBoolean: [],
@@ -113,7 +123,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return { ...state, products: payload, searchProduct: payload };
 
     case GET_PRODUCT_ID:
-      return { ...state, detail: payload };
+      return { ...state, detail: payload, editProduct: payload };
 
     case GET_BRANDS:
       let brandFilter = [];
@@ -394,6 +404,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         allReviews: payload,
+        allReviewsCopy : payload
       };
     case GET_REVIEW: //de los productos
       return {
@@ -408,12 +419,22 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case PUT_REVIEW:
       return {
         ...state,
-        review: payload,
+      };
+    case FIND_REVIEW_ID:
+      return{
+        ...state,
+        findreview: payload,
       };
     case DELETE_REVIEW:
       return {
         ...state,
       };
+    case GET_REVIEW_BY_USER:
+      return {
+        ...state,
+        userReviews : payload
+      }
+
     case SET_FAV:
       return { ...state };
 
@@ -435,6 +456,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         favProducts: arr,
       };
+
+    case GET_USER_BY_ID : 
+      return {
+        ...state ,
+        userId : payload
+      }
 
     case DEL_FAV:
       return { ...state };
@@ -478,10 +505,22 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case ADD_HIST:
       return { ...state };
 
+      case FILTER_USER_REVIEW : 
+      let reviews = state.allReviewsCopy
+      let filteredReviews = payload === 'pagina' ? state.reviewPage : reviews.filter(r => r.productoId) 
+      
+      return {
+        ...state,
+        allReviews :  payload === 'all' ? state.allReviewsCopy : filteredReviews
+      }
+
     case CLEAR_STATE:
       return {
         ...state,
-        detail: [],
+        detail: [], 
+        editProduct: null,
+        review: [],
+        userReviews : [],
       };
     case PUT_PRODUCTO:
       return {
