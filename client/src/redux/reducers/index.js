@@ -93,6 +93,7 @@ const initialState = {
   destilados: [],
   destiladosCopy: [],
   orderAZ: [],
+  sort: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -197,7 +198,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         products: birrita,
-        orderAZ: [...state.products, birrita]
+        orderAZ: birrita
       }
 
       
@@ -217,7 +218,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         return {
           ...state,
           products: vinito,
-          orderAZ: [...state.products, vinito]
+          orderAZ: [...state.products]
         }
         case FILTER_BY_BRAND_ESPUMANTE:
           if (payload === "all") return {...state,  products: state.espumantes} 
@@ -233,7 +234,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
           return {
             ...state,
             products: champusiño,
-            orderAZ: [...state.products, champusiño]
+            orderAZ: [...state.products]
           }
           case FILTER_BY_BRAND_DESTILADO:
             if (payload === "all") return {...state,  products: state.destilados} 
@@ -249,11 +250,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
             return {
               ...state,
               products: puri,
-              orderAZ: [...state.products, puri]
+              orderAZ: puri
             }
     case ORDER_BY:
+      console.log('SOY PAYLOAD', payload)
     console.log('STATE' , state.products)
-    let sort = payload === 'az' ? state.orderAZ.sort(function(a, b) {
+    let sort = payload === 'az' ? state.products.sort(function(a, b) {
         // console.log(a, b)
         if(a.nombre > b.nombre) {
           return 1
@@ -263,8 +265,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
         };
         return 0
       })
-      : payload === 'za'? 
-      state.orderAZ.sort(function(a, b) {
+      : payload === 'za' ? 
+      state.products.sort(function(a, b) {
         if (a.nombre > b.nombre) {
           return -1;
         }
@@ -272,33 +274,95 @@ export default function rootReducer(state = initialState, { type, payload }) {
           return 1;
         }
         return 0;
-      }) 
-      : payload === 'mayorGraduacion'?
-      state.orderAZ.sort(function(a, b) {
+      })  
+      :
+      payload === 'menorGraduacion' ? state.products.sort(function(a, b) {
+        if(a.graduacion > b.graduacion) {
+          return 1
+        };
+        if(b.graduacion > a.graduacion) {
+          return -1
+        };
+        return 0
+      })
+      :
+      payload === 'mayorGraduacion' ? state.products.sort(function(a, b) {
         if (a.graduacion > b.graduacion) {
-          return 1;
+          return -1;
         }
         if (b.graduacion > a.graduacion) {
-          return -1;
+          return 1;
         }
         return 0;
       }) 
-      : (payload === 'menorGraduacion')? 
-      state.orderAZ.sort(function(a, b) {
-        if (a.graduacion > b.graduacion) {
-          return 1;
-        }
-        if (b.graduacion > a.graduacion) {
+      :
+      payload === 'ml_1' ? state.products.sort(function(a, b) {
+        if(a.ml > b.ml) {
+          return 1
+        };
+        if(b.ml > a.ml) {
+          return -1
+        };
+        return 0
+      })
+      :
+      payload === 'ml_2' ? state.products.sort(function(a, b) {
+        if (a.ml > b.ml) {
           return -1;
         }
+        if (b.ml > a.ml) {
+          return 1;
+        }
         return 0;
-      }) : null
-
+      })
+      :
+      payload === "price_1" ? state.products.sort(function(a, b) {
+        if(a.precio > b.precio) {
+          return 1
+        };
+        if(b.precio > a.precio) {
+          return -1
+        };
+        return 0
+      })
+      :
+      state.products.sort(function(a, b) {
+        if (a.precio > b.precio) {
+          return -1;
+        }
+        if (b.precio > a.precio) {
+          return 1;
+        }
+        return 0;
+      })
 
       return {
         ...state,
-        products : sort
+        products : [...sort]
       }
+      // : payload === 'mayorGraduacion'?
+      // state.orderAZ.sort(function(a, b) {
+      //   if (a.graduacion > b.graduacion) {
+      //     return 1;
+      //   }
+      //   if (b.graduacion > a.graduacion) {
+      //     return -1;
+      //   }
+      //   return 0;
+      // }) 
+      // : (payload === 'menorGraduacion')? 
+      // state.orderAZ.sort(function(a, b) {
+      //   if (a.graduacion > b.graduacion) {
+      //     return 1;
+      //   }
+      //   if (b.graduacion > a.graduacion) {
+      //     return -1;
+      //   }
+      //   return 0;
+      // }) : null
+
+
+      
   
    
     case ADD_CARRITO:

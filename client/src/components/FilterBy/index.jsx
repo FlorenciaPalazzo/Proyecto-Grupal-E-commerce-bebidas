@@ -21,6 +21,7 @@ export default function FilterBy({ setCurrentPage }) {
   const brands = useSelector((state) => state.brands); //ver esto
   const products = useSelector((state) => state.products);
   const cervezas = useSelector((state) => state.cervezas);
+  // const cervezasCopy = useSelector((state) => state.cervezasCopy)
   const vinos = useSelector((state) => state.vinos);
   const espumantes = useSelector((state) => state.espumantes);
   const destilados = useSelector((state) => state.destilados);
@@ -185,21 +186,15 @@ export default function FilterBy({ setCurrentPage }) {
             <option disabled>Nombre</option>
             <option value="az">A-Z</option>
             <option value="za">Z-A</option>
-             <option disabled>ABC</option>
             <option disabled>Graduacion</option>
-            <option value="mayorGraduacion">Menor graduacion°</option>
-            <option value="menorGraduacion">Mayor graduacion°</option>
-            {/*<option disabled>ML</option>
-            <option value="ml_1">Envase mayor</option>
-            <option value="ml_2">Envase menor</option>
+            <option value="menorGraduacion">Menor graduacion°</option>
+            <option value="mayorGraduacion">Mayor graduacion°</option>
+            <option disabled>ML</option>
+            <option value="ml_1">Envase menor</option>
+            <option value="ml_2">Envase mayor</option>
             <option disabled>Precio</option>
-            <option value="price_1">-$500</option>
-            <option value="price_2">$500-$2000</option>
-            <option value="price_3">$2000-$5000</option>
-            <option value="price_4">$5000-$10000</option>
-            <option value="price_5">$10000-$20000</option>
-            <option value="price_6">$20000-$35000</option>
-            <option value="price_7">+$35000</option> */}
+            <option value="price_1">$ Menor precio</option>
+            <option value="price_2">$ Mayor precio</option>
           </select>
           <button onClick={resetButton}>Resetear filtros</button>
 
