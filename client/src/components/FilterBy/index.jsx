@@ -119,7 +119,7 @@ export default function FilterBy({ setCurrentPage }) {
             onChange={handleBrandCerveza}
           >
             <option>Cervezas</option>
-            <option value="all">Todas</option>
+            <option value="all">Todas las cervezas</option>
 
             {filterCervezaMarca &&
               filterCervezaMarca.map((b) => (
@@ -136,7 +136,7 @@ export default function FilterBy({ setCurrentPage }) {
             onChange={handleBrandVino}
           >
             <option>Vinos</option>
-            <option value="all">Todos</option>
+            <option value="all">Todos los vinos</option>
 
             {filterVinoMarca &&
               filterVinoMarca.map((b) => (
@@ -153,7 +153,7 @@ export default function FilterBy({ setCurrentPage }) {
             onChange={handleBrandEspumante}
           >
             <option>Espumantes</option>
-            <option value="all">Todos</option>
+            <option value="all">Todos los espumantes</option>
 
             {filterEspumanteMarca &&
               filterEspumanteMarca.map((b) => (
@@ -170,7 +170,7 @@ export default function FilterBy({ setCurrentPage }) {
             onChange={handleBrandDestilado}
           >
             <option>Destilados</option>
-            <option value="all">Todos</option>
+            <option value="all">Todos los destilados</option>
 
             {filterDestiladoMarca &&
               filterDestiladoMarca.map((b) => (
@@ -182,19 +182,16 @@ export default function FilterBy({ setCurrentPage }) {
 
           <select class="form-select mx-3" name="" id="" onChange={handleOrder}>
             <option>Ordenar por:</option>
-            <option disabled>ABC</option>
+            <option disabled>Nombre</option>
             <option value="az">A-Z</option>
             <option value="za">Z-A</option>
-            <option disabled>ABC</option>
+             <option disabled>ABC</option>
             <option disabled>Graduacion</option>
-            <option value="low">3°-20°</option>
-            <option value="medium">21°-38°</option>
-            <option value="high">39°-55°</option>
-            <option disabled>ML</option>
-            <option value="ml_1">150ml-400ml</option>
-            <option value="ml_2">400ml-750ml</option>
-            <option value="ml_3">750ml-950ml</option>
-            <option value="ml_4">950ml-1500ml</option>
+            <option value="mayorGraduacion">Menor graduacion°</option>
+            <option value="menorGraduacion">Mayor graduacion°</option>
+            {/*<option disabled>ML</option>
+            <option value="ml_1">Envase mayor</option>
+            <option value="ml_2">Envase menor</option>
             <option disabled>Precio</option>
             <option value="price_1">-$500</option>
             <option value="price_2">$500-$2000</option>
@@ -202,7 +199,7 @@ export default function FilterBy({ setCurrentPage }) {
             <option value="price_4">$5000-$10000</option>
             <option value="price_5">$10000-$20000</option>
             <option value="price_6">$20000-$35000</option>
-            <option value="price_7">+$35000</option>
+            <option value="price_7">+$35000</option> */}
           </select>
           <button onClick={resetButton}>Resetear filtros</button>
 

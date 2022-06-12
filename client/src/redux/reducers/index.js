@@ -92,6 +92,7 @@ const initialState = {
   espumantesCopy: [],
   destilados: [],
   destiladosCopy: [],
+  orderAZ: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -133,7 +134,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
         espumantesCopy: espumanteReturn,
         destilados: destiladoReturn,
         destiladosCopy: destiladoReturn,
+        orderAZ: payload,
       };
+      
     case SET_USER:
       return { ...state, currentUser: payload, isLoged: true };
     case UPDATE_USER:
@@ -168,243 +171,136 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case GET_PRODUCT_ID:
       return { ...state, detail: payload };
 
-    case GET_BRANDS:
-      let brandFilter = [];
-      state.productsSort.filter((e) => {
-        if (!brandFilter.includes(e.marca)) {
-          brandFilter.push(e.marca);
+    // case GET_BRANDS:
+    //   let brandFilter = [];
+    //   state.productsSort.filter((e) => {
+    //     if (!brandFilter.includes(e.marca)) {
+    //       brandFilter.push(e.marca);
+    //     }
+    //   });
+    //   return {
+    //     ...state,
+    //     brands: brandFilter,
+    //     brandsCopy: brandFilter,
+    //   };
+    case FILTER_BY_BRAND_CERVEZA:
+      if (payload === "all") return {...state,  products: state.cervezas} 
+
+      let birrita = [];
+      state.cervezas.filter((e) => {
+        // console.log()
+        if(e.marca === payload) {
+          birrita.push(e)
         }
-      });
+      })
+      // console.log("BIRRITA",birrita, 'SOYPAYLOAD',payload)
       return {
         ...state,
-        brands: brandFilter,
-        brandsCopy: brandFilter,
-      };
-    case FILTER_BY_BRAND_CERVEZA:
-      if (payload === "all") {
-        return { ...state, products: [...state.cervezasCopy] };
-      } else {
-        return {
-          ...state,
-          products: [...state.cervezasCopy].filter((e) =>
-            e.marca.includes(payload)
-          ),
-          cervezas: [...state.cervezasCopy].filter((e) =>
-            e.marca.includes(payload)
-          ),
-        };
+        products: birrita,
+        orderAZ: [...state.products, birrita]
       }
+
+      
+  
     case FILTER_BY_BRAND_VINO:
-      if (payload === "all") {
-        return { ...state, products: [...state.vinosCopy] };
-      } else {
+      case FILTER_BY_BRAND_CERVEZA:
+        if (payload === "all") return {...state,  products: state.vinos} 
+  
+        let vinito = [];
+        state.vinos.filter((e) => {
+          // console.log()
+          if(e.marca === payload) {
+            vinito.push(e)
+          }
+        })
+        // console.log("BIRRITA",birrita, 'SOYPAYLOAD',payload)
         return {
           ...state,
-          products: [...state.vinosCopy].filter((e) =>
-            e.marca.includes(payload)
-          ),
-          vinos: [...state.vinosCopy].filter((e) => e.marca.includes(payload)),
-        };
-      }
-    case FILTER_BY_BRAND_ESPUMANTE:
-      if (payload === "all") {
-        return { ...state, products: [...state.espumantesCopy] };
-      } else {
-        return {
-          ...state,
-          products: [...state.espumantesCopy].filter((e) =>
-            e.marca.includes(payload)
-          ),
-          espumantes: [...state.espumantesCopy].filter((e) =>
-            e.marca.includes(payload)
-          ),
-        };
-      }
-    case FILTER_BY_BRAND_DESTILADO:
-      if (payload === "all") {
-        return { ...state, products: [...state.destiladosCopy] };
-      } else {
-        return {
-          ...state,
-          products: [...state.destiladosCopy].filter((e) =>
-            e.marca.includes(payload)
-          ),
-          destilados: [...state.destiladosCopy].filter((e) =>
-            e.marca.includes(payload)
-          ),
-        };
-      }
+          products: vinito,
+          orderAZ: [...state.products, vinito]
+        }
+        case FILTER_BY_BRAND_ESPUMANTE:
+          if (payload === "all") return {...state,  products: state.espumantes} 
+    
+          let champusiño = [];
+          state.espumantes.filter((e) => {
+            // console.log()
+            if(e.marca === payload) {
+              champusiño.push(e)
+            }
+          })
+          // console.log("champusiño",champusiño, 'SOYPAYLOAD',payload)
+          return {
+            ...state,
+            products: champusiño,
+            orderAZ: [...state.products, champusiño]
+          }
+          case FILTER_BY_BRAND_DESTILADO:
+            if (payload === "all") return {...state,  products: state.destilados} 
+      
+            let puri = [];
+            state.destilados.filter((e) => {
+              // console.log()
+              if(e.marca === payload) {
+                puri.push(e)
+              }
+            })
+            // console.log("puri",puri, 'SOYPAYLOAD',payload)
+            return {
+              ...state,
+              products: puri,
+              orderAZ: [...state.products, puri]
+            }
     case ORDER_BY:
-      switch (payload) {
-        case "low":
-          return {
-            ...state,
-            products: [...state.products].filter((e) => e.graduacion < 20), //dudas
-            /* cervezas: [...state.cervezasCopy].filter((e) => e.graduacion < 20),
-            vinos: [...state.vinosCopy].filter((e) => e.graduacion < 20),
-            espumantes: [...state.espumantesCopy].filter(
-              (e) => e.graduacion < 20
-            ),
-            destilados: [...state.destiladosCopy].filter(
-              (e) => e.graduacion < 20
-            ), */
-          };
-        case "medium":
-          return {
-            ...state,
-            products: [...state.products].filter(
-              (e) => e.graduacion > 20 && e.graduacion < 38
-            ),
-            cervezas: [...state.cervezasCopy].filter(
-              (e) => e.graduacion > 20 && e.graduacion < 38
-            ),
-            vinos: [...state.vinosCopy].filter(
-              (e) => e.graduacion > 20 && e.graduacion < 38
-            ),
-            espumantes: [...state.espumantesCopy].filter(
-              (e) => e.graduacion > 20 && e.graduacion < 38
-            ),
-            destilados: [...state.destiladosCopy].filter(
-              (e) => e.graduacion > 20 && e.graduacion < 38
-            ),
-          };
-        case "high":
-          return {
-            ...state,
-            products: state.productsSort.filter((e) => e.graduacion > 38),
-            cervezas: state.cervezasCopy.filter((e) => e.graduacion > 38),
-            vinos: state.vinosCopy.filter((e) => e.graduacion > 38),
-            espumantes: state.espumantesCopy.filter((e) => e.graduacion > 38),
-            destilados: state.destiladosCopy.filter((e) => e.graduacion > 38),
-          };
-        default:
-          return state;
-      }
-    /// todo esto de abajo hay que meterlo en el switch de arriba con cada case
-    case FILTER_BY_GRADUATION:
+    console.log('STATE' , state.products)
+    let sort = payload === 'az' ? state.orderAZ.sort(function(a, b) {
+        // console.log(a, b)
+        if(a.nombre > b.nombre) {
+          return 1
+        };
+        if(b.nombre > a.nombre) {
+          return -1
+        };
+        return 0
+      })
+      : payload === 'za'? 
+      state.orderAZ.sort(function(a, b) {
+        if (a.nombre > b.nombre) {
+          return -1;
+        }
+        if (b.nombre > a.nombre) {
+          return 1;
+        }
+        return 0;
+      }) 
+      : payload === 'mayorGraduacion'?
+      state.orderAZ.sort(function(a, b) {
+        if (a.graduacion > b.graduacion) {
+          return 1;
+        }
+        if (b.graduacion > a.graduacion) {
+          return -1;
+        }
+        return 0;
+      }) 
+      : (payload === 'menorGraduacion')? 
+      state.orderAZ.sort(function(a, b) {
+        if (a.graduacion > b.graduacion) {
+          return 1;
+        }
+        if (b.graduacion > a.graduacion) {
+          return -1;
+        }
+        return 0;
+      }) : null
 
-    case FILTER_BY_ML:
-      if (payload === "all") {
-        return {
-          ...state,
-          products: state.productsSort,
-        };
-      }
-      if (payload === "ml_1") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.ml < 400),
-        };
-      }
-      if (payload === "ml_2") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.ml > 400 && e.ml <= 749),
-        };
-      }
-      if (payload === "ml_3") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.ml >= 750 && e.ml <= 949
-          ),
-        };
-      }
 
-      if (payload === "ml_4") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.ml >= 950 && e.ml < 1500
-          ),
-        };
+      return {
+        ...state,
+        products : sort
       }
-    case FILTER_BY_PRICE:
-      if (payload === "all") {
-        return {
-          ...state,
-          products: state.productsSort,
-        };
-      }
-      if (payload === "price_1") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.precio < 500),
-        };
-      }
-      if (payload === "price_2") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.precio > 500 && e.precio < 2000
-          ),
-        };
-      }
-      if (payload === "price_3") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.precio > 2000 && e.precio < 5000
-          ),
-        };
-      }
-      if (payload === "price_4") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.precio > 5000 && e.precio < 10000
-          ),
-        };
-      }
-      if (payload === "price_5") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.precio > 10000 && e.precio < 20000
-          ),
-        };
-      }
-      if (payload === "price_6") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.precio > 20000 && e.precio < 35000
-          ),
-        };
-      }
-      if (payload === "price_7") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.precio > 35000),
-        };
-      }
-    case FILTER_BY_AZ:
-      if (payload === "all") {
-        return {
-          ...state,
-          products: state.productsSort,
-        };
-      }
-      if (payload === "az") {
-        return {
-          ...state,
-          products: [...state.productsSort].sort((prev, next) => {
-            if (prev.nombre > next.nombre) return 1;
-            if (prev.nombre < next.nombre) return -1;
-            return 0;
-          }),
-        };
-      }
-      if (payload === "za") {
-        return {
-          ...state,
-          products: [...state.productsSort].sort((prev, next) => {
-            if (prev.nombre > next.nombre) return -1;
-            if (prev.nombre > next.nombre) return 1;
-            return 0;
-          }),
-        };
-      }
+  
+   
     case ADD_CARRITO:
       let repeated = state.productCart.find((e) => e.id === payload.id); //busca si existe ese id
       const cartProduct = [...state.productCart, payload]; //guarda todo
