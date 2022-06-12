@@ -28,27 +28,30 @@ export default function ViewUsers() {
               Loading users...
             </span>
           ) : (
-            <table border="groove">
-              <tr>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Verificado</th>
-                <th>Creado</th>
-              </tr>
-
-              {usersLoged.map((e) => {
-                if (e.email === process.env.REACT_APP_ADMIN_EMAIL) return;
-                return (
-                  <tr>
-                    <td>
-                      {e.nombre} {e.apellido && e.apellido}
-                    </td>
-                    <td>{e.email}</td>
-                    <td>{e.isVerified ? "Verificado" : "No verificado"}</td>
-                    <td>{e.createdAt.slice(0, 10)}</td>
-                  </tr>
-                );
-              })}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Verificado</th>
+                  <th scope="col">Creado</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                {usersLoged.map((e) => {
+                  if (e.email === process.env.REACT_APP_ADMIN_EMAIL) return;
+                  return (
+                    <tr>
+                      <td>
+                        {e.nombre} {e.apellido && e.apellido}
+                      </td>
+                      <td>{e.email}</td>
+                      <td>{e.isVerified ? "Verificado" : "No verificado"}</td>
+                      <td>{e.createdAt.slice(0, 10)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
             </table>
           )}
         </div>
