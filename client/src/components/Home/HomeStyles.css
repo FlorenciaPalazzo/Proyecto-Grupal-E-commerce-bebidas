@@ -25,15 +25,14 @@ a:active {
   font-family: "Montserrat";
   color: rgb(0, 0, 0);
   background-color: hsl(0, 0%, 0%);
-
   cursor: pointer;
   text-align: center;
-
   color: white;
   transition: background-color 0.1s ease-in-out;
   display: flex;
   margin-bottom: -2%;
 }
+
 .button-shop {
   width: 94%;
   margin-left: 0;
@@ -114,6 +113,7 @@ label {
   background-color: #ffffff;
   padding: 1%;
 }
+
 .form-cont .form-text {
   font-size: 170%;
   text-align: center;
@@ -124,12 +124,17 @@ label {
   .cont-contact {
     flex-direction: column;
   }
-
   .cont-contact .form-cont {
     width: 100%;
     background-color: #ffffff;
     padding: 1%;
   }
+}
+
+.cont-contact .form-cont {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 1%;
 }
 
 /* 👇👇👇aqui yacen los restos del modo oscuro 👇👇👇*/

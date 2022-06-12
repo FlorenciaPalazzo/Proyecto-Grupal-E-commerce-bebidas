@@ -119,104 +119,168 @@ const ShoppingCart = () => {
 
   console.log("object");
   return (
-    <div className="carrito-container">
-      {loading /* revisen esto!! */ ? (
-        <Loading />
-      ) : (
-        <div className="carrito-body">
-          <Link to="/">
-            <img className="details-logo" src="/logo/logo.png" alt="logo" />
-          </Link>
-          <div className="carrito-background">
-            <h1>Carrito</h1>
+    // <div className="carrito-container">
+    //   {loading /* revisen esto!! */ ? (
+    //     <Loading />
+    //   ) : (
+    //     <div className="carrito-body">
+    //       <Link to="/">
+    //         <img className="details-logo" src="/logo/logo.png" alt="logo" />
+    //       </Link>
+    //       <div className="carrito-background">
+    //         <h1>Carrito</h1>
 
-            <div className="carrito-main">
-              {productCart &&
-                productCart.map((element) => {
-                  productArray.push(element);
+    //         <div className="carrito-main">
+    //           {productCart &&
+    //             productCart.map((element) => {
+    //               productArray.push(element);
 
-                  return (
-                    <div className="carrito-content">
-                      <div key={element.id} className="carrito-product">
-                        <img
-                          src={element.imagen}
-                          alt="img not found"
-                          width="20%"
-                        />
-                        <h3>{`${element.nombre}`}</h3>
-                        <span className="carrito-price">
-                          <button
-                            className="button"
-                            onClick={deleteProduct}
-                            value={element.id}
-                          >
-                            ➖
-                          </button>
-                          <div>
-                            ${element.precio} x {element.quantity} = $
-                            {element.precio * element.quantity}
-                          </div>
-                          <button
-                            className="button"
-                            onClick={addProduct}
-                            value={element.id}
-                          >
-                            ➕
-                          </button>
-                        </span>
-                      </div>
+    //               return (
+    //                 <div className="carrito-content">
+    //                   <div key={element.id} className="carrito-product">
+    //                     <img
+    //                       src={element.imagen}
+    //                       alt="img not found"
+    //                       width="20%"
+    //                     />
+    //                     <h3>{`${element.nombre}`}</h3>
+    //                     <span className="carrito-price">
+    //                       <button
+    //                         className="button"
+    //                         onClick={deleteProduct}
+    //                         value={element.id}
+    //                       >
+    //                         ➖
+    //                       </button>
+    //                       <div>
+    //                         ${element.precio} x {element.quantity} = $
+    //                         {element.precio * element.quantity}
+    //                       </div>
+    //                       <button
+    //                         className="button"
+    //                         onClick={addProduct}
+    //                         value={element.id}
+    //                       >
+    //                         ➕
+    //                       </button>
+    //                     </span>
+    //                   </div>
+    //                 </div>
+    //               );
+    //             })}
+
+    //           <span>
+    //             <div className="carrito-resumen">
+    //               <button className="button" onClick={cleanAllCart}>
+    //                 Limpiar carrito
+    //               </button>
+    //               <h1 className="carrito-total">Precio: ${total}</h1>
+
+    //               {
+    //                 /* verified && !verified.emailVerified ? (
+    //                 <button className="button" onClick={handleAlertCarrito}>
+    //                   PAGAR
+    //                 </button>
+    //               ) :  */ <button
+    //                   className="button-pagar"
+    //                   onClick={postCarrito}
+    //                 >
+    //                   PAGAR
+    //                 </button>
+    //               }
+    //             </div>
+    //           </span>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   )}
+    // </div>
+
+    <div className="shopping-cart">
+{loading /* revisen esto!! */ ? (
+         <Loading />
+   ) : (
+<div className="card">
+            <div className="row">
+                <div className="col-md-8 cart">
+                    <div className="title">
+                        <div className="row">
+                            <div className="col"><h4><b>Carrito</b></h4></div>
+                        </div>
                     </div>
-                  );
-                })}
-
-              <span>
-                <div className="carrito-resumen">
-                  <button className="button" onClick={cleanAllCart}>
-                    Limpiar carrito
-                  </button>
-                  <h1 className="carrito-total">Precio: ${total}</h1>
-
-                  {
-                    /* verified && !verified.emailVerified ? (
-                    <button className="button" onClick={handleAlertCarrito}>
-                      PAGAR
-                    </button>
-                  ) :  */ <button
-                      className="button-pagar"
-                      onClick={postCarrito}
-                    >
-                      PAGAR
-                    </button>
-                  }
+                    <div className="carrito-main">   
+                    {productCart &&
+                 productCart.map((e) => {
+                   productArray.push(e);
+                  return (
+                    <div className="row border-top border-bottom" id={e.id}>
+                        <div className="row main align-items-center">
+                                <div className="col-2"><img className="img-fluid" src={e.imagen} alt="img not found" width="20%"/></div>
+                            <div className="col">
+                                <div className="row">{e.nombre}</div>
+                            </div>
+                            <div className="col">
+                           <button
+                             className="border"
+                             onClick={deleteProduct}
+                             value={e.id}
+                           >
+                             ➖
+                           </button>
+                           <div className="col">
+                             ${e.precio} x {e.quantity} = $
+                             {e.precio * e.quantity}
+                           </div>
+                           <button
+                             className="border"
+                             onClick={addProduct}
+                             value={e.id}
+                           >
+                             ➕
+                           </button>
+                         </div>
+                        </div>
+                    </div>)})}
+                    </div>
+                    <button className="btn" onClick={cleanAllCart}>
+                     Limpiar carrito
+                   </button>
+                   <div className="back-to-shop"><a href="/"><span className="text-muted">Volver al home</span></a></div>
                 </div>
-              </span>
+                <div className="col-md-4 summary">
+                    <div><h5><b>Resumen</b></h5></div>
+                    <hr/>
+                    <span>
+                 <div className="row">
+                   <div className="col">PRECIO</div>
+                   <div className="col text-right">${total}</div>
+
+                   {
+                     /* verified && !verified.emailVerified ? (
+                     <button className="button" onClick={handleAlertCarrito}>
+                       PAGAR
+                     </button>
+              ) :  */ <button
+                       className="btn"
+                       onClick={postCarrito}
+                     >
+                       PAGAR
+                     </button>
+                   }
+                 </div>
+               </span>
+                </div>
             </div>
-          </div>
+            
         </div>
-      )}
-    </div>
+   )}
+  </div>
+
+    
   );
 };
-//           <span>
-//             {verified && verified.email && productCart.length ? (
-//               <div>
-//                 <button onClick={postCarrito}>Finalizar Compra</button>
-//                 <button> <Link to= "/home">Seguir Comprando</Link></button>
-//                 <button onClick={cleanAllCart}>Vaciar Carrito</button>
-//               </div>
-//             ) : !verified ? (
-//               <button onClick={handleAlertCarrito}>Pagar</button>
-//             ) : (
-//               <button onClick={handleAlertCarrito}>Pagar</button>
-//             )}
-//           </span>
-//         </div>
-//       )}
-//       <Link to="/home">
-//         <button>Regresar.</button>
-//       </Link>
-//     </div>
-//   );
-// };
+
+
+
 
 export default ShoppingCart;
