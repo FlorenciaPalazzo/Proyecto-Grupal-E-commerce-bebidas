@@ -38,12 +38,12 @@ export default function ViewProducts() {
       <div class="container">
         <div class="col-lg-12 col-md-12 col-sm-12">
           <h3 class="box-title mt-5">Tabla de Productos: </h3>
-      <Pagination
-        currentPage={currentPage}
-        productsPerPage={productsPerPage}
-        product={products.length}
-        pagination={pagination}
-      />
+          <Pagination
+            currentPage={currentPage}
+            productsPerPage={productsPerPage}
+            product={products.length}
+            pagination={pagination}
+          />
           <div class="table-responsive">
             <table class="table table-striped ">
               <thead class="thead-dark">
