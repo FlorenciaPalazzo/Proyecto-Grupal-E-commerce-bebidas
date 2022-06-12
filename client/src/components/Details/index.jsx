@@ -42,6 +42,16 @@ export default function Detail() {
     });
     dispatch(addCart(cart));
   };
+
+  let puntaje = rev.map((e) => e.puntaje);
+  let prom = puntaje.reduce((a, b) => {
+    return a + b;
+  }, 0);
+  prom = prom / puntaje.length;
+  prom = Math.round(prom);
+  console.log(prom);
+
+
   useEffect(() => {
     dispatch(getProductById(id));
     dispatch(getReview(id));
@@ -171,9 +181,27 @@ export default function Detail() {
                    </div>
                  );
                })
+               
              ) : (
                <div className="review-body">no hay reviews</div>
              )}
+             <div>
+                    <div>
+                      <h2>Promedio del producto:</h2>
+                      {prom ? (
+                        <ReactStars
+                          count={prom}
+                          size={35}
+                          isHalf={true}
+                          emptyIcon={<i className="far fa-star"></i>}
+                          halfIcon={<i className="fa fa-star-half-alt"></i>}
+                          fullIcon={<i className="fa fa-star"></i>}
+                          edit={false}
+                          color="#ffd700"
+                        />
+                      ) : null}
+                    </div>
+              </div>
            </div>
            
     
