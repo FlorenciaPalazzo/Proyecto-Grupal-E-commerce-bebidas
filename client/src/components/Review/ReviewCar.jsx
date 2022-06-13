@@ -96,7 +96,9 @@ export const ReviewCar = ({
               <button onClick={handleDelete} value={usuarioId}>
                 ❌
               </button>
-            ) : <p>No eres admin </p>}
+            ) : (
+              <p>No eres admin </p>
+            )}
           </div>
         </div>
       )}
