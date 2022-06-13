@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { deleteFavorito, getFavorito, getProducts } from "../../redux/actions";
-import swal from "sweetalert";
+import Footer from "../Footer";
+//import Nav from "../Nav";
+//import "./Favoritos.css";
 
 export const Favoritos = () => {
   const elFavorito = useSelector((state) => state.favProducts);
@@ -10,63 +12,80 @@ export const Favoritos = () => {
   let navigate = useNavigate();
   console.log("EL FAVORITO", elFavorito);
   const dispatch = useDispatch();
-
+  const [bol, setBol] = useState(false);
   let user = localStorage.getItem("user");
 
   console.log("SOY EL USUARIO--->", user);
 
   // Toni dice que tiene que existir ↧↧↧↧
-  useEffect(() => {
-    //no tocar :),
-    dispatch(getProducts());
-  }, []);
+  //   useEffect(() => {
+  //     //no tocar :),
+  //   ;
+  // }, []);
 
   // y este tb ↧↧↧
   useEffect(() => {
-    if (!elFavorito.length) {
-      dispatch(getFavorito(user));
-    }
-  }, [dispatch]);
+    dispatch(getProducts());
+    dispatch(getFavorito(user));
+
+    // if(!elFavorito.length){
+
+    // }
+  }, [dispatch, bol]);
 
   const handleDeleteFav = (e) => {
     e.preventDefault();
     let idProd = e.target.value;
     let payload = { id_prod: idProd, id_user: user };
 
-    swal({
-      title: "Favorito eliminado ",
-      type: "warning",
-      icon: "warning",
-      buttons: false,
-      timer: 1000,
-    });
     dispatch(deleteFavorito(payload)); //↤ No tocar 😈
-    window.location.reload();
+    //  window.location.reload()
+    setBol(!bol);
   };
   return (
     <div>
-      <Link to="/">
-        <button className="button">Home</button>
-      </Link>
-      <div>Lista de Favoritos</div>
-
-      {elFavorito.length > 0 ? (
-        elFavorito.map((e) => {
-          return (
-            <div key={e.id}>
-              <button className="button" value={e.id} onClick={handleDeleteFav}>
-                Borrar
-              </button>
-              {e.nombre}
-              <img src={e.imagen} />
-            </div>
-          );
-        })
-      ) : (
+      {/*  <Nav /> */}
+      <div className="div_title">
+        <h2 className="title-fav">Mis Favoritos</h2>
+      </div>
+      <div className="div-table">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Precio</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>{" "}
+        </table>
         <div>
-          <h2>No hay favoritos</h2>
+          {elFavorito.length === 0 ? (
+            <div>
+              <h2>No hay favoritos</h2>
+            </div>
+          ) : (
+            elFavorito.map((e) => {
+              return (
+                <div
+                  key={e.id}
+                  class="table table-striped table-hovert"
+                  className="card-fav"
+                >
+                  <img src={e.imagen} width="10%" />
+                  <span className="item-fav"> {e.nombre}</span>
+                  <span className="item-fav"> $ {e.precio}</span>
+
+                  <button value={e.id} onClick={handleDeleteFav}>
+                    borrar
+                  </button>
+                </div>
+              );
+            })
+          )}
         </div>
-      )}
+      </div>
+      <Footer />
     </div>
   );
 };
