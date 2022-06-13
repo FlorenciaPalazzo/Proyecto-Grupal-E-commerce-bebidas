@@ -1,7 +1,16 @@
 const { Router } = require("express");
 const axios = require("axios");
 
-const { Usuario, Carrito, Direcciones } = require("../../db");
+
+const {
+  Usuario,
+  Carrito,
+  Direcciones,
+  Comprado,
+  Review,
+  Producto,
+} = require("../../db");
+
 
 const bodyParser = require("body-parser");
 
@@ -276,6 +285,106 @@ router.delete("/direcciones/:id", async (req, res) => {
   } catch (error) {
     console.log(error.message);
   }
+
 });
 
+router.get("/admin/stats", async (req, res) => {
+  try {
+    let resp = {};
+    console.log(Comprado, "holas");
+
+    let compras = await Comprado.findAll();
+    resp.ventas = compras.length;
+    resp.productos = await Producto.count();
+    //resp.usuarios = await Usuario.count()
+    let usuariosArr = await Usuario.findAll();
+    //resp.totalReviews = await Review.count()
+    let reviewsArr = await Review.findAll();
+    resp.totalReviews = reviewsArr.length;
+    resp.usuarios = usuariosArr.length; // cantidad de usuarios
+
+    let verifiedUser = [];
+    let noVerifiedUser = [];
+    usuariosArr.map((e) => {
+      if (e.isVerified) {
+        verifiedUser.push(e);
+      } else noVerifiedUser.push(e);
+    });
+
+    resp.verifiedUser = verifiedUser.length;
+    resp.noVerifiedUser = noVerifiedUser.length;
+    let revsProm = 0;
+    let pageReviews = [];
+    let userReviews = [];
+    reviewsArr.map((e) => {
+      revsProm += e.puntaje;
+      if (e.productoId) {
+        userReviews.push(e);
+      } else pageReviews.push(e);
+    });
+    resp.pageProm = revsProm / reviewsArr.length;
+    resp.userReviews = userReviews.length;
+    resp.pageReviews = pageReviews.length;
+    let comprasCount = {};
+    compras.map((e) => {
+      if (comprasCount[e.productoId]) {
+        comprasCount[e.productoId] += e.quantity;
+      } else comprasCount[e.productoId] = e.quantity;
+    });
+    resp.comprasCount = comprasCount
+    //console.log("resp", resp);
+
+    res.status(200).json(resp);
+  } catch (error) {
+    console.log(error);
+  }
+
+});
+
+router.post("/admin/stats/products", async (req, res) => {
+    let { top } = req.body
+    try {
+      let products = await Producto.findAll()
+      let resp = []
+      products.map(e => {
+        top && top.map( t => {
+          //console.log(t, e.id ,t.includes(e.id) );
+          if(t.includes(e.id)){
+            resp.push({...e.dataValues, buyQuantity: t[1]})
+          }
+        })
+      })
+      //console.log("resp",resp);
+
+      resp = resp.sort((a,b)=>{
+        if(a.buyQuantity < b.buyQuantity){
+          return 1
+        }
+        if(a.buyQuantity > b.buyQuantity){
+          return -1
+        }
+        return 0
+      })
+
+      res.status(200).json(resp)
+    } catch (error) {
+      console.log(error);
+    }      
+})
+
 module.exports = router;
+
+/**
+ * 
+{
+  "ventas": #,
+  "productos": #,
+  "ventaPorProd": #, // 
+  "usuarios": #,
+  "usuariosVerificados": #, // isVerified
+  "totalReviews": #,
+  "userReviews": #,
+  "pageReviews": #
+}
+ *
+ */

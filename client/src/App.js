@@ -23,6 +23,7 @@ import { AdminRevDetail } from "./components/Review/AdminRevDetail";
 import { AdminEmailUser } from "./components/Review/AdminEmailUser";
 import PutReview from "./components/Profile/PutReview";
 import ViewProducts from "./components/Admin/ViewProducts";
+import ProductsStats from "./components/Admin/ProductsStats";
 import ViewUsers from "./components/ViewUsers";
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/admin" exact element={<AdminPanel />} />
         <Route path="/admin/products/edit/:id" exact element={<EditForm/>} />
         <Route path="/admin/products" exact element={<ViewProducts/>} />
+        <Route path="/admin/stats/products" exact element={<ProductsStats/>} />
         <Route path="/admin/usuarios" exact element={<ViewUsers/>} />
         <Route path="/cart" exact element={<ShoppingCart />} />
         <Route path="/login" exact element={<Login />} />
