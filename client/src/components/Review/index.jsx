@@ -37,6 +37,7 @@ export default function PostReview() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    localStorage.setItem("dejoRevPag", JSON.parse(true));
     swal({
       title: "Review dejada con exito ",
       type: "success",
@@ -50,6 +51,7 @@ export default function PostReview() {
       comentario: "",
       puntaje: "",
     });
+
     navigate("/");
     console.log(setInput);
   };
