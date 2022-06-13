@@ -110,22 +110,25 @@ function Home() {
             <div className="card-container">
               {currentProducts.length > 0 ? (
                 currentProducts.map((e) => {
-                  return (
-                    <div key={e.id} className="div-key-card">
-                      <Link to={"/bebida/" + e.id}>
-                        <Card
-                          nombre={e.nombre}
-                          imagen={e.imagen}
-                          id={e.id}
-                          marca={e.marca}
-                          ml={e.ml}
-                          graduacion={e.graduacion}
-                          precio={e.precio}
-                          stock={e.stock}
-                        />
-                      </Link>
-                    </div>
-                  );
+                  console.log(e)
+                  if(e.descripcion !== null) { //TRANSITE CON CUIDADO, CEMENTO FRESCO.-
+                    return (
+                      <div key={e.id} className="div-key-card">
+                        <Link to={"/bebida/" + e.id}>
+                          <Card
+                            nombre={e.nombre}
+                            imagen={e.imagen}
+                            id={e.id}
+                            marca={e.marca}
+                            ml={e.ml}
+                            graduacion={e.graduacion}
+                            precio={e.precio}
+                            stock={e.stock}
+                          />
+                        </Link>
+                      </div>
+                    );
+                  }
                 })
               ) : !searchProduct.length ? (
                 <div>
