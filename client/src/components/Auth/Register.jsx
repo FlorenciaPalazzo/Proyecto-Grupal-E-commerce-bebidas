@@ -3,15 +3,18 @@ import validate from "./authServices";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  signInWithPopup,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "../../fb";
+import { auth, googleProvider } from "../../fb";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser, isAdmin, setUser } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import Loading from "../Loading";
-import "./Styles/RegisterStyles.css";
+import "./Register.css";
+
+import NavBarSec from "../NavBarSec";
 
 function Register() {
   // { id, nombre, email, nacimiento, direccion, telefono }
@@ -109,148 +112,202 @@ function Register() {
   }, [isLoged]);
   console.log(input);
 
+  async function errorValidate(error) {
+    setError(null);
+    if (error === "Firebase: Error (auth/user-not-found).") {
+      setError("No existe un usuario con este mail");
+    } else if (error === "Firebase: Error (auth/wrong-password).") {
+      setError("Se ingreso una contraseña incorrecta");
+    }
+  }
+
+  async function googleHandleSubmit(e) {
+    setError(null);
+    e.preventDefault();
+    await signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const userCred = result.user;
+        console.log("rrrrrrrrrrrrrr", userCred);
+        dispatch(
+          createUser({
+            id: userCred.uid,
+            nombre: userCred.displayName || "Usuario",
+            apellido: userCred.displayName || "Google",
+            email: userCred.email,
+            isAdmin: userCred.email === process.env.REACT_APP_ADMIN_EMAIL,
+            isVerified: userCred.emailVerified,
+            image: userCred.photoURL || null,
+          })
+        );
+        return userCred;
+      })
+      .then((user) => {
+        console.log("seteoooo");
+        dispatch(setUser(user));
+      })
+      .catch((error) => {
+        console.log(error);
+        errorValidate(error.message);
+      });
+  }
+
   return (
-    <div className="register-background">
-      <img src="./images/formsBackground.jpg" alt="" />
-      <Link to="/">
-        <img className="register-logo" src="./logo/logo.png" alt="loguito" />
-      </Link>
-      {loading && !isLoged ? (
-        <Loading />
-      ) : (
-        <div className="register-main">
-          <h1 className="forms-title">Registro</h1>
-          <div className="register-container">
-            {error && <span className="register-span">{error}</span>}
-            <form className="register-form" onSubmit={handleSubmit}>
-              <div className="label-input">
-                <label htmlFor="nombre">Nombre</label>
-                <input
-                  className="register-input"
-                  type="text"
-                  name="nombre"
-                  placeholder="Enter your name"
-                  onChange={handleChange}
-                />
-              </div>
+    <div>
+      <NavBarSec />
+      <div className="registro-body">
+        <div className="registro-img"></div>
+        {loading && !isLoged ? (
+          <Loading />
+        ) : (
+          <div className="registro-cont">
+            <div className="registro-form">
+              <p className="registro-titulo">Registrate</p>
+            </div>
+            <div>
+              <form onSubmit={handleSubmit}>
+                <div className="registro-form">
+                  <label htmlFor="nombre">Nombre</label>
+                  <input
+                    type="text"
+                    name="nombre"
+                    placeholder="Ingrese su nombre"
+                    onChange={handleChange}
+                  />
+                </div>
 
-              {nameError && <span className="register-span">{nameError}</span>}
+                <div className="registro-form">
+                  <label htmlFor="apellido">Apellido</label>
+                  <input
+                    type="text"
+                    name="apellido"
+                    placeholder="Ingrese su apellido"
+                    onChange={handleChange}
+                  />
+                </div>
 
-              <br />
-              <div className="label-input">
-                <label htmlFor="apellido">Apellido</label>
-                <input
-                  className="register-input"
-                  type="text"
-                  name="apellido"
-                  placeholder="Enter your surname"
-                  onChange={handleChange}
-                />
-              </div>
+                <div className="registro-form">
+                  <label htmlFor="telefono">Celular</label>
+                  <input
+                    type="tel"
+                    name="telefono"
+                    placeholder="Ingrese su teléfono"
+                    onChange={handleChange}
+                  />
+                </div>
 
-              {surnameError && (
-                <span className="register-span">{surnameError}</span>
-              )}
-              <br />
-              <div className="label-input">
-                <label htmlFor="telefono">Celular</label>
-                <input
-                  className="register-input"
-                  type="tel"
-                  name="telefono"
-                  placeholder="Enter your phone number"
-                  onChange={handleChange}
-                />
-              </div>
-              {celErrror && <span className="register-span">{celErrror}</span>}
-              <br />
-              <div className="label-input">
-                <label htmlFor="nacimiento">Nacimiento</label>
-                <input
-                  className="register-input"
-                  type="text"
-                  name="nacimiento"
-                  placeholder="dd/mm/yyyy"
-                  onChange={handleChange}
-                />
-              </div>
+                <div className="registro-form">
+                  <label htmlFor="nacimiento">Nacimiento</label>
+                  <input
+                    type="text"
+                    name="nacimiento"
+                    placeholder="dd/mm/yyyy"
+                    onChange={handleChange}
+                  />
+                </div>
 
-              {birthError && (
-                <span className="register-span">{birthError}</span>
-              )}
-              <br />
-              <div className="label-input">
-                <label htmlFor="email">Email</label>
-                <input
-                  className="register-input"
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  onChange={handleChange}
-                />
-              </div>
+                <div className="registro-form">
+                  <label htmlFor="email">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Ingrese su email"
+                    onChange={handleChange}
+                  />
+                </div>
 
-              {emailError && (
-                <span className="register-span">{emailError}</span>
-              )}
-              <br />
-              <div className="label-input">
-                <label htmlFor="password">Contraseña</label>
-                <input
-                  className="register-input"
-                  type="password"
-                  name="password"
-                  id="password"
-                  onChange={handleChange}
-                />
-              </div>
+                <div className="registro-form">
+                  <label htmlFor="password">Contraseña</label>
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Ingrese su contraseña"
+                    onChange={handleChange}
+                  />
+                </div>
 
-              {passwordError && (
-                <span className="register-span">{passwordError}</span>
-              )}
-              <br />
-              <div className="label-input">
-                <label htmlFor="confirmPassword">Confirma tu contraseña</label>
-                <input
-                  className="register-input"
-                  type="password"
-                  name="confirmPassword"
-                  id="confirmPassword"
-                  onChange={handleChange}
-                />
-              </div>
+                <div className="registro-form">
+                  <label htmlFor="confirmPassword">
+                    Confirma tu contraseña
+                  </label>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    id="confirmPassword"
+                    onChange={handleChange}
+                    placeholder="Confirme su contraseña"
+                  />
+                </div>
 
-              {confirmPasswordError && (
-                <span className="register-span">{confirmPasswordError}</span>
-              )}
-              <br />
+                {!passwordError &&
+                !surnameError &&
+                !nameError &&
+                !emailError &&
+                !birthError &&
+                !celErrror &&
+                input.nombre &&
+                input.telefono &&
+                input.apellido &&
+                input.password &&
+                input.nacimiento &&
+                input.email ? (
+                  <button className="registro-btn">Registrarse</button>
+                ) : (
+                  <button
+                    className="registro-btn"
+                    type="button"
+                    onClick={() => alert("Complete todos los campos")}
+                  >
+                    Registrarse
+                  </button>
+                )}
 
-              {!passwordError &&
-              !surnameError &&
-              !nameError &&
-              !emailError &&
-              !birthError &&
-              !celErrror &&
-              input.nombre &&
-              input.apellido &&
-              input.password &&
-              input.nacimiento &&
-              input.telefono &&
-              input.email ? (
-                <button className="button-register">Registrarse</button>
-              ) : (
-                <button
-                  className="button-register"
-                  type="button"
-                  onClick={() => alert("Complete todos los campos")}
-                >
-                  Registrarse
-                </button>
-              )}
-            </form>
+                <div>
+                  <p className="registro-text">o registrate con Google</p>
+                  <button
+                    className="registro-btn-google"
+                    onClick={googleHandleSubmit}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="40"
+                      height="40"
+                      fill="white"
+                      class="bi bi-google"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
+        )}
+
+        <div className="registro-error">
+          {error && <span>{error}</span>}
+
+          {nameError && <span>{nameError}</span>}
+          <br />
+          {surnameError && (
+            <span /* className="register-span" */>{surnameError}</span>
+          )}
+          <br />
+          {celErrror && (
+            <span /* className="register-span" */>{celErrror}</span>
+          )}
+          <br />
+          {birthError && <span>{birthError}</span>}
+          <br />
+
+          {emailError && <span>{emailError}</span>}
+          <br />
+          {passwordError && <span>{passwordError}</span>}
+          <br />
+          {confirmPasswordError && <span>{confirmPasswordError}</span>}
         </div>
-      )}
+      </div>
     </div>
   );
 }

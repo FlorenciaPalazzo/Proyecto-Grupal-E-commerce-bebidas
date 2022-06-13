@@ -127,9 +127,7 @@ export default function PostReview() {
           />
         </div>{" "}
         <div>
-          {tituloError && (
-            <span className="register-span bg-dark">{tituloError}</span>
-          )}{" "}
+          {tituloError && <span className="register-span ">{tituloError}</span>}{" "}
         </div>
         <div>
           <label>Comentario:</label>
@@ -142,7 +140,7 @@ export default function PostReview() {
         </div>
         <div>
           {comentarioError && (
-            <span className="register-span bg-dark">{comentarioError}</span>
+            <span className="register-span ">{comentarioError}</span>
           )}
         </div>
         <div>
@@ -158,9 +156,7 @@ export default function PostReview() {
           />
         </div>
         {!input.puntaje && (
-          <span className="register-span bg-dark">
-            ¡No te olvides de puntuarnos!{" "}
-          </span>
+          <span className="register-span ">¡No te olvides de puntuarnos! </span>
         )}
         <div>
           {!tituloError &&
