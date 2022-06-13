@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
+import Loading from "../Loading";
 import { Link } from "react-router-dom";
 import {
   getAllReviews,
@@ -17,6 +18,9 @@ export const AdminReview = () => {
   let revsPage = useSelector((state) => state.reviewPage);
   let revs = useSelector((state) => state.allReviews);
   const usersLoged = useSelector((state) => state.usersLoged);
+  const loading = useSelector((state) => state.isLoading);
+  const admin = useSelector((state) => state.isAdmin);
+
   const [filterReviews, setfilterReviews] = useState([]);
   const products = useSelector((state) => state.products);
   console.log("products", products);
@@ -92,9 +96,12 @@ export const AdminReview = () => {
     dispatch(getUsersLoged());
     dispatch(getReviewPage());
     setfilterReviews([...revs]);
-  }, [dispatch]);
+  }, [dispatch, admin]);
   return (
     <div>
+      {loading? 
+        (<Loading />) :  admin ?    (
+      <div>
       {
         <div>
           <div>
@@ -156,6 +163,14 @@ export const AdminReview = () => {
       <Link to={`/admin`}>
         <button>Volver al panel del admin</button>
       </Link>
+    </div>
+    ) :  <h1> No eres administrador </h1> } 
+      <Link to="/">
+        <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
+          Volver al home
+        </button>
+      </Link>
+      
     </div>
   );
 };

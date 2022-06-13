@@ -4,11 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { getProducts } from "../../redux/actions";
 import AdminPanel from "../AdminPanel";
 import Pagination from "../Pagination";
+import Loading from "../Loading";
 
 export default function ViewProducts() {
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const loading = useSelector((state) => state.isLoading);
+  const admin = useSelector((state) => state.isAdmin);
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage /*setProductsPerPage*/] = useState(10); //15 productos por pagina
@@ -33,6 +37,11 @@ export default function ViewProducts() {
     !products.length && dispatch(getProducts());
   }, [products]);
   return (
+    <div>
+      {loading ? (
+        <Loading />
+      ) : admin ? ( 
+
     <div>
       <AdminPanel />
       <div class="container">
@@ -89,6 +98,13 @@ export default function ViewProducts() {
           </div>
         </div>
       </div>
+    </div>
+      ) : <h1> No eres administrador </h1>}
+      <Link to="/">
+        <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
+          Volver al home
+        </button>
+      </Link>
     </div>
   );
 }
