@@ -16,14 +16,14 @@ const Historial = () => {
   const prod = useSelector((state) => state.products);
   const { id } = useParams();
   // console.log(id, "soy el di")
-  // console.log(historial, "Hay cosas en historial ");
+  console.log(historial, "Hay cosas en historial ");
 
-  // console.log(revs, "SOY EL REVS MIRAME MIRAME MIREAME");
+  console.log(revs, "SOY EL REVS MIRAME MIRAME MIREAME");
   const prodFind = prod.filter((e) => e.id === revs.productoId);
 
   let [bool, setBool] = useState(false);
   let allRevs = revs.map((e) => `${e.productoId} ${e.usuarioId}`);
-  // console.log(allRevs, "SOY ALLREVS <====================");
+  console.log(allRevs, "SOY ALLREVS <====================");
   // let revId = allRevs.find(e => e.id)
   
   useEffect(() => {
