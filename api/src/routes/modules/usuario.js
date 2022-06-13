@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const axios = require("axios");
 
-const { Usuario, Carrito, Direcciones} = require("../../db");
+const { Usuario, Carrito, Direcciones } = require("../../db");
 
 const bodyParser = require("body-parser");
 
@@ -23,9 +23,10 @@ router.get("/:id", async (req, res) => {
   let { id } = req.params;
 
   try {
-    let usuario = await Usuario.findOne( {
-      where:{ id}, 
-     include:{model: Direcciones}});
+    let usuario = await Usuario.findOne({
+      where: { id },
+      include: { model: Direcciones },
+    });
     res.status(200).json(usuario);
   } catch (e) {
     res.status(400);
@@ -75,7 +76,7 @@ router.post("/", async (req, res) => {
         direccion: direccion ? direccion : null,
         telefono: telefono ? telefono : null,
         isAdmin: isAdmin,
-        image: image
+        image: image,
       },
     });
     console.log("bien");
@@ -85,27 +86,36 @@ router.post("/", async (req, res) => {
     return res.status(400);
   }
 });
- router.put("/", async (req, res) => {
-    let {id, nombre, email, contraseña, nacimiento, direccion, telefono, image } = req.body.user;
-    console.log(req.body.user);
-    try {
-      const usuarioPut = await Usuario.findOne({ where: { id: id } });
-      console.log("usuarioPut busqueda", usuarioPut);
-      let updated = await usuarioPut.update({
-        id: id || usuarioPut.id,
-        nombre: nombre || usuarioPut.nombre,
-        email: email || usuarioPut.email,
-        contraseña: contraseña || usuarioPut.contraseña,
-        nacimiento: nacimiento || usuarioPut.nacimiento,
-        direccion: direccion || usuarioPut.direccion,
-        telefono: telefono || usuarioPut.telefono,
-        image: image || usuarioPut.image,
-      });
-      res.json(updated);
-    } catch (err) {
-      console.log(err);
-    }
-  });
+router.put("/", async (req, res) => {
+  let {
+    id,
+    nombre,
+    email,
+    contraseña,
+    nacimiento,
+    direccion,
+    telefono,
+    image,
+  } = req.body.user;
+  console.log(req.body.user);
+  try {
+    const usuarioPut = await Usuario.findOne({ where: { id: id } });
+    console.log("usuarioPut busqueda", usuarioPut);
+    let updated = await usuarioPut.update({
+      id: id || usuarioPut.id,
+      nombre: nombre || usuarioPut.nombre,
+      email: email || usuarioPut.email,
+      contraseña: contraseña || usuarioPut.contraseña,
+      nacimiento: nacimiento || usuarioPut.nacimiento,
+      direccion: direccion || usuarioPut.direccion,
+      telefono: telefono || usuarioPut.telefono,
+      image: image || usuarioPut.image,
+    });
+    res.json(updated);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 //------Mercado Pago-----
 
@@ -128,7 +138,6 @@ router.post("/checkout", async (req, res) => {
       pending: "http://localhost:3000/feedback",
     },
     auto_return: "approved",
-  
   };
 
   mercadopago.preferences
@@ -212,58 +221,61 @@ router.delete("/:id", async (req, res) => {
 //_____________direcciones_______________
 
 router.post("/direcciones", async (req, res) => {
-  
   try {
-  let = {id_user, delivery_type, calle_numero,  localidad, codigo_postal,provincia} =req.body;  
-   //const usuario = await Usuario.findOne({where:{id:id_user}})
-  // console.log('---------------------------',usuario);
-  let direcciones = await Direcciones.findOrCreate({
-    where: {
-    usuarioId: id_user,
-      delivery_type:delivery_type,
-      calle_numero:calle_numero,  
-      localidad: localidad, 
-      codigo_postal:codigo_postal,
-      provincia:provincia
-    },
-  });
+    let = {
+      id_user,
+      delivery_type,
+      calle_numero,
+      localidad,
+      codigo_postal,
+      provincia,
+    } = req.body;
+    //const usuario = await Usuario.findOne({where:{id:id_user}})
+    // console.log('---------------------------',usuario);
+    let direcciones = await Direcciones.findOrCreate({
+      where: {
+        usuarioId: id_user,
+        delivery_type: delivery_type,
+        calle_numero: calle_numero,
+        localidad: localidad,
+        codigo_postal: codigo_postal,
+        provincia: provincia,
+      },
+    });
 
-  
-  res.json(direcciones);
-} catch (error) {
-    console.log(error)
+    res.json(direcciones);
+  } catch (error) {
+    console.log(error);
   }
 });
 router.get("/direcciones/:id", async (req, res) => {
   let { id } = req.params;
   try {
-    let direcciones = await Direcciones.findAll({ where: {usuarioId: id } });
+    let direcciones = await Direcciones.findAll({ where: { usuarioId: id } });
     res.status(200).json(direcciones);
   } catch (err) {
     res.status(404);
   }
 });
 
-
 router.delete("/direcciones/:id", async (req, res) => {
-  let {id} = req.params
+  let { id } = req.params;
 
   try {
     // let findIdDir = await Direcciones.findOne({where : {id_direcciones: id}})
 
     // let usuarioId = findIdDir.usuarioId
 
-    let deleteDire= await Direcciones.destroy({where: {id_direcciones: id}})
-    
+    let deleteDire = await Direcciones.destroy({
+      where: { id_direcciones: id },
+    });
+
     // let direccion = await Direcciones.findAll({where:{usuarioId : usuarioId}})
 
-    res.status(200).json(deleteDire)
-    
+    res.status(200).json(deleteDire);
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
   }
-
-
 });
 
 module.exports = router;
