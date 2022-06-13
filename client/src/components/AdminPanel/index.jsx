@@ -15,15 +15,15 @@ export default function AdminPanel() {
 
   const handleOnClickAdminProduct = (e) => {
     e.preventDefault();
-    navigate("/admin/products")
-    window.location.reload()
-  }
+    navigate("/admin/products");
+    window.location.reload();
+  };
 
   const handleOnClickAdminReview = (e) => {
     e.preventDefault();
-    navigate("/adminreview")
+    navigate("/adminreview");
     window.location.reload();
-  }
+  };
 
   function out() {
     signOut(auth)
@@ -50,7 +50,7 @@ export default function AdminPanel() {
       <nav class="navbar bg-light fixed-top">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            <h3>Hola, este es el panel de administrador</h3>
+            <img src="/images/Logo-Letras.png" height="50px" />
           </a>
 
           <button
@@ -146,7 +146,11 @@ export default function AdminPanel() {
                 </li>
 
                 <li class="nav-item">
-                  <a onClick={handleOnClickAdminReview} class="nav-link" href="#">
+                  <a
+                    onClick={handleOnClickAdminReview}
+                    class="nav-link"
+                    href="#"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"
@@ -162,7 +166,11 @@ export default function AdminPanel() {
                 </li>
 
                 <li class="nav-item">
-                  <a onClick={handleOnClickAdminProduct} class="nav-link" href="#">
+                  <a
+                    onClick={handleOnClickAdminProduct}
+                    class="nav-link"
+                    href="#"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"

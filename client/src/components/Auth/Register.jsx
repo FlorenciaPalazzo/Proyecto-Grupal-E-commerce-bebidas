@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createUser, isAdmin, setUser } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import Loading from "../Loading";
-import "./Styles/RegisterStyles.css";
+import "./Register.css";
 
 function Register() {
   // { id, nombre, email, nacimiento, direccion, telefono }
@@ -109,23 +109,17 @@ function Register() {
   console.log(input);
 
   return (
-    <div className="register-background">
-      <img src="./images/formsBackground.jpg" alt="" />
-      <Link to="/">
-        <img className="register-logo" src="./logo/logo.png" alt="loguito" />
-      </Link>
+    <div className="registro-body">
       {loading && !isLoged ? (
         <Loading />
       ) : (
-        <div className="register-main">
-          <h1 className="forms-title">Registro</h1>
-          <div className="register-container">
-            {error && <span className="register-span">{error}</span>}
-            <form className="register-form" onSubmit={handleSubmit}>
-              <div className="label-input">
+        <div className="registro-cont">
+          <div>
+            {error && <span>{error}</span>}
+            <form onSubmit={handleSubmit}>
+              <div className="registro-form">
                 <label htmlFor="nombre">Nombre</label>
                 <input
-                  className="register-input"
                   type="text"
                   name="nombre"
                   placeholder="Enter your name"
@@ -133,13 +127,11 @@ function Register() {
                 />
               </div>
 
-              {nameError && <span className="register-span">{nameError}</span>}
+              {nameError && <span>{nameError}</span>}
 
-              <br />
-              <div className="label-input">
+              <div className="registro-form">
                 <label htmlFor="apellido">Apellido</label>
                 <input
-                  className="register-input"
                   type="text"
                   name="apellido"
                   placeholder="Enter your surname"
@@ -150,11 +142,10 @@ function Register() {
               {surnameError && (
                 <span className="register-span">{surnameError}</span>
               )}
-              <br />
-              <div className="label-input">
+
+              <div className="registro-form">
                 <label htmlFor="telefono">Celular</label>
                 <input
-                  className="register-input"
                   type="tel"
                   name="telefono"
                   placeholder="Enter your phone number"
@@ -162,11 +153,9 @@ function Register() {
                 />
               </div>
 
-              <br />
-              <div className="label-input">
+              <div className="registro-form">
                 <label htmlFor="nacimiento">Nacimiento</label>
                 <input
-                  className="register-input"
                   type="text"
                   name="nacimiento"
                   placeholder="dd/mm/yyyy"
@@ -174,14 +163,11 @@ function Register() {
                 />
               </div>
 
-              {birthError && (
-                <span className="register-span">{birthError}</span>
-              )}
-              <br />
-              <div className="label-input">
+              {birthError && <span>{birthError}</span>}
+
+              <div className="registro-form">
                 <label htmlFor="email">Email</label>
                 <input
-                  className="register-input"
                   type="email"
                   name="email"
                   placeholder="Enter your email"
@@ -189,14 +175,11 @@ function Register() {
                 />
               </div>
 
-              {emailError && (
-                <span className="register-span">{emailError}</span>
-              )}
-              <br />
-              <div className="label-input">
+              {emailError && <span>{emailError}</span>}
+
+              <div className="registro-form">
                 <label htmlFor="password">Contraseña</label>
                 <input
-                  className="register-input"
                   type="password"
                   name="password"
                   id="password"
@@ -204,14 +187,11 @@ function Register() {
                 />
               </div>
 
-              {passwordError && (
-                <span className="register-span">{passwordError}</span>
-              )}
-              <br />
-              <div className="label-input">
+              {passwordError && <span>{passwordError}</span>}
+
+              <div className="registro-form">
                 <label htmlFor="confirmPassword">Confirma tu contraseña</label>
                 <input
-                  className="register-input"
                   type="password"
                   name="confirmPassword"
                   id="confirmPassword"
@@ -219,10 +199,7 @@ function Register() {
                 />
               </div>
 
-              {confirmPasswordError && (
-                <span className="register-span">{confirmPasswordError}</span>
-              )}
-              <br />
+              {confirmPasswordError && <span>{confirmPasswordError}</span>}
 
               {!passwordError &&
               !surnameError &&
@@ -234,16 +211,34 @@ function Register() {
               input.password &&
               input.nacimiento &&
               input.email ? (
-                <button className="button-register">Registrarse</button>
+                <button>Registrarse</button>
               ) : (
                 <button
-                  className="button-register"
                   type="button"
                   onClick={() => alert("Complete todos los campos")}
                 >
                   Registrarse
                 </button>
               )}
+
+              <div class="text-center">
+                <p>or sign up with:</p>
+                <button type="button" class="btn btn-primary btn-floating mx-1">
+                  <i class="fab fa-facebook-f"></i>
+                </button>
+
+                <button type="button" class="btn btn-primary btn-floating mx-1">
+                  <i class="fab fa-google"></i>
+                </button>
+
+                <button type="button" class="btn btn-primary btn-floating mx-1">
+                  <i class="fab fa-twitter"></i>
+                </button>
+
+                <button type="button" class="btn btn-primary btn-floating mx-1">
+                  <i class="fab fa-github"></i>
+                </button>
+              </div>
             </form>
           </div>
         </div>

@@ -1,0 +1,50 @@
+.registro-body{
+    background-image: url("../../img/botellas-fondo.jpg");
+    background-size: cover;
+    /* background-color: black; */
+    padding: 1%;
+    box-sizing: border-box;
+    height: 100vh;
+
+}
+.registro-cont{
+    background-color: rgba(255, 255, 255, 0.496);
+    width: 25%; 
+     
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left:  70%;
+    margin-right:auto;
+    height: 90%;
+   
+  padding-top: 3%;
+  padding-bottom: 3%;
+  margin-top: 2%;
+ 
+     
+}
+
+ .registro-form{
+    /* background-color: rgb(146, 125, 184); */
+   width: 65%;
+    padding: 2%;
+    box-sizing: border-box;
+   
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+} 
+
+/* .forms-title,
+label {
+    margin: 15px;
+    font-size:10px;
+    font-weight: bold;
+    font-family: "Montserrat";
+    width: fit-content;
+}
+
+.forms-title {
+    font-size: 35px !important;
+} */
