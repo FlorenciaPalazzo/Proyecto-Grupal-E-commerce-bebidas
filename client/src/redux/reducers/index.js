@@ -252,6 +252,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
               products: puri,
               orderAZ: puri
             }
+            
     case ORDER_BY:
       console.log('SOY PAYLOAD', payload)
     console.log('STATE' , state.products)
