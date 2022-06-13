@@ -5,13 +5,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../fb";
 import { getUserDb, getUsersLoged, resetUser } from "../../redux/actions";
+import Loading from "../Loading";
 import ViewUsers from "../ViewUsers";
 
 export default function AdminPanel() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const loading = useSelector((state) => state.isLoading);
   const usersLoged = useSelector((state) => state.usersLoged);
+  const admin = useSelector((state) => state.isAdmin);
+
+
+  const handleOnClickAdminProduct = (e) => {
+    e.preventDefault();
+    navigate("/admin/products");
+    window.location.reload();
+  };
+
+  const handleOnClickAdminReview = (e) => {
+    e.preventDefault();
+    navigate("/adminreview");
+    window.location.reload();
+  };
 
   function out() {
     signOut(auth)
@@ -21,6 +37,7 @@ export default function AdminPanel() {
         dispatch(resetUser());
         //dispatch(setLoading(false))
         navigate("/");
+        window.location.reload();
       })
       .catch((error) => {
         // An error happened.
@@ -30,14 +47,18 @@ export default function AdminPanel() {
 
   useEffect(() => {
     dispatch(getUsersLoged());
-  }, [dispatch]);
+  }, [dispatch, admin]);
 
   return (
     <div>
+      {loading ? (
+        <Loading />
+      ) : admin ? ( 
+      <div>
       <nav class="navbar bg-light fixed-top">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            <h1>Hola, este es el panel de administrador</h1>
+            <img src="/images/Logo-Letras.png" height="50px" />
           </a>
 
           <button
@@ -59,7 +80,10 @@ export default function AdminPanel() {
               <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
                 Panel Administrador
               </h5>
-              <button
+            </div>
+
+            {/* -------SEARCH PARA PONERLO DONDE PINTE-------
+               <button
                 type="button"
                 class="btn-close"
                 data-bs-dismiss="offcanvas"
@@ -77,7 +101,7 @@ export default function AdminPanel() {
               <button class="btn btn-outline-success" type="submit">
                 Search
               </button>
-            </form>
+            </form> */}
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
@@ -109,7 +133,7 @@ export default function AdminPanel() {
                 </li>
 
                 <li class="nav-item">
-                  <Link to="/adminreview" class="nav-link" href="#">
+                  <Link to="/admin/usuarios" class="nav-link" href="#">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"
@@ -125,29 +149,49 @@ export default function AdminPanel() {
                       />
                       <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
                     </svg>{" "}
-                    Reviews Usuarios
+                    Usuarios
                   </Link>
                 </li>
 
                 <li class="nav-item">
-                  <Link to="/admin/products" class="nav-link" href="#">
+                  <a
+                    onClick={handleOnClickAdminReview}
+                    class="nav-link"
+                    href="#"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"
                       height="25"
                       fill="currentColor"
-                      class="bi bi-people-fill"
+                      class="bi bi-star-fill"
                       viewBox="0 0 16 16"
                     >
-                      <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                      <path
-                        fill-rule="evenodd"
-                        d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"
-                      />
-                      <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+                      <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                    </svg>{" "}
+                    Reviews Usuarios
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a
+                    onClick={handleOnClickAdminProduct}
+                    class="nav-link"
+                    href="#"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="25"
+                      fill="currentColor"
+                      class="bi bi-card-list"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                      <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
                     </svg>{" "}
                     Productos
-                  </Link>
+                  </a>
                 </li>
 
                 <li class="nav-item">
@@ -177,10 +221,13 @@ export default function AdminPanel() {
           </div>
         </div>
       </nav>
-      <div>
-        <h3>Usuarios</h3>
-        <ViewUsers />
       </div>
+      ) : <h1> No eres administrador </h1>}
+      <Link to = "/">
+        <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
+          Volver al home
+        </button>
+      </Link>
     </div>
   );
 }

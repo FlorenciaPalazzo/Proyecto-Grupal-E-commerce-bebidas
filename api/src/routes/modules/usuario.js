@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const axios = require("axios");
 
+
 const {
   Usuario,
   Carrito,
@@ -9,6 +10,7 @@ const {
   Review,
   Producto,
 } = require("../../db");
+
 
 const bodyParser = require("body-parser");
 
@@ -283,6 +285,7 @@ router.delete("/direcciones/:id", async (req, res) => {
   } catch (error) {
     console.log(error.message);
   }
+
 });
 
 router.get("/admin/stats", async (req, res) => {
@@ -335,6 +338,7 @@ router.get("/admin/stats", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+
 });
 
 router.post("/admin/stats/products", async (req, res) => {
