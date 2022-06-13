@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
-import { deleteMercadoPago, addHist, putProduct, getReviewPage } from "../../redux/actions";
+import {
+  deleteMercadoPago,
+  addHist,
+  putProduct,
+  getReviewPage,
+} from "../../redux/actions";
 import Loading from "../Loading";
 
 export const FeedBack = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
-  
-  
+
   let revPage = useSelector((state) => state.reviewPage);
   const loading = useSelector((state) => state.isLoading);
   let productCart = JSON.parse(window.localStorage.getItem("product"));
@@ -18,23 +21,24 @@ export const FeedBack = () => {
   let user = localStorage.getItem("user");
 
   console.log(user, "Hola, soy el user uid");
-  
+
   let map = productCart.map((e) => e.id);
-  
+
   const [historial, setHistorial] = useState({
     id_user: user,
     id_prods: map,
   });
-  console.log(revPage, "soy las reviews de la pagina <=====================")
-  
+  console.log(revPage, "soy las reviews de la pagina <=====================");
+  let bool = localStorage.getItem("dejoRevPag");
+  console.log("bool", bool);
   console.log(historial, "Todo se trajo bien a la primera");
   useEffect(() => {
-    dispatch(getReviewPage())
-  },[dispatch])
-  
-useEffect(()=>{
-   productCart.map(e=>dispatch(putProduct(e)) )
-},[dispatch, productCart])
+    dispatch(getReviewPage());
+  }, [dispatch]);
+
+  useEffect(() => {
+    productCart.map((e) => dispatch(putProduct(e)));
+  }, [dispatch, productCart]);
   let foo;
   useEffect(() => {
     let search = window.location.search;
@@ -43,13 +47,11 @@ useEffect(()=>{
 
     // console.log("foo", foo);
     if (foo === "approved") {
-      dispatch(addHist(historial))
+      dispatch(addHist(historial));
       // dispatch(getReviewPage())
-
-      ;
       console.log("APROBADO");
-      setTimeout(navigate("/"), 50000);
-      if(!revPage.includes(user)){
+      setTimeout(navigate("/"), 10000);
+      if (!bool) {
         swal({
           title: "Queremos saber tu opinion",
           text: "... Dejá tu reseña de nuestra pagina!! ⭐⭐⭐!",
@@ -63,7 +65,6 @@ useEffect(()=>{
           icon: "warning",
         }).then((value) => {
           if (value === "Opina") {
-
             navigate("/review");
           }
         });
