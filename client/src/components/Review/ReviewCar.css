@@ -1,0 +1,47 @@
+.reviewCar-body{
+   
+    background-color: rgba(178, 243, 180, 0.692);
+}
+
+.reviewCard-contenedor{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: aqua;
+    width:60%;
+  padding: 1%;
+    box-sizing: border-box;
+    margin-top: 5%;
+}
+
+.reviewCard-items{
+    background-color: crimson;
+    text-align: center;
+    
+}
+.reviewCard-star{
+    background-color:rgba(0, 38, 255, 0.473);
+    text-align: center;
+    padding-left: 36% ;
+    padding-right: auto;
+    
+}
+.reviewCard-x{
+    background-color:rgba(21, 255, 0, 0.473);
+   
+   
+}
+
+@media (max-width: 900px) {
+   
+    .reviewCard-contenedor{
+        width: 50%;
+    }
+  } 
+
+  @media (max-width: 550px) {
+   
+    .reviewCard-contenedor{
+        width: 100%;
+    }
+  } 

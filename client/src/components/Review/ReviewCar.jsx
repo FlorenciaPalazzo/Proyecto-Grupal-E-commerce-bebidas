@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts, deleteReview, isAdmin } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
+import "./ReviewCar.css";
+import AdminPanel from "../AdminPanel";
 import Loading from "../Loading";
 export const ReviewCar = ({
   titulo,
@@ -54,6 +56,7 @@ export const ReviewCar = ({
   }, [bool, admin]);
   return (
     <div>
+      <AdminPanel />
       {loading ? (
         <Loading />
       ) : (
@@ -96,7 +99,9 @@ export const ReviewCar = ({
               <button onClick={handleDelete} value={usuarioId}>
                 ❌
               </button>
-            ) : <p>No eres admin </p>}
+            ) : (
+              <p>No eres admin </p>
+            )}
           </div>
         </div>
       )}
