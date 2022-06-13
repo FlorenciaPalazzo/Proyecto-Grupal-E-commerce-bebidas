@@ -5,25 +5,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../fb";
 import { getUserDb, getUsersLoged, resetUser } from "../../redux/actions";
+import Loading from "../Loading";
 import ViewUsers from "../ViewUsers";
 
 export default function AdminPanel() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const loading = useSelector((state) => state.isLoading);
   const usersLoged = useSelector((state) => state.usersLoged);
+  const admin = useSelector((state) => state.isAdmin);
+
 
   const handleOnClickAdminProduct = (e) => {
     e.preventDefault();
-    navigate("/admin/products")
-    window.location.reload()
-  }
+    navigate("/admin/products");
+    window.location.reload();
+  };
 
   const handleOnClickAdminReview = (e) => {
     e.preventDefault();
-    navigate("/adminreview")
+    navigate("/adminreview");
     window.location.reload();
-  }
+  };
 
   function out() {
     signOut(auth)
@@ -43,14 +47,18 @@ export default function AdminPanel() {
 
   useEffect(() => {
     dispatch(getUsersLoged());
-  }, [dispatch]);
+  }, [dispatch, admin]);
 
   return (
     <div>
+      {loading ? (
+        <Loading />
+      ) : admin ? ( 
+      <div>
       <nav class="navbar bg-light fixed-top">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            <h3>Hola, este es el panel de administrador</h3>
+            <img src="/images/Logo-Letras.png" height="50px" />
           </a>
 
           <button
@@ -146,7 +154,11 @@ export default function AdminPanel() {
                 </li>
 
                 <li class="nav-item">
-                  <a onClick={handleOnClickAdminReview} class="nav-link" href="#">
+                  <a
+                    onClick={handleOnClickAdminReview}
+                    class="nav-link"
+                    href="#"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"
@@ -162,7 +174,11 @@ export default function AdminPanel() {
                 </li>
 
                 <li class="nav-item">
-                  <a onClick={handleOnClickAdminProduct} class="nav-link" href="#">
+                  <a
+                    onClick={handleOnClickAdminProduct}
+                    class="nav-link"
+                    href="#"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"
@@ -205,6 +221,13 @@ export default function AdminPanel() {
           </div>
         </div>
       </nav>
+      </div>
+      ) : <h1> No eres administrador </h1>}
+      <Link to = "/">
+        <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
+          Volver al home
+        </button>
+      </Link>
     </div>
   );
 }

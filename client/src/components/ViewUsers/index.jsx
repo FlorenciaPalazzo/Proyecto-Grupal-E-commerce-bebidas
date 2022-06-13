@@ -4,9 +4,12 @@ import { Link } from "react-router-dom";
 import { auth } from "../../fb";
 import { firebaseUsers, getUsersLoged } from "../../redux/actions";
 import AdminPanel from "../AdminPanel";
+import Loading from "../Loading";
 import "./ViewUsers.css";
 export default function ViewUsers() {
   const usersLoged = useSelector((state) => state.usersLoged);
+  const admin = useSelector((state) => state.isAdmin);
+  const loading = useSelector((state) => state.isLoading);
   const dispatch = useDispatch();
   const [firstReq, setReq] = useState(true);
 
@@ -16,8 +19,12 @@ export default function ViewUsers() {
       setReq(false);
     }
     console.log(usersLoged);
-  }, [usersLoged]);
+  }, [usersLoged, admin]);
   return (
+    <div>
+      {loading ? (
+        <Loading />
+      ) : admin ? ( 
     <div>
       <AdminPanel />
       <div className="viewusers-borde">
@@ -96,6 +103,13 @@ export default function ViewUsers() {
           </div>
         </div>
       </div>
+    </div>
+      ) : <h1> No eres administrador </h1>}
+      <Link to="/">
+        <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
+          Volver al home
+        </button>
+      </Link>
     </div>
   );
 }
