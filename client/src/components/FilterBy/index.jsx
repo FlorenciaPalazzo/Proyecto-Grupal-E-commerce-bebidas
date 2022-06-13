@@ -81,8 +81,9 @@ export default function FilterBy({ setCurrentPage }) {
   };
   const resetButton = (e) => {
     e.preventDefault();
-    setCurrentPage(1);
-    dispatch(getProducts(e.target.value));
+    /* 
+    dispatch(getProducts(e.target.value)); */
+    window.location.reload();
   };
   //////////////👇👇👇aqui modo oscuro 👇👇👇///////////
 

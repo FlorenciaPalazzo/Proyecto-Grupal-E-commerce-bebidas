@@ -6,10 +6,6 @@ function Footer() {
   return (
     <div>
       <div className="footer">
-        <Link to="/contact" className="contact">
-          <button class="btn btn-outline-warning">Contacto</button>
-        </Link>
-
         <div className="about">
           <button class="btn btn-outline-warning">About</button>
         </div>

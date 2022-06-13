@@ -277,7 +277,7 @@ const ShoppingCart = () => {
                   <div className="col text-right">${total}</div>
 
                   {
-                    /* verified && !verified.emailVerified ? (
+                    /* verified && !verified.emailVerified && productCart.length? (
                      <button className="button" onClick={handleAlertCarrito}>
                        PAGAR
                      </button>
