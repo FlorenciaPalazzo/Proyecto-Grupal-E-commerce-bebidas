@@ -425,9 +425,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
 
       productos.forEach((e) => {
         //mapea productos pregunta si hay id prod
-        console.log(e);
+        // console.log(e);
         if (ids.includes(e.id)) {
-          console.log("e", e);
+          // console.log("e", e);
           arr.push(e);
         }
       });

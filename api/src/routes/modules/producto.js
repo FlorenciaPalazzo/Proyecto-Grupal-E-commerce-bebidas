@@ -201,7 +201,7 @@ router.delete("/favoritos", async (req, res) => {
         productoId: id_prod,
       },
     });
-    let favs2 = Favorito.findAll({ where: { usuarioId: id_user } });
+    let favs2 = await Favorito.findAll({ where: { usuarioId: id_user } });
 
     res.json(favs2);
   } catch (err) {
