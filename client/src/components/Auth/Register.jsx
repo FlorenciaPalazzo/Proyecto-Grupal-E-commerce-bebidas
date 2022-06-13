@@ -3,9 +3,10 @@ import validate from "./authServices";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  signInWithPopup,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "../../fb";
+import { auth, googleProvider } from "../../fb";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser, isAdmin, setUser } from "../../redux/actions";
@@ -109,6 +110,45 @@ function Register() {
     isLoged && navigate("/");
   }, [isLoged]);
   console.log(input);
+
+  async function errorValidate(error) {
+    setError(null);
+    if (error === "Firebase: Error (auth/user-not-found).") {
+      setError("No existe un usuario con este mail");
+    } else if (error === "Firebase: Error (auth/wrong-password).") {
+      setError("Se ingreso una contraseña incorrecta");
+    }
+  }
+
+  async function googleHandleSubmit(e) {
+    setError(null);
+    e.preventDefault();
+    await signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const userCred = result.user;
+        console.log("rrrrrrrrrrrrrr", userCred);
+        dispatch(
+          createUser({
+            id: userCred.uid,
+            nombre: userCred.displayName || "Usuario",
+            apellido: userCred.displayName || "Google",
+            email: userCred.email,
+            isAdmin: userCred.email === process.env.REACT_APP_ADMIN_EMAIL,
+            isVerified: userCred.emailVerified,
+            image: userCred.photoURL || null,
+          })
+        );
+        return userCred;
+      })
+      .then((user) => {
+        console.log("seteoooo");
+        dispatch(setUser(user));
+      })
+      .catch((error) => {
+        console.log(error);
+        errorValidate(error.message);
+      });
+  }
 
   return (
     <div>
@@ -221,7 +261,10 @@ function Register() {
 
                 <div>
                   <p className="registro-text">o registrate con Google</p>
-                  <button className="registro-btn-google">
+                  <button
+                    className="registro-btn-google"
+                    onClick={googleHandleSubmit}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="40"

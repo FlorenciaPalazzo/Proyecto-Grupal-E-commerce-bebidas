@@ -5,10 +5,10 @@
    /* background-color: rgb(0, 0, 0); */
     background-size: cover;
     box-sizing: border-box;
-    height: 100vh;
+    height: 92vh;
     border-color: black;
     background-image: url('../../img/botellas-fondo.jpg');
-   
+       
 }
 
 .registro-cont{
@@ -19,8 +19,7 @@
     flex-wrap: wrap;  
     height: 90%; 
     margin-top: 0.5%;
-    padding-top:2%;
-    padding-bottom: 2%;
+    
       
 }
 
