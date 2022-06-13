@@ -1,50 +1,151 @@
 .registro-body{
-    background-image: url("../../img/botellas-fondo.jpg");
-    background-size: cover;
-    /* background-color: black; */
-    padding: 1%;
-    box-sizing: border-box;
-    height: 100vh;
-
-}
-.registro-cont{
-    background-color: rgba(255, 255, 255, 0.496);
-    width: 25%; 
-     
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-left:  70%;
-    margin-right:auto;
-    height: 90%;
+   /* background-color: rgb(0, 0, 0); */
+    background-size: cover;
+    box-sizing: border-box;
+    height: 100vh;
+    border-color: black;
+    background-image: url('../../img/botellas-fondo.jpg');
    
-  padding-top: 3%;
-  padding-bottom: 3%;
-  margin-top: 2%;
- 
-     
 }
 
- .registro-form{
-    /* background-color: rgb(146, 125, 184); */
-   width: 65%;
-    padding: 2%;
-    box-sizing: border-box;
+.registro-cont{
+    background-color:rgba(0, 0, 0, 0.519);
+    width: 25%;    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;  
+    height: 90%; 
+    margin-top: 0.5%;
+    padding-top:2%;
+    padding-bottom: 2%;
+      
+}
+
+
+
+.registro-cont input{
+    width: 110%;
+    background-color:rgba(0, 0, 0, 0.519);
+    border-color: transparent;
+    color: white;
+    font-weight: bold;
+
+}
+
+.registro-cont label{
+    color: rgb(255, 255, 255);
+}
+
+.registro-img{
+    background-image: url('../../img/botellas-fondo.jpg');
+    background-size: cover;
+    background-position:-20vh;
+    /* background-color: aqua; */
+    width: 30%;
+    height: 90%;
+    margin-top: 0.5%;
+    margin-left:20%; 
+    opacity: 80%;
+    padding: 5%;   
+}
+
+
    
+  
+ .registro-form{
+/* background-color: rgb(146, 125, 184);  */
+   width: 65%;
+    padding: 1%;
+    box-sizing: border-box;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
 } 
 
-/* .forms-title,
-label {
-    margin: 15px;
-    font-size:10px;
+.registro-error{
+    height: 50%;
+        width: 20%;
+        margin-top: 10%;
+        color: white;
+        font-weight: bold;
+        /* background-color:rgba(0, 0, 0, 0.713);  */
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto; 
+        padding: 1%;
+       
+    
+    }
+
+
+.registro-btn{
+    background-color: transparent;
+    text-align: center;
+    margin-left:35%;
+    color: white;
+    cursor: pointer;
     font-weight: bold;
-    font-family: "Montserrat";
-    width: fit-content;
+   
+   
+
+}
+.registro-btn-google{
+    background-color:transparent;
+   border-color: transparent;
+    margin-left: 43%;  
+    margin-right: auto;
+   
+    
+}
+.registro-text{
+    color: white;
+    text-align: center;
+    margin-top: 5%;
+}
+.registro-titulo{
+    font-size: 20px;
+    color: white;
 }
 
-.forms-title {
-    font-size: 35px !important;
-} */
+
+@media (max-width: 900px) {
+    .registro-img{
+        display: none;
+    }
+    .registro-cont{
+        width: 45%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .registro-body{
+        flex-direction: column;
+      
+        
+    }
+    .registro-error{
+       font-size: 10px;
+       margin-top: 50%;
+       color: rgb(0, 0, 0);
+    }
+    
+  } 
+
+  @media (max-width: 600px) {
+    .registro-cont{
+        width: 45%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+   
+  } 
+
+  @media (max-width: 500px) {
+    .registro-cont{
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+  } 
