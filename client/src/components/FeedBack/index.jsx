@@ -16,7 +16,14 @@ export const FeedBack = () => {
 
   console.log(user, "Hola, soy el user uid");
 
-  let map = productCart.map((e) => e.id);
+  let map = productCart.map((e) => {
+    
+    let obj = {
+      id: e.id,
+      quantity: e.quantity
+    }
+    return obj
+  } );
 
   const [historial, setHistorial] = useState({
     id_user: user,

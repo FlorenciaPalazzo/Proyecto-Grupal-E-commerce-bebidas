@@ -45,6 +45,8 @@ import {
   GET_USER_BY_ID,
   FIND_REVIEW_ID,
   FILTER_USER_REVIEW,
+  GET_STATS,
+  GET_TOP_PRODS,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -81,6 +83,8 @@ const initialState = {
   favProducts: [],
   historial: [],
   favBoolean: [],
+  stats: [],
+  topProds: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -525,6 +529,14 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case PUT_PRODUCTO:
       return {
         ...state,
+      };
+    case GET_STATS:
+      return {
+        ...state, stats: payload
+      };
+    case GET_TOP_PRODS:
+      return {
+        ...state, topProds: payload
       };
     default:
       return state;
