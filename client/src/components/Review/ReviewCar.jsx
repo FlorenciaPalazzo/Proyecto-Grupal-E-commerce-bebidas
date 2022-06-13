@@ -55,7 +55,7 @@ export const ReviewCar = ({
     dispatch(getProducts());
   }, [bool, admin]);
   return (
-    <div>
+    <div className="reviewCar-body">
       <AdminPanel />
       {loading ? (
         <Loading />
