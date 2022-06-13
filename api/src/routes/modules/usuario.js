@@ -266,4 +266,21 @@ router.delete("/direcciones/:id", async (req, res) => {
 
 });
 
+router.get("/admin/stats", async (req, res)=>{
+  try {
+    console.log(Comprado, "holas");
+
+    let ventas = await Comprado.findAll()
+    console.log("ventas", ventas);
+
+    // let stats = {
+    //   ventas: ventas
+    // }
+    res.status(200).json(ventas)
+
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = router;
