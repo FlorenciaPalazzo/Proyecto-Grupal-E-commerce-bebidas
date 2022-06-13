@@ -31,7 +31,7 @@ function Register() {
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
   const [confirmPasswordError, setConfirmPasswordError] = useState(null);
-
+  const [celErrror, setCelError] = useState(null);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   let navigate = useNavigate();
@@ -47,7 +47,8 @@ function Register() {
       setNameError,
       setPasswordError,
       setConfirmPasswordError,
-      setSurnameError
+      setSurnameError,
+      setCelError
     );
   }
   async function errorValidate(error) {
@@ -161,7 +162,7 @@ function Register() {
                   onChange={handleChange}
                 />
               </div>
-
+              {celErrror && <span className="register-span">{celErrror}</span>}
               <br />
               <div className="label-input">
                 <label htmlFor="nacimiento">Nacimiento</label>
@@ -229,10 +230,12 @@ function Register() {
               !nameError &&
               !emailError &&
               !birthError &&
+              !celErrror &&
               input.nombre &&
               input.apellido &&
               input.password &&
               input.nacimiento &&
+              input.telefono &&
               input.email ? (
                 <button className="button-register">Registrarse</button>
               ) : (
