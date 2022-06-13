@@ -7,7 +7,8 @@ export default function validate(
   setNameError,
   setPasswordError,
   setConfirmPasswordError,
-  setSurnameError
+  setSurnameError,
+  setCelError
 ) {
   if (name === "nacimiento") {
     const dateValidation =
@@ -25,12 +26,11 @@ export default function validate(
         "La contraseña debe contener al menos un caracter en minuscula, uno en mayuscula, un numero, al menos un caracter especial [!@#$%^&*], y no menos de 8 caracteres"
       );
     } else setPasswordError(null);
-  }
-  else if (name === "confirmPassword") {
-    console.log(password, input, password !== input)
+  } else if (name === "confirmPassword") {
+    console.log(password, input, password !== input);
     if (password !== input) {
-      setConfirmPasswordError("Las contraseñas deben coincidir")
-    } else setConfirmPasswordError(null)
+      setConfirmPasswordError("Las contraseñas deben coincidir");
+    } else setConfirmPasswordError(null);
   } else if (name === "email") {
     const emailValidation =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -44,7 +44,17 @@ export default function validate(
   } else if (name === "apellido") {
     if (input.length === 0) {
       setSurnameError("El Apellido es requerido");
-    } else setSurnameError(null); 
+    } else setSurnameError(null);
+  } else if (name === "telefono") {
+    const celularValidation =
+      /^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$/;
+    if (input.length === 0) {
+      console.log("length 0 telefono");
+      setCelError("El celular es requerido");
+    } else if (!celularValidation.test(input)) {
+      console.log("numero invalido telefono");
+      setCelError("El número es invalido");
+    } else setCelError(null);
   }
 }
 
