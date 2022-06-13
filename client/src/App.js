@@ -14,22 +14,27 @@ import "@fontsource/montserrat";
 import { Checkout } from "./components/Checkout";
 import { FeedBack } from "./components/FeedBack";
 import { Favoritos } from "./components/Favoritos";
-
 import Offers from "./components/Off/Offers";
 import Historial from "./components/Historial";
 import ResetPassword from "./components/Auth/ResetPassword";
+import EditForm from "./components/Admin/ProductForm";
 import { AdminReview } from "./components/Review/AdminReview";
 import { AdminRevDetail } from "./components/Review/AdminRevDetail";
-
+import { AdminEmailUser } from "./components/Review/AdminEmailUser";
+import PutReview from "./components/Profile/PutReview";
+import ViewProducts from "./components/Admin/ViewProducts";
+import ViewUsers from "./components/ViewUsers";
 
 function App() {
   return (
     <div className="App">
-      
       <Routes>
         {/* <Route path="/" exact element={<Landing />} /> */}
         <Route path="/" exact element={<Home />} />
         <Route path="/admin" exact element={<AdminPanel />} />
+        <Route path="/admin/products/edit/:id" exact element={<EditForm/>} />
+        <Route path="/admin/products" exact element={<ViewProducts/>} />
+        <Route path="/admin/usuarios" exact element={<ViewUsers/>} />
         <Route path="/cart" exact element={<ShoppingCart />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/login/reset" exact element={<ResetPassword />} />
@@ -48,6 +53,8 @@ function App() {
         <Route path="/historial/:id" exact element={<Historial />} />
         <Route path="/adminreview" exact element={<AdminReview />} />
         <Route path="/adminreview/:id" exact element={<AdminRevDetail />} />
+        <Route path="/adminemail/:id" exact element={<AdminEmailUser />} />
+        <Route path="/putreview/:id" exact element={<PutReview />} />
       </Routes>
     </div>
   );

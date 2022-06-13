@@ -1,7 +1,7 @@
 import {
   ADMIN_HANDLER,
   GET_PRODUCT_NAME,
-  FILTER_BY_BRAND,
+  FILTER_BY_BRAND_CERVEZA,
   FILTER_BY_TYPE,
   FILTER_BY_GRADUATION,
   FILTER_BY_ML,
@@ -42,7 +42,16 @@ import {
   ADD_HIST,
   GET_HIST,
   CLEAR_STATE,
-  PUT_PRODUCTO
+  UPDATE_PRODUCT,
+  PUT_PRODUCTO,
+  GET_REVIEW_BY_USER,
+  GET_USER_BY_ID,
+  FIND_REVIEW_ID,
+  FILTER_USER_REVIEW,
+  FILTER_BY_BRAND_VINO,
+  FILTER_BY_BRAND_ESPUMANTE,
+  FILTER_BY_BRAND_DESTILADO,
+  ORDER_BY,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -201,6 +210,24 @@ export const getProductById = (id) => {
     }
   };
 };
+export const updateProduct = (prod) => {
+  console.log("prod update", prod);
+  return async function (dispatch) {
+    try {
+      let result = await axios.put(
+        "http://localhost:3001/producto/bebida",
+        prod
+      );
+      return dispatch({
+        type: UPDATE_PRODUCT,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log("Error desde el catch de updateProduct", err);
+    }
+  };
+};
+
 //trae las marcas
 export const getBrands = () => {
   return async function (dispatch) {
@@ -214,11 +241,11 @@ export const getBrands = () => {
   };
 };
 //filtra por marca
-export const filterByBrand = (filter) => {
+export const filterByBrandCerveza = (filter) => {
   return async function (dispatch) {
     try {
       return dispatch({
-        type: FILTER_BY_BRAND,
+        type: FILTER_BY_BRAND_CERVEZA,
         payload: filter,
       });
     } catch (err) {
@@ -226,13 +253,52 @@ export const filterByBrand = (filter) => {
     }
   };
 };
+export const filterByBrandVino = (filter) => {
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: FILTER_BY_BRAND_VINO,
+        payload: filter,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const filterByBrandEspumante = (filter) => {
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: FILTER_BY_BRAND_ESPUMANTE,
+        payload: filter,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const filterByBrandDestilado = (filter) => {
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: FILTER_BY_BRAND_DESTILADO,
+        payload: filter,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
 //filtra por tipo
-export const filterByType = (filter) => {
+export const orderBy = (filter) => {
   return async function (dispatch) {
     try {
       console.log("ACTION DISPARADA");
       return dispatch({
-        type: FILTER_BY_TYPE,
+        type: ORDER_BY,
         payload: filter,
       });
     } catch (err) {
@@ -241,7 +307,7 @@ export const filterByType = (filter) => {
   };
 };
 //filtra por graduacion
-export const filterByGraduation = (filter) => {
+/* export const filterByGraduation = (filter) => {
   return async function (dispatch) {
     try {
       return dispatch({
@@ -252,9 +318,9 @@ export const filterByGraduation = (filter) => {
       console.log(err);
     }
   };
-};
+}; */
 //filtra por milipilis
-export const filterByML = (filter) => {
+/* export const filterByML = (filter) => {
   return async function (dispatch) {
     try {
       return dispatch({
@@ -265,9 +331,9 @@ export const filterByML = (filter) => {
       console.log(err);
     }
   };
-};
+}; */
 //filtra por precio
-export const filterByPrice = (filter) => {
+/* export const filterByPrice = (filter) => {
   return async function (dispatch) {
     try {
       return dispatch({
@@ -278,9 +344,9 @@ export const filterByPrice = (filter) => {
       console.log(err);
     }
   };
-};
+}; */
 //filtra por orden alfabetico asc y desc
-export const filterByAZ = (filter) => {
+/* export const filterByAZ = (filter) => {
   return async function (dispatch) {
     try {
       dispatch({
@@ -291,7 +357,7 @@ export const filterByAZ = (filter) => {
       console.log(err);
     }
   };
-};
+}; */
 export const addCart = (product) => {
   return async function (dispatch) {
     try {
@@ -435,6 +501,7 @@ export const getReview = (id) => {
   return async function (dispatch) {
     try {
       let result = await axios.get("http://localhost:3001/review/" + id);
+      console.log(result.data, "soy la action");
       return dispatch({
         type: GET_REVIEW,
         payload: result.data,
@@ -460,13 +527,13 @@ export const getReviewPage = () => {
   };
 };
 
-export const putReview = (id) => {
+export const putReview = (payload) => {
   return async function (dispatch) {
     try {
-      let result = await axios.get("http://localhost:3001/review/" + id);
+      let result = await axios.put("http://localhost:3001/review/", payload);
+      console.log("entre al baaaaaaaack");
       return dispatch({
         type: PUT_REVIEW,
-        payload: result.data,
       });
     } catch (e) {
       console.log(e);
@@ -486,6 +553,37 @@ export const deleteReview = (id) => {
   };
 };
 
+export const findReviewId = (id) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.get(
+        "http://localhost:3001/review/putreview/" + id
+      );
+      console.log(result.data, "me traigo las review por su id");
+      return dispatch({
+        type: FIND_REVIEW_ID,
+        payload: result.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const getReviewByUser = (id) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.get("http://localhost:3001/review/all/" + id);
+      return dispatch({
+        type: GET_REVIEW_BY_USER,
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log("Error del action del getReviewByUser", err);
+    }
+  };
+};
+
 export const setFavorito = (payload) => {
   return async function (dispatch) {
     try {
@@ -493,6 +591,20 @@ export const setFavorito = (payload) => {
       return dispatch({
         type: SET_FAV,
         return: payload,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const getUserById = (id) => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.get("http://localhost:3001/usuario/" + id);
+      return dispatch({
+        type: GET_USER_BY_ID,
+        payload: result.data,
       });
     } catch (err) {
       console.log(err);
@@ -624,7 +736,10 @@ export const clearState = () => {
 export const putProduct = (payload) => {
   return async function (dispatch) {
     try {
-      let result = await axios.put("http://localhost:3001/producto/bebida" , payload);
+      let result = await axios.put(
+        "http://localhost:3001/producto/bebida",
+        payload
+      );
       return dispatch({
         type: PUT_PRODUCTO,
         payload: result.data,
@@ -634,3 +749,12 @@ export const putProduct = (payload) => {
     }
   };
 };
+
+export const filterUserReview = (payload) => {
+  return {
+    type: FILTER_USER_REVIEW,
+    payload,
+  };
+};
+
+// TONI ESTUVO AQUI WOWOWOOWOWOWOWOWOOW

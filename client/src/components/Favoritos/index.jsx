@@ -12,27 +12,27 @@ export const Favoritos = () => {
   let navigate = useNavigate();
   console.log("EL FAVORITO", elFavorito);
   const dispatch = useDispatch();
-const [bol , setBol] = useState(false)
+  const [bol, setBol] = useState(false);
   let user = localStorage.getItem("user");
 
   console.log("SOY EL USUARIO--->", user);
 
-// Toni dice que tiene que existir ↧↧↧↧
-//   useEffect(() => {
-//     //no tocar :), 
-//   ;
-// }, []);
+  // Toni dice que tiene que existir ↧↧↧↧
+  //   useEffect(() => {
+  //     //no tocar :),
+  //   ;
+  // }, []);
 
-// y este tb ↧↧↧
-  useEffect(() => { 
-      dispatch(getProducts())
-   dispatch(getFavorito(user));
-   
+  // y este tb ↧↧↧
+  useEffect(() => {
+    dispatch(getProducts());
+    dispatch(getFavorito(user));
+
     // if(!elFavorito.length){
-     
+
     // }
   }, [dispatch, bol]);
-  
+
   const handleDeleteFav = (e) => {
     e.preventDefault();
     let idProd = e.target.value;

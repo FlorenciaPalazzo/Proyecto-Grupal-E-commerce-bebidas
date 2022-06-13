@@ -1,0 +1,35 @@
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height: 25vh;
+    width: 100%;
+    background-color: rgb(50, 50, 50);
+    padding: 1%;
+}
+
+.footer .text {
+    margin-top: 15px;
+    margin-left: 50px;
+    margin-right: 50px;
+    color: #F5F5F5;
+    font-weight: bold;
+    font-family: "Montserrat";
+}
+
+.footer .contact {
+    /* flex: 1 1 auto; */
+    width: 50%;
+    text-align: center;
+}
+
+.footer .about {
+    /* flex: 1 1 auto; */
+    width: 50%;
+    text-align: center;
+}
+
+.footer .hecho {
+    /* flex: 1 1 auto; */
+    text-align: center;
+}
