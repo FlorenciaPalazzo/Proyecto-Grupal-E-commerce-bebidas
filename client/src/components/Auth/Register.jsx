@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createUser, isAdmin, setUser } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import Loading from "../Loading";
+import swal from "sweetalert";
 import "./Register.css";
 
 import NavBarSec from "../NavBarSec";
@@ -111,6 +112,14 @@ function Register() {
     isLoged && navigate("/");
   }, [isLoged]);
   console.log(input);
+
+  const handleAlertRegister = (e) => {
+    e.preventDefault()
+    swal({
+      title: "Favor de completar todos los campos ",
+      icon: "warning",
+    });
+  }
 
   async function errorValidate(error) {
     setError(null);
@@ -256,7 +265,7 @@ function Register() {
                   <button
                     className="registro-btn"
                     type="button"
-                    onClick={() => alert("Complete todos los campos")}
+                    onClick={handleAlertRegister}
                   >
                     Registrarse
                   </button>
