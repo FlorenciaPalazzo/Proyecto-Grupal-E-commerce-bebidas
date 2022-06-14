@@ -3,6 +3,12 @@
     background-color: rgba(178, 243, 180, 0.692);
 }
 
+.buttonsReview{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 .reviewCar-contenedor{
     display: flex;
     flex-wrap: wrap;
