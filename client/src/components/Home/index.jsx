@@ -56,7 +56,7 @@ function Home() {
     if (admin) {
       navigate("/admin");
     }
-  }, [dispatch, product, loading, searchProduct, rev, admin]);
+  }, [dispatch, product, loading, /*  searchProduct, */ rev, admin]);
   console.log("admin", admin);
   const handleAlertReview = (e) => {
     e.preventDefault();
@@ -110,7 +110,8 @@ function Home() {
             <div className="card-container">
               {currentProducts.length > 0 ? (
                 currentProducts.map((e) => {
-                  if(e.descripcion !== null) { //TRANSITE CON CUIDADO, CEMENTO FRESCO.-
+                  if (e.descripcion !== null) {
+                    //TRANSITE CON CUIDADO, CEMENTO FRESCO.-
                     return (
                       <div key={e.id} className="div-key-card">
                         <Link to={"/bebida/" + e.id}>
@@ -129,10 +130,6 @@ function Home() {
                     );
                   }
                 })
-              ) : !searchProduct.length ? (
-                <div>
-                  <h1 className="error">No se encontraron productos</h1>
-                </div>
               ) : (
                 <div>
                   <h1 className="error">No se encontraron productos</h1>

@@ -18,7 +18,7 @@ export const About = () => {
             <div class="col-lg-6 order-lg-1">
               <div class="justify-content-center text-center">
                 <h2 class="display-4">Jonatan Alcaraz</h2>
-                <a href="https://github.com/ValentinoMartz">
+                <a href="https://github.com/JonatanAlcaraz">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="40"
@@ -146,15 +146,15 @@ export const About = () => {
               <div class="p-5">
                 <img
                   class="img-fluid rounded-circle"
-                  src="/images/ja.jpeg"
+                  src="/images/fp.jpeg"
                   alt="..."
                 />
               </div>
             </div>
             <div class="col-lg-6">
               <div class="p-5 text-center">
-                <h2 class="display-4">We salute you!</h2>
-                <a href="https://github.com/ValentinoMartz">
+                <h2 class="display-4">Florencia Palazzo</h2>
+                <a href="https://github.com/FlorenciaPalazzo">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="40"
@@ -167,7 +167,7 @@ export const About = () => {
                 </a>{" "}
                 <a
                   class="bi bi-linkedin"
-                  href="https://www.linkedin.com/in/valentinomartz/"
+                  href="https://www.linkedin.com/in/florencia-e-palazzo/"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -192,15 +192,15 @@ export const About = () => {
               <div class="p-5">
                 <img
                   class="img-fluid rounded-circle"
-                  src="/images/ja.jpeg"
+                  src="/images/gb.jpg"
                   alt="..."
                 />
               </div>
             </div>
             <div class="col-lg-6 order-lg-1">
               <div class="p-5 text-center">
-                <h2 class="display-4">Let there be rock!</h2>
-                <a href="https://github.com/ValentinoMartz">
+                <h2 class="display-4">Gustavo Baigorria</h2>
+                <a href="https://github.com/ElGubb">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="40"
@@ -213,7 +213,7 @@ export const About = () => {
                 </a>{" "}
                 <a
                   class="bi bi-linkedin"
-                  href="https://www.linkedin.com/in/valentinomartz/"
+                  href="https://www.linkedin.com/in/gustavo-baigorria-fullstackdeveloper/"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -236,15 +236,15 @@ export const About = () => {
               <div class="p-5">
                 <img
                   class="img-fluid rounded-circle"
-                  src="/images/ja.jpeg"
+                  src="/images/ag.jpeg"
                   alt="..."
                 />
               </div>
             </div>
             <div class="col-lg-6">
               <div class="p-5 text-center">
-                <h2 class="display-4">We salute you!</h2>
-                <a href="https://github.com/ValentinoMartz">
+                <h2 class="display-4">Andrés Germain</h2>
+                <a href="https://github.com/andresg19">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="40"
@@ -257,7 +257,7 @@ export const About = () => {
                 </a>{" "}
                 <a
                   class="bi bi-linkedin"
-                  href="https://www.linkedin.com/in/valentinomartz/"
+                  href="https://www.linkedin.com/in/andres-germain-56a682213/"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -282,15 +282,15 @@ export const About = () => {
               <div class="p-5">
                 <img
                   class="img-fluid rounded-circle"
-                  src="/images/ja.jpeg"
+                  src="/images/nl.jpeg"
                   alt="..."
                 />
               </div>
             </div>
             <div class="col-lg-6 order-lg-1">
               <div class="p-5 text-center">
-                <h2 class="display-4">Let there be rock!</h2>
-                <a href="https://github.com/ValentinoMartz">
+                <h2 class="display-4">Natalia Leiva</h2>
+                <a href="https://github.com/Natti2012">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="40"
@@ -303,7 +303,7 @@ export const About = () => {
                 </a>{" "}
                 <a
                   class="bi bi-linkedin"
-                  href="https://www.linkedin.com/in/valentinomartz/"
+                  href="https://www.linkedin.com/in/natalia-leiva-033b77186/"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -326,15 +326,15 @@ export const About = () => {
               <div class="p-5">
                 <img
                   class="img-fluid rounded-circle"
-                  src="/images/ja.jpeg"
+                  src="/images/pm.jpeg"
                   alt="..."
                 />
               </div>
             </div>
             <div class="col-lg-6">
               <div class="p-5 text-center">
-                <h2 class="display-4">We salute you!</h2>
-                <a href="https://github.com/ValentinoMartz">
+                <h2 class="display-4">Pedro Marchetto</h2>
+                <a href="https://github.com/pedromarche">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="40"
@@ -347,7 +347,7 @@ export const About = () => {
                 </a>{" "}
                 <a
                   class="bi bi-linkedin"
-                  href="https://www.linkedin.com/in/valentinomartz/"
+                  href="https://www.linkedin.com/in/pedro-alejandro-marchetto-4851551a5/"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -367,7 +367,20 @@ export const About = () => {
       </section>
 
       {/*<Footer /> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        front
+        -react
+        -redux
+        -
 
+
+
+
+
+        back
+        -nodejs con express
+        -postgres db
+        -firebase
+        -
       <script src="js/scripts.js"></script> */}
     </div>
   );
