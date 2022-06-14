@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import swal from 'sweetalert'
+import swal from "sweetalert";
 import {
   addDirecciones,
   deleteDirecciones,
@@ -12,6 +12,7 @@ import {
 import Footer from "../Footer";
 import Loading from "../Loading";
 import Nav from "../Nav";
+import NavBarSec from "../NavBarSec";
 import "./CheckoutStyles.css";
 
 export function validate(input) {
@@ -83,7 +84,6 @@ export const Checkout = () => {
     console.log("sandbox ------>", sandbox);
   }, [sandbox, dispatch, user, boleano]);
 
-
   const direccionSucursal = {
     delivery_type: "sucursal",
     calle_numero: "Colectora Este Ramal Pilar 1250",
@@ -92,15 +92,16 @@ export const Checkout = () => {
   };
   const handleInputChange = function (e) {
     if (e.target.value === "sucursal") {
-      setDisabled(true)
+      setDisabled(true);
       setInput({
         [e.target.name]: e.target.value,
         id_user: id,
       });
       setDireccion(direccionSucursal);
     }
-    if (e.target.value === "envio") { setDisabled(false) }
-
+    if (e.target.value === "envio") {
+      setDisabled(false);
+    }
 
     setInput({
       ...input,
@@ -133,24 +134,24 @@ export const Checkout = () => {
     dispatch(deleteDirecciones(id));
     swal({
       title: "Dirección borrada con éxito ",
-      type: 'warning',
-      icon: 'warning',
+      type: "warning",
+      icon: "warning",
       buttons: false,
-      timer: 800
+      timer: 800,
     });
     setBoleano(!boleano);
   };
 
   const handleAlertPagar = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     swal({
       title: "Favor de confirmar dirección ",
-      type: 'warning',
-      icon: 'warning',
+      type: "warning",
+      icon: "warning",
       buttons: false,
-      timer: 800
-    })
-  }
+      timer: 800,
+    });
+  };
 
   const handlesubmitDireccion = function (e) {
     e.preventDefault();
@@ -175,18 +176,19 @@ export const Checkout = () => {
       });
       swal({
         title: "Dirección agregada ",
-        type: 'success',
-        icon: 'success',
+        type: "success",
+        icon: "success",
         buttons: false,
-        timer: 900
-      })
+        timer: 900,
+      });
 
       setBoleano(!boleano);
-    } else swal({
-      title: "Revisa los campos ingresados",
-      type: 'warning',
-      icon: 'warning',
-    });
+    } else
+      swal({
+        title: "Revisa los campos ingresados",
+        type: "warning",
+        icon: "warning",
+      });
   };
   const handlePagar = function (e) {
     e.preventDefault();
@@ -201,12 +203,11 @@ export const Checkout = () => {
   subtotal?.forEach((e) => (total += e));
   return (
     <div className="checkout-div-main">
-      <Nav />
+      <NavBarSec />
 
       {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
-
         <div className="checkout-div-render">
           <div className="checkout-div-info">
             <div className="checkout-product-delivery">
@@ -214,16 +215,21 @@ export const Checkout = () => {
                 <h2>Detalle de compra</h2>
                 {productCart.length
                   ? productCart.map((e) => {
-                    return (<div className="checkout-product-detail">
-                      <ul className="checkout-ul" key={e.id}>
-                        <img src={e.imagen} alt="img not found" width="70%" />
-                        <li>{e.nombre}</li>
-                        <li>{e.quantity} unid.</li>
-                        <li>${e.precio},00</li>
-                      </ul>
-                    </div>
-                    );
-                  })
+                      return (
+                        <div className="checkout-product-detail">
+                          <ul className="checkout-ul" key={e.id}>
+                            <img
+                              src={e.imagen}
+                              alt="img not found"
+                              width="70%"
+                            />
+                            <li>{e.nombre}</li>
+                            <li>{e.quantity} unid.</li>
+                            <li>${e.precio},00</li>
+                          </ul>
+                        </div>
+                      );
+                    })
                   : null}
                 <div className="checkout-delivery-info">
                   {direccion.delivery_type === "envio" ? (
@@ -233,13 +239,15 @@ export const Checkout = () => {
                     </div>
                   ) : (
                     <div className="form-direccion ">
-                      <h2>Total : $ {total},00</h2></div>
-                  )}</div>
+                      <h2>Total : $ {total},00</h2>
+                    </div>
+                  )}
+                </div>
                 <div>
                   {direccion.provincia &&
-                    direccion.localidad &&
-                    direccion.calle_numero
-                    ? (<div >
+                  direccion.localidad &&
+                  direccion.calle_numero ? (
+                    <div>
                       <div className="form-direccion">
                         <h2>
                           Envio a:{" "}
@@ -248,37 +256,52 @@ export const Checkout = () => {
                       </div>
 
                       <div className="envio-dir">
-                        <button className="btn bg-success" onClick={handlePagar}>PAGAR </button></div>
+                        <button
+                          className="btn bg-success"
+                          onClick={handlePagar}
+                        >
+                          PAGAR{" "}
+                        </button>
+                      </div>
                     </div>
-                      // 
-                    ) : <div className="envio-dir" ><button className="btn bg-success"
-                      onClick={handleAlertPagar}> PAGAR </button>
-                    </div>}
+                  ) : (
+                    //
+                    <div className="envio-dir">
+                      <button
+                        className="btn bg-success"
+                        onClick={handleAlertPagar}
+                      >
+                        {" "}
+                        PAGAR{" "}
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
 
               <div className="checkout-delivery">
                 <h3>Elegir metodo de entrega</h3>
                 <ul>
-                  <li  className="user-direccion-ul">
-                  <label>   <input
-                      type="radio"
-                      name="delivery_type"
-                      value="envio"
-                      id="delivery_type_envio"
-                      onClick={(e) => {
-                        handleInputChange(e);
-                      }}
-                    />
-                   
-                       Envio a Domicilio estándar Provincia e Interior
+                  <li className="user-direccion-ul">
+                    <label>
+                      {" "}
+                      <input
+                        type="radio"
+                        name="delivery_type"
+                        value="envio"
+                        id="delivery_type_envio"
+                        onClick={(e) => {
+                          handleInputChange(e);
+                        }}
+                      />
+                      Envio a Domicilio estándar Provincia e Interior
                     </label>
 
                     <span>$749,00</span>
 
                     <div>
-                      Despachamos tu pedido dentro de las 24 hs. Demora entre 3 a
-                      5 días hábiles.
+                      Despachamos tu pedido dentro de las 24 hs. Demora entre 3
+                      a 5 días hábiles.
                     </div>
                   </li>
                   {!disabled ? (
@@ -288,7 +311,10 @@ export const Checkout = () => {
                         <ul>
                           {direcciones?.map((e) => {
                             return (
-                              <li key={e.id_direcciones} className="user-direccion-ul">
+                              <li
+                                key={e.id_direcciones}
+                                className="user-direccion-ul"
+                              >
                                 <label>
                                   <input
                                     type="radio"
@@ -301,13 +327,15 @@ export const Checkout = () => {
                                   />
                                   {`  ${e.provincia} , ${e.localidad} , ${e.calle_numero} , CP ${e.codigo_postal} `}
 
-                                  <button type="button" class="btn btn-outline-light btn-sm text-danger "
-
+                                  <button
+                                    type="button"
+                                    class="btn btn-outline-light btn-sm text-danger "
                                     onClick={handleDelDir}
                                     value={e.id_direcciones}
                                   >
                                     Borrar
-                                  </button></label>
+                                  </button>
+                                </label>
                               </li>
                             );
                           })}
@@ -326,7 +354,9 @@ export const Checkout = () => {
                           placeholder="Ingrese Calle y numero"
                         />
                         {errors.calle_numero && (
-                          <span className="form-dir-danger">{errors.calle_numero}</span>
+                          <span className="form-dir-danger">
+                            {errors.calle_numero}
+                          </span>
                         )}
                         <br></br>
                         <label> Codigo postal</label>
@@ -340,7 +370,9 @@ export const Checkout = () => {
                           placeholder="Codigo postal (4 digitos)"
                         />
                         {errors.codigo_postal && (
-                          <span className="form-dir-danger">{errors.codigo_postal}</span>
+                          <span className="form-dir-danger">
+                            {errors.codigo_postal}
+                          </span>
                         )}
                         <br></br>
                         <label> Provincia</label>
@@ -423,7 +455,11 @@ export const Checkout = () => {
                             TIERRA DEL FUEGO
                           </option>
                         </select>
-                        {errors.provincia && <span className="form-dir-danger">{errors.provincia}</span>}
+                        {errors.provincia && (
+                          <span className="form-dir-danger">
+                            {errors.provincia}
+                          </span>
+                        )}
 
                         <label> Localidad</label>
                         <input
@@ -435,32 +471,38 @@ export const Checkout = () => {
                           }}
                           placeholder="Ingrese una localidad"
                         />
-                        {errors.localidad && <span className="form-dir-danger">{errors.localidad}</span>}
-                      <div className="btn-add-direccion">
-                          <button type="button" class="btn btn-outline-dark btn-sm text-danger "
-
-                          onClick={handlesubmitDireccion}
-                        >
-                          Agregar direccion
-                        </button>
+                        {errors.localidad && (
+                          <span className="form-dir-danger">
+                            {errors.localidad}
+                          </span>
+                        )}
+                        <div className="btn-add-direccion">
+                          <button
+                            type="button"
+                            class="btn btn-outline-dark btn-sm text-danger "
+                            onClick={handlesubmitDireccion}
+                          >
+                            Agregar direccion
+                          </button>
                         </div>
-
-                        
                       </div>
                     </div>
                   ) : null}
 
                   <li className="user-direccion-ul">
-                   <label > <input
-                      type="radio"
-                      name="delivery_type"
-                      value="sucursal"
-                      id="delivery_12"
-                      onClick={(e) => {
-                        handleInputChange(e);
-                      }}
-                    />
-                    Retiro por sucursal Pilar</label>
+                    <label>
+                      {" "}
+                      <input
+                        type="radio"
+                        name="delivery_type"
+                        value="sucursal"
+                        id="delivery_12"
+                        onClick={(e) => {
+                          handleInputChange(e);
+                        }}
+                      />
+                      Retiro por sucursal Pilar
+                    </label>
                     <span>Gratuito</span>
                     <div>
                       Retirá tu pedido sin costo de envío en nuestra sucursal de
@@ -484,13 +526,20 @@ export const Checkout = () => {
 
           <div className="btn-back-cart">
             <button>
-              <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg>
-              <span><Link to="/cart">Carrito</Link></span>
+              <svg
+                height="16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                viewBox="0 0 1024 1024"
+              >
+                <path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path>
+              </svg>
+              <span>
+                <Link to="/cart">Carrito</Link>
+              </span>
             </button>
-
           </div>
-
-
         </div>
       )}
       <Footer />
