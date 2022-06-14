@@ -139,16 +139,26 @@ export const AdminReview = () => {
                     console.log("otroArray", otroArray);
                   }
                 });
-                
                 return (
-                  
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Comentario</th>
+                        <th scope="col">Puntaje</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">nombre</th>
+                      </tr>
+                    </thead>
                   <div key={r.id} value={r.id}>
                     {r.productoId ? (
                       <Link to={`/adminreview/${r.productoId}`}>
                         Ver todas las reviews de este producto
                       </Link>
                     ) : null}
-                   <ReviewCar
+                   <tr>
+                    <ReviewCar
                      titulo={r.titulo}
                       comentario={r.comentario}
                       puntaje={r.puntaje}
@@ -158,8 +168,9 @@ export const AdminReview = () => {
                       usuarioId={r.usuarioId}
                       id = {r.id}
                     />
+                  </tr>
                   </div>
-                  
+                  </table>
                 );
               })
             : null}
