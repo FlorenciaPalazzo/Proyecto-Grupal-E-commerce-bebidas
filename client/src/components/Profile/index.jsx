@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import Loading from "../Loading";
 import AdminProfile from "./adminProfile";
 import UserProfile from "./userProfile";
+import NavBar from "../NavBar";
+import Footer from "../Footer";
+
 
 function Profile() {
   const user = useSelector((state) => state.currentUser);
@@ -18,15 +21,7 @@ function Profile() {
   }, [user]);
   return (
     <div>
-      <Link to="/">
-        <button>Home</button>
-      </Link>
-
-      <Link to="/profile/edit">
-        <button>Editar Perfil</button>
-      </Link>
-      
-      <h1>Perfil</h1>
+      <NavBar/>
 
       {loading ? (
         <Loading />
@@ -35,6 +30,7 @@ function Profile() {
       ) : (
         <UserProfile />
       )}
+      
     </div>
   );
 }

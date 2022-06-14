@@ -5,42 +5,208 @@
 .checkout-div-render {
     display: flex;
      flex-wrap: wrap; 
+     margin-left: 10%;
+     margin-right: 10%;
+     padding-bottom: 10%;
+     padding-top: 4%;
    
 }
 .checkout-div-info{
-     flex-direction: row-reverse;
+    display: -webkit-flex;
+    -webkit-flex-direction: row-reverse;
+    display: flex;
+    flex-direction: row-reverse;
 }
-
+.checkout-product-detail{
+    border-top: solid 1px rgba(0, 0, 0, 0.479);
+       background-color: transparent
+}
 .checkout-product {
     width: 30%;
     display: flexbox;
-    background-color: blue;
-    margin-right: 10%;
-   
+ 
+    margin-right: auto;
+    margin-left: auto;
+justify-items:end
 }
 
 .checkout-product h2 {
-    text-align: center;
-    max-width: 33%;
-    margin-left: 66%;
-    font-size: medium;
+    
+   width: 91%;
+   padding-left: 15%;
+   padding-bottom: 10%;
+   
 }
-
+.checkout-delivery {
+   width: 80%;  
+   padding-right: auto ;
+   margin-right: auto;
+   margin-left: auto;
+   background-color: transparent;
+   font-size:medium
+}
+.checkout-delivery h3{
+     font-size: 35px;
+}
 .checkout-product-delivery {
+    display: -webkit-flex;
+    -webkit-flex-direction: row-reverse;
     display: flex;
-    flex-wrap: wrap;
-    width: 80%;
-    height: 70vh;
+    flex-direction: row-reverse;
+    /* flex-wrap: wrap; */
+    width: 95%;
+    
     min-height: 500px;
 }
-
+.checkout-delivery-info{
+    border: solid 1px rgba(0, 0, 0, 0.479);
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: transparent;
+}
+.checkout-delivery ul {
+    list-style-type: none;
+   
+}
+.btn-add-direccion{
+    margin-top: 10%;
+}
 .checkout-ul {
     display: grid;
-    grid-template-columns: repeat(3, 33%);
+    grid-template-columns: repeat(4, 25%);
+     font-size: small;
+      padding-top: 3%;
 }
 
 .checkout-ul li {
     list-style: none;
     text-align: center;
     padding: 1%;
+}
+.form-direccion h2{
+    font-size: 20px;
+}
+
+.user-direccion{
+    display: flex;
+    flex-direction: column;
+}
+.user-direccion-ul label{
+    font-size:15px;
+}
+  .form-direccion{  
+    /* background-color: yellow; */
+    border-top: 5%;
+     font-size: small;
+     display: flex;
+     flex-direction: column;
+     width: 80%;
+}
+.form-dir-select{
+     font-size: small;
+     width: 50%;
+}
+.form-direccion label{
+     font-size: small;
+     width: 50%;
+}
+.form-direccion input{
+     font-size: small;
+     width: 50%;
+}
+.form-dir-danger{
+    color:red;
+    border-color: red;
+}
+
+.envio-dir{
+    padding-left: 35%;
+    margin-top: 10%;
+    width: 100%;
+}
+.btn-back-cart{
+    position: fixed;
+	top: 9%;
+	left: 4%;
+}
+
+/* From uiverse.io by @Jedi-hongbin */
+button {
+    display: flex;
+    height: 3em;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    background-color: #eeeeee4b;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    transition: all 0.2s linear;
+    cursor: pointer;
+    border: none;
+    background: #fff;
+   }
+   
+   button > svg {
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 20px;
+    transition: all 0.4s ease-in;
+   }
+   
+   button:hover > svg {
+    font-size: 1.2em;
+    transform: translateX(-5px);
+   }
+   
+   button:hover {
+   
+    transform: translateY(-2px);
+   }
+
+
+
+   
+@media (max-width: 800px) {
+    .checkout-product-delivery{
+       
+        display: flex;
+        flex-direction: column-reverse;
+        /* flex-wrap: wrap; */
+        width: 100%;
+   
+
+   }
+   .user-direccion-ul label{
+    font-size:x-small;
+}
+   .checkout-product {
+    width:90%;
+    display: flexbox;
+  font-size: xx-small;
+    margin-right: 2%;
+    margin-left: 2%;
+/* justify-items:end */
+}
+.form-dir-select{
+     font-size: x-small;
+     width: 90%;
+}
+.form-direccion label{
+     font-size: x-small;
+     width: 50%;
+}
+.form-direccion input{
+     font-size: x-small;
+     width: 90%;
+}
+.checkout-delivery {
+  margin-bottom: 10%;
+    margin-top: 10%;
+   width: 98%;  
+     font-size: x-small
+}
+.checkout-delivery h3{
+     font-size:15px ;
+}
 }

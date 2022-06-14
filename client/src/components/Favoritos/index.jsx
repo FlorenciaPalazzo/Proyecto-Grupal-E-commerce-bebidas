@@ -72,12 +72,12 @@ export const Favoritos = () => {
               <img src={e.imagen} width= "10%"/>
              <span className="item-fav"> {e.nombre}</span>
              <span className="item-fav"> $ {e.precio}</span>
-             <div className="div-fav">
+             
               <button type="button" class="btn btn-outline-dark" value={e.id} onClick={handleDeleteFav}  >
                 Eliminar
              
               </button> 
-              </div>
+              {/* <div className="div-fav"></div> */}
             </div>
           );
         })
