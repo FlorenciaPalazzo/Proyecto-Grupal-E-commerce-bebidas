@@ -146,15 +146,15 @@ export const About = () => {
               <div class="p-5">
                 <img
                   class="img-fluid rounded-circle"
-                  src="/images/ja.jpeg"
+                  src="/images/fp.jpeg"
                   alt="..."
                 />
               </div>
             </div>
             <div class="col-lg-6">
               <div class="p-5 text-center">
-                <h2 class="display-4">We salute you!</h2>
-                <a href="https://github.com/ValentinoMartz">
+                <h2 class="display-4">Florencia Palazzo</h2>
+                <a href="https://github.com/FlorenciaPalazzo">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="40"
@@ -167,7 +167,7 @@ export const About = () => {
                 </a>{" "}
                 <a
                   class="bi bi-linkedin"
-                  href="https://www.linkedin.com/in/valentinomartz/"
+                  href="https://www.linkedin.com/in/florencia-e-palazzo/"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
