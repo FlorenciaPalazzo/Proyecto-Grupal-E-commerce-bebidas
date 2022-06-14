@@ -367,7 +367,20 @@ export const About = () => {
       </section>
 
       {/*<Footer /> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        front
+        -react
+        -redux
+        -
 
+
+
+
+
+        back
+        -nodejs con express
+        -postgres db
+        -firebase
+        -
       <script src="js/scripts.js"></script> */}
     </div>
   );
