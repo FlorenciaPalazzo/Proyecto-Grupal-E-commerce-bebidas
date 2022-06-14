@@ -282,7 +282,7 @@ export const About = () => {
               <div class="p-5">
                 <img
                   class="img-fluid rounded-circle"
-                  src="/images/ja.jpeg"
+                  src="/images/nl.jpeg"
                   alt="..."
                 />
               </div>
@@ -290,7 +290,7 @@ export const About = () => {
             <div class="col-lg-6 order-lg-1">
               <div class="p-5 text-center">
                 <h2 class="display-4">Natalia Leiva</h2>
-                <a href="https://github.com/ValentinoMartz">
+                <a href="https://github.com/Natti2012">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="40"
@@ -326,7 +326,7 @@ export const About = () => {
               <div class="p-5">
                 <img
                   class="img-fluid rounded-circle"
-                  src="/images/ja.jpeg"
+                  src="/images/pm.jpeg"
                   alt="..."
                 />
               </div>
@@ -347,7 +347,7 @@ export const About = () => {
                 </a>{" "}
                 <a
                   class="bi bi-linkedin"
-                  href="https://www.linkedin.com/in/valentinomartz/"
+                  href="https://www.linkedin.com/in/pedro-alejandro-marchetto-4851551a5/"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
