@@ -45,41 +45,44 @@ export const Favoritos = () => {
   };
   return (
     <div>
-      <NavBarSec/>
-      <div  className="div_title" >
+      <NavBarSec />
+      <div className="div_title" >
         <h2 className="title-fav">Mis Favoritos</h2></div>
-        <div className="div-contain">
-<div className="div-table">
-        <table class="table">
-  <thead>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Precio</th>
-      <th scope="col"></th>
-    </tr>
-  </thead> </table></div> 
-      <div className="div-fav">
-    {elFavorito.length === 0?(
-        <div className="div-sin-fav">
-          No hay favoritos
-      </div>
+      <div className="div-contain">
+        <div className="div-table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio </th>
+                <th scope="col"></th>
+              </tr>
+            </thead> </table></div>
+        <div className="div-fav">
+          {elFavorito.length === 0 ? (
+            <div className="div-sin-fav" >
+           <h2>Aún no has agregado favoritos..</h2>   
+
+
+              {/* <img src="/images/fav.png"width="80%" /> */}
+            </div>
           ) : (
             elFavorito.map((e) => {
               return (
                 <div key={e.id} className="card-fav ">
-                  <img src={e.imagen} width="10%" />
+                 <div className ="fav-imagen"><img src={e.imagen}  width="50%"  /></div> 
                   <span className="item-fav"> {e.nombre}</span>
                   <span className="item-fav"> $ {e.precio}</span>
-
-                  <button
-                    type="button"
-                    class="btn btn-outline-dark"
-                    value={e.id}
-                    onClick={handleDeleteFav}
-                  >
-                    Eliminar
-                  </button>
+                  <div className="div-btn-eliminar-fav">
+                    <button
+                      type="button"
+                      class="btn btn-outline-dark"
+                      value={e.id}
+                      onClick={handleDeleteFav}
+                    >
+                      Eliminar
+                    </button></div>
                   {/* <div className="div-fav"></div> */}
                 </div>
               );
