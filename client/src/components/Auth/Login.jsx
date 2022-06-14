@@ -106,7 +106,6 @@ function Login() {
         <div className="Login-card">
           <h1 className="Login-title">Login</h1>
           <div>
-            {error && <span>{error}</span>}
             <form onSubmit={handleSubmit}>
               <div className="Login-card-items">
                 <label htmlFor="email">Email</label>
@@ -142,6 +141,8 @@ function Login() {
               </button>
             </div>
           </div>
+
+          <p className="Login-error">{error && <span>{error}</span>}</p>
         </div>
       )}
     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import { deleteFavorito, getFavorito,getProducts } from "../../redux/actions";
+import { deleteFavorito, getFavorito, getProducts } from "../../redux/actions";
 import Footer from "../Footer";
 import NavBarSec from "../NavBarSec";
 
@@ -39,10 +39,9 @@ export const Favoritos = () => {
     let idProd = e.target.value;
     let payload = { id_prod: idProd, id_user: user };
 
-    dispatch(deleteFavorito(payload)) //↤ No tocar 😈
+    dispatch(deleteFavorito(payload)); //↤ No tocar 😈
     //  window.location.reload()
-    setBol(!bol)
-    
+    setBol(!bol);
   };
   return (
     <div>
@@ -64,27 +63,31 @@ export const Favoritos = () => {
     {elFavorito.length === 0?(
         <div className="div-sin-fav">
           No hay favoritos
-        </div>
-      ) :(
-        elFavorito.map((e) => {
-          return (
-            <div key={e.id} className="card-fav ">
+      </div>
+          ) : (
+            elFavorito.map((e) => {
+              return (
+                <div key={e.id} className="card-fav ">
+                  <img src={e.imagen} width="10%" />
+                  <span className="item-fav"> {e.nombre}</span>
+                  <span className="item-fav"> $ {e.precio}</span>
 
-              <img src={e.imagen} width= "10%"/>
-             <span className="item-fav"> {e.nombre}</span>
-             <span className="item-fav"> $ {e.precio}</span>
-             
-              <button type="button" class="btn btn-outline-dark" value={e.id} onClick={handleDeleteFav}  >
-                Eliminar
-             
-              </button> 
-              {/* <div className="div-fav"></div> */}
-            </div>
-          );
-        })
-      )  }</div>
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark"
+                    value={e.id}
+                    onClick={handleDeleteFav}
+                  >
+                    Eliminar
+                  </button>
+                  {/* <div className="div-fav"></div> */}
+                </div>
+              );
+            })
+          )}
         </div>
-            <Footer />
+      </div>
+      <Footer />
     </div>
   );
 };
