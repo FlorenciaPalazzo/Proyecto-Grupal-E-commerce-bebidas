@@ -9,6 +9,7 @@ import {
 } from "../../redux/actions";
 import validate from "./adminResources";
 import FileBase64 from "react-file-base64";
+import AdminPanel from "../AdminPanel";
 
 function ProductForm() {
   /** 
@@ -111,6 +112,7 @@ function ProductForm() {
   });
   return (
     <div>
+      <AdminPanel />
       <h1>ProductForm</h1>
       <form>
         {nombreError && (
