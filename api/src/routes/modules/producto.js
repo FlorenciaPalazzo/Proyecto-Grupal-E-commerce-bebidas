@@ -98,9 +98,9 @@ router.get("/bebidas", async (req, res, next) => {
 //--------------------BEBIDA-------------------------
 
 router.post("/bebida", async (req, res) => {
-  let = { nombre, imagen, marca, ml, graduacion, descripcion, precio, stock } =
+  let = { nombre, imagen, marca, ml, graduacion, descripcion, precio, stock, tipo } =
     req.body;
-
+  console.log(req.body)
   let [bebidaCreada, created] = await Producto.findOrCreate({
     where: {
       nombre: nombre,
@@ -111,6 +111,7 @@ router.post("/bebida", async (req, res) => {
       graduacion: graduacion,
       precio: precio,
       stock: stock,
+      tipo: tipo,
     },
   });
   res.json(bebidaCreada);

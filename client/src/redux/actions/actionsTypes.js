@@ -53,3 +53,4 @@ export const FILTER_USER_REVIEW = "FILTER_USER_REVIEW"
 export const GET_STATS = "GET_STATS"
 export const GET_TOP_PRODS = "GET_TOP_PRODS"
 export const ORDER_BY = "ORDER_BY";
+export const CREATE_PRODUCTO = "CREATE_PRODUCTO";

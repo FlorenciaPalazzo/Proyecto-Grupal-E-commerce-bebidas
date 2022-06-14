@@ -54,6 +54,7 @@ import {
   FILTER_BY_BRAND_ESPUMANTE,
   FILTER_BY_BRAND_DESTILADO,
   ORDER_BY,
+  CREATE_PRODUCTO,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -737,6 +738,19 @@ export const putProduct = (payload) => {
         type: PUT_PRODUCTO,
         payload: result.data,
       });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const createProduct = (prod) => {
+  return async function (dispatch) {
+    try {
+      await axios.post(
+        "http://localhost:3001/producto/bebida",
+        prod
+      );
     } catch (e) {
       console.log(e);
     }

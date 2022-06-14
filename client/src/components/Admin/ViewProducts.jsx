@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getProducts } from "../../redux/actions";
@@ -7,13 +7,16 @@ export default function ViewProducts() {
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  function handleLink(id){
-    navigate(`/admin/products/edit/${id}`)
+  const [bool, setBool] = useState(true);
+  function handleLink(id) {
+    navigate(`/admin/products/edit/${id}`);
   }
 
   useEffect(() => {
-    !products.length && dispatch(getProducts());
+    if (bool) {
+      dispatch(getProducts());
+    }
+    setBool(false);
   }, [products]);
   return (
     <div class="container">
@@ -37,24 +40,27 @@ export default function ViewProducts() {
             <tbody>
               {products.map((product) => {
                 return (
-                      
-                    <tr>
+                  <tr>
                     <td>
                       <img src={product.imagen} width="150" />
                     </td>
                     <td>{product.nombre}</td>
                     <td>{product.marca}</td>
                     <td>
-                      {product.tipo.charAt(0).toUpperCase() +
-                        product.tipo.slice(1)}
+                      {product.tipo &&
+                        product.tipo.charAt(0).toUpperCase() +
+                          product.tipo.slice(1)}
                     </td>
                     <td>{product.ml} ml.</td>
                     <td>{product.graduacion}%</td>
                     <td>{product.stock}</td>
                     <td>${product.precio}</td>
-                    <td><button onClick={() => handleLink(product.id)}>Editar</button></td>
+                    <td>
+                      <button onClick={() => handleLink(product.id)}>
+                        Editar
+                      </button>
+                    </td>
                   </tr>
-                        
                 );
               })}
             </tbody>
