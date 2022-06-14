@@ -7,6 +7,7 @@ import {
   getProducts,
   getReview,
 } from "../../redux/actions";
+import "./HistorialStyles.css"
 
 const Historial = () => {
   const dispatch = useDispatch();
@@ -44,37 +45,110 @@ const Historial = () => {
 
   return (
     <div>
-      <Link to="/">
-      <button className="button">Home</button>
-      </Link>
-      Historial de compras de {id}
       <div>
-        {historial.length > 0 ? (
-          historial.map((e) => {
-            return (
-              <div key={e.id}>
-                <h2>{e.nombre}</h2>
-                <h2>{e.marca}</h2>
-                <img src={e.imagen} width="20%" />
-                {!allRevs.includes(e.id) ? (
-                  <Link to={`/Review/${e.id}`}>
-                    <button className="button">Contanos tu experiencia</button>
-                  </Link>
-                ) : (
-                  <Link to={`/profile`}>
-                    <p>Ya tenes una review de este producto</p>
-                  </Link>
-                )}
-              </div>
-            );
-          })
-        ) : (
-          <div>
-            <h1>No has comprado nada</h1>
-          </div>
-        )}
+        <Link to="/">
+          <button className="button">Home</button>
+        </Link>
       </div>
+      {historial.length > 0 ? (
+        <div>
+          <div class="cart-wrap">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="main-heading mb-10">Historial de Compra</div>
+                  <div class="table-wishlist">
+                    <table
+                      cellpadding="0"
+                      cellspacing="0"
+                      border="0"
+                      width="100%"
+                    >
+                      <thead>
+                        <tr>
+                          <th width="45%">Nombre del producto</th>
+                          <th width="15%">Precio unitario</th>
+                          <th width="15%">Fecha de compra</th>
+                          {/* <th width="15%">AAA</th>
+					        		<th width="10%">bbbbb</th> */}
+                        </tr>
+                      </thead>
+                      {historial.map((e) => {
+                        return (
+                          <tbody>
+                            <tr>
+                              <td width="45%">
+                                <div class="display-flex align-center">
+                                  <div class="img-product">
+                                    <img
+                                      src={e.image}
+                                      alt=""
+                                      class="mCS_img_loaded"
+                                    />
+                                  </div>
+                                  <div class="name-product">
+                                    {e.nombre}
+                                  </div>
+                                </div>
+                              </td>
+                              <td width="15%" class="price">
+                                ${e.precio}
+                              </td>
+                              <td width="15%">
+                                <span class="price">Fecha de compra</span>
+                              </td>
+                              <td width="15%">
+                                <button class="round-black-btn small-btn">
+                                  Dejar review
+                                </button>
+                              </td>
+                              <td width="10%" class="text-center">
+                                <a href="#" class="trash-icon">
+                                  <i class="far fa-trash-alt"></i>
+                                </a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        );
+                      })}
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <p>no hay nada wey</p>
+        )}
+      ;
+        <hr />
     </div>
   );
 };
 export default Historial;
+
+{/* {historial.length > 0 ? (
+  historial.map((e) => {
+    return (
+      <div key={e.id}>
+        <h2>{e.nombre}</h2>
+        <h2>{e.marca}</h2>
+        <img src={e.imagen} width="20%" />
+        {!allRevs.includes(e.id) ? (
+          <Link to={`/Review/${e.id}`}>
+          <button className="button">Contanos tu experiencia</button>
+          </Link>
+        ) : (
+          <Link to={`/profile`}>
+            <p>Ya tenes una review de este producto</p>
+            </Link>
+            )}
+            </div>
+            );
+          })
+          ) : (
+            <div>
+    <h1>No has comprado nada</h1>
+  </div>
+)} */}
