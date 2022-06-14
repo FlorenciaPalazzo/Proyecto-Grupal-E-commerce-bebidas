@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import "./HistorialStyles.css";
+import NavBarSec from "../NavBarSec";
 import {
   getAllReviews,
   getHist,
@@ -19,13 +21,13 @@ const Historial = () => {
   // console.log(id, "soy el di")
   console.log(historial, "Hay cosas en historial ");
 
+  console.log(revs, "SOY EL REVS MIRAME MIRAME MIREAME");
   const prodFind = prod.filter((e) => e.id === revs.productoId);
-  console.log(prodFind, "productoId");
 
   let [bool, setBool] = useState(false);
-  let allRevs = revs.map((e) => e.productoId);
+  let allRevs = revs.map((e) => `${e.productoId} ${e.usuarioId}`);
+  console.log(allRevs, "SOY ALLREVS <====================");
   // let revId = allRevs.find(e => e.id)
-  console.log(allRevs, "SOY ALLREVS");
 
   useEffect(() => {
     dispatch(getAllReviews());
@@ -46,9 +48,7 @@ const Historial = () => {
   return (
     <div>
       <div>
-        <Link to="/">
-          <button className="button">Home</button>
-        </Link>
+        <NavBarSec />
       </div>
       {historial.length > 0 ? (
         <div>
@@ -67,8 +67,10 @@ const Historial = () => {
                       <thead>
                         <tr>
                           <th width="45%">Nombre del producto</th>
-                          <th width="15%">Precio unitario</th>
-                          <th width="15%">Fecha de compra</th>
+                          <th width="15%">Precio</th>
+                          <th class="fecha" width="15%">
+                            Fecha
+                          </th>
                           {/* <th width="15%">AAA</th>
 					        		<th width="10%">bbbbb</th> */}
                         </tr>
@@ -81,26 +83,34 @@ const Historial = () => {
                                 <div class="display-flex align-center">
                                   <div class="img-product">
                                     <img
-                                      src={e.image}
+                                      src={e.imagen}
                                       alt=""
                                       class="mCS_img_loaded"
                                     />
                                   </div>
-                                  <div class="name-product">
-                                    {e.nombre}
-                                  </div>
+                                  <div class="name-product">{e.nombre}</div>
                                 </div>
                               </td>
                               <td width="15%" class="price">
                                 ${e.precio}
                               </td>
                               <td width="15%">
-                                <span class="price">Fecha de compra</span>
+                                <span class="fecha">
+                                  {e.createdAt.split("T")[0]}
+                                </span>
                               </td>
                               <td width="15%">
-                                <button class="round-black-btn small-btn">
-                                  Dejar review
-                                </button>
+                                {!allRevs.includes(`${e.id} ${id}`) ? (
+                                  <Link to={`/review/${e.id}`}>
+                                    <button class="round-black-btn small-btn">
+                                      Dar review
+                                    </button>
+                                  </Link>
+                                ) : (
+                                  <Link to={`/profile`}>
+                                    <p class="reviewHecha">Review existente</p>
+                                  </Link>
+                                )}
                               </td>
                               <td width="10%" class="text-center">
                                 <a href="#" class="trash-icon">
@@ -119,13 +129,13 @@ const Historial = () => {
           </div>
         </div>
       ) : (
-        <p>no hay nada wey</p>
-        )}
+        <p>No hay nada en el historial</p>
+      )}
       ;
-        <hr />
     </div>
   );
 };
+
 export default Historial;
 
 {/* {historial.length > 0 ? (

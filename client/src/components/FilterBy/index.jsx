@@ -81,8 +81,9 @@ export default function FilterBy({ setCurrentPage }) {
   };
   const resetButton = (e) => {
     e.preventDefault();
-    setCurrentPage(1);
-    dispatch(getProducts(e.target.value));
+    /* 
+    dispatch(getProducts(e.target.value)); */
+    window.location.reload();
   };
   //////////////👇👇👇aqui modo oscuro 👇👇👇///////////
 
@@ -196,7 +197,13 @@ export default function FilterBy({ setCurrentPage }) {
             <option value="price_1">$ Menor precio</option>
             <option value="price_2">$ Mayor precio</option>
           </select>
-          <button onClick={resetButton}>Resetear filtros</button>
+          <button
+            onClick={resetButton}
+            type="button "
+            class="btn btn-outline-warning  mx-3  bg-white text-dark"
+          >
+            Recargar
+          </button>
 
           {/* 👇👇👇modo oscuro para el render 👇👇👇*/}
           <div class="d-flex justify-content-between me-4">
