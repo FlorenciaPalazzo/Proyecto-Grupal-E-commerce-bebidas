@@ -54,7 +54,6 @@ import {
   FILTER_BY_BRAND_ESPUMANTE,
   FILTER_BY_BRAND_DESTILADO,
   ORDER_BY,
-
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -100,16 +99,7 @@ export function updateUser(user) {
   console.log("user", user);
   let updated = axios
     .put("http://localhost:3001/usuario", {
-      user,
-      // id: user.id,
-      // nombre: user.nombre,
-      // apellido: user.apellido,
-      // email: user.email,
-      // nacimiento: user.nacimiento,
-      // direccion: user.direccion,
-      // telefono: user.telefono,
-      // isAdmin: user.isAdmin,
-      // isVerified: user.isVerified
+      user
     })
     .then((res) => res.data)
     .catch((e) => console.log(e));
@@ -755,7 +745,6 @@ export const putProduct = (payload) => {
 
 export const filterUserReview = (payload) => {
   return {
-
     type : FILTER_USER_REVIEW,
     payload
   }

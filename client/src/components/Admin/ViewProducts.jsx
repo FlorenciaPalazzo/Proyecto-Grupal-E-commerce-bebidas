@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../fb";
 import { getProducts, resetUser } from "../../redux/actions";
 import Pagination from "../Pagination";
-import AdminPanel from '../AdminPanel'
+import AdminPanel from "../AdminPanel";
 import Loading from "../Loading";
 import "./ViewProducts.css";
 
@@ -17,7 +17,7 @@ export default function ViewProducts() {
   const admin = useSelector((state) => state.isAdmin);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage /*setProductsPerPage*/] = useState(10); //15 productos por pagina
+  const [productsPerPage /* setProductsPerPage*/] = useState(10); //15 productos por pagina
 
   const indexOfLastProduct = currentPage * productsPerPage; // 15
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
