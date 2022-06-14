@@ -48,8 +48,8 @@ export const Favoritos = () => {
       <Nav/>
       <div  className="div_title" >
         <h2 className="title-fav">Mis Favoritos</h2></div>
-        <div className="div-table">
-
+        <div className="div-contain">
+<div className="div-table">
         <table class="table">
   <thead>
     <tr>
@@ -58,11 +58,11 @@ export const Favoritos = () => {
       <th scope="col">Precio</th>
       <th scope="col"></th>
     </tr>
-  </thead> </table> 
+  </thead> </table></div> 
       <div className="div-fav">
     {elFavorito.length === 0?(
-        <div>
-          <h2>No hay favoritos</h2>
+        <div className="div-sin-fav">
+          No hay favoritos
         </div>
       ) :(
         elFavorito.map((e) => {

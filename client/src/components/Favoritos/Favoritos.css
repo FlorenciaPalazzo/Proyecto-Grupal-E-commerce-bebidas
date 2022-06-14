@@ -17,7 +17,7 @@ display: flex;
 .title-fav{
     
    margin-left: 45%;
-   font-size: 25px;
+   font-size:30px;
   
  
 }
@@ -28,13 +28,26 @@ display: flex;
    
 }
 
-.div-table{
-    width: 80%;
+.div-contain{
+    width: 70%;
     margin-left: auto;
-    margin-right: auto; 
+    margin-right: auto;
+    margin-bottom: 20%; 
   
 }
 .div-fav{
+    
       margin-left: 15%;
       margin-top: 3%;
+      
+}
+.div-table{
+    width: 60%;
+     margin-left: 28%;
+  
+}
+div-sin-fav{
+    scroll-margin-block: 50%;
+
+
 }

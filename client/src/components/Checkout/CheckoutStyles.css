@@ -5,23 +5,31 @@
 .checkout-div-render {
     display: flex;
      flex-wrap: wrap; 
-    flex-direction: column;
+   
+}
+.checkout-div-info{
+     flex-direction: row-reverse;
 }
 
 .checkout-product {
-    width: 100vw;
+    width: 30%;
+    display: flexbox;
+    background-color: blue;
+    margin-right: 10%;
+   
 }
 
 .checkout-product h2 {
     text-align: center;
     max-width: 33%;
     margin-left: 66%;
+    font-size: medium;
 }
 
 .checkout-product-delivery {
     display: flex;
     flex-wrap: wrap;
-    width: 100vw;
+    width: 80%;
     height: 70vh;
     min-height: 500px;
 }

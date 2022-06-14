@@ -9,7 +9,9 @@ import {
   getDirecciones,
   getMercadoPago,
 } from "../../redux/actions";
+import Footer from "../Footer";
 import Loading from "../Loading";
+import Nav from "../Nav";
 import "./CheckoutStyles.css";
 
 export function validate(input) {
@@ -205,26 +207,26 @@ export const Checkout = () => {
   subtotal?.forEach((e) => (total += e));
   return (
     <div className="checkout-div-main">
-      <button className="button">
-        <Link to="/">Home</Link>
-      </button>
-      <h2>Detalle de compra</h2>
+     <Nav/>
+      
       {loading /* revisen esto!! */ ? (
         <Loading />
       ) :  (
+      
         <div className="checkout-div-render">
           <div className="checkout-div-info">
             <div className="checkout-product-delivery">
               <div className="checkout-product">
+                <h2>Detalle de compra</h2>
                 {productCart.length
                   ? productCart.map((e) => {
-                      return (
-                        <div className="checkout-product-detail">
-                          <ul className="checkout-ul" key={e.id}>
-                            <li>{e.nombre}</li>
-                            <li>{e.quantity} unid.</li>
-                            <li>${e.precio}</li>
-                          </ul>
+                      return (<div className="checkout-product-detail">
+                        <ul className="checkout-ul" key={e.id}>
+                        <img src={e.imagen} alt="img not found"  width="50%"/>
+                        <li>{e.nombre}</li>
+                        <li>{e.precio}</li>
+                        <li>{e.quantity} unid.</li>
+                      </ul>
                         </div>
                       );
                     })
@@ -485,6 +487,7 @@ export const Checkout = () => {
           )}
         </div>
       ) }
+      <Footer/>
     </div>
   );
 };

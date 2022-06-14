@@ -215,15 +215,19 @@ export default function Detail() {
       {filterRelacionados
            ? filterRelacionados.slice(0, 5).map((e) => {
                return (
-                 <div key={e.id} class="card">
-                   <Link to={"/bebida/" + e.id}>
-                   <img src={e.imagen} class="card-img-top"/>
-                    <div class="card-body">
-                      <h5 class="card-title">{e.nombre}</h5>
-                      <p class="card-text">${e.precio}</p>
-                    </div>
-                   </Link>
-                 </div>
+                <div key={e.id} className="div-key-card">
+                  <Link to={"/bebida/" + e.id}>
+                    <Card
+                      nombre={e.nombre}
+                      imagen={e.imagen}
+                      id={e.id}
+                      marca={e.marca}
+                      ml={e.ml}
+                      graduacion={e.graduacion}
+                      precio={e.precio}
+                    />
+                  </Link>
+                </div>
                );
              })
            : null}
