@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { clearState, getProductById, getProducts, updateProduct } from "../../redux/actions";
+import {
+  clearState,
+  getProductById,
+  getProducts,
+  updateProduct,
+} from "../../redux/actions";
 import validate from "./adminResources";
 import FileBase64 from "react-file-base64";
 
@@ -21,6 +26,7 @@ function ProductForm() {
     updatedAt: "2022-06-08T15:54:46.320Z"
   */
   const { id } = useParams();
+  console.log("ID", id);
   const prod = useSelector((state) => state.editProduct);
   const dispatch = useDispatch();
   const [input, setInput] = useState({
@@ -28,12 +34,12 @@ function ProductForm() {
     marca: "",
     precio: "", // ## , ##.##
     graduacion: null, // ##%
-    ml: null, 
+    ml: null,
     stock: 0,
     tipo: null,
     descripcion: "",
     imagen: "",
-    stock: null
+    stock: null,
   });
 
   const [nombreError, setNombreError] = useState(null);
@@ -49,7 +55,6 @@ function ProductForm() {
   console.log("input", input);
 
   function handleChange(e) {
-    
     setInput({ ...input, [e.target.name]: e.target.value });
     validate(
       e.target.value,
@@ -65,10 +70,10 @@ function ProductForm() {
     );
   }
 
-  function handleSubmit(e){
-      e.preventDefault()
-      dispatch(updateProduct({id: id, ...input}))
-      dispatch(getProducts())
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(updateProduct({ id: id, ...input }));
+    dispatch(getProducts());
   }
 
   useEffect(() => {
@@ -84,14 +89,14 @@ function ProductForm() {
         tipo: prod.tipo,
         descripcion: prod.descripcion,
         stock: prod.stock,
-        imagen: prod.imagen
+        imagen: prod.imagen,
       });
       return () => {
-          dispatch(clearState())
-      }
+        dispatch(clearState());
+      };
     }
   }, [prod]);
-  prod && console.log(input.tipo)
+  prod && console.log(input.tipo);
   console.log({
     nombreError,
     marcaError,
@@ -100,7 +105,7 @@ function ProductForm() {
     graduacionError,
     tipoError,
     descripcionError,
-    stockError
+    stockError,
   });
   return (
     <div>
@@ -197,23 +202,22 @@ function ProductForm() {
         )}
 
         <h3>Categoria de producto: </h3>
-        {prod && input.tipo ?
-        
-        <select name="tipo" id="tipo" defaultValue={`${input.tipo}`}>
-            <option value="cerveza" >Cerveza</option>
+        {prod && input.tipo ? (
+          <select name="tipo" id="tipo" defaultValue={`${input.tipo}`}>
+            <option value="cerveza">Cerveza</option>
             <option value="vino">Vino</option>
-            <option value="espumante" >Espumante</option>
+            <option value="espumante">Espumante</option>
             <option value="destilado">Destilado</option>
-        </select>
-        :
-        <span>Cargando...</span>
-        }
+          </select>
+        ) : (
+          <span>Cargando...</span>
+        )}
         <br />
         <FileBase64
-            type="file"
-            multiple={false}
-            onDone={({ base64 }) => setInput({...input ,imagen: base64 })}
-          />
+          type="file"
+          multiple={false}
+          onDone={({ base64 }) => setInput({ ...input, imagen: base64 })}
+        />
         {/*<select className="selector" name="tipo" onChange={handleChange} defaultValue="tipos" type="radio">
           <option value="cerveza">Cerveza</option>
           <option value="vino">Vino</option>
@@ -236,11 +240,7 @@ function ProductForm() {
           onChange={handleChange}
         />
         <br />
-        <div>
-            {
-                prod && <img src={input.imagen} alt="" />
-            }
-        </div>
+        <div>{prod && <img src={input.imagen} alt="" />}</div>
 
         {nombreError ||
         marcaError ||
@@ -252,7 +252,9 @@ function ProductForm() {
         descripcionError ? (
           <button type="button">Confirmar</button>
         ) : (
-          <button type="submit" onClick={handleSubmit}>Confirmar</button>
+          <button type="submit" onClick={handleSubmit}>
+            Confirmar
+          </button>
         )}
       </form>
     </div>

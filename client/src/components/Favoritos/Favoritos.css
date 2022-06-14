@@ -1,0 +1,55 @@
+.card-fav { 
+    background-color:rgb(255, 255, 255); 
+/* display: flex;
+ justify-content: space-around; */
+ display: grid;
+ grid-template-columns: repeat(4, 25%);
+    width: 100%;
+   /* margin-left: auto;
+    margin-right: auto; */
+    margin-top: 1%;
+    border: solid 1px black
+   
+};
+.div_title{
+  display: flex;  
+  
+   /* flex-wrap: wrap; */
+  }
+.title-fav{
+    
+   margin-left: 45%;
+   font-size:30px;
+  
+ 
+}
+.item-fav{
+    
+    margin-top: 4%;
+    margin-right: 10%;
+   
+}
+
+.div-contain{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20%; 
+  
+}
+.div-fav{
+    
+      margin-left: 15%;
+      margin-top: 3%;
+      
+}
+.div-table{
+    width: 60%;
+     margin-left: 28%;
+  
+}
+div-sin-fav{
+    scroll-margin-block: 50%;
+
+
+}

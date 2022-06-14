@@ -7,7 +7,9 @@ function Footer() {
     <div>
       <div className="footer">
         <div className="about">
-          <button class="btn btn-outline-warning">About</button>
+          <Link to="/about">
+            <button class="btn btn-outline-warning">About</button>
+          </Link>
         </div>
         <div className="hecho">
           <h4>Hecho por alumnos de Henry con</h4>{" "}
