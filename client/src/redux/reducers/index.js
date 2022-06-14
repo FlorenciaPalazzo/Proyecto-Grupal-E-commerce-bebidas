@@ -45,10 +45,13 @@ import {
   GET_USER_BY_ID,
   FIND_REVIEW_ID,
   FILTER_USER_REVIEW,
+  GET_STATS,
+  GET_TOP_PRODS,
   FILTER_BY_BRAND_VINO,
   FILTER_BY_BRAND_ESPUMANTE,
   FILTER_BY_BRAND_DESTILADO,
   ORDER_BY,
+
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -84,6 +87,8 @@ const initialState = {
   favProducts: [],
   historial: [],
   favBoolean: [],
+  stats: [],
+  topProds: [],
   cervezas: [],
   cervezasCopy: [],
   vinos: [],
@@ -576,6 +581,14 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case PUT_PRODUCTO:
       return {
         ...state,
+      };
+    case GET_STATS:
+      return {
+        ...state, stats: payload
+      };
+    case GET_TOP_PRODS:
+      return {
+        ...state, topProds: payload
       };
     default:
       return state;

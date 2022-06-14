@@ -23,7 +23,9 @@ import { AdminRevDetail } from "./components/Review/AdminRevDetail";
 import { AdminEmailUser } from "./components/Review/AdminEmailUser";
 import PutReview from "./components/Profile/PutReview";
 import ViewProducts from "./components/Admin/ViewProducts";
+import ProductsStats from "./components/Admin/ProductsStats";
 import ViewUsers from "./components/ViewUsers";
+import { About } from "./components/About";
 
 function App() {
   return (
@@ -32,9 +34,10 @@ function App() {
         {/* <Route path="/" exact element={<Landing />} /> */}
         <Route path="/" exact element={<Home />} />
         <Route path="/admin" exact element={<AdminPanel />} />
-        <Route path="/admin/products/edit/:id" exact element={<EditForm/>} />
-        <Route path="/admin/products" exact element={<ViewProducts/>} />
-        <Route path="/admin/usuarios" exact element={<ViewUsers/>} />
+        <Route path="/admin/products/edit/:id" exact element={<EditForm />} />
+        <Route path="/admin/products" exact element={<ViewProducts />} />
+        <Route path="/admin/stats/products" exact element={<ProductsStats />} />
+        <Route path="/admin/usuarios" exact element={<ViewUsers />} />
         <Route path="/cart" exact element={<ShoppingCart />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/login/reset" exact element={<ResetPassword />} />
@@ -55,6 +58,7 @@ function App() {
         <Route path="/adminreview/:id" exact element={<AdminRevDetail />} />
         <Route path="/adminemail/:id" exact element={<AdminEmailUser />} />
         <Route path="/putreview/:id" exact element={<PutReview />} />
+        <Route path="/about" exact element={<About />} />
       </Routes>
     </div>
   );

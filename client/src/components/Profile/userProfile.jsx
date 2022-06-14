@@ -6,6 +6,7 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { getUserDb, resetUserDb } from "../../redux/actions";
 import ReactStars from "react-rating-stars-component";
 import { ReviewCar } from "../Review/ReviewCar";
+import "./userProfileStyles.css";
 
 import {
   deleteReview,
@@ -18,13 +19,13 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 //import db from "../../../../api/src/db";
 
 function UserProfile() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const dbUser = useSelector((state) => state.dbUser);
   const user = useSelector((state) => state.currentUser);
   const prod = useSelector((state) => state.products);
   const [endLoading, setEndLoading] = useState(false);
-  const {id} = useParams();
+  const { id } = useParams();
 
   let revs = useSelector((state) => state.allReviews);
   const prodFind = prod.filter((e) => e.id === revs.productoId);
@@ -42,9 +43,9 @@ function UserProfile() {
   };
   const handleLocalStorage = (e) => {
     e.preventDefault();
-  localStorage.setItem("userputid", e.target.value)
-  console.log(e.target.value, 'soy el console')
-    navigate(`/putreview/${e.target.name}`)
+    localStorage.setItem("userputid", e.target.value);
+    console.log(e.target.value, "soy el console");
+    navigate(`/putreview/${e.target.name}`);
   };
 
   useEffect(() => {
@@ -61,46 +62,58 @@ function UserProfile() {
   }, [dispatch, endLoading, bool]);
 
   return (
-    <div>
-      <h1>Perfil de usuario</h1>
-      <h2>{user && user.email}</h2>
-      <h2>{dbUser && dbUser.nombre} </h2>
-      <div>
-        {
-          /* !user.photoURL && dbUser */ dbUser?.image ? (
-            <img src={dbUser.image} alt="" />
-          ) : user.photoURL ? (
-            <img src={user.photoURL} alt="" />
-          ) : (
-            <img src="./images/default.jpg" alt="" />
-          )
-        }
-        <h2>Reviews</h2>
-        {allRevs.length ? (
-          allRevs.map((r) => {
-            return (
-              <div key={r.id} value={r.id}>
-                <ReviewCar
-                  titulo={r.titulo}
-                  comentario={r.comentario}
-                  puntaje={r.puntaje}
-                  producto={r.productoId}
-                  fecha={r.createdAt}
-                />
-                
-                <button onClick={handleLocalStorage} value={JSON.stringify(r)} name={r.id}>
-                
-                  ✏️
-                </button>
-                
+    <section class="vh-100">
+      <div class="container py-5 h-75">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col col-lg-6 mb-4 mb-lg-0">
+            <div class="card mb-3">
+              <div class="row g-0">
+                <div class="col-md-4 gradient-custom text-center text-black">
+                  {dbUser?.image ? (
+                    <img src={dbUser.image} height="100" width="100" />
+                  ) : user.photoURL ? (
+                    <img src={user.photoURL} height="100" width="100" />
+                  ) : (
+                    <img src="./images/default.jpg" height="100" width="100" />
+                  )}
+                  <h5 class="name mt-3  pl-3">{user && user.displayName}</h5>
+                  <p class="idd  pl-3">{user && user.email}</p>
+                  <a href="/profile/edit">
+                    <button class="btn1 btn-dark  pl-3">Editar Perfil</button>
+                  </a>
+                </div>
+                <div class="col-md-8">
+                  {allRevs.length ? (
+                    allRevs.map((r) => {
+                      return (
+                        <div class="card-body p-4" key={r.id} value={r.id}>
+                          <ReviewCar
+                            titulo={r.titulo}
+                            comentario={r.comentario}
+                            puntaje={r.puntaje}
+                            producto={r.productoId}
+                            fecha={r.createdAt}
+                          />
+                          <button
+                            onClick={handleLocalStorage}
+                            value={JSON.stringify(r)}
+                            name={r.id}
+                          >
+                            ✏️
+                          </button>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div>No hay reviews!</div>
+                  )}
+                </div>
               </div>
-            );
-          })
-        ) : (
-          <div>No hay reviews!</div>
-        )}
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 

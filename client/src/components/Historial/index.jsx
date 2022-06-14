@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import './HistorialStyles.css'
+import "./HistorialStyles.css";
 import NavBarSec from "../NavBarSec";
-import Footer from "../Footer";
 import {
   getAllReviews,
   getHist,
@@ -28,7 +27,7 @@ const Historial = () => {
   let allRevs = revs.map((e) => `${e.productoId} ${e.usuarioId}`);
   console.log(allRevs, "SOY ALLREVS <====================");
   // let revId = allRevs.find(e => e.id)
-  
+
   useEffect(() => {
     dispatch(getAllReviews());
     return () => {
@@ -48,7 +47,7 @@ const Historial = () => {
   return (
     <div>
       <div>
-    <NavBarSec />
+        <NavBarSec />
       </div>
       {historial.length > 0 ? (
         <div>
@@ -68,7 +67,9 @@ const Historial = () => {
                         <tr>
                           <th width="45%">Nombre del producto</th>
                           <th width="15%">Precio</th>
-                          <th class = "fecha" width="15%">Fecha</th>
+                          <th class="fecha" width="15%">
+                            Fecha
+                          </th>
                           {/* <th width="15%">AAA</th>
 					        		<th width="10%">bbbbb</th> */}
                         </tr>
@@ -86,29 +87,29 @@ const Historial = () => {
                                       class="mCS_img_loaded"
                                     />
                                   </div>
-                                  <div class="name-product">
-                                    {e.nombre}
-                                  </div>
+                                  <div class="name-product">{e.nombre}</div>
                                 </div>
                               </td>
                               <td width="15%" class="price">
                                 ${e.precio}
                               </td>
                               <td width="15%">
-                                <span class="fecha">{e.createdAt.split("T")[0]}</span>
+                                <span class="fecha">
+                                  {e.createdAt.split("T")[0]}
+                                </span>
                               </td>
                               <td width="15%">
                                 {!allRevs.includes(`${e.id} ${id}`) ? (
-                                <Link to= {`/review/${e.id}`}>
-                                <button  class="round-black-btn small-btn">
-                                   Dar review
-                                </button>
-                                  </Link>) : (
+                                  <Link to={`/review/${e.id}`}>
+                                    <button class="round-black-btn small-btn">
+                                      Dar review
+                                    </button>
+                                  </Link>
+                                ) : (
                                   <Link to={`/profile`}>
-                                    <p class ="reviewHecha">Review existente</p>
+                                    <p class="reviewHecha">Review existente</p>
                                   </Link>
                                 )}
-
                               </td>
                               <td width="10%" class="text-center">
                                 <a href="#" class="trash-icon">

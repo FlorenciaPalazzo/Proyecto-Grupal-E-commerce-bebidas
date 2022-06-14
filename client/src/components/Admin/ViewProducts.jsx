@@ -1,9 +1,11 @@
+import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getProducts } from "../../redux/actions";
-import AdminPanel from "../AdminPanel";
+import { auth } from "../../fb";
+import { getProducts, resetUser } from "../../redux/actions";
 import Pagination from "../Pagination";
+import AdminPanel from '../AdminPanel'
 import Loading from "../Loading";
 import "./ViewProducts.css";
 
@@ -32,6 +34,21 @@ export default function ViewProducts() {
 
   function handleLink(id) {
     navigate(`/admin/products/edit/${id}`);
+  }
+
+  function out() {
+    signOut(auth)
+      .then(() => {
+        console.log("logout");
+        //dispatch(setLoading(true))
+        dispatch(resetUser());
+        //dispatch(setLoading(false))
+        navigate("/");
+      })
+      .catch((error) => {
+        // An error happened.
+        console.log(error);
+      });
   }
   useEffect(() => {
     !products.length && dispatch(getProducts());

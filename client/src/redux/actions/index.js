@@ -48,10 +48,13 @@ import {
   GET_USER_BY_ID,
   FIND_REVIEW_ID,
   FILTER_USER_REVIEW,
+  GET_STATS,
+  GET_TOP_PRODS,
   FILTER_BY_BRAND_VINO,
   FILTER_BY_BRAND_ESPUMANTE,
   FILTER_BY_BRAND_DESTILADO,
   ORDER_BY,
+
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -752,9 +755,52 @@ export const putProduct = (payload) => {
 
 export const filterUserReview = (payload) => {
   return {
-    type: FILTER_USER_REVIEW,
-    payload,
+
+    type : FILTER_USER_REVIEW,
+    payload
+  }
+}
+
+export const getStats = () => {
+  return async function (dispatch) {
+    try {
+      let result = await axios.get(
+        "http://localhost:3001/usuario/admin/stats"
+      );
+      
+      return dispatch({
+        type: GET_STATS,
+        payload: result.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
-};
+}
+export const getTopProds = (top) => {
+  console.log("top",top);
+  return async function (dispatch) {
+    try {
+      let result = await axios.post(
+        "http://localhost:3001/usuario/admin/stats/products",{top: top}
+      );
+      console.log(result.data);
+      return dispatch({
+        type: GET_TOP_PRODS,
+        payload: result.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+
+
+
+
+
+
+
 
 // TONI ESTUVO AQUI WOWOWOOWOWOWOWOWOOW

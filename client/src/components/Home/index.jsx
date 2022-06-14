@@ -110,8 +110,9 @@ function Home() {
             <div className="card-container">
               {currentProducts.length > 0 ? (
                 currentProducts.map((e) => {
-                  console.log(e)
-                  if(e.descripcion !== null) { //TRANSITE CON CUIDADO, CEMENTO FRESCO.-
+                  console.log(e);
+                  if (e.descripcion !== null) {
+                    //TRANSITE CON CUIDADO, CEMENTO FRESCO.-
                     return (
                       <div key={e.id} className="div-key-card">
                         <Link to={"/bebida/" + e.id}>
