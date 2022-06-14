@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   clearState,
   getProductById,
@@ -27,6 +27,7 @@ function ProductForm() {
     updatedAt: "2022-06-08T15:54:46.320Z"
   */
   const { id } = useParams();
+  const navigate = useNavigate();
   console.log("ID", id);
   const prod = useSelector((state) => state.editProduct);
   const dispatch = useDispatch();
@@ -75,6 +76,7 @@ function ProductForm() {
     e.preventDefault();
     dispatch(updateProduct({ id: id, ...input }));
     dispatch(getProducts());
+    navigate("/admin/products")
   }
 
   useEffect(() => {
