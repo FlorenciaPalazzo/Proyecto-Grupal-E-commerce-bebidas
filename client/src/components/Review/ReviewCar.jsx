@@ -7,7 +7,6 @@ import swal from "sweetalert";
 import "./ReviewCar.css";
 import AdminPanel from "../AdminPanel";
 import Loading from "../Loading";
-import './ReviewCard.css'
 export const ReviewCar = ({
   titulo,
   comentario,
@@ -61,25 +60,25 @@ export const ReviewCar = ({
       {loading ? (
         <Loading />
       ) : (
-        <div className="reviewCard-contenedor">
+        <div className="reviewCar-contenedor">
           <div>
             {admin ? (
-              <div className="reviewCard-x"><button onClick={handleDelete} value={usuarioId}>
+              <div className="reviewCar-x"><button onClick={handleDelete} value={usuarioId}>
                 ❌
               </button></div>
-            ) : <p>No eres admin </p>}
+            ) : null}
+              <div  className="div-key-card">
             {filt ? (
-              
               <div>
-                <div className="reviewCard-items"><h4>{filt.nombre}</h4></div>
-               <div className="reviewCard-items"> <img width="50%" src={filt.imagen} alt="" /></div>
-               <div className="reviewCard-items"><h4>Fecha: {fecha.split("T")[0]}</h4></div>
+                <div className="reviewCar-items"><h4>{filt.nombre}</h4></div>
+               <div className="reviewCar-items"> <img width="50%" src={filt.imagen} alt="" /></div>
+               <div className="reviewCar-items"><h4>Fecha: {fecha.split("T")[0]}</h4></div>
               </div>
             ) : (
               <div>
-                <div className="reviewCard-items"><h3>Review de la página</h3></div>
-                <div className="reviewCard-items"><img width="50%" src="./logo/logo.png" alt="" /></div>
-                <div className="reviewCard-items"><h4>Fecha: {fecha.split("T")[0]}</h4></div>
+                <div className="reviewCar-items"><h3>Review de la página</h3></div>
+                <div className="reviewCar-items"><img width="20%" src="./logo/logo.png" alt="" /></div>
+                <div className="reviewCar-items"><h4>Fecha: {fecha.split("T")[0]}</h4></div>
               </div>
             )}
           </div>
@@ -92,9 +91,9 @@ export const ReviewCar = ({
            
             
          
-          <div className="reviewCard-items"><p>Titulo: {titulo}</p></div>
-           <div className="reviewCard-items"><p>Comentario: {comentario}</p></div>
-           <div className="reviewCard-star">
+          <div className="reviewCar-items"><p>Titulo: {titulo}</p></div>
+           <div className="reviewCar-items"><p>Comentario: {comentario}</p></div>
+           <div className="reviewCar-star">
              <ReactStars
               count={puntaje}
               size={24}
@@ -108,7 +107,8 @@ export const ReviewCar = ({
             
           </div>
         </div>
-      )}
+        </div>
+        )}
     </div>
   );
 };
