@@ -7,6 +7,7 @@ import { getProducts, resetUser } from "../../redux/actions";
 import Pagination from "../Pagination";
 import AdminPanel from "../AdminPanel";
 import Loading from "../Loading";
+import SearchBar from "../SearchBar";
 import "./ViewProducts.css";
 
 export default function ViewProducts() {
@@ -15,10 +16,10 @@ export default function ViewProducts() {
   const navigate = useNavigate();
   const loading = useSelector((state) => state.isLoading);
   const admin = useSelector((state) => state.isAdmin);
-
+  const searchProduct = useSelector((state) => state.searchProduct);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage /* setProductsPerPage*/] = useState(10); //15 productos por pagina
-
+  console.log("busqueda", searchProduct);
   const indexOfLastProduct = currentPage * productsPerPage; // 15
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
 
@@ -52,7 +53,7 @@ export default function ViewProducts() {
   }
   useEffect(() => {
     !products.length && dispatch(getProducts());
-  }, [products]);
+  }, [products, searchProduct]);
   return (
     <div>
       {loading ? (
@@ -60,8 +61,12 @@ export default function ViewProducts() {
       ) : admin ? (
         <div>
           <AdminPanel />
+
           <div class="viewproducts-borde">
             {" "}
+            <div>
+              <SearchBar setCurrentPage={setCurrentPage} />
+            </div>
             <Pagination
               currentPage={currentPage}
               productsPerPage={productsPerPage}
