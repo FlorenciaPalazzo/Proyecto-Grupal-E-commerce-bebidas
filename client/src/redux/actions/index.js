@@ -54,6 +54,7 @@ import {
   FILTER_BY_BRAND_ESPUMANTE,
   FILTER_BY_BRAND_DESTILADO,
   ORDER_BY,
+  CREATE_PRODUCTO,
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
@@ -756,6 +757,19 @@ export const putProduct = (payload) => {
   };
 };
 
+export const createProduct = (prod) => {
+  return async function (dispatch) {
+    try {
+      await axios.post(
+        "http://localhost:3001/producto/bebida",
+        prod
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
 export const filterUserReview = (payload) => {
   return {
     type: FILTER_USER_REVIEW,
@@ -796,4 +810,15 @@ export const getTopProds = (top) => {
   };
 };
 
+export const adminDeleteProd = (id) => {
+  return async function (dispatch) {
+    try {
+       await axios.delete(
+        `http://localhost:3001/producto/bebida/${id}`
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
 // TONI ESTUVO AQUI WOWOWOOWOWOWOWOWOOW
