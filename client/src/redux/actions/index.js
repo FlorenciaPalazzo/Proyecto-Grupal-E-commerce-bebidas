@@ -57,6 +57,7 @@ import {
 } from "./actionsTypes";
 import axios from "axios";
 import { auth } from "../../fb";
+import swal from "sweetalert";
 
 import firebase from "firebase/app";
 import "firebase/database";
@@ -99,7 +100,7 @@ export function updateUser(user) {
   console.log("user", user);
   let updated = axios
     .put("http://localhost:3001/usuario", {
-      user
+      user,
     })
     .then((res) => res.data)
     .catch((e) => console.log(e));
@@ -176,13 +177,25 @@ export const getProductByName = (name) => {
       let result = await axios.get(
         `http://localhost:3001/producto/bebidas?nombre=${name}`
       );
-      return dispatch({
-        type: GET_PRODUCT_NAME,
-        payload: result.data,
-      });
+      console.log("result.data", result.data);
+      if (result.data.length === 0) {
+        swal({
+          title: "NO HAY PRODUCTOS CON ESE NOMBRE ",
+          icon: "warning",
+        });
+      } else {
+        return dispatch({
+          type: GET_PRODUCT_NAME,
+          payload: result.data,
+        });
+      }
     } catch (err) {
-      console.log(err);
-      /* alert(`No hay productos con el nombre ${name}`); */
+      /* swal({
+        title: "NO HAY PRODUCTOS CON ESE NOMBRE ",
+        icon: "warning",
+      });
+      console.log("Error desde el catch de getProductByName ", err); */
+      console.log("Error del catch getProductByName", err);
     }
   };
 };
@@ -745,18 +758,16 @@ export const putProduct = (payload) => {
 
 export const filterUserReview = (payload) => {
   return {
-    type : FILTER_USER_REVIEW,
-    payload
-  }
-}
+    type: FILTER_USER_REVIEW,
+    payload,
+  };
+};
 
 export const getStats = () => {
   return async function (dispatch) {
     try {
-      let result = await axios.get(
-        "http://localhost:3001/usuario/admin/stats"
-      );
-      
+      let result = await axios.get("http://localhost:3001/usuario/admin/stats");
+
       return dispatch({
         type: GET_STATS,
         payload: result.data,
@@ -765,13 +776,14 @@ export const getStats = () => {
       console.log(e);
     }
   };
-}
+};
 export const getTopProds = (top) => {
-  console.log("top",top);
+  console.log("top", top);
   return async function (dispatch) {
     try {
       let result = await axios.post(
-        "http://localhost:3001/usuario/admin/stats/products",{top: top}
+        "http://localhost:3001/usuario/admin/stats/products",
+        { top: top }
       );
       console.log(result.data);
       return dispatch({
@@ -782,14 +794,6 @@ export const getTopProds = (top) => {
       console.log(e);
     }
   };
-}
-
-
-
-
-
-
-
-
+};
 
 // TONI ESTUVO AQUI WOWOWOOWOWOWOWOWOOW

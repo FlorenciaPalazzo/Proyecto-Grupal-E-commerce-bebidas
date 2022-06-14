@@ -334,7 +334,7 @@ export const About = () => {
             <div class="col-lg-6">
               <div class="p-5 text-center">
                 <h2 class="display-4">Pedro Marchetto</h2>
-                <a href="https://github.com/ValentinoMartz">
+                <a href="https://github.com/pedromarche">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="40"

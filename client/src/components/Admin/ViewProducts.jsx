@@ -19,7 +19,7 @@ export default function ViewProducts() {
   const searchProduct = useSelector((state) => state.searchProduct);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage /* setProductsPerPage*/] = useState(10); //15 productos por pagina
-  console.log("busqueda", searchProduct);
+
   const indexOfLastProduct = currentPage * productsPerPage; // 15
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
 
