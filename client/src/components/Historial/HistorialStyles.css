@@ -182,6 +182,7 @@
     color: #212529;
 }
 
+
 @media (max-width: 425px) {
     .fecha{
         display: none;

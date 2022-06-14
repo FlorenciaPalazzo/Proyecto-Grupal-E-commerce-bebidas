@@ -4,6 +4,7 @@ import ReactStars from "react-rating-stars-component";
 import { getProducts, postReview } from "../../redux/actions";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import './ReviewStyles.css'
 
 //no hay titulo, description, puntaje
 //titulo mayor 4 y menor a 40
@@ -105,14 +106,17 @@ export default function PostReview() {
     };
   }, []);
   return (
-    <div>
+    <div className="reviewContainer">
       {prod && prod[0] ? (
         <div>
           <h1>¡Contanos que te parecio {prod[0].nombre}!</h1>
           <img src={prod[0].imagen} width="30%" />
         </div>
       ) : (
+        <div>
         <h1>¡Contanos tu opinion sobre nosotros!</h1>
+        <img src="" />
+        </div>
       )}
 
       <form onSubmit={(e) => handleSubmit(e)}>
