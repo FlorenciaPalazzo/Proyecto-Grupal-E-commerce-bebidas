@@ -13,7 +13,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     
-    background-color: rgba(125, 125, 125, 0.349);
+    background-color: rgba(125, 125, 125, 0.229);
 
     width: 50%;
     padding: 1%;
@@ -21,13 +21,15 @@
     margin-right: auto;
     margin-bottom: 2%;
     height: 100%;
+ 
 
 }
 .productform-items{
-    /* background-color: rgb(255, 255, 255); */
+ background-color: rgb(255, 255, 255); 
   text-align:  center;
   margin-left: auto;
   margin-right: auto;
+  margin-top:5%;
  
 }
 
@@ -46,15 +48,7 @@
  
 }
 
-.productform-fire{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    background-color: rgb(63, 30, 210);
-    padding: 1%;
-    margin-top: 1%;
-    
-}
+
 
 .productform-form1{
     display: flex;
@@ -63,10 +57,11 @@
     height:100%;
     margin-right:auto;
     margin-left: auto;
+    padding: 1%;
     
 }
 .productform-form1 input{
-    margin-bottom: -8%;
+    margin-bottom: 2%;
 
 }
 
@@ -99,6 +94,15 @@
     margin-left: 25%;
     margin-right: auto;
     color: white;
+  }
+
+  .productform-error{
+    /* background-color: rgb(59, 59, 84); */
+    height: auto;
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    text-align: center;
   }
 
 
