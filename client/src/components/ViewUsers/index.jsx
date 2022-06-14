@@ -147,11 +147,11 @@ export default function ViewUsers() {
       ) : (
         <h1> No eres administrador </h1>
       )}
-      <Link to="/">
+      {/* <Link to="/">
         <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
           Volver al home
         </button>
-      </Link>
+      </Link> */}
     </div>
   );
 }

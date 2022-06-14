@@ -11,6 +11,7 @@ export default function ViewProducts() {
   function handleLink(id){
     navigate(`/admin/products/edit/${id}`)
   }
+
   useEffect(() => {
     !products.length && dispatch(getProducts());
   }, [products]);

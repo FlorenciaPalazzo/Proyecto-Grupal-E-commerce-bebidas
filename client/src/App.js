@@ -25,6 +25,7 @@ import PutReview from "./components/Profile/PutReview";
 import ViewProducts from "./components/Admin/ViewProducts";
 import ProductsStats from "./components/Admin/ProductsStats";
 import ViewUsers from "./components/ViewUsers";
+import { About } from "./components/About";
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
         <Route path="/adminreview/:id" exact element={<AdminRevDetail />} />
         <Route path="/adminemail/:id" exact element={<AdminEmailUser />} />
         <Route path="/putreview/:id" exact element={<PutReview />} />
+        <Route path="/about" exact element={<About />} />
       </Routes>
     </div>
   );

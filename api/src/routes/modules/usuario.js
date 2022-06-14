@@ -332,7 +332,7 @@ router.get("/admin/stats", async (req, res) => {
         comprasCount[e.productoId] += e.quantity;
       } else comprasCount[e.productoId] = e.quantity;
     });
-    resp.comprasCount = comprasCount
+    resp.comprasCount = comprasCount;
     //console.log("resp", resp);
 
     res.status(200).json(resp);
@@ -342,35 +342,36 @@ router.get("/admin/stats", async (req, res) => {
 });
 
 router.post("/admin/stats/products", async (req, res) => {
-    let { top } = req.body
-    try {
-      let products = await Producto.findAll()
-      let resp = []
-      products.map(e => {
-        top && top.map( t => {
+  let { top } = req.body;
+  try {
+    let products = await Producto.findAll();
+    let resp = [];
+    products.map((e) => {
+      top &&
+        top.map((t) => {
           //console.log(t, e.id ,t.includes(e.id) );
-          if(t.includes(e.id)){
-            resp.push({...e.dataValues, buyQuantity: t[1]})
+          if (t.includes(e.id)) {
+            resp.push({ ...e.dataValues, buyQuantity: t[1] });
           }
-        })
-      })
-      //console.log("resp",resp);
+        });
+    });
+    //console.log("resp",resp);
 
-      resp = resp.sort((a,b)=>{
-        if(a.buyQuantity < b.buyQuantity){
-          return 1
-        }
-        if(a.buyQuantity > b.buyQuantity){
-          return -1
-        }
-        return 0
-      })
+    resp = resp.sort((a, b) => {
+      if (a.buyQuantity < b.buyQuantity) {
+        return 1;
+      }
+      if (a.buyQuantity > b.buyQuantity) {
+        return -1;
+      }
+      return 0;
+    });
 
-      res.status(200).json(resp)
-    } catch (error) {
-      console.log(error);
-    }      
-})
+    res.status(200).json(resp);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 
 router.put("/auth/verified", async (req, res)=>{
