@@ -222,7 +222,7 @@ export default function AdminPanel() {
           </nav>
         </div>
       ) : (
-        <h1> No eres administrador </h1>
+        null
       )}
       {/* <Link to = "/">
         <button class="btn btn-outline-warning  mx-3  bg-white text-dark">

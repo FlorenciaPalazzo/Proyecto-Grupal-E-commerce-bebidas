@@ -1,8 +1,21 @@
-.conteiner{
-    display: inline-block;
+.admin-review-contenedor{
+    background-color: blueviolet;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
-.titular{
-    display: inline-flex;
-    
-
+.aaaaaaaa{
+    background-color: gold;
+    display: flex;
+    /* flex-direction: row; */
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    padding: 20%;
+    /* height: 80%; */
+}
+.mmmmm{
+    background-color: chartreuse;
+    width:15%;
 }

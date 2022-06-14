@@ -12,6 +12,7 @@ import {
 } from "../../redux/actions";
 import { ReviewCar } from "../Review/ReviewCar";
 import AdminPanel from "../AdminPanel";
+import './AdminReview.css'
 
 export const AdminReview = () => {
   const dispatch = useDispatch(); /////////////////////////////////
@@ -100,7 +101,7 @@ export const AdminReview = () => {
     setfilterReviews([...revs]);
   }, [dispatch, admin]);
   return (
-    <div className="conteiner">
+    <div>
       <AdminPanel/>
       {loading? 
         (<Loading />) :  admin ?    (
@@ -108,7 +109,7 @@ export const AdminReview = () => {
       {
         <div>
           <div>
-            <h2 className="titular">Promedio de la página:</h2>
+            <h2 >Promedio de la página:</h2>
             {prom ? (
               <ReactStars
                 count={prom}
@@ -122,7 +123,7 @@ export const AdminReview = () => {
               />
             ) : null}
           </div>
-          <div></div>
+          
           <h1>Reviews</h1>
           <select name="" id="" onChange={handleSelector}>
             <option disabled>Filtrar reviews</option>
@@ -130,6 +131,7 @@ export const AdminReview = () => {
             <option value="pagina">Página</option>
             <option value="productos">Productos</option>
           </select>
+          <div className="admin-review-contenedor">
           {revs
             ? revs.map((r) => {
                 let otroArray;
@@ -140,24 +142,14 @@ export const AdminReview = () => {
                   }
                 });
                 return (
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Titulo</th>
-                        <th scope="col">Comentario</th>
-                        <th scope="col">Puntaje</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">nombre</th>
-                      </tr>
-                    </thead>
-                  <div key={r.id} value={r.id}>
+                  
+                  <div key={r.id} value={r.id} className='mmmmm'>
                     {r.productoId ? (
                       <Link to={`/adminreview/${r.productoId}`}>
                         Ver todas las reviews de este producto
                       </Link>
                     ) : null}
-                   <tr>
+                    <div className='aaaaaaaa'>
                     <ReviewCar
                      titulo={r.titulo}
                       comentario={r.comentario}
@@ -168,12 +160,12 @@ export const AdminReview = () => {
                       usuarioId={r.usuarioId}
                       id = {r.id}
                     />
-                  </tr>
+                    </div>
                   </div>
-                  </table>
                 );
               })
             : null}
+            </div>
         </div>
       }
       <Link to={`/admin`}>

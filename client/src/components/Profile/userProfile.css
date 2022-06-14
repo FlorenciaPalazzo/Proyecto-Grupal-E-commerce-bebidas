@@ -1,0 +1,25 @@
+.user-profile-contenedor{
+    /* background-color: blueviolet; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.aaaaaaa{
+    /* background-color: gold; */
+    display: inline-flex;
+    /* flex-direction: row; */
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 20%;
+    height: 40%;
+}
+.boton-editar-rev{
+    /* background-color: chartreuse; */
+    width: 3%;
+    justify-content:end;
+    margin-right:auto;
+    margin-left: 5%;
+    margin-bottom: 55%;
+    /* border: rgba(16, 178, 184, 0.918); */
+}
