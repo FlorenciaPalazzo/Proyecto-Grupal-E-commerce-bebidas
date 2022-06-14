@@ -103,10 +103,12 @@ router.put("/", async (req, res) => {
     direccion,
     telefono,
     image,
+    isVerified
   } = req.body.user;
-  console.log(req.body.user);
+  console.log("BODY DE UPDATE DEL USUARIOOOOOOOOOOOOOOOOOOO",req.body.user);
   try {
     const usuarioPut = await Usuario.findOne({ where: { id: id } });
+    
     console.log("usuarioPut busqueda", usuarioPut);
     let updated = await usuarioPut.update({
       id: id || usuarioPut.id,
@@ -117,6 +119,8 @@ router.put("/", async (req, res) => {
       direccion: direccion || usuarioPut.direccion,
       telefono: telefono || usuarioPut.telefono,
       image: image || usuarioPut.image,
+      isVerified: isVerified || usuarioPut.isVerified,
+      
     });
     res.json(updated);
   } catch (err) {
@@ -366,6 +370,21 @@ router.post("/admin/stats/products", async (req, res) => {
     } catch (error) {
       console.log(error);
     }      
+})
+
+
+router.put("/auth/verified", async (req, res)=>{
+  const { uid } = req.body
+  try {
+    let usuario = await Usuario.findOne({
+      where: { id: uid }
+    });
+
+    console.log(usuario);
+  } catch (e) {
+    res.status(400);
+  }
+
 })
 
 module.exports = router;

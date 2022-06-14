@@ -5,12 +5,48 @@ import { getProducts, postReview } from "../../redux/actions";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
+//no hay titulo, description, puntaje
+//titulo mayor 4 y menor a 40
+//description mayor a 10 y menor 250
+//puntaje haya
+function validate({
+  value,
+  name,
+  setTituloError,
+  setComentarioError,
+  setPuntajeError,
+}) {
+  console.log("VALUE", value);
+  if (name === "titulo") {
+    if (value.length === 0) {
+      setTituloError("Debes ingresar un titulo");
+    } else if (value.length < 4) {
+      setTituloError("El titulo debe contener mas caracteres");
+    } else if (value.length > 40) {
+      setTituloError("El titulo es demasiado largo");
+    } else setTituloError(null);
+  }
+  if (name === "comentario") {
+    if (value.length === 0) {
+      setComentarioError("Debes ingresar un comentario");
+    } else if (value.length < 5) {
+      setComentarioError("¡El comentario es muy corto, queremos saber mas!");
+    } else if (value.length > 250) {
+      setComentarioError("El comentario es demasiado largo");
+    } else setComentarioError(null);
+  }
+  /* if(name === "puntaje") */
+}
+
 export default function PostReview() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
   const usuario = useSelector((state) => state.currentUser);
   let products = useSelector((state) => state.products);
+  const [tituloError, setTituloError] = useState(null);
+  const [comentarioError, setComentarioError] = useState(null);
+  const [puntajeError, setPuntajeError] = useState(null);
 
   let prod = products.filter((e) => e.id === id);
   let idUser = localStorage.getItem("user");
@@ -28,15 +64,23 @@ export default function PostReview() {
       ...input,
       [e.target.name]: e.target.value,
     });
+    let name = e.target.name;
+    let value = e.target.value;
+    console.log("name", name);
+    validate({
+      name,
+      value,
+      setTituloError,
+      setComentarioError,
+    });
   };
   const ratingChanged = (newRating) => {
     setInput({ ...input, puntaje: newRating });
   };
 
-  console.log(idUser);
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    localStorage.setItem("dejoRevPag", JSON.parse(true));
     swal({
       title: "Review dejada con exito ",
       type: "success",
@@ -50,6 +94,7 @@ export default function PostReview() {
       comentario: "",
       puntaje: "",
     });
+
     navigate("/");
     console.log(setInput);
   };
@@ -76,22 +121,31 @@ export default function PostReview() {
           <input
             type="text"
             placeholder="Titulo"
-            value={input.titulo}
+            /* value={input.titulo} */
             name="titulo"
             onChange={handleOnChange}
           />
+        </div>{" "}
+        <div>
+          {tituloError && <span className="register-span ">{tituloError}</span>}{" "}
         </div>
         <div>
           <label>Comentario:</label>
           <textarea
             placeholder="comentario"
-            value={input.comentario}
+            /* value={input.comentario} */
             name="comentario"
             onChange={handleOnChange}
           />
         </div>
         <div>
+          {comentarioError && (
+            <span className="register-span ">{comentarioError}</span>
+          )}
+        </div>
+        <div>
           <ReactStars
+            name="puntaje"
             count={5}
             onChange={ratingChanged}
             size={24}
@@ -101,11 +155,21 @@ export default function PostReview() {
             activeColor="#ffd700"
           />
         </div>
-
+        {!input.puntaje && (
+          <span className="register-span ">¡No te olvides de puntuarnos! </span>
+        )}
         <div>
-          <button className="button" type="submit">
-            Puntuar
-          </button>
+          {!tituloError &&
+          !comentarioError &&
+          input.puntaje &&
+          input.comentario &&
+          input.titulo ? (
+            <button className="button" type="submit">
+              Puntuar
+            </button>
+          ) : (
+            <div>¡Debes llenar todos los campos!</div>
+          )}
         </div>
         <div>
           <Link to="/">

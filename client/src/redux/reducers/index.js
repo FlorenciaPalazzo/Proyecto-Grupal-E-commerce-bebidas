@@ -6,7 +6,7 @@ import {
   GET_USER_DB,
   SET_LOADING,
   FILTER_BY_AZ,
-  FILTER_BY_BRAND,
+  FILTER_BY_BRAND_CERVEZA,
   FILTER_BY_GRADUATION,
   FILTER_BY_ML,
   FILTER_BY_PRICE,
@@ -47,6 +47,10 @@ import {
   FILTER_USER_REVIEW,
   GET_STATS,
   GET_TOP_PRODS,
+  FILTER_BY_BRAND_VINO,
+  FILTER_BY_BRAND_ESPUMANTE,
+  FILTER_BY_BRAND_DESTILADO,
+  ORDER_BY,
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -60,11 +64,10 @@ const initialState = {
   brands: [],
   brandsCopy: [],
   products: [],
-  editProduct: null,
   searchProduct: [],
   productsSort: [],
   detail: [],
-  userId : {},
+  userId: {},
   productCart: JSON.parse(localStorage.getItem("product"))
     ? JSON.parse(localStorage.getItem("product"))
     : [],
@@ -76,7 +79,7 @@ const initialState = {
   review: [],
   reviewPage: [],
   allReviews: [],
-  allReviewsCopy : [],
+  allReviewsCopy: [],
   userReviews: [],
   findreview: [],
   searchProduct: [],
@@ -85,16 +88,60 @@ const initialState = {
   favBoolean: [],
   stats: [],
   topProds: [],
+  cervezas: [],
+  cervezasCopy: [],
+  vinos: [],
+  vinosCopy: [],
+  espumantes: [],
+  espumantesCopy: [],
+  destilados: [],
+  destiladosCopy: [],
+  orderAZ: [],
+  sort: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
   switch (type) {
     case GET_PRODUCTS:
+      let cervezasReturn = [];
+      payload.forEach((e) => {
+        if (e.tipo === "cerveza") {
+          cervezasReturn.push(e);
+        }
+      });
+      let vinosReturn = [];
+      payload.forEach((e) => {
+        if (e.tipo === "vino") {
+          vinosReturn.push(e);
+        }
+      });
+      let espumanteReturn = [];
+      payload.forEach((e) => {
+        if (e.tipo === "espumante") {
+          espumanteReturn.push(e);
+        }
+      });
+      let destiladoReturn = [];
+      payload.forEach((e) => {
+        if (e.tipo === "destilado") {
+          destiladoReturn.push(e);
+        }
+      });
+
       return {
         ...state,
         products: payload,
         productsSort: payload,
+        cervezas: cervezasReturn,
+        cervezasCopy: cervezasReturn,
+        vinos: vinosReturn,
+        espumantes: espumanteReturn,
+        espumantesCopy: espumanteReturn,
+        destilados: destiladoReturn,
+        destiladosCopy: destiladoReturn,
+        orderAZ: payload,
       };
+
     case SET_USER:
       return { ...state, currentUser: payload, isLoged: true };
     case UPDATE_USER:
@@ -127,196 +174,196 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return { ...state, products: payload, searchProduct: payload };
 
     case GET_PRODUCT_ID:
-      return { ...state, detail: payload, editProduct: payload };
+      return { ...state, detail: payload };
 
-    case GET_BRANDS:
-      let brandFilter = [];
-      state.productsSort.filter((e) => {
-        if (!brandFilter.includes(e.marca)) {
-          brandFilter.push(e.marca);
+    // case GET_BRANDS:
+    //   let brandFilter = [];
+    //   state.productsSort.filter((e) => {
+    //     if (!brandFilter.includes(e.marca)) {
+    //       brandFilter.push(e.marca);
+    //     }
+    //   });
+    //   return {
+    //     ...state,
+    //     brands: brandFilter,
+    //     brandsCopy: brandFilter,
+    //   };
+    case FILTER_BY_BRAND_CERVEZA:
+      if (payload === "all") return { ...state, products: state.cervezas };
+
+      let birrita = [];
+      state.cervezas.filter((e) => {
+        // console.log()
+        if (e.marca === payload) {
+          birrita.push(e);
         }
       });
+      // console.log("BIRRITA",birrita, 'SOYPAYLOAD',payload)
       return {
         ...state,
-        brands: brandFilter,
-        brandsCopy: brandFilter,
+        products: birrita,
+        orderAZ: birrita,
       };
-    case FILTER_BY_BRAND:
-      if (payload === "all") {
-        return { ...state, products: state.productsSort };
-      } else {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.marca.includes(payload)),
-        };
-      }
-    case FILTER_BY_TYPE:
-      if (payload === "all") {
-        return { ...state, products: state.products };
-      }
-      console.log("LLEGA A REDUCER");
-      console.log(payload);
-      let typeFilter = [];
-      state.productsSort.forEach((e) => {
-        if (e.tipo === payload) {
-          typeFilter.push(e);
+
+    case FILTER_BY_BRAND_VINO:
+    case FILTER_BY_BRAND_CERVEZA:
+      if (payload === "all") return { ...state, products: state.vinos };
+
+      let vinito = [];
+      state.vinos.filter((e) => {
+        // console.log()
+        if (e.marca === payload) {
+          vinito.push(e);
         }
       });
-      console.log("TYPEFILTER ", typeFilter);
+      // console.log("BIRRITA",birrita, 'SOYPAYLOAD',payload)
       return {
         ...state,
-        products: typeFilter,
+        products: vinito,
+        orderAZ: [...state.products],
       };
+    case FILTER_BY_BRAND_ESPUMANTE:
+      if (payload === "all") return { ...state, products: state.espumantes };
 
-    case FILTER_BY_GRADUATION:
-      if (payload === "all") {
-        return {
-          ...state,
-          products: state.productsSort,
-        };
-      }
-      if (payload === "low") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.graduacion < 20),
-        };
-      }
-      if (payload === "medium") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.graduacion > 20 && e.graduacion < 38
-          ),
-        };
-      }
-      if (payload === "high") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.graduacion > 38),
-        };
-      }
-    case FILTER_BY_ML:
-      if (payload === "all") {
-        return {
-          ...state,
-          products: state.productsSort,
-        };
-      }
-      if (payload === "ml_1") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.ml < 400),
-        };
-      }
-      if (payload === "ml_2") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.ml > 400 && e.ml <= 749),
-        };
-      }
-      if (payload === "ml_3") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.ml >= 750 && e.ml <= 949
-          ),
-        };
-      }
+      let champusiño = [];
+      state.espumantes.filter((e) => {
+        // console.log()
+        if (e.marca === payload) {
+          champusiño.push(e);
+        }
+      });
+      // console.log("champusiño",champusiño, 'SOYPAYLOAD',payload)
+      return {
+        ...state,
+        products: champusiño,
+        orderAZ: [...state.products],
+      };
+    case FILTER_BY_BRAND_DESTILADO:
+      if (payload === "all") return { ...state, products: state.destilados };
 
-      if (payload === "ml_4") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.ml >= 950 && e.ml < 1500
-          ),
-        };
-      }
-    case FILTER_BY_PRICE:
-      if (payload === "all") {
-        return {
-          ...state,
-          products: state.productsSort,
-        };
-      }
-      if (payload === "price_1") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.precio < 500),
-        };
-      }
-      if (payload === "price_2") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.precio > 500 && e.precio < 2000
-          ),
-        };
-      }
-      if (payload === "price_3") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.precio > 2000 && e.precio < 5000
-          ),
-        };
-      }
-      if (payload === "price_4") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.precio > 5000 && e.precio < 10000
-          ),
-        };
-      }
-      if (payload === "price_5") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.precio > 10000 && e.precio < 20000
-          ),
-        };
-      }
-      if (payload === "price_6") {
-        return {
-          ...state,
-          products: state.productsSort.filter(
-            (e) => e.precio > 20000 && e.precio < 35000
-          ),
-        };
-      }
-      if (payload === "price_7") {
-        return {
-          ...state,
-          products: state.productsSort.filter((e) => e.precio > 35000),
-        };
-      }
-    case FILTER_BY_AZ:
-      if (payload === "all") {
-        return {
-          ...state,
-          products: state.productsSort,
-        };
-      }
-      if (payload === "az") {
-        return {
-          ...state,
-          products: [...state.productsSort].sort((prev, next) => {
-            if (prev.nombre > next.nombre) return 1;
-            if (prev.nombre < next.nombre) return -1;
-            return 0;
-          }),
-        };
-      }
-      if (payload === "za") {
-        return {
-          ...state,
-          products: [...state.productsSort].sort((prev, next) => {
-            if (prev.nombre > next.nombre) return -1;
-            if (prev.nombre > next.nombre) return 1;
-            return 0;
-          }),
-        };
-      }
+      let puri = [];
+      state.destilados.filter((e) => {
+        // console.log()
+        if (e.marca === payload) {
+          puri.push(e);
+        }
+      });
+      // console.log("puri",puri, 'SOYPAYLOAD',payload)
+      return {
+        ...state,
+        products: puri,
+        orderAZ: puri,
+      };
+    case ORDER_BY:
+      console.log("SOY PAYLOAD", payload);
+      console.log("STATE", state.products);
+      let sort =
+        payload === "az"
+          ? state.products.sort(function (a, b) {
+              // console.log(a, b)
+              if (a.nombre > b.nombre) {
+                return 1;
+              }
+              if (b.nombre > a.nombre) {
+                return -1;
+              }
+              return 0;
+            })
+          : payload === "za"
+          ? state.products.sort(function (a, b) {
+              if (a.nombre > b.nombre) {
+                return -1;
+              }
+              if (b.nombre > a.nombre) {
+                return 1;
+              }
+              return 0;
+            })
+          : payload === "menorGraduacion"
+          ? state.products.sort(function (a, b) {
+              if (a.graduacion > b.graduacion) {
+                return 1;
+              }
+              if (b.graduacion > a.graduacion) {
+                return -1;
+              }
+              return 0;
+            })
+          : payload === "mayorGraduacion"
+          ? state.products.sort(function (a, b) {
+              if (a.graduacion > b.graduacion) {
+                return -1;
+              }
+              if (b.graduacion > a.graduacion) {
+                return 1;
+              }
+              return 0;
+            })
+          : payload === "ml_1"
+          ? state.products.sort(function (a, b) {
+              if (a.ml > b.ml) {
+                return 1;
+              }
+              if (b.ml > a.ml) {
+                return -1;
+              }
+              return 0;
+            })
+          : payload === "ml_2"
+          ? state.products.sort(function (a, b) {
+              if (a.ml > b.ml) {
+                return -1;
+              }
+              if (b.ml > a.ml) {
+                return 1;
+              }
+              return 0;
+            })
+          : payload === "price_1"
+          ? state.products.sort(function (a, b) {
+              if (a.precio > b.precio) {
+                return 1;
+              }
+              if (b.precio > a.precio) {
+                return -1;
+              }
+              return 0;
+            })
+          : state.products.sort(function (a, b) {
+              if (a.precio > b.precio) {
+                return -1;
+              }
+              if (b.precio > a.precio) {
+                return 1;
+              }
+              return 0;
+            });
+
+      return {
+        ...state,
+        products: [...sort],
+      };
+    // : payload === 'mayorGraduacion'?
+    // state.orderAZ.sort(function(a, b) {
+    //   if (a.graduacion > b.graduacion) {
+    //     return 1;
+    //   }
+    //   if (b.graduacion > a.graduacion) {
+    //     return -1;
+    //   }
+    //   return 0;
+    // })
+    // : (payload === 'menorGraduacion')?
+    // state.orderAZ.sort(function(a, b) {
+    //   if (a.graduacion > b.graduacion) {
+    //     return 1;
+    //   }
+    //   if (b.graduacion > a.graduacion) {
+    //     return -1;
+    //   }
+    //   return 0;
+    // }) : null
+
     case ADD_CARRITO:
       let repeated = state.productCart.find((e) => e.id === payload.id); //busca si existe ese id
       const cartProduct = [...state.productCart, payload]; //guarda todo
@@ -408,7 +455,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         allReviews: payload,
-        allReviewsCopy : payload
+        allReviewsCopy: payload,
       };
     case GET_REVIEW: //de los productos
       return {
@@ -416,6 +463,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         review: payload,
       };
     case GET_REVPAGE: // de la pag general
+    // console.log(payload , "<======== PAYLOAD DE GET_REVPAGE")
       return {
         ...state,
         reviewPage: payload,
@@ -425,7 +473,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
       };
     case FIND_REVIEW_ID:
-      return{
+      return {
         ...state,
         findreview: payload,
       };
@@ -436,8 +484,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case GET_REVIEW_BY_USER:
       return {
         ...state,
-        userReviews : payload
-      }
+        userReviews: payload,
+      };
 
     case SET_FAV:
       return { ...state };
@@ -461,11 +509,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
         favProducts: arr,
       };
 
-    case GET_USER_BY_ID : 
+    case GET_USER_BY_ID:
       return {
-        ...state ,
-        userId : payload
-      }
+        ...state,
+        userId: payload,
+      };
 
     case DEL_FAV:
       return { ...state };
@@ -509,22 +557,25 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case ADD_HIST:
       return { ...state };
 
-      case FILTER_USER_REVIEW : 
-      let reviews = state.allReviewsCopy
-      let filteredReviews = payload === 'pagina' ? state.reviewPage : reviews.filter(r => r.productoId) 
-      
+    case FILTER_USER_REVIEW:
+      let reviews = state.allReviewsCopy;
+      let filteredReviews =
+        payload === "pagina"
+          ? state.reviewPage
+          : reviews.filter((r) => r.productoId);
+
       return {
         ...state,
-        allReviews :  payload === 'all' ? state.allReviewsCopy : filteredReviews
-      }
+        allReviews: payload === "all" ? state.allReviewsCopy : filteredReviews,
+      };
 
     case CLEAR_STATE:
       return {
         ...state,
-        detail: [], 
+        detail: [],
         editProduct: null,
         review: [],
-        userReviews : [],
+        userReviews: [],
       };
     case PUT_PRODUCTO:
       return {

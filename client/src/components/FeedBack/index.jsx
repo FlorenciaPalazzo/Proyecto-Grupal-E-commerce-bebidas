@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
-import { deleteMercadoPago, addHist, putProduct } from "../../redux/actions";
+import {
+  deleteMercadoPago,
+  addHist,
+  putProduct,
+  getReviewPage,
+} from "../../redux/actions";
 import Loading from "../Loading";
 
 export const FeedBack = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  let revPage = useSelector((state) => state.reviewPage);
   const loading = useSelector((state) => state.isLoading);
   let productCart = JSON.parse(window.localStorage.getItem("product"));
   // const user = useSelector((state) => state.currentUser);
@@ -29,11 +35,17 @@ export const FeedBack = () => {
     id_user: user,
     id_prods: map,
   });
-
+  console.log(revPage, "soy las reviews de la pagina <=====================");
+  let bool = localStorage.getItem("dejoRevPag");
+  console.log("bool", bool);
   console.log(historial, "Todo se trajo bien a la primera");
-useEffect(()=>{
-   productCart.map(e=>dispatch(putProduct(e)) )
-},[dispatch, productCart])
+  useEffect(() => {
+    dispatch(getReviewPage());
+  }, [dispatch]);
+
+  useEffect(() => {
+    productCart.map((e) => dispatch(putProduct(e)));
+  }, [dispatch, productCart]);
   let foo;
   useEffect(() => {
     let search = window.location.search;
@@ -42,27 +54,28 @@ useEffect(()=>{
 
     // console.log("foo", foo);
     if (foo === "approved") {
-      dispatch(addHist(historial))
-     
-      ;
+      dispatch(addHist(historial));
+      // dispatch(getReviewPage())
       console.log("APROBADO");
       setTimeout(navigate("/"), 10000);
-      swal({
-        title: "Queremos saber tu opinion",
-        text: "... Dejá tu reseña de nuestra pagina!! ⭐⭐⭐!",
-        buttons: {
-          cancel: "Seguir navegando",
-          review: {
-            text: "Opina",
-            value: "Opina",
+      if (!bool) {
+        swal({
+          title: "Queremos saber tu opinion",
+          text: "... Dejá tu reseña de nuestra pagina!! ⭐⭐⭐!",
+          buttons: {
+            cancel: "Seguir navegando",
+            review: {
+              text: "Opina",
+              value: "Opina",
+            },
           },
-        },
-        icon: "warning",
-      }).then((value) => {
-        if (value === "Opina") {
-          navigate("/review");
-        }
-      });
+          icon: "warning",
+        }).then((value) => {
+          if (value === "Opina") {
+            navigate("/review");
+          }
+        });
+      }
       return () => {
         dispatch(deleteMercadoPago());
       };
