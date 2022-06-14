@@ -3,6 +3,7 @@ import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../Loading";
 import { Link } from "react-router-dom";
+import NavBarSec from "../NavBarSec";
 import {
   getAllReviews,
   getProducts,
@@ -63,64 +64,66 @@ export const AdminReview = () => {
         <Loading />
       ) : admin ? (
         <div>
-          {
+          <div>
+            <NavBarSec />
+          </div>
+          <div>
             <div>
-              <div>
-                <h2>Promedio de la página:</h2>
-                {prom ? (
-                  <ReactStars
-                    count={prom}
-                    size={35}
-                    isHalf={true}
-                    emptyIcon={<i className="far fa-star"></i>}
-                    halfIcon={<i className="fa fa-star-half-alt"></i>}
-                    fullIcon={<i className="fa fa-star"></i>}
-                    edit={false}
-                    color="#ffd700"
-                  />
-                ) : null}
-              </div>
-              <div></div>
-              <h1>Reviews</h1>
-              <select name="" id="" onChange={handleSelector}>
-                <option disabled>Filtrar reviews</option>
-                <option value="all">Todas</option>
-                <option value="pagina">Página</option>
-                <option value="productos">Productos</option>
-              </select>
-              {revs
-                ? revs.map((r) => {
-                    let otroArray;
-                    array.find((e) => {
-                      if (e.id === r.usuarioId) {
-                        otroArray = e.email;
-                        console.log("otroArray", otroArray);
-                      }
-                    });
-                    return (
-                      <div key={r.id} value={r.id}>
-                        {r.productoId ? (
-                          <Link to={`/adminreview/${r.productoId}`}>
-                            Ver todas las reviews de este producto
-                          </Link>
-                        ) : null}
-
-                        <ReviewCar
-                          titulo={r.titulo}
-                          comentario={r.comentario}
-                          puntaje={r.puntaje}
-                          producto={r.productoId}
-                          fecha={r.createdAt}
-                          emailUsuario={otroArray}
-                          usuarioId={r.usuarioId}
-                          id={r.id}
-                        />
-                      </div>
-                    );
-                  })
-                : null}
+              <h2>Promedio de la página:</h2>
+              {prom ? (
+                <ReactStars
+                  count={prom}
+                  size={35}
+                  isHalf={true}
+                  emptyIcon={<i className="far fa-star"></i>}
+                  halfIcon={<i className="fa fa-star-half-alt"></i>}
+                  fullIcon={<i className="fa fa-star"></i>}
+                  edit={false}
+                  color="#ffd700"
+                />
+              ) : null}
             </div>
-          }
+            <div></div>
+            <h1>Reviews</h1>
+            <select name="" id="" onChange={handleSelector}>
+              <option disabled>Filtrar reviews</option>
+              <option value="all">Todas</option>
+              <option value="pagina">Página</option>
+              <option value="productos">Productos</option>
+            </select>
+            {revs
+              ? revs.map((r) => {
+                  let otroArray;
+                  array.find((e) => {
+                    if (e.id === r.usuarioId) {
+                      otroArray = e.email;
+                      console.log("otroArray", otroArray);
+                    }
+                  });
+                  return (
+                    <div key={r.id} value={r.id}>
+                      {r.productoId ? (
+                        <Link to={`/adminreview/${r.productoId}`}>
+                          Ver todas las reviews de este producto
+                        </Link>
+                      ) : null}
+
+                      <ReviewCar
+                        titulo={r.titulo}
+                        comentario={r.comentario}
+                        puntaje={r.puntaje}
+                        producto={r.productoId}
+                        fecha={r.createdAt}
+                        emailUsuario={otroArray}
+                        usuarioId={r.usuarioId}
+                        id={r.id}
+                      />
+                    </div>
+                  );
+                })
+              : null}
+          </div>
+
           <Link to={`/admin`}>
             <button>Volver al panel del admin</button>
           </Link>
@@ -137,8 +140,91 @@ export const AdminReview = () => {
   );
 };
 
-/* <div>
-        <Link to="/adminreview">
-          <button>Ver las reviews de los usuarios</button>
-        </Link>
-      </div> */
+// return (
+//   <div>
+//     <div>
+//       <NavBarSec />
+//     </div>
+//     {historial.length > 0 ? (
+//       <div>
+//         <div class="cart-wrap">
+//           <div class="container">
+//             <div class="row">
+//               <div class="col-md-12">
+//                 <div class="main-heading mb-10">Historial de Compra</div>
+//                 <div class="table-wishlist">
+//                   <table
+//                     cellpadding="0"
+//                     cellspacing="0"
+//                     border="0"
+//                     width="100%"
+//                   >
+//                     <thead>
+//                       <tr>
+//                         <th width="45%">Nombre del producto</th>
+//                         <th width="15%">Precio</th>
+//                         <th class="fecha" width="15%">
+//                           Fecha
+//                         </th>
+//                         {/* <th width="15%">AAA</th>
+//                     <th width="10%">bbbbb</th> */}
+//                       </tr>
+//                     </thead>
+//                     {historial.map((e) => {
+//                       return (
+//                         <tbody>
+//                           <tr>
+//                             <td width="45%">
+//                               <div class="display-flex align-center">
+//                                 <div class="img-product">
+//                                   <img
+//                                     src={e.imagen}
+//                                     alt=""
+//                                     class="mCS_img_loaded"
+//                                   />
+//                                 </div>
+//                                 <div class="name-product">{e.nombre}</div>
+//                               </div>
+//                             </td>
+//                             <td width="15%" class="price">
+//                               ${e.precio}
+//                             </td>
+//                             <td width="15%">
+//                               <span class="fecha">
+//                                 {e.createdAt.split("T")[0]}
+//                               </span>
+//                             </td>
+//                             <td width="15%">
+//                               {!allRevs.includes(`${e.id} ${id}`) ? (
+//                                 <Link to={`/review/${e.id}`}>
+//                                   <button class="round-black-btn small-btn">
+//                                     Dar review
+//                                   </button>
+//                                 </Link>
+//                               ) : (
+//                                 <Link to={`/profile`}>
+//                                   <p class="reviewHecha">Review existente</p>
+//                                 </Link>
+//                               )}
+//                             </td>
+//                             <td width="10%" class="text-center">
+//                               <a href="#" class="trash-icon">
+//                                 <i class="far fa-trash-alt"></i>
+//                               </a>
+//                             </td>
+//                           </tr>
+//                         </tbody>
+//                       );
+//                     })}
+//                   </table>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     ) : (
+//       <p>No hay nada en el historial</p>
+//     )}
+//     ;
+//   </div>
