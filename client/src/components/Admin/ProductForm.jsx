@@ -116,11 +116,6 @@ function ProductForm() {
       <h1>ProductForm</h1>
       <div className="productform-base">
         <form className="productform-form1">
-          {nombreError && (
-            <div>
-              <span>{nombreError}</span>
-            </div>
-          )}
           <label htmlFor="nombre" className="productform-items">
             Nombre:{" "}
           </label>
@@ -132,12 +127,7 @@ function ProductForm() {
             onChange={handleChange}
             className="productform-items"
           />
-          <br />
-          {marcaError && (
-            <div>
-              <span>{marcaError}</span>
-            </div>
-          )}
+
           <label htmlFor="marca" className="productform-items">
             Marca:{" "}
           </label>
@@ -149,12 +139,7 @@ function ProductForm() {
             onChange={handleChange}
             className="productform-items"
           />
-          <br />
-          {precioError && (
-            <div>
-              <span>{precioError}</span>
-            </div>
-          )}
+
           <label htmlFor="precio" className="productform-items">
             Precio: $
           </label>
@@ -166,12 +151,7 @@ function ProductForm() {
             onChange={handleChange}
             className="productform-items"
           />
-          <br />
-          {stockError && (
-            <div>
-              <span>{stockError}</span>
-            </div>
-          )}
+
           <label htmlFor="stock" className="productform-items">
             Stock:{" "}
           </label>
@@ -183,12 +163,7 @@ function ProductForm() {
             onChange={handleChange}
             className="productform-items"
           />
-          <br />
-          {graduacionError && (
-            <div>
-              <span>{graduacionError}</span>
-            </div>
-          )}
+
           <label htmlFor="graduacion" className="productform-items">
             Graduacion en %:{" "}
           </label>
@@ -200,12 +175,7 @@ function ProductForm() {
             onChange={handleChange}
             className="productform-items"
           />
-          <br />
-          {mlError && (
-            <div>
-              <span>{mlError}</span>
-            </div>
-          )}
+
           <label htmlFor="ml" className="productform-items">
             Capacidad en ml. :{" "}
           </label>
@@ -217,13 +187,45 @@ function ProductForm() {
             onChange={handleChange}
             className="productform-items"
           />
-          <br />
+        </form>
+
+        <div className="productform-error">
+          {nombreError && (
+            <div>
+              <span>{nombreError}</span>
+            </div>
+          )}
+          {marcaError && (
+            <div>
+              <span>{marcaError}</span>
+            </div>
+          )}
+          {precioError && (
+            <div>
+              <span>{precioError}</span>
+            </div>
+          )}
+          {stockError && (
+            <div>
+              <span>{stockError}</span>
+            </div>
+          )}
+          {graduacionError && (
+            <div>
+              <span>{graduacionError}</span>
+            </div>
+          )}
+          {mlError && (
+            <div>
+              <span>{mlError}</span>
+            </div>
+          )}
           {tipoError && (
             <div>
               <span>{tipoError}</span>
             </div>
           )}
-        </form>
+        </div>
         <form className="productform-form2">
           <p>Categoria de producto: </p>
           {prod && input.tipo ? (
@@ -239,7 +241,7 @@ function ProductForm() {
             <span>Cargando...</span>
           )}
           <br />
-          <div className="productform-cat" width="10%">
+          <div className="productform-cat">
             <FileBase64
               type="file"
               multiple={false}
@@ -252,7 +254,7 @@ function ProductForm() {
           <option value="espumante">Espumante</option>
           <option value="destilado">Destilado</option>
         </select>*/}
-          <br />
+
           {descripcionError && (
             <div>
               <span>{descripcionError}</span>
