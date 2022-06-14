@@ -463,7 +463,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         review: payload,
       };
     case GET_REVPAGE: // de la pag general
-    // console.log(payload , "<======== PAYLOAD DE GET_REVPAGE")
+      // console.log(payload , "<======== PAYLOAD DE GET_REVPAGE")
       return {
         ...state,
         reviewPage: payload,
@@ -583,11 +583,13 @@ export default function rootReducer(state = initialState, { type, payload }) {
       };
     case GET_STATS:
       return {
-        ...state, stats: payload
+        ...state,
+        stats: payload,
       };
     case GET_TOP_PRODS:
       return {
-        ...state, topProds: payload
+        ...state,
+        topProds: payload,
       };
     default:
       return state;

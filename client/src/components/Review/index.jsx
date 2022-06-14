@@ -4,6 +4,8 @@ import ReactStars from "react-rating-stars-component";
 import { getProducts, postReview } from "../../redux/actions";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import NavBarSec from '../NavBarSec'
+import './ReviewStyles.css'
 
 //no hay titulo, description, puntaje
 //titulo mayor 4 y menor a 40
@@ -106,42 +108,53 @@ export default function PostReview() {
   }, []);
   return (
     <div>
+      <NavBarSec />
+    <div className="reviewContainer">
       {prod && prod[0] ? (
-        <div>
-          <h1>¡Contanos que te parecio {prod[0].nombre}!</h1>
-          <img src={prod[0].imagen} width="30%" />
+          <div className="logoFondo">
+          {/* <h1>¡Contanos que te parecio {prod[0].nombre}!</h1> */}
+          <img src={prod[0].imagen} width="90%" />
         </div>
       ) : (
+        
+        <div className="logoFondo">
+        {/* <div className="reviewPage">
         <h1>¡Contanos tu opinion sobre nosotros!</h1>
+        </div> */}
+        <img  src="/images/logo.png" width="80%" />
+        </div>
+      
       )}
-
+      <div class="registration-form" className="reviewForm">
       <form onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          <label>Titulo:</label>
+        <div >
+          <label className="reviewLabel">Titulo:</label>
+          <div class="form-group">
           <input
             type="text"
+            class="form-control item"
             placeholder="Titulo"
             /* value={input.titulo} */
             name="titulo"
             onChange={handleOnChange}
-          />
-        </div>{" "}
+            />
+            </div>
         <div>
           {tituloError && <span className="register-span ">{tituloError}</span>}{" "}
         </div>
         <div>
-          <label>Comentario:</label>
-          <textarea
-            placeholder="comentario"
+          <label className="reviewLabel">Comentario:</label>
+          <textarea class="form-control item"
+            placeholder="Comentario"
             /* value={input.comentario} */
             name="comentario"
             onChange={handleOnChange}
-          />
+            />
         </div>
         <div>
           {comentarioError && (
             <span className="register-span ">{comentarioError}</span>
-          )}
+            )}
         </div>
         <div>
           <ReactStars
@@ -153,11 +166,11 @@ export default function PostReview() {
             halfIcon={<i className="fa fa-star-half-alt"></i>}
             fullIcon={<i className="fa fa-star"></i>}
             activeColor="#ffd700"
-          />
+            />
         </div>
         {!input.puntaje && (
           <span className="register-span ">¡No te olvides de puntuarnos! </span>
-        )}
+          )}
         <div>
           {!tituloError &&
           !comentarioError &&
@@ -169,14 +182,17 @@ export default function PostReview() {
             </button>
           ) : (
             <div>¡Debes llenar todos los campos!</div>
-          )}
+            )}
         </div>
         <div>
           <Link to="/">
             <button className="button">Back</button>
           </Link>
         </div>
+            </div>
       </form>
+      </div>
+    </div>
     </div>
   );
 }
