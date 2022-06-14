@@ -5,6 +5,7 @@ import { getProducts, deleteReview, isAdmin } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import Loading from "../Loading";
+import './ReviewCard.css'
 export const ReviewCar = ({
   titulo,
   comentario,
@@ -57,19 +58,25 @@ export const ReviewCar = ({
       {loading ? (
         <Loading />
       ) : (
-        <div>
+        <div className="reviewCard-contenedor">
           <div>
+            {admin ? (
+              <div className="reviewCard-x"><button onClick={handleDelete} value={usuarioId}>
+                ❌
+              </button></div>
+            ) : <p>No eres admin </p>}
             {filt ? (
+              
               <div>
-                <h4>{filt.nombre}</h4>
-                <img width="10%" src={filt.imagen} alt="" />
-                <h4>Fecha: {fecha.split("T")[0]}</h4>
+                <div className="reviewCard-items"><h4>{filt.nombre}</h4></div>
+               <div className="reviewCard-items"> <img width="50%" src={filt.imagen} alt="" /></div>
+               <div className="reviewCard-items"><h4>Fecha: {fecha.split("T")[0]}</h4></div>
               </div>
             ) : (
               <div>
-                <h3>Review de la página</h3>
-                <img width="10%" src="./logo/logo.png" alt="" />
-                <h4>Fecha: {fecha.split("T")[0]}</h4>
+                <div className="reviewCard-items"><h3>Review de la página</h3></div>
+                <div className="reviewCard-items"><img width="50%" src="./logo/logo.png" alt="" /></div>
+                <div className="reviewCard-items"><h4>Fecha: {fecha.split("T")[0]}</h4></div>
               </div>
             )}
           </div>
@@ -79,10 +86,13 @@ export const ReviewCar = ({
                 <p>Email del usuario: {emailUsuario}</p>
               </Link>
             ) : null}
-            <p>Titulo: {titulo}</p>
-            <p>Comentario: {comentario}</p>
-            Puntaje:{" "}
-            <ReactStars
+           
+            
+         
+          <div className="reviewCard-items"><p>Titulo: {titulo}</p></div>
+           <div className="reviewCard-items"><p>Comentario: {comentario}</p></div>
+           <div className="reviewCard-star">
+             <ReactStars
               count={puntaje}
               size={24}
               isHalf={true}
@@ -91,12 +101,8 @@ export const ReviewCar = ({
               fullIcon={<i className="fa fa-star"></i>}
               edit={false}
               color="#ffd700"
-            />
-            {admin ? (
-              <button onClick={handleDelete} value={usuarioId}>
-                ❌
-              </button>
-            ) : <p>No eres admin </p>}
+            /></div>
+            
           </div>
         </div>
       )}

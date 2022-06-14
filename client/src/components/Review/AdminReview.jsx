@@ -11,12 +11,14 @@ import {
   filterUserReview
 } from "../../redux/actions";
 import { ReviewCar } from "../Review/ReviewCar";
+import AdminPanel from "../AdminPanel";
 
 export const AdminReview = () => {
   const dispatch = useDispatch(); /////////////////////////////////
 
   let revsPage = useSelector((state) => state.reviewPage);
   let revs = useSelector((state) => state.allReviews);
+  console.log(revs, 'SOY REVS')
   const usersLoged = useSelector((state) => state.usersLoged);
   const loading = useSelector((state) => state.isLoading);
   const admin = useSelector((state) => state.isAdmin);
@@ -98,14 +100,15 @@ export const AdminReview = () => {
     setfilterReviews([...revs]);
   }, [dispatch, admin]);
   return (
-    <div>
+    <div className="conteiner">
+      <AdminPanel/>
       {loading? 
         (<Loading />) :  admin ?    (
       <div>
       {
         <div>
           <div>
-            <h2>Promedio de la página:</h2>
+            <h2 className="titular">Promedio de la página:</h2>
             {prom ? (
               <ReactStars
                 count={prom}
@@ -136,16 +139,17 @@ export const AdminReview = () => {
                     console.log("otroArray", otroArray);
                   }
                 });
+                
                 return (
+                  
                   <div key={r.id} value={r.id}>
                     {r.productoId ? (
                       <Link to={`/adminreview/${r.productoId}`}>
                         Ver todas las reviews de este producto
                       </Link>
                     ) : null}
-
-                    <ReviewCar
-                      titulo={r.titulo}
+                   <ReviewCar
+                     titulo={r.titulo}
                       comentario={r.comentario}
                       puntaje={r.puntaje}
                       producto={r.productoId}
@@ -155,6 +159,7 @@ export const AdminReview = () => {
                       id = {r.id}
                     />
                   </div>
+                  
                 );
               })
             : null}
