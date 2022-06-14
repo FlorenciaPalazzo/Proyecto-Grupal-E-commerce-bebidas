@@ -7,7 +7,6 @@ import { auth } from "../../fb";
 import { getUserDb, getUsersLoged, resetUser } from "../../redux/actions";
 import Loading from "../Loading";
 import ViewUsers from "../ViewUsers";
-
 export default function AdminPanel() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -56,7 +55,7 @@ export default function AdminPanel() {
         <div>
           <nav class="navbar bg-light fixed-top">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#">
+              <a class="navbar-brand" href="/admin">
                 <img src="/images/Logo-Letras.png" height="50px" />
               </a>
 

@@ -27,6 +27,7 @@ function ProductForm() {
     updatedAt: "2022-06-08T15:54:46.320Z"
   */
   const { id } = useParams();
+  console.log("ID", id);
   const prod = useSelector((state) => state.editProduct);
   const dispatch = useDispatch();
   const [input, setInput] = useState({

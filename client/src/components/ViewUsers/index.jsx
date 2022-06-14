@@ -13,6 +13,20 @@ export default function ViewUsers() {
   const dispatch = useDispatch();
   const [firstReq, setReq] = useState(true);
 
+  function handleDeleteUser(e) {
+    //   getAuth()
+    // .deleteUser(uid)
+    // .then(() => {
+    //   console.log('Successfully deleted user');
+    // })
+    // .catch((error) => {
+    //   console.log('Error deleting user:', error);
+    // });
+  }
+  function handleDate(date) {
+    let d = date.split("-");
+    return `${d[2]}/${d[1]}/${d[0]}`;
+  }
   useEffect(() => {
     if (usersLoged && usersLoged.length === 0 && firstReq) {
       dispatch(getUsersLoged());
@@ -40,11 +54,19 @@ export default function ViewUsers() {
                   <table class="table table-striped">
                     <thead>
                       <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Verificado</th>
-                        <th scope="col">Creado</th>
-                        <th scope="col"></th>
+                        <th scope="col" class="text-center">
+                          Nombre
+                        </th>
+                        <th scope="col" class="text-center">
+                          Email
+                        </th>
+                        <th scope="col" class="text-center">
+                          Verificado
+                        </th>
+                        <th scope="col" class="text-center">
+                          Creado
+                        </th>
+                        <th scope="col" class="text-center"></th>
                       </tr>
                     </thead>
                     <tbody class="table-group-divider">
@@ -53,17 +75,32 @@ export default function ViewUsers() {
                           return;
                         return (
                           <tr>
-                            <td>
+                            <td class="text-center">
                               {e.nombre} {e.apellido && e.apellido}
                             </td>
-                            <td>{e.email}</td>
-                            <td>
-                              {e.isVerified ? "Verificado" : "No verificado"}
+                            <td class="text-center">{e.email}</td>
+                            {e.isVerified ? (
+                              <td class="text-center">
+                                <span class="badge text-bg-success">
+                                  Verificado
+                                </span>
+                              </td>
+                            ) : (
+                              <td class="text-center">
+                                <span class="badge text-bg-danger">
+                                  No Verificado
+                                </span>
+                              </td>
+                            )}
+                            <td class="text-center">
+                              {handleDate(e.createdAt.slice(0, 10))}
                             </td>
-                            <td>{e.createdAt.slice(0, 10)}</td>
                             <td>
                               <div className="viewusers-cont-btn">
-                                <button className="viewusers-btn">
+                                <button
+                                  className="viewusers-btn"
+                                  onClick={handleDeleteUser}
+                                >
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="25"
