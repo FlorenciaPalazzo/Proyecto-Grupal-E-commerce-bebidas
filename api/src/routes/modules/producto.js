@@ -290,6 +290,7 @@ router.post("/historial", async (req, res) => {
   }
 });
 
+
 module.exports = router;
 
 /**

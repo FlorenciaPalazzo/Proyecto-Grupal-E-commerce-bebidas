@@ -11,12 +11,14 @@ import {
   filterUserReview,
 } from "../../redux/actions";
 import { ReviewCar } from "../Review/ReviewCar";
+import AdminPanel from "../AdminPanel";
 
 export const AdminReview = () => {
   const dispatch = useDispatch(); /////////////////////////////////
 
   let revsPage = useSelector((state) => state.reviewPage);
   let revs = useSelector((state) => state.allReviews);
+  console.log(revs, "SOY REVS");
   const usersLoged = useSelector((state) => state.usersLoged);
   const loading = useSelector((state) => state.isLoading);
   const admin = useSelector((state) => state.isAdmin);
