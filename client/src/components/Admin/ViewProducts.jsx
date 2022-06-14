@@ -37,8 +37,8 @@ export default function ViewProducts() {
     navigate(`/admin/products/edit/${id}`);
   }
   function handleDelete(id) {
-    dispatch(adminDeleteProd(id))
-    dispatch(getProducts())
+    dispatch(adminDeleteProd(id));
+    dispatch(getProducts());
     console.log("Se ejecuta el handleDelete");
   }
 
@@ -108,8 +108,9 @@ export default function ViewProducts() {
                       <td>{product.nombre}</td>
                       <td className="viewproducts-display">{product.marca}</td>
                       <td className="viewproducts-display">
-                        {product.tipo && product.tipo.charAt(0).toUpperCase() +
-                          product.tipo.slice(1)}
+                        {product.tipo &&
+                          product.tipo.charAt(0).toUpperCase() +
+                            product.tipo.slice(1)}
                       </td>
                       <td className="viewproducts-display">{product.ml} ml.</td>
                       <td className="viewproducts-display">
@@ -138,7 +139,10 @@ export default function ViewProducts() {
                               />
                             </svg>
                           </button>
-                          <button className="viewproducts-btn" onClick={() => handleDelete(product.id)}>
+                          <button
+                            className="viewproducts-btn"
+                            onClick={() => handleDelete(product.id)}
+                          >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="25"

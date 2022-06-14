@@ -760,10 +760,7 @@ export const putProduct = (payload) => {
 export const createProduct = (prod) => {
   return async function (dispatch) {
     try {
-      await axios.post(
-        "http://localhost:3001/producto/bebida",
-        prod
-      );
+      await axios.post("http://localhost:3001/producto/bebida", prod);
     } catch (e) {
       console.log(e);
     }
@@ -813,9 +810,7 @@ export const getTopProds = (top) => {
 export const adminDeleteProd = (id) => {
   return async function (dispatch) {
     try {
-       await axios.delete(
-        `http://localhost:3001/producto/bebida/${id}`
-      );
+      await axios.delete(`http://localhost:3001/producto/bebida/${id}`);
     } catch (err) {
       console.log(err);
     }
