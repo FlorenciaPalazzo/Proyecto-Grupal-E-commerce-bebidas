@@ -145,7 +145,7 @@ export default function PostReview() {
         <div>
           <label className="reviewLabel">Comentario:</label>
           <textarea class="form-control item"
-            placeholder="comentario"
+            placeholder="Comentario"
             /* value={input.comentario} */
             name="comentario"
             onChange={handleOnChange}
