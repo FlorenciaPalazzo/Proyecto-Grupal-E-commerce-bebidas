@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { clearState, getReview, getUsersLoged } from "../../redux/actions";
 import ReactStars from "react-rating-stars-component";
 import { ReviewCar } from "./ReviewCar";
+import './adminRevDetail.css'
 
 export const AdminRevDetail = (/* { id } */) => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ export const AdminRevDetail = (/* { id } */) => {
     };
   }, [dispatch, id]);
   return (
-    <div>
+    <div className="admin-detail-rev-madre">
       <div>
         <h2>Promedio del producto:</h2>
         {prom ? (
@@ -53,7 +54,7 @@ export const AdminRevDetail = (/* { id } */) => {
         ) : null}
       </div>
 
-      <div>
+      <div className="admin-detail-rev-contenedor">
         {rev?.map((r) => {
           let email;
           filtroId.find((e) => {
@@ -63,7 +64,7 @@ export const AdminRevDetail = (/* { id } */) => {
             }
           });
           return (
-            <div key={r.id} value={r.id}>
+            <div key={r.id} value={r.id} className='admin-detail-rev-carta'>
               <ReviewCar
                 titulo={r.titulo}
                 comentario={r.comentario}

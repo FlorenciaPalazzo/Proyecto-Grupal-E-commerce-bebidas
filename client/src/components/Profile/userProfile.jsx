@@ -23,10 +23,12 @@ function UserProfile() {
   const dbUser = useSelector((state) => state.dbUser);
   const user = useSelector((state) => state.currentUser);
   const prod = useSelector((state) => state.products);
+  console.log(prod, 'soy el producto')
   const [endLoading, setEndLoading] = useState(false);
   const {id} = useParams();
 
   let revs = useSelector((state) => state.allReviews);
+  console.log(revs, 'Y LAS REVS?')
   const prodFind = prod.filter((e) => e.id === revs.productoId);
   console.log(prodFind, "productoId");
 
