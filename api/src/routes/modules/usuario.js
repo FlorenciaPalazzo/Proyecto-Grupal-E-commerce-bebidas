@@ -143,9 +143,9 @@ router.post("/checkout", async (req, res) => {
   let preference = {
     items: [...itemsMapeo],
     back_urls: {
-      success: "http://localhost:3000/feedback",
-      failure: "http://localhost:3000/feedback",
-      pending: "http://localhost:3000/feedback",
+      success: "https://elbardetoni.vercel.app/feedback",
+      failure: "https://elbardetoni.vercel.app/feedback",
+      pending: "https://elbardetoni.vercel.app/feedback",
     },
     auto_return: "approved",
   };
