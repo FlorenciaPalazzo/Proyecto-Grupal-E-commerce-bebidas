@@ -135,7 +135,7 @@ export default function EditForm() {
           <FileBase64
             type="file"
             multiple={false}
-            onDone={({ base64 }) => setImage({ base64 })}
+            onDone={({ base64 }) => setImage(base64)}
           />
           <br />
           {

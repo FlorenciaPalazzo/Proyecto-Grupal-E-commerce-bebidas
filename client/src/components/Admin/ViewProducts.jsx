@@ -39,33 +39,24 @@ export default function ViewProducts() {
   }
 
   function handleDelete(id) {
-    // dispatch(adminDeleteProd(id))
+    dispatch(adminDeleteProd(id))
     // setTimeout(()=>{
     //   dispatch(getProducts())
     // },1000)
     // console.log("Se ejecuta el handleDelete");
     swal({
-      title: "¿Seguro que quieres borrar este producto?",
-      //text: "Le notificaremos al usuario que infrigió las normas de la página",
-      type: "warning",
-      buttons: {
-        cancel: "Cancelar",
-        cofirm: {
-          text: "Borrar producto",
-          value: "confirm",
-        },
-      },
+      title: "Borrando producto ",
+      type: "success",
+      icon: "success",
+      buttons: false,
+      timer: 1000,
     })
-      .then((value) => {
-        if (value === "confirm") {
-          dispatch(adminDeleteProd(id));
-          
+      .then(() => {
+          dispatch(getProducts())  
         }
         //window.location.reload();
-      })
-      .then(() => {
-        dispatch(getProducts())
-      })
+      )
+      
   }
 
   useEffect(() => {
