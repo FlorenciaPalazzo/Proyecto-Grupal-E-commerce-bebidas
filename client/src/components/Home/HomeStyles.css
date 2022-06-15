@@ -160,5 +160,54 @@ body {
 .pagination-button, 
 .pagination-number{
     color: var(--third-color);
-} */
+}*/
+.home-reviews-render{
+    /* background-color: blueviolet; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* padding: 5%; */
+    justify-content:space-around;
+}
+.home-reviews-carta{
+    background-color: rgba(255, 255, 255, 0.74);
+    width: 20%;
+    margin: 1%;
+    /* margin-bottom: 2%; */
+    /* border-color:solid #000000; */
+    border-left:1px solid #c9c9c9a4;
+    border-right:1px solid #0000004d;
+    text-align: center;
+    word-break: break-all;
 
+    
+}
+.home-reviews-star{
+    /* background-color: aqua; */
+    text-align: center;
+    padding-left: 35% ;
+    padding-right: auto;
+}
+@media (max-width: 780px) {
+    .home-reviews-carta{
+      margin-left: 6%;
+      display: inline-block;
+      position: relative;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      width: 40%;
+      /* flex-direction: column; */
+    }
+  }
+@media (max-width: 415px) {
+    .home-reviews-carta{
+      margin-left: 5%;
+      margin-right: 8%;
+      display: inline-block;
+      position: relative;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      width: 60%;
+      /* flex-direction: column; */
+    }
+  }

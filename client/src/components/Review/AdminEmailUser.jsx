@@ -7,6 +7,7 @@ import {
   getReviewByUser,
   getUserById,
 } from "../../redux/actions";
+import AdminPanel from "../AdminPanel";
 import { ReviewCar } from "./ReviewCar";
 
 export const AdminEmailUser = () => {
@@ -28,6 +29,7 @@ export const AdminEmailUser = () => {
 
   return (
     <div className="admin-detail-rev-madre">
+      <AdminPanel />
       <h1>Reviews del usuario {userdb.email}</h1>
       <div className="admin-detail-rev-contenedor">
         {allRevs.length ? (
