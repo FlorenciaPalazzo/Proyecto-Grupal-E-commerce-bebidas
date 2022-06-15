@@ -1,0 +1,32 @@
+.admin-detail-rev-madre {
+  /* background-color: aqua; */
+  margin-top: 6%;
+}
+.admin-detail-rev-contenedor {
+  /* background-color: blueviolet; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+.admin-detail-rev-carta {
+  /* background-color: chartreuse; */
+  width: 20%;
+  margin: 2%;
+  height: 9%;
+  word-break: break-all;
+}
+@media (max-width: 780px) {
+  .admin-detail-rev-carta {
+    width: 40%;
+    /* height: 20; */
+    /* flex-direction: column; */
+  }
+}
+@media (max-width: 400px) {
+  .admin-detail-rev-carta {
+    width: 100%;
+    /* height: 20; */
+    /* flex-direction: column; */
+  }
+}
