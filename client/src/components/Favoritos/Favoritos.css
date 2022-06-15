@@ -1,0 +1,122 @@
+.card-fav { 
+    background-color:rgb(255, 255, 255); 
+/* display: flex;
+ justify-content: space-around; */
+ display: grid;
+ grid-template-columns: repeat(4, 25%);
+    width: 100%;
+   /* margin-left: auto;
+    margin-right: auto; */
+    margin-top: 1%;
+    border: solid 1px black
+   
+};
+.div_title{
+  display: flex;  
+  
+   /* flex-wrap: wrap; */
+  }
+.title-fav{
+    
+   margin-left: 45%;
+   font-size:30px;
+  
+ 
+}
+.item-fav{
+    
+    margin-top: 4%;
+    margin-right: 10%;
+   
+}
+
+.div-contain{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20%; 
+  
+}
+.div-fav{
+    display: flex;
+    flex-direction: column;
+      margin-left: 7%;
+      margin-right: 7%;
+      margin-top: 3%;
+      
+}
+.div-table{
+    width: 60%;
+     margin-left: 28%;
+  
+}
+.div-sin-fav{
+    margin-left: 20%;
+    margin-bottom: 5%;
+margin-top: 10%;
+}
+.div-sin-fav h2 {
+    font-size: 30px;
+    font-style: oblique;
+    margin-bottom: 10%;
+}
+.div-btn-eliminar-fav{
+    display: flex;
+    margin-right: 5%;
+    margin-top: 10%;
+    margin-bottom: 20%;
+    margin-left: 10%;
+    justify-content: flex-end;
+
+}
+@media (max-width: 750px) {
+    
+.card-fav { 
+    background-color:rgb(255, 255, 255); 
+/* display: flex;
+ justify-content: space-around; */
+ display: grid;
+ grid-template-columns: repeat(4, 25%);
+    width: 100%;
+ font-size: small;
+    margin-top: 1%;
+    border: solid 1px black
+   
+};
+.fav-imagen{
+    width:"20%"
+}
+.div-fav{
+    display: flex;
+    flex-wrap: wrap;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 3%;
+      
+}
+.div-contain{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20%; 
+  
+}
+.title-fav{
+    
+   margin-left: 25%;
+   font-size:25px;
+  
+ 
+}
+.div-btn-eliminar-fav{
+    display: flex;
+    height: 50%;
+    
+    margin-right: 5%;
+    margin-top: 10%;
+    margin-bottom: 20%;
+    margin-left: 10%;
+    justify-content: flex-end;
+
+}
+}

@@ -1,6 +1,8 @@
 import { sendPasswordResetEmail } from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../../fb";
+import NavBarSec from "../NavBarSec";
+import  "./ResetPassword.css"
 
 export default function ResetPassword() {
   const [input, setInput] = useState({email: null});
@@ -40,18 +42,26 @@ export default function ResetPassword() {
   }
   console.log(input,error);
   return (
-    <div>
-        <h3>Resetea tu contraseña</h3>
-        <p>
-            Ingresa el email de la cuenta de la que deseas restaurar la contraseña, te llegara un email para poder ingresarla. Recorda revisar la carpeta de Span si no ves el email de restauracion. 
+    <div  className="Login-body">
+    <NavBarSec/>
+   
+    <div className="Login-card">
+        <h1  className="Login-title">Resetea tu contraseña</h1>
+        <p className="span-reset">
+           Ingresa el email de la cuenta de la que deseas restaurar la contraseña, te llegara un email para poder ingresarla. Recorda revisar la carpeta de Span si no ves el email de restauracion. 
         </p>
       <form>
-          {message && <span>{message}</span>}
-          {error && <span>{error}</span>}
-        <label htmlFor="email">Email: </label>
+          {message && <span className="span-reset-error">{message}</span>}
+          {error && <span className="span-reset-error">{error}</span>}
+          <div className="Login-card-items">
+             <label htmlFor="email">Email: </label>
         <input type="email" id="email" value={input.email} name="email" onChange={handleChange}/>
-        <button onClick={passwordHandle}>Enviar</button>
+          </div>
+        <div className="Login-card-items">
+        <button className="Login-btn-google" onClick={passwordHandle}>Enviar</button></div>
       </form>
+    </div> 
+
     </div>
   );
 }

@@ -5,6 +5,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { isAdmin, setUser, setMessage, createUser } from "../../redux/actions";
 import Loading from "../Loading";
+import "./Login.css";
+import NavBarSec from "../NavBarSec";
 function Login() {
   const [input, setInput] = useState({
     email: "",
@@ -96,41 +98,51 @@ function Login() {
     isLoged && navigate("/");
   }, [isLoged]);
   return (
-    <div>
+    <div className="Login-body">
+      <NavBarSec />
       {loading && !isLoged ? (
         <Loading />
       ) : (
-        <div>
-          <Link to="/">
-            <button className="button">Home</button>
-          </Link>
-          <h1 className="forms-title">Login</h1>
-          <div className="forms">
-            {error && <span>{error}</span>}
+        <div className="Login-card">
+          <h1 className="Login-title">Login</h1>
+          <div>
             <form onSubmit={handleSubmit}>
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                onChange={handleChange}
-              />
+              <div className="Login-card-items">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="Login-card-items">
+                <label htmlFor="password">Contraseña</label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  onChange={handleChange}
+                />
+              </div>
 
-              <label htmlFor="password">Contraseña</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                onChange={handleChange}
-              />
-
-              <button>Login</button>
+              <div className="Login-card-items">
+                <button>Login</button>
+              </div>
             </form>
-            <Link to="/login/reset">
-              <p>¿Olvidaste tu constraseña?</p>
-            </Link>
-            <button onClick={googleHandleSubmit}>SignUp con Google</button>
+            <div className="Login-card-items">
+              <Link to="/login/reset">
+                <p className="Login-text">¿Olvidaste tu constraseña?</p>
+              </Link>
+            </div>
+            <div className="Login-card-items">
+              <button className="Login-btn-google" onClick={googleHandleSubmit}>
+                SignUp con Google
+              </button>
+            </div>
           </div>
+
+          <p className="Login-error">{error && <span>{error}</span>}</p>
         </div>
       )}
     </div>

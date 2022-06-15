@@ -7,7 +7,6 @@ import { auth } from "../../fb";
 import { getUserDb, getUsersLoged, resetUser } from "../../redux/actions";
 import Loading from "../Loading";
 import ViewUsers from "../ViewUsers";
-
 export default function AdminPanel() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -56,7 +55,7 @@ export default function AdminPanel() {
         <div>
           <nav class="navbar bg-light fixed-top">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#">
+              <a class="navbar-brand" href="/admin">
                 <img src="/images/Logo-Letras.png" height="50px" />
               </a>
 
@@ -115,19 +114,19 @@ export default function AdminPanel() {
                           width="25"
                           height="25"
                           fill="currentColor"
-                          class="bi bi-house-fill"
+                          class="bi bi-house"
                           viewBox="0 0 16 16"
                         >
                           <path
                             fill-rule="evenodd"
-                            d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"
+                            d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"
                           />
                           <path
                             fill-rule="evenodd"
                             d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"
                           />
-                        </svg>{" "}
-                        Home
+                        </svg>
+                        Home/Productos
                       </Link>
                     </li>
 
@@ -173,27 +172,6 @@ export default function AdminPanel() {
                     </li>
 
                     <li class="nav-item">
-                      <a
-                        onClick={handleOnClickAdminProduct}
-                        class="nav-link"
-                        href="#"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="25"
-                          height="25"
-                          fill="currentColor"
-                          class="bi bi-card-list"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-                          <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
-                        </svg>{" "}
-                        Productos
-                      </a>
-                    </li>
-
-                    <li class="nav-item">
                       <a class="nav-link" onClick={out} href="#">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -222,13 +200,13 @@ export default function AdminPanel() {
           </nav>
         </div>
       ) : (
-         null 
+        null
       )}
-      <Link to="/">
+      {/* <Link to = "/">
         <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
           Volver 
         </button>
-      </Link>
+      </Link> */}
     </div>
   );
 }

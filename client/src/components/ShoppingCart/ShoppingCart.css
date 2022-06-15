@@ -127,6 +127,7 @@ body {
     border-bottom-right-radius: 1rem;
     padding: 4vh;
     color: rgb(65, 65, 65);
+    
 }
 
 @media(max-width:767px) {
@@ -246,3 +247,4 @@ body {
     color: black;
     text-decoration: none;
 }
+

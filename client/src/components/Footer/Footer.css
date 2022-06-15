@@ -1,11 +1,12 @@
 .footer {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
+    flex-direction: column;
     height: 25vh;
     width: 100%;
     background-color: rgb(50, 50, 50);
     padding: 1%;
+   
 }
 
 .footer .text {
@@ -17,19 +18,12 @@
     font-family: "Montserrat";
 }
 
-.footer .contact {
-    /* flex: 1 1 auto; */
-    width: 50%;
-    text-align: center;
-}
-
 .footer .about {
-    /* flex: 1 1 auto; */
-    width: 50%;
     text-align: center;
 }
 
-.footer .hecho {
-    /* flex: 1 1 auto; */
+.footer .hecho { 
+    margin-top: 2%;
     text-align: center;
+    color: white;
 }

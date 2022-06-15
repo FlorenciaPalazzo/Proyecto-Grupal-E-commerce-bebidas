@@ -98,9 +98,9 @@ router.get("/bebidas", async (req, res, next) => {
 //--------------------BEBIDA-------------------------
 
 router.post("/bebida", async (req, res) => {
-  let = { nombre, imagen, marca, ml, graduacion, descripcion, precio, stock } =
+  let = { nombre, imagen, marca, ml, graduacion, descripcion, precio, stock, tipo } =
     req.body;
-
+  console.log(req.body)
   let [bebidaCreada, created] = await Producto.findOrCreate({
     where: {
       nombre: nombre,
@@ -111,6 +111,7 @@ router.post("/bebida", async (req, res) => {
       graduacion: graduacion,
       precio: precio,
       stock: stock,
+      tipo: tipo,
     },
   });
   res.json(bebidaCreada);
@@ -202,7 +203,7 @@ router.delete("/favoritos", async (req, res) => {
         productoId: id_prod,
       },
     });
-    let favs2 = Favorito.findAll({ where: { usuarioId: id_user } });
+    let favs2 = await Favorito.findAll({ where: { usuarioId: id_user } });
 
     res.json(favs2);
   } catch (err) {
@@ -289,6 +290,7 @@ router.post("/historial", async (req, res) => {
     console.log(e);
   }
 });
+
 
 module.exports = router;
 

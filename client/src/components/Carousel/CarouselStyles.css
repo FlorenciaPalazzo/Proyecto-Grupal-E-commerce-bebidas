@@ -11,7 +11,7 @@
   padding: 0;
   width: 300%;
 
-  animation: cambio 10s infinite alternate linear;
+  animation: cambio 9s infinite alternate linear;
 }
 
 .slider li {

@@ -51,7 +51,6 @@ import {
   FILTER_BY_BRAND_ESPUMANTE,
   FILTER_BY_BRAND_DESTILADO,
   ORDER_BY,
-
   //---------> prueba!!!
 } from "../actions/actionsTypes";
 
@@ -175,7 +174,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return { ...state, products: payload, searchProduct: payload };
 
     case GET_PRODUCT_ID:
-      return { ...state, detail: payload };
+      return { ...state, detail: payload, editProduct: payload };
 
     // case GET_BRANDS:
     //   let brandFilter = [];
@@ -587,7 +586,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         review: payload,
       };
     case GET_REVPAGE: // de la pag general
-    // console.log(payload , "<======== PAYLOAD DE GET_REVPAGE")
+      // console.log(payload , "<======== PAYLOAD DE GET_REVPAGE")
       return {
         ...state,
         reviewPage: payload,
@@ -622,9 +621,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
 
       productos.forEach((e) => {
         //mapea productos pregunta si hay id prod
-        console.log(e);
+        // console.log(e);
         if (ids.includes(e.id)) {
-          console.log("e", e);
+          // console.log("e", e);
           arr.push(e);
         }
       });
@@ -707,11 +706,13 @@ export default function rootReducer(state = initialState, { type, payload }) {
       };
     case GET_STATS:
       return {
-        ...state, stats: payload
+        ...state,
+        stats: payload,
       };
     case GET_TOP_PRODS:
       return {
-        ...state, topProds: payload
+        ...state,
+        topProds: payload,
       };
     default:
       return state;

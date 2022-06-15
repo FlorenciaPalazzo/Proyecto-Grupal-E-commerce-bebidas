@@ -131,8 +131,8 @@ const Historial = () => {
       ) : (
         <p>No hay nada en el historial</p>
       )}
-      ;
     </div>
+    
   );
 };
 

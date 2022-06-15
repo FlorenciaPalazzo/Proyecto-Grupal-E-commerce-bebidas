@@ -3,7 +3,6 @@ import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../Loading";
 import { Link } from "react-router-dom";
-import NavBarSec from "../NavBarSec";
 import {
   getAllReviews,
   getProducts,
@@ -12,12 +11,15 @@ import {
   filterUserReview,
 } from "../../redux/actions";
 import { ReviewCar } from "../Review/ReviewCar";
+import AdminPanel from "../AdminPanel";
+import "./AdminReview.css";
 
 export const AdminReview = () => {
   const dispatch = useDispatch(); /////////////////////////////////
 
   let revsPage = useSelector((state) => state.reviewPage);
   let revs = useSelector((state) => state.allReviews);
+  console.log(revs, "SOY REVS");
   const usersLoged = useSelector((state) => state.usersLoged);
   const loading = useSelector((state) => state.isLoading);
   const admin = useSelector((state) => state.isAdmin);
@@ -25,6 +27,22 @@ export const AdminReview = () => {
   const [filterReviews, setfilterReviews] = useState([]);
   const products = useSelector((state) => state.products);
   console.log("products", products);
+
+  /* if (products.length) {
+    let filterProdId = products.map((e) => e.id);
+    console.log("filterProdId", filterProdId);
+    let searchId;
+    let coso = revs.map((e) => {
+      console.log("entra");
+      filterProdId.forEach((f) => {
+        console.log("entra al otro");
+        if (e.productoId === f) {
+          searchId.push(e);
+        }
+      });
+    });
+    console.log("searchId", searchId);
+  } */
 
   //tiene el id del usuario
   let array = [];
@@ -46,6 +64,29 @@ export const AdminReview = () => {
   let prom = 0;
   prom = Math.round(promPage);
 
+  // const handleSelector = (e) => {
+  //   e.preventDefault();
+  //   console.log(e.target.value);
+  //   if (e.target.value === "pagina") {
+  //     setfilterReviews([...revsPage]);
+  //   } else if (e.target.value === "productos") {
+  //     let arr = [];
+  //     revs.forEach((e) => {
+  //       if (e.productoId !== null) {
+  //         arr.push(e);
+  //       }
+  //     });
+  //     setfilterReviews([...arr]);
+  //   } else if(e.target.value === "all") {
+  //     setfilterReviews([...revs]);
+  //   } else {
+  //     setfilterReviews([...revs]);
+  //   }
+  // };
+  // useEffect(() => {
+  //   setfilterReviews([...revs]);
+  // }, []);
+
   const handleSelector = (e) => {
     e.preventDefault();
     dispatch(filterUserReview(e.target.value));
@@ -60,171 +101,103 @@ export const AdminReview = () => {
   }, [dispatch, admin]);
   return (
     <div>
+      <AdminPanel />
       {loading ? (
         <Loading />
       ) : admin ? (
         <div>
-          <div>
-            <NavBarSec />
-          </div>
-          <div>
-            <div>
-              <h2>Promedio de la página:</h2>
-              {prom ? (
-                <ReactStars
-                  count={prom}
-                  size={35}
-                  isHalf={true}
-                  emptyIcon={<i className="far fa-star"></i>}
-                  halfIcon={<i className="fa fa-star-half-alt"></i>}
-                  fullIcon={<i className="fa fa-star"></i>}
-                  edit={false}
-                  color="#ffd700"
-                />
-              ) : null}
+          {
+            <div className="admin-review-madre">
+              <div>
+                <h2>Promedio de la página:</h2>
+                {prom ? (
+                  <ReactStars
+                    count={prom}
+                    size={35}
+                    isHalf={true}
+                    emptyIcon={<i className="far fa-star"></i>}
+                    halfIcon={<i className="fa fa-star-half-alt"></i>}
+                    fullIcon={<i className="fa fa-star"></i>}
+                    edit={false}
+                    color="#ffd700"
+                  />
+                ) : null}
+              </div>
+
+              <h1>Reviews</h1>
+              <select name="" id="" onChange={handleSelector}>
+                <option disabled>Filtrar reviews</option>
+                <option value="all">Todas</option>
+                <option value="pagina">Página</option>
+                <option value="productos">Productos</option>
+              </select>
+              <div className="admin-review-contenedor">
+                {revs
+                  ? revs.map((r) => {
+                      let otroArray;
+                      array.find((e) => {
+                        if (e.id === r.usuarioId) {
+                          otroArray = e.email;
+                          console.log("otroArray", otroArray);
+                        }
+                      });
+                      return (
+                        <div key={r.id} value={r.id} className="aaaaaaaa">
+                          {r.productoId ? (
+                            <div>
+                              <Link to={`/adminreview/${r.productoId}`}>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="25"
+                                  height="25"
+                                  fill="currentColor"
+                                  class="bi bi-list-stars"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"
+                                  />
+                                  <path d="M2.242 2.194a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.256-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53zm0 4a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.255-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53zm0 4a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.255-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53z" />
+                                </svg>
+                              </Link>
+                            </div>
+                          ) : null}
+                          <div>
+                            <ReviewCar
+                              titulo={r.titulo}
+                              comentario={r.comentario}
+                              puntaje={r.puntaje}
+                              producto={r.productoId}
+                              fecha={r.createdAt}
+                              emailUsuario={otroArray}
+                              usuarioId={r.usuarioId}
+                              id={r.id}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })
+                  : null}
+              </div>
+
+              <Link to={`/admin`}>
+                <button>Volver al panel del admin</button>
+              </Link>
             </div>
-            <div></div>
-            <h1>Reviews</h1>
-            <select name="" id="" onChange={handleSelector}>
-              <option disabled>Filtrar reviews</option>
-              <option value="all">Todas</option>
-              <option value="pagina">Página</option>
-              <option value="productos">Productos</option>
-            </select>
-            {revs
-              ? revs.map((r) => {
-                  let otroArray;
-                  array.find((e) => {
-                    if (e.id === r.usuarioId) {
-                      otroArray = e.email;
-                      console.log("otroArray", otroArray);
-                    }
-                  });
-                  return (
-                    <div key={r.id} value={r.id}>
-                      {r.productoId ? (
-                        <Link to={`/adminreview/${r.productoId}`}>
-                          Ver todas las reviews de este producto
-                        </Link>
-                      ) : null}
-
-                      <ReviewCar
-                        titulo={r.titulo}
-                        comentario={r.comentario}
-                        puntaje={r.puntaje}
-                        producto={r.productoId}
-                        fecha={r.createdAt}
-                        emailUsuario={otroArray}
-                        usuarioId={r.usuarioId}
-                        id={r.id}
-                      />
-                    </div>
-                  );
-                })
-              : null}
-          </div>
-
-          <Link to={`/admin`}>
-            <button>Volver al panel del admin</button>
-          </Link>
+          }
+          {/* <Link to={`/admin`}>
+        <button>Volver al panel del admin</button>
+      </Link> */}
         </div>
       ) : (
         <h1> null </h1>
       )}
-      <Link to="/">
+      {/* <Link to="/">
         <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
           Volver al home
         </button>
-      </Link>
+      </Link> */}
     </div>
   );
 };
-
-// return (
-//   <div>
-//     <div>
-//       <NavBarSec />
-//     </div>
-//     {historial.length > 0 ? (
-//       <div>
-//         <div class="cart-wrap">
-//           <div class="container">
-//             <div class="row">
-//               <div class="col-md-12">
-//                 <div class="main-heading mb-10">Historial de Compra</div>
-//                 <div class="table-wishlist">
-//                   <table
-//                     cellpadding="0"
-//                     cellspacing="0"
-//                     border="0"
-//                     width="100%"
-//                   >
-//                     <thead>
-//                       <tr>
-//                         <th width="45%">Nombre del producto</th>
-//                         <th width="15%">Precio</th>
-//                         <th class="fecha" width="15%">
-//                           Fecha
-//                         </th>
-//                         {/* <th width="15%">AAA</th>
-//                     <th width="10%">bbbbb</th> */}
-//                       </tr>
-//                     </thead>
-//                     {historial.map((e) => {
-//                       return (
-//                         <tbody>
-//                           <tr>
-//                             <td width="45%">
-//                               <div class="display-flex align-center">
-//                                 <div class="img-product">
-//                                   <img
-//                                     src={e.imagen}
-//                                     alt=""
-//                                     class="mCS_img_loaded"
-//                                   />
-//                                 </div>
-//                                 <div class="name-product">{e.nombre}</div>
-//                               </div>
-//                             </td>
-//                             <td width="15%" class="price">
-//                               ${e.precio}
-//                             </td>
-//                             <td width="15%">
-//                               <span class="fecha">
-//                                 {e.createdAt.split("T")[0]}
-//                               </span>
-//                             </td>
-//                             <td width="15%">
-//                               {!allRevs.includes(`${e.id} ${id}`) ? (
-//                                 <Link to={`/review/${e.id}`}>
-//                                   <button class="round-black-btn small-btn">
-//                                     Dar review
-//                                   </button>
-//                                 </Link>
-//                               ) : (
-//                                 <Link to={`/profile`}>
-//                                   <p class="reviewHecha">Review existente</p>
-//                                 </Link>
-//                               )}
-//                             </td>
-//                             <td width="10%" class="text-center">
-//                               <a href="#" class="trash-icon">
-//                                 <i class="far fa-trash-alt"></i>
-//                               </a>
-//                             </td>
-//                           </tr>
-//                         </tbody>
-//                       );
-//                     })}
-//                   </table>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     ) : (
-//       <p>No hay nada en el historial</p>
-//     )}
-//     ;
-//   </div>
