@@ -83,10 +83,17 @@ const ShoppingCart = () => {
 
   const handleAlertCarrito = (e) => {
     e.preventDefault();
-    swal({
-      title: "El carrito esta vacío",
-      icon: "warning",
-    });
+    if (!productCart.length) {
+      swal({
+        title: "El carrito esta vacío",
+        icon: "warning",
+      });
+    } else if (!verified) {
+      swal({
+        title: "No estas registrado!",
+        icon: "warning",
+      });
+    }
   };
 
   console.log("object");
@@ -250,7 +257,8 @@ const ShoppingCart = () => {
                     <div className="col text-right">${total}</div>
 
                     {
-                      /* verified && !verified.emailVerified && */ !productCart.length ? (
+                      /*  !verified.emailVerified && */ !verified ||
+                      !productCart.length ? (
                         <button
                           className="btn bg-success"
                           onClick={handleAlertCarrito}
