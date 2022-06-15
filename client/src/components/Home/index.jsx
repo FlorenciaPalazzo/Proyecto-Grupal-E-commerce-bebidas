@@ -172,15 +172,16 @@ function Home() {
               </div>
             </div>
 
-            <div className="detail-description">
+            <div className="home-reviews-render">
               {rev ? (
-                rev.map((e) => {
+
+                rev.slice(0, 4).map((e) => {
+
                   return (
-                    <div key={e.id}>
+                    <div key={e.id} className='home-reviews-carta'>
                       <p>Titulo: {e.titulo}</p>
                       <p>Comentario: {e.comentario}</p>
-                      <div>
-                        Puntaje:{" "}
+                      <div className="home-reviews-star">
                         <ReactStars
                           count={e.puntaje}
                           size={24}
