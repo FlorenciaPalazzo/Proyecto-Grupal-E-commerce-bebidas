@@ -142,14 +142,14 @@ export const AdminReview = () => {
                         }
                       });
                       return (
-                        <div key={r.id} value={r.id} className="mmmmm">
+                        <div key={r.id} value={r.id} className="aaaaaaaa">
                           {r.productoId ? (
-                            <div className="admin-review-boton">
+                            <div>
                               <Link to={`/adminreview/${r.productoId}`}>
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
-                                  width="16"
-                                  height="16"
+                                  width="25"
+                                  height="25"
                                   fill="currentColor"
                                   class="bi bi-list-stars"
                                   viewBox="0 0 16 16"
@@ -163,7 +163,7 @@ export const AdminReview = () => {
                               </Link>
                             </div>
                           ) : null}
-                          <div className="aaaaaaaa">
+                          <div>
                             <ReviewCar
                               titulo={r.titulo}
                               comentario={r.comentario}
@@ -180,20 +180,24 @@ export const AdminReview = () => {
                     })
                   : null}
               </div>
+
+              <Link to={`/admin`}>
+                <button>Volver al panel del admin</button>
+              </Link>
             </div>
           }
-          <Link to={`/admin`}>
-            <button>Volver al panel del admin</button>
-          </Link>
+          {/* <Link to={`/admin`}>
+        <button>Volver al panel del admin</button>
+      </Link> */}
         </div>
       ) : (
         <h1> No eres administrador </h1>
       )}
-      <Link to="/">
+      {/* <Link to="/">
         <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
           Volver al home
         </button>
-      </Link>
+      </Link> */}
     </div>
   );
 };
