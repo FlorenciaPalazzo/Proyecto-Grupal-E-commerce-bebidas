@@ -157,7 +157,7 @@ export default function AdminPanel() {
 
                     <li class="nav-item">
                       <a
-                        to="/admin"
+                        to="/admin/products/create"
                         class="nav-link active"
                         aria-current="page"
                         href="/#"
