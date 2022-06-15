@@ -9,6 +9,7 @@ import {
   getProducts,
   getReview,
 } from "../../redux/actions";
+import "./HistorialStyles.css"
 
 const Historial = () => {
   const dispatch = useDispatch();
@@ -136,3 +137,28 @@ const Historial = () => {
 };
 
 export default Historial;
+
+{/* {historial.length > 0 ? (
+  historial.map((e) => {
+    return (
+      <div key={e.id}>
+        <h2>{e.nombre}</h2>
+        <h2>{e.marca}</h2>
+        <img src={e.imagen} width="20%" />
+        {!allRevs.includes(e.id) ? (
+          <Link to={`/Review/${e.id}`}>
+          <button className="button">Contanos tu experiencia</button>
+          </Link>
+        ) : (
+          <Link to={`/profile`}>
+            <p>Ya tenes una review de este producto</p>
+            </Link>
+            )}
+            </div>
+            );
+          })
+          ) : (
+            <div>
+    <h1>No has comprado nada</h1>
+  </div>
+)} */}

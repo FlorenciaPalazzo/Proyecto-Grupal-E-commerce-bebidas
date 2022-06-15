@@ -191,7 +191,7 @@ export const AdminReview = () => {
       </Link> */}
         </div>
       ) : (
-        <h1> No eres administrador </h1>
+        <h1> null </h1>
       )}
       {/* <Link to="/">
         <button class="btn btn-outline-warning  mx-3  bg-white text-dark">

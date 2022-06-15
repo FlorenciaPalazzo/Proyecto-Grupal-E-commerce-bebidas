@@ -204,7 +204,7 @@ export default function AdminPanel() {
       )}
       {/* <Link to = "/">
         <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
-          Volver al home
+          Volver 
         </button>
       </Link> */}
     </div>

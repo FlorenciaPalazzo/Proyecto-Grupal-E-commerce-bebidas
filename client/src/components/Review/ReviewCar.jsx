@@ -70,6 +70,7 @@ export const ReviewCar = ({
               </div>
             ) : null}
             {filt ? (
+              
               <div>
                 <div className="reviewCar-items">
                   <h4>{filt.nombre}</h4>

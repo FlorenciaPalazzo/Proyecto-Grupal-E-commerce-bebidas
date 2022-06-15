@@ -63,6 +63,13 @@ import swal from "sweetalert";
 import firebase from "firebase/app";
 import "firebase/database";
 
+
+
+////////////////HEROKU URL ////////////////
+let url = 'https://elbardetonibebidas.herokuapp.com'
+
+
+
 //-------------------------------AUTH-------------------------------//
 export function isAdmin(email) {
   return async (dispatch) => {
@@ -80,7 +87,7 @@ export function createUser(user) {
   // { id, nombre, email, nacimiento, direccion, telefono }
   console.log("user", user);
   axios
-    .post("http://localhost:3001/usuario", {
+    .post(url + "/usuario", {
       id: user.id,
       nombre: user.nombre,
       apellido: user.apellido,
@@ -100,7 +107,7 @@ export function updateUser(user) {
   // { id, nombre, email, nacimiento, direccion, telefono }
   console.log("user", user);
   let updated = axios
-    .put("http://localhost:3001/usuario", {
+    .put(url + "/usuario", {
       user,
     })
     .then((res) => res.data)
@@ -121,7 +128,7 @@ export function getUsersLoged() {
   return async (dispatch) => {
     try {
       let usersFound = await axios
-        .get("http://localhost:3001/usuario")
+        .get(url + "/usuario")
         .then((users) => users.data);
       return dispatch({ type: GET_USERS_LOGED, payload: usersFound });
     } catch (error) {
@@ -134,7 +141,7 @@ export function getUserDb(id) {
   return async (dispatch) => {
     try {
       let userFound = await axios
-        .get("http://localhost:3001/usuario/" + id)
+        .get(url + "/usuario/" + id)
         .then((users) => users.data);
       return dispatch({ type: GET_USER_DB, payload: userFound });
     } catch (error) {
@@ -160,7 +167,7 @@ export function resetUserDb() {
 export const getProducts = () => {
   return async function (dispatch) {
     try {
-      let result = await axios.get(`http://localhost:3001/producto/bebidas`);
+      let result = await axios.get(url + `/producto/bebidas`);
       return dispatch({
         type: GET_PRODUCTS,
         payload: result.data,
@@ -176,7 +183,7 @@ export const getProductByName = (name) => {
   return async function (dispatch) {
     try {
       let result = await axios.get(
-        `http://localhost:3001/producto/bebidas?nombre=${name}`
+        url + `/producto/bebidas?nombre=${name}`
       );
       console.log("result.data", result.data);
       if (result.data.length === 0) {
@@ -206,7 +213,7 @@ export const getProductById = (id) => {
   return async function (dispatch) {
     try {
       let result = await axios.get(
-        "http://localhost:3001/producto/bebida/" + id
+        url + "/producto/bebida/" + id
       );
       return dispatch({
         type: GET_PRODUCT_ID,
@@ -222,7 +229,7 @@ export const updateProduct = (prod) => {
   return async function (dispatch) {
     try {
       let result = await axios.put(
-        "http://localhost:3001/producto/bebida",
+        url + "/producto/bebida",
         prod
       );
       return dispatch({
@@ -416,7 +423,7 @@ export const orderMercadoPago = (localStorage) => {
   return async function (dispatch) {
     try {
       let result = await axios.post(
-        "http://localhost:3001/usuario/carrito",
+        url + "/usuario/carrito",
         localStorage
       );
 
@@ -433,7 +440,7 @@ export const orderMercadoPago = (localStorage) => {
 export const getMercadoPago = () => {
   return async function (dispatch) {
     try {
-      let result = await axios.post("http://localhost:3001/usuario/checkout");
+      let result = await axios.post(url + "/usuario/checkout");
       console.log("soy result data", result.data);
       console.log("entro a getMercadoPago");
       return dispatch({
@@ -449,7 +456,7 @@ export const getMercadoPago = () => {
 export const deleteMercadoPago = () => {
   return async function (dispatch) {
     try {
-      let result = await axios.delete("http://localhost:3001/usuario/checkout");
+      let result = await axios.delete(url + "/usuario/checkout");
       console.log("entro a borrar");
       return dispatch({
         type: DELETE_MERCADO_PAGO,
@@ -463,7 +470,7 @@ export const deleteMercadoPago = () => {
 export const feedBack = () => {
   return async function (dispatch) {
     try {
-      let result = await axios.get("http://localhost:3001/usuario/feedback");
+      let result = await axios.get(url + "/usuario/feedback");
       console.log("result.data ------->FEEDBACK", result.data);
       return dispatch({
         type: FEEDBACK_MERCADO_PAGO,
@@ -480,7 +487,7 @@ export const feedBack = () => {
 export const postReview = (payload) => {
   return async function (dispatch) {
     try {
-      let result = await axios.post("http://localhost:3001/review/", payload);
+      let result = await axios.post(url + "/review/", payload);
       return dispatch({
         type: POST_REVIEW,
       });
@@ -492,7 +499,7 @@ export const postReview = (payload) => {
 export const getAllReviews = () => {
   return async function (dispatch) {
     try {
-      let result = await axios.get("http://localhost:3001/review/all");
+      let result = await axios.get(url + "/review/all");
       console.log("result.date", result.data);
       return dispatch({
         type: GET_ALL_REVIEWS,
@@ -507,7 +514,7 @@ export const getAllReviews = () => {
 export const getReview = (id) => {
   return async function (dispatch) {
     try {
-      let result = await axios.get("http://localhost:3001/review/" + id);
+      let result = await axios.get(url + "/review/" + id);
       console.log(result.data, "soy la action");
       return dispatch({
         type: GET_REVIEW,
@@ -522,7 +529,7 @@ export const getReview = (id) => {
 export const getReviewPage = () => {
   return async function (dispatch) {
     try {
-      let result = await axios.get("http://localhost:3001/review");
+      let result = await axios.get(url + "/review");
       console.log(result.data, "ACTION");
       return dispatch({
         type: GET_REVPAGE,
@@ -537,7 +544,7 @@ export const getReviewPage = () => {
 export const putReview = (payload) => {
   return async function (dispatch) {
     try {
-      let result = await axios.put("http://localhost:3001/review/", payload);
+      let result = await axios.put(url + "/review/", payload);
       console.log("entre al baaaaaaaack");
       return dispatch({
         type: PUT_REVIEW,
@@ -550,7 +557,7 @@ export const putReview = (payload) => {
 export const deleteReview = (id) => {
   return async function (dispatch) {
     try {
-      let result = await axios.delete("http://localhost:3001/review/" + id);
+      let result = await axios.delete(url + "/review/" + id);
       return dispatch({
         type: DELETE_REVIEW,
       });
@@ -564,7 +571,7 @@ export const findReviewId = (id) => {
   return async function (dispatch) {
     try {
       let result = await axios.get(
-        "http://localhost:3001/review/putreview/" + id
+        url + "/review/putreview/" + id
       );
       console.log(result.data, "me traigo las review por su id");
       return dispatch({
@@ -580,7 +587,7 @@ export const findReviewId = (id) => {
 export const getReviewByUser = (id) => {
   return async function (dispatch) {
     try {
-      let result = await axios.get("http://localhost:3001/review/all/" + id);
+      let result = await axios.get(url + "/review/all/" + id);
       return dispatch({
         type: GET_REVIEW_BY_USER,
         payload: result.data,
@@ -594,7 +601,7 @@ export const getReviewByUser = (id) => {
 export const setFavorito = (payload) => {
   return async function (dispatch) {
     try {
-      let result = await axios.post("http://localhost:3001/producto", payload);
+      let result = await axios.post(url + "/producto", payload);
       return dispatch({
         type: SET_FAV,
         return: payload,
@@ -608,7 +615,7 @@ export const setFavorito = (payload) => {
 export const getUserById = (id) => {
   return async function (dispatch) {
     try {
-      let result = await axios.get("http://localhost:3001/usuario/" + id);
+      let result = await axios.get(url + "/usuario/" + id);
       return dispatch({
         type: GET_USER_BY_ID,
         payload: result.data,
@@ -623,7 +630,7 @@ export const getFavorito = (id) => {
   return async function (dispatch) {
     try {
       let result = await axios.get(
-        `http://localhost:3001/producto/favoritos/${id}`
+        url + `/producto/favoritos/${id}`
       );
       console.log("result.data", result.data);
       return dispatch({
@@ -641,7 +648,7 @@ export const deleteFavorito = ({ id_user, id_prod }) => {
     try {
       console.log("SOY EL PAYLOAD DE LA ACTION");
       let result = await axios.delete(
-        `http://localhost:3001/producto/favoritos?id_prod=${id_prod}&&id_user=${id_user}`
+        url + `/producto/favoritos?id_prod=${id_prod}&&id_user=${id_user}`
       );
 
       return dispatch({
@@ -658,7 +665,7 @@ export const addDirecciones = (payload) => {
   return async function (dispatch) {
     try {
       let result = await axios.post(
-        "http://localhost:3001/usuario/direcciones",
+        url + "/usuario/direcciones",
         payload
       );
       return dispatch({
@@ -672,7 +679,7 @@ export const addDirecciones = (payload) => {
 export const getDirecciones = (id) => {
   return async function (dispatch) {
     try {
-      let result = await axios.get(`http://localhost:3001/usuario/${id}`);
+      let result = await axios.get(url + `/usuario/${id}`);
       return dispatch({
         type: GET_DIRECCIONES,
         payload: result.data,
@@ -687,7 +694,7 @@ export const deleteDirecciones = (id) => {
   return async function (dispatch) {
     try {
       let result = await axios.delete(
-        `http://localhost:3001/usuario/direcciones/${id}`
+        url + `/usuario/direcciones/${id}`
       );
 
       return dispatch({
@@ -704,7 +711,7 @@ export const deleteDirecciones = (id) => {
 export const addHist = (payload) => {
   return async function (dispatch) {
     let historial = await axios.post(
-      "http://localhost:3001/producto/historial",
+      url + "/producto/historial",
       payload
     );
     console.log(
@@ -721,7 +728,7 @@ export const getHist = (id) => {
   return async function (dispatch) {
     try {
       let historial = await axios.get(
-        `http://localhost:3001/producto/historial/${id}`
+        url + `/producto/historial/${id}`
       );
 
       // console.log(historial.data, "El historial esta llegando correctamente a la funcion")
@@ -744,7 +751,7 @@ export const putProduct = (payload) => {
   return async function (dispatch) {
     try {
       let result = await axios.put(
-        "http://localhost:3001/producto/bebida",
+        url + "/producto/bebida",
         payload
       );
       return dispatch({
@@ -760,7 +767,7 @@ export const putProduct = (payload) => {
 export const createProduct = (prod) => {
   return async function (dispatch) {
     try {
-      await axios.post("http://localhost:3001/producto/bebida", prod);
+      await axios.post(url + "/producto/bebida", prod);
     } catch (e) {
       console.log(e);
     }
@@ -777,7 +784,7 @@ export const filterUserReview = (payload) => {
 export const getStats = () => {
   return async function (dispatch) {
     try {
-      let result = await axios.get("http://localhost:3001/usuario/admin/stats");
+      let result = await axios.get(url + "/usuario/admin/stats");
 
       return dispatch({
         type: GET_STATS,
@@ -793,7 +800,7 @@ export const getTopProds = (top) => {
   return async function (dispatch) {
     try {
       let result = await axios.post(
-        "http://localhost:3001/usuario/admin/stats/products",
+        url + "/usuario/admin/stats/products",
         { top: top }
       );
       console.log(result.data);
@@ -810,7 +817,7 @@ export const getTopProds = (top) => {
 export const adminDeleteProd = (id) => {
   return async function (dispatch) {
     try {
-      await axios.delete(`http://localhost:3001/producto/bebida/${id}`);
+      await axios.delete(url + `/producto/bebida/${id}`);
     } catch (err) {
       console.log(err);
     }
