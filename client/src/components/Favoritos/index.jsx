@@ -4,6 +4,7 @@ import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { deleteFavorito, getFavorito, getProducts } from "../../redux/actions";
 import Footer from "../Footer";
 import NavBarSec from "../NavBarSec";
+import swal from "sweetalert";
 import "./Favoritos.css";
 
 export const Favoritos = () => {
@@ -37,6 +38,12 @@ export const Favoritos = () => {
     e.preventDefault();
     let idProd = e.target.value;
     let payload = { id_prod: idProd, id_user: user };
+    swal({
+      title: "Producto borrado ",
+      icon: "success",
+      buttons: false,
+      timer: 500,
+    });
 
     dispatch(deleteFavorito(payload)); //↤ No tocar 😈
     //  window.location.reload()
