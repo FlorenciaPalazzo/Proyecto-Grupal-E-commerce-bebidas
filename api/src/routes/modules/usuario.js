@@ -113,6 +113,7 @@ router.put("/", async (req, res) => {
     let updated = await usuarioPut.update({
       id: id || usuarioPut.id,
       nombre: nombre || usuarioPut.nombre,
+      apellido : apellido || usuarioPut.apellido,
       email: email || usuarioPut.email,
       contraseña: contraseña || usuarioPut.contraseña,
       nacimiento: nacimiento || usuarioPut.nacimiento,

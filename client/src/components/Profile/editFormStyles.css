@@ -1,0 +1,9 @@
+.base64back{
+    /* background-color: rgba(153, 153, 153, 0.217); */
+
+    display: flex;
+}
+#passwordChange{
+    display: flex;
+    justify-content: space-around;
+}
