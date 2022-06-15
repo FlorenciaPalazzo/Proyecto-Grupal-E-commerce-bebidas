@@ -51,24 +51,26 @@
   margin-bottom: 2%;
   /* border: rgba(16, 178, 184, 0.918); */
 }
-
-button {
+/* display: inline-block; */ /* position: relative; */
+.boton-prohibido {
   appearance: none;
-  background-color: #FAFBFC;
+  background-color: #fafbfc;
   border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: 6px;
-  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+    rgba(255, 255, 255, 0.25) 0 1px 0 inset;
   box-sizing: border-box;
-  color: #24292E;
+  color: #24292e;
   cursor: pointer;
-  /* display: inline-block; */
-  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-size: 10px;
   font-weight: 500;
   line-height: 20px;
   list-style: none;
   padding: 3px;
-  /* position: relative; */
+
   transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
   user-select: none;
   -webkit-user-select: none;
@@ -76,38 +78,38 @@ button {
   vertical-align: middle;
   white-space: nowrap;
   word-wrap: break-word;
- }
- 
- button:hover {
-  background-color: #F3F4F6;
+}
+
+.boton-prohibido:hover {
+  background-color: #f3f4f6;
   text-decoration: none;
   transition-duration: 0.1s;
- }
- 
- button:disabled {
-  background-color: #FAFBFC;
+}
+
+.boton-prohibido:disabled {
+  background-color: #fafbfc;
   border-color: rgba(27, 31, 35, 0.15);
-  color: #959DA5;
+  color: #959da5;
   cursor: default;
- }
- 
- button:active {
-  background-color: #EDEFF2;
+}
+
+.boton-prohibido:active {
+  background-color: #edeff2;
   box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
   transition: none 0s;
- }
- 
- button:focus {
+}
+
+.boton-prohibido:focus {
   outline: 1px transparent;
- }
- 
- button:before {
+}
+
+.boton-prohibido:before {
   display: none;
- }
- 
- button:-webkit-details-marker {
+}
+
+.boton-prohibido:-webkit-details-marker {
   display: none;
- }
+}
 
 .emp-profile {
   /* width: 100%; */
