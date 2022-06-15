@@ -4,7 +4,6 @@ import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { deleteFavorito, getFavorito, getProducts } from "../../redux/actions";
 import Footer from "../Footer";
 import NavBarSec from "../NavBarSec";
-
 import "./Favoritos.css";
 
 export const Favoritos = () => {
@@ -46,8 +45,9 @@ export const Favoritos = () => {
   return (
     <div>
       <NavBarSec />
-      <div className="div_title" >
-        <h2 className="title-fav">Mis Favoritos</h2></div>
+      <div className="div_title">
+        <h2 className="title-fav">Mis Favoritos</h2>
+      </div>
       <div className="div-contain">
         <div className="div-table">
           <table class="table">
