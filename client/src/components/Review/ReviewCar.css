@@ -37,6 +37,7 @@
 .reviewCar-items{
     /* background-color: crimson; */
     text-align: center;
+    word-break: break-all;
     
 }
 .reviewCar-star{

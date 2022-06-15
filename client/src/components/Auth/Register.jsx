@@ -10,7 +10,7 @@ import { auth, googleProvider } from "../../fb";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser, isAdmin, setUser } from "../../redux/actions";
-import { Link } from "react-router-dom";
+/* import { Link } from "react-router-dom"; */
 import Loading from "../Loading";
 import swal from "sweetalert";
 import "./Register.css";

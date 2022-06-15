@@ -88,7 +88,9 @@ export default function Detail() {
       }
     });
   };
-  const filterRelacionados = products.filter((e) => e.tipo === product.tipo);
+  const filterRelacionados = products.filter(
+    (e) => e.tipo === product.tipo && e.id !== product.id
+  );
   return (
     <div>
       {loading /* revisen esto!! */ ? (
@@ -160,33 +162,38 @@ export default function Detail() {
                 </div>
               </div>
 
-              <div></div>
-              <div className="review-detail">
-                {rev.length ? (
-                  rev.map((e) => {
-                    return (
-                      <div className="review-body">
-                        <p>Titulo: {e.titulo}</p>
-                        <p>Comentario: {e.comentario}</p>
-                        <p>
-                          Puntaje:{" "}
-                          <ReactStars
-                            count={e.puntaje}
-                            size={24}
-                            isHalf={true}
-                            emptyIcon={<i className="far fa-star"></i>}
-                            halfIcon={<i className="fa fa-star-half-alt"></i>}
-                            fullIcon={<i className="fa fa-star"></i>}
-                            edit={false}
-                            color="#ffd700"
-                          />
-                        </p>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <div className="review-body mx-3">no hay reviews</div>
-                )}
+              <div className="review-detail-body">
+                <div className="review-detail">
+                  {rev.length ? (
+                    rev.map((e) => {
+                      return (
+                        <div className="review-body">
+                          <p>Titulo: {e.titulo}</p>
+                          <p>Comentario: {e.comentario}</p>
+                          <p>
+                            Puntaje:{" "}
+                            <div>
+                              <ReactStars
+                                count={e.puntaje}
+                                size={24}
+                                isHalf={true}
+                                emptyIcon={<i className="far fa-star"></i>}
+                                halfIcon={
+                                  <i className="fa fa-star-half-alt"></i>
+                                }
+                                fullIcon={<i className="fa fa-star"></i>}
+                                edit={false}
+                                color="#ffd700"
+                              />
+                            </div>
+                          </p>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="review-body mx-3">no hay reviews</div>
+                  )}
+                </div>
                 <div>
                   <div>
                     {prom ? (
@@ -212,27 +219,27 @@ export default function Detail() {
                 </div>
               </div>
             </div>
-            <div>
+            <div className="detail-prod-rel">
               <h3>Productos relacionados</h3>
               <div className="card-container">
                 {filterRelacionados
                   ? filterRelacionados.slice(0, 4).map((e) => {
                       return (
                         // <div key={e.id} class="card">
-                         <div key={e.id} className="div-key-card">
-                        <Link to={"/bebida/" + e.id}>
-                          <Card
-                            nombre={e.nombre}
-                            imagen={e.imagen}
-                            id={e.id}
-                            marca={e.marca}
-                            ml={e.ml}
-                            graduacion={e.graduacion}
-                            precio={e.precio}
-                            stock={e.stock}
-                          />
-                        </Link>
-                      {/* </div> */}
+                        <div key={e.id} className="div-key-card">
+                          <Link to={"/bebida/" + e.id}>
+                            <Card
+                              nombre={e.nombre}
+                              imagen={e.imagen}
+                              id={e.id}
+                              marca={e.marca}
+                              ml={e.ml}
+                              graduacion={e.graduacion}
+                              precio={e.precio}
+                              stock={e.stock}
+                            />
+                          </Link>
+                          {/* </div> */}
                         </div>
                       );
                     })

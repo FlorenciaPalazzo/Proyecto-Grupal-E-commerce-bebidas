@@ -128,7 +128,14 @@ const Historial = () => {
           </div>
         </div>
       ) : (
-        <p>No hay nada en el historial</p>
+        <div className="empty-history">
+        <div className="empty-title">
+        <h3>No hay nada en el historial...</h3>
+        </div>
+          <div className="empty-history-image">
+          
+          </div>
+        </div>
       )}
     </div>
     

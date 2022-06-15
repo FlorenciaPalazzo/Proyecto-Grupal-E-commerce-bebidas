@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../../fb";
-import { adminDeleteProd, getProducts, resetUser } from "../../redux/actions";
+/* import { auth } from "../../fb"; */
+import {
+  adminDeleteProd,
+  getProducts /* , resetUser */,
+} from "../../redux/actions";
 import Pagination from "../Pagination";
 import AdminPanel from "../AdminPanel";
 import Loading from "../Loading";
@@ -17,7 +20,7 @@ export default function ViewProducts() {
   const [bool, setBool] = useState(true);
   const loading = useSelector((state) => state.isLoading);
   const admin = useSelector((state) => state.isAdmin);
-  const searchProduct = useSelector((state) => state.searchProduct);
+  /* const searchProduct = useSelector((state) => state.searchProduct); */
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage /* setProductsPerPage*/] = useState(10); //15 productos por pagina
 
@@ -119,7 +122,7 @@ export default function ViewProducts() {
                   return (
                     <tr>
                       <td className="viewproducts-display">
-                        <img src={product.imagen} width="50" />
+                        <img src={product.imagen} width="50" alt="" />
                       </td>
                       <td>{product.nombre}</td>
                       <td className="viewproducts-display">{product.marca}</td>
@@ -132,8 +135,8 @@ export default function ViewProducts() {
                       <td className="viewproducts-display">
                         {product.graduacion}%
                       </td>
-                      <td>{product.stock}</td>
-                      <td>${product.precio}</td>
+                      <td className="viewproducts-detail">{product.stock}</td>
+                      <td className="viewproducts-detail">${product.precio}</td>
                       <td>
                         <div className="viewusers-cont-btn">
                           <button
@@ -186,13 +189,16 @@ export default function ViewProducts() {
           </div>
         </div>
       ) : (
-        <h1> No eres administrador </h1>
+        <div>
+          <h1> No eres administrador </h1>
+
+          <Link to="/">
+            <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
+              Volver al home
+            </button>
+          </Link>
+        </div>
       )}
-      <Link to="/">
-        <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
-          Volver al home
-        </button>
-      </Link>
     </div>
   );
 }

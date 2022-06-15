@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./ProductForm.css";
+import swal from "sweetalert";
 import {
   clearState,
   getProductById,
@@ -28,6 +29,7 @@ function ProductForm() {
     updatedAt: "2022-06-08T15:54:46.320Z"
   */
   const { id } = useParams();
+  const navigate = useNavigate();
   console.log("ID", id);
   const prod = useSelector((state) => state.editProduct);
   const dispatch = useDispatch();
@@ -76,7 +78,16 @@ function ProductForm() {
     e.preventDefault();
     dispatch(updateProduct({ id: id, ...input }));
     dispatch(getProducts());
+    navigate("/admin");
   }
+
+  const handleAlertConfirm = (e) => {
+    e.preventDefault();
+    swal({
+      title: "Favor de completar todos los campos correctamente ",
+      icon: "warning",
+    });
+  };
 
   useEffect(() => {
     if (!prod) {
@@ -97,7 +108,7 @@ function ProductForm() {
         dispatch(clearState());
       };
     }
-  }, [prod]);
+  }, [prod]); //aca falta dispatch y id segun la consola amarilla del chrome jaja que decia!
   prod && console.log(input.tipo);
   console.log({
     nombreError,
@@ -284,7 +295,11 @@ function ProductForm() {
           tipoError ||
           stockError ||
           descripcionError ? (
-            <button type="button" className="productform-btn">
+            <button
+              onClick={handleAlertConfirm}
+              type="button"
+              className="productform-btn"
+            >
               Confirmar
             </button>
           ) : (

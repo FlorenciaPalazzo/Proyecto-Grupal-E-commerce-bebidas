@@ -42,3 +42,67 @@ body {
     box-shadow: 0 0 5px rgb(100, 100, 100);
     transition: box-shadow 0.1s ease-in-out;
 }
+
+
+
+
+ /* .review-detail-body{
+    background-color: blueviolet;
+   
+   
+} */
+.review-detail{
+    /* background-color:yellow; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+   
+}
+.review-body{
+     /* background-color: violet; */
+    width: 20%;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.458);
+
+    margin-left: 0.5%;
+    padding: 1%;
+    
+
+   
+}
+
+.detail-prom-prod{
+    background-color: rgb(90, 12, 12);
+    width: 100%;
+   border-top:1px solid rgba(0, 0, 0, 0.458); 
+   border-bottom:1px solid rgba(0, 0, 0, 0.458); ;
+}
+
+.detail-prom-prod h2{
+    text-align: center;
+}
+
+.detail-estrellas-total{
+    background-color: brown; 
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
+} 
+
+ @media (max-width: 500px) {
+    .review-detail{ 
+        display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+   
+   
+       }
+
+       .review-body{
+        width: 100%;
+       }
+} 
+
+ 

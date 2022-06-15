@@ -1,25 +1,34 @@
 import { signOut } from "firebase/auth";
-import { push } from "firebase/database";
+/* import { push } from "firebase/database"; */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../fb";
-import { getUserDb, getUsersLoged, resetUser } from "../../redux/actions";
+import {
+  /*  getUserDb, */ getUsersLoged,
+  resetUser,
+} from "../../redux/actions";
 import Loading from "../Loading";
-import ViewUsers from "../ViewUsers";
+/* import ViewUsers from "../ViewUsers"; */
+//---------------------------------------------------------- //
+//NOTA!!!! : Varias de las cosas comentadas fueron porque en //
+//la consola del explorador aparecian en amarrillo           //
+//si algo anda mal, revisar. Romper con cuidado.             //
+//----------------------------------------------------------
+
 export default function AdminPanel() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const loading = useSelector((state) => state.isLoading);
-  const usersLoged = useSelector((state) => state.usersLoged);
+  /* const usersLoged = useSelector((state) => state.usersLoged); */
   const admin = useSelector((state) => state.isAdmin);
 
-  const handleOnClickAdminProduct = (e) => {
+  /* const handleOnClickAdminProduct = (e) => {
     e.preventDefault();
     navigate("/admin/products");
     window.location.reload();
-  };
+  }; */
 
   const handleOnClickAdminReview = (e) => {
     e.preventDefault();
@@ -56,7 +65,7 @@ export default function AdminPanel() {
           <nav class="navbar bg-light fixed-top">
             <div class="container-fluid">
               <a class="navbar-brand" href="/admin">
-                <img src="/images/Logo-Letras.png" height="50px" />
+                <img src="/images/Logo-Letras.png" height="50px" alt="logo" />
               </a>
 
               <button
@@ -155,7 +164,8 @@ export default function AdminPanel() {
                       <a
                         onClick={handleOnClickAdminReview}
                         class="nav-link"
-                        href="#"
+                        /* href="#" */
+                        href="/#"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -172,7 +182,33 @@ export default function AdminPanel() {
                     </li>
 
                     <li class="nav-item">
-                      <a class="nav-link" onClick={out} href="#">
+                      <Link
+                        to="/admin/products/stats"
+                        class="nav-link active"
+                        aria-current="page"
+                        href="#"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="25"
+                          height="25"
+                          fill="currentColor"
+                          class="bi bi-cart-plus"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                          <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                        </svg>
+                        {""}Más vendidos
+                      </Link>
+                    </li>
+
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        onClick={out}
+                        /* href="#" */ href="/#"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="25"
@@ -199,9 +235,7 @@ export default function AdminPanel() {
             </div>
           </nav>
         </div>
-      ) : (
-        null
-      )}
+      ) : null}
       {/* <Link to = "/">
         <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
           Volver al home

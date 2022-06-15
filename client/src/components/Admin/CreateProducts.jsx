@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { /* useEffect,  */ useState } from "react";
+import { useDispatch /*  useSelector */ } from "react-redux";
+import { useNavigate /* useParams */ } from "react-router-dom";
 import {
-  clearState,
+  /* clearState, */
   createProduct,
-  getProductById,
+  /* getProductById,
   getProducts,
-  updateProduct,
+  updateProduct, */
 } from "../../redux/actions";
 import validate from "./adminResources";
 import FileBase64 from "react-file-base64";
+
+//---------------------------------------------------------- //
+//NOTA!!!! : Varias de las cosas comentadas fueron porque en //
+//la consola del explorador aparecian en amarrillo           //
+//si algo anda mal, revisar. Romper con cuidado.             //
+//----------------------------------------------------------
 
 function CreateProducts() {
   const dispatch = useDispatch();
@@ -19,11 +25,11 @@ function CreateProducts() {
     precio: "", // ## , ##.##
     graduacion: null, // ##%
     ml: null,
-    stock: 0,
+    stock: 0, // hay dos stock preguntar cual queda
     tipo: "cerveza",
     descripcion: "",
     imagen: "",
-    stock: null,
+    stock: null, // hay dos stock preguntar cual queda
   });
 
   const [nombreError, setNombreError] = useState(null);
@@ -58,7 +64,7 @@ function CreateProducts() {
     console.log("posthandle");
     dispatch(createProduct(input));
     navigate("/admin/products");
-    window.location.reload()
+    window.location.reload();
   }
   function handleSubmit(e) {
     e.preventDefault();
@@ -188,7 +194,12 @@ function CreateProducts() {
 
         <h3>Categoria de producto: </h3>
 
-        <select name="tipo" id="tipo" defaultValue={`cerveza`} onChange={handleChange}>
+        <select
+          name="tipo"
+          id="tipo"
+          defaultValue={`cerveza`}
+          onChange={handleChange}
+        >
           <option value="cerveza">Cerveza</option>
           <option value="vino">Vino</option>
           <option value="espumante">Espumante</option>
@@ -241,7 +252,12 @@ function CreateProducts() {
         !input.precio ||
         !input.stock ||
         !bool ? (
-          <button type="button" onClick={() => alert("Complete todos los campos weon")}>Crear</button>
+          <button
+            type="button"
+            onClick={() => alert("Complete todos los campos weon")}
+          >
+            Crear
+          </button>
         ) : (
           <button type="submit" onClick={handleSubmit}>
             Crear

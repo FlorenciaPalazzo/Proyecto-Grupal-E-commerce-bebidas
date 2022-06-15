@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBarSec from "../NavBarSec";
 /* import Footer from "../Footer"; */
 
+//---------------------------------------------------------- //
+//NOTA!!!! : Varias de las cosas comentadas fueron porque en //
+//la consola del explorador aparecian en amarrillo           //
+//si algo anda mal, revisar. Romper con cuidado.             //
+//----------------------------------------------------------
+
 export const About = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
   return (
     <div>
       <NavBarSec />
@@ -12,7 +21,11 @@ export const About = () => {
           <div class="row gx-5 align-items-center">
             <div class="col-lg-6 order-lg-2">
               <div class="p-5">
-                <img class="img-fluid rounded-circle" src="/images/ja.jpeg" />
+                <img
+                  class="img-fluid rounded-circle"
+                  src="/images/ja.jpeg"
+                  alt=""
+                />
               </div>
             </div>
             <div class="col-lg-6 order-lg-1">

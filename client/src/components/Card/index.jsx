@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { /*  useEffect, */ useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCart, setFavorito } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
@@ -50,20 +50,10 @@ export default function Card({
     console.log("stock", productObject.stock);
     productObject.stock === 0
       ? swal({
-          title: "Producto sin stock...",
-          text: "...Subcribete para que te informemos cuando este disponible nuevamente...🛒🛒🛒!",
-          buttons: {
-            cancel: "Seguir navegando",
-            register: {
-              text: "Subcribirse",
-              value: "subcribirse",
-            },
-          },
+          title: "Producto sin stock 🛒",
           icon: "warning",
-        }).then((value) => {
-          if (value === "subcribirse") {
-            navigate("/subcribirse");
-          }
+          buttons: false,
+          timer: 800,
         })
       : dispatch(addCart(productObject));
   };
@@ -111,7 +101,7 @@ export default function Card({
     });
   };
 
-  const handleAlertCarrito = (e) => {
+  /*  const handleAlertCarrito = (e) => {
     e.preventDefault();
     swal({
       title: "Debes ingresar con tu usuario",
@@ -133,7 +123,7 @@ export default function Card({
         navigate("/login");
       }
     });
-  };
+  }; */
 
   //acá traigo todas las propiedadess
   return (
