@@ -10,7 +10,8 @@ import {
 } from "../../redux/actions";
 import validate from "./adminResources";
 import FileBase64 from "react-file-base64";
-import "./ProductForm.css";
+import "./CreateProducts.css";
+import AdminPanel from "../AdminPanel";
 
 //---------------------------------------------------------- //
 //NOTA!!!! : Varias de las cosas comentadas fueron porque en //
@@ -100,16 +101,17 @@ function CreateProducts() {
     stockError,
   });
   return (
-    <div className="productform-body">
-      <div className="productform-base">
+    <div className="c-body">
+      <AdminPanel />
+      <div className="c-base">
         <h1>Create Form</h1>
-        <form className="productform-form1">
+        <form className="c-form1">
           {nombreError && (
             <div>
               <span>{nombreError}</span>
             </div>
           )}
-          <label htmlFor="nombre" className="productform-items">
+          <label htmlFor="nombre" className="c-items">
             Nombre:{" "}
           </label>
           <input
@@ -118,14 +120,15 @@ function CreateProducts() {
             name="nombre"
             value={input.nombre}
             onChange={handleChange}
+            className="c-items"
           />
-          <br />
+
           {marcaError && (
             <div>
               <span>{marcaError}</span>
             </div>
           )}
-          <label className="productform-items" htmlFor="marca">
+          <label className="c-items" htmlFor="marca">
             Marca:{" "}
           </label>
           <input
@@ -134,14 +137,15 @@ function CreateProducts() {
             name="marca"
             value={input.marca}
             onChange={handleChange}
+            className="c-items"
           />
-          <br />
+
           {precioError && (
             <div>
               <span>{precioError}</span>
             </div>
           )}
-          <label htmlFor="precio" className="productform-items">
+          <label htmlFor="precio" className="c-items">
             Precio: $
           </label>
           <input
@@ -150,14 +154,15 @@ function CreateProducts() {
             name="precio"
             value={input.precio}
             onChange={handleChange}
+            className="c-items"
           />
-          <br />
+
           {stockError && (
             <div>
               <span>{stockError}</span>
             </div>
           )}
-          <label htmlFor="stock" className="productform-items">
+          <label htmlFor="stock" className="c-items">
             Stock:{" "}
           </label>
           <input
@@ -166,14 +171,15 @@ function CreateProducts() {
             name="stock"
             value={input.stock}
             onChange={handleChange}
+            className="c-items"
           />
-          <br />
+
           {graduacionError && (
             <div>
               <span>{graduacionError}</span>
             </div>
           )}
-          <label htmlFor="graduacion" className="productform-items">
+          <label htmlFor="graduacion" className="c-items">
             Graduacion en %:{" "}
           </label>
           <input
@@ -182,23 +188,26 @@ function CreateProducts() {
             name="graduacion"
             value={input.graduacion}
             onChange={handleChange}
+            className="c-items"
           />
-          <br />
+
           {mlError && (
             <div>
               <span>{mlError}</span>
             </div>
           )}
-          <label htmlFor="ml">Capacidad en ml. : </label>
+          <label htmlFor="ml" className="c-items">
+            Capacidad en ml. :{" "}
+          </label>
           <input
             type="number"
             id="ml"
             name="ml"
             value={input.ml}
             onChange={handleChange}
-            className="productform-items"
+            className="c-items"
           />
-          <br />
+
           {tipoError && (
             <div>
               <span>{tipoError}</span>
@@ -208,7 +217,7 @@ function CreateProducts() {
           <h3>Categoria de producto: </h3>
 
           <select
-            className="productform-form2"
+            className="c-items"
             name="tipo"
             id="tipo"
             defaultValue={`cerveza`}
@@ -238,7 +247,7 @@ function CreateProducts() {
               <span>{descripcionError}</span>
             </div>
           )}
-          <label htmlFor="descripcion" className="productform-items">
+          <label htmlFor="descripcion" className="c-items">
             Descripcion:{" "}
           </label>
           <textarea
@@ -248,6 +257,7 @@ function CreateProducts() {
             rows="10"
             value={input.descripcion}
             onChange={handleChange}
+            className="c-items"
           />
           <br />
 
@@ -269,18 +279,14 @@ function CreateProducts() {
           !input.stock ||
           !bool ? (
             <button
-              className="productform-btn"
+              className="c-btn"
               type="button"
               onClick={() => alert("Complete todos los campos weon")}
             >
               Crear
             </button>
           ) : (
-            <button
-              type="submit"
-              className="productform-btn"
-              onClick={handleSubmit}
-            >
+            <button type="submit" className="c-btn" onClick={handleSubmit}>
               Crear
             </button>
           )}
