@@ -76,37 +76,3 @@ export default function validate(
     } 
 }
 
-
-var producto ={nombre: "cerveza"}
-
-console.log(producto.nombre.charAt(0).toUpperCase() + producto.nombre.slice(1));
-
-let revs = [
-    {
-        id_user: "a",
-        id_prod: "b"
-    },
-    {
-        id_user: "b",
-        id_prod: "b"
-    }
-]
-
-let allRevs = revs.map(e => `${e.id_user} ${e.id_prod}`)
-console.log(allRevs);
-var id_user = "b"
-var id_prod = "b"
-
-console.log(allRevs.includes(`${id_user} ${id_prod}`));
-
-
-let obj = {
-    "019c6ecb-8a03-468a-9dde-e8be1b92ba57": 20,
-"acce51de-852e-449a-9290-10a156afb225": 3,
-"e78f2717-4d47-4fcb-8910-921922a5e42d": 1
-}
-
-
-console.log(Object.entries(obj));
-
-

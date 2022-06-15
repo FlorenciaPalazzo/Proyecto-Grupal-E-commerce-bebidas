@@ -76,8 +76,8 @@ function UserProfile() {
                   ) : (
                     <img src="./images/default.jpg" height="100" width="100" />
                   )}
-                  <h5 class="name mt-3  pl-3">{user && user.displayName}</h5>
-                  <p class="idd  pl-3">{user && user.email}</p>
+                  <h5 class="name mt-3  pl-3">{dbUser && dbUser.nombre}</h5>
+                  <p class="idd  pl-3">{dbUser && dbUser.email}</p>
                   <a href="/profile/edit">
                     <button class="btn1 btn-dark  pl-3">Editar Perfil</button>
                   </a>
