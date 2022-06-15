@@ -63,6 +63,7 @@ function Register() {
   }
   async function handleSubmit(e) {
     e.preventDefault();
+
     setError(null);
     console.log(input);
     try {
