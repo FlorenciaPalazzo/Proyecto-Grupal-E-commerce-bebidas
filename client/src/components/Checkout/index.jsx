@@ -5,6 +5,7 @@ import swal from "sweetalert";
 import {
   addDirecciones,
   deleteDirecciones,
+  deleteMercadoPago,
   getDirecciones,
   getMercadoPago,
 } from "../../redux/actions";
@@ -51,7 +52,7 @@ export const Checkout = () => {
   const [boleano, setBoleano] = useState(false);
   console.log("soy el user", user);
   let productCart = JSON.parse(window.localStorage.getItem("product"));
-
+  let navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [input, setInput] = useState({
@@ -85,9 +86,9 @@ export const Checkout = () => {
 
   const direccionSucursal = {
     delivery_type: "sucursal",
-    calle_numero: ".",
+    calle_numero: "Colectora Este Ramal Pilar 1250",
     localidad: "Pilar",
-    provincia: "Retiro por sucursal",
+    provincia: "BUENOS AIRES",
   };
   const handleInputChange = function (e) {
     if (e.target.value === "sucursal") {
@@ -192,7 +193,7 @@ export const Checkout = () => {
   const handlePagar = function (e) {
     e.preventDefault();
     window.location.replace(sandbox);
-    // setBoleano(!boleano);
+    setBoleano(!boleano);
   };
   let subtotal = productCart?.map(
     (element) => element.precio * element.quantity
@@ -248,14 +249,10 @@ export const Checkout = () => {
                   direccion.calle_numero ? (
                     <div>
                       <div className="form-direccion">
-                        {direccion.delivery_type === "sucursal" ? (
-                          <h2>Retiro por sucursal pilar</h2>
-                        ) : (
-                          <h2>
-                            Envio a:{" "}
-                            {`${direccion.provincia} , ${direccion.localidad}, ${direccion.calle_numero} CP ${direccion.codigo_postal}  `}
-                          </h2>
-                        )}
+                        <h2>
+                          Envio a:{" "}
+                          {`${direccion.provincia} , ${direccion.localidad}, ${direccion.calle_numero}, CP ${direccion.codigo_postal} `}
+                        </h2>
                       </div>
 
                       <div className="envio-dir">

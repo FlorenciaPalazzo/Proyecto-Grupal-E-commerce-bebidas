@@ -50,20 +50,10 @@ export default function Card({
     console.log("stock", productObject.stock);
     productObject.stock === 0
       ? swal({
-          title: "Producto sin stock...",
-          text: "...Subcribete para que te informemos cuando este disponible nuevamente...🛒🛒🛒!",
-          buttons: {
-            cancel: "Seguir navegando",
-            register: {
-              text: "Subcribirse",
-              value: "subcribirse",
-            },
-          },
+          title: "Producto sin stock 🛒",
           icon: "warning",
-        }).then((value) => {
-          if (value === "subcribirse") {
-            navigate("/subcribirse");
-          }
+          buttons: false,
+          timer: 800,
         })
       : dispatch(addCart(productObject));
   };
