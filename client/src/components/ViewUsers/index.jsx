@@ -28,16 +28,18 @@ export default function ViewUsers() {
     let d = date.split("-");
     return `${d[2]}/${d[1]}/${d[0]}`;
   }
+
   useEffect(() => {
     if (usersLoged && usersLoged.length === 0 && firstReq) {
       dispatch(getUsersLoged());
+      console.log("SE DESPACHO");
       setReq(false);
     }
     console.log(usersLoged);
   }, [usersLoged, admin]);
   return (
     <div>
-      {loading ? (
+      {loading || !usersLoged.length ? (
         <Loading />
       ) : admin ? (
         <div>
