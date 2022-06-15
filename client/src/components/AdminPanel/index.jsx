@@ -67,6 +67,12 @@ export default function AdminPanel() {
     window.location.reload();
   };
 
+  const handleGoToCreate = (e) => {
+    e.preventDefault();
+    navigate("/admin/products/create");
+    window.location.reload();
+  };
+
   useEffect(() => {
     dispatch(getUsersLoged());
   }, [dispatch, admin]);
@@ -157,11 +163,11 @@ export default function AdminPanel() {
 
                     <li class="nav-item">
                       <a
-                        to="/admin"
+                        to="/admin/products/create"
                         class="nav-link active"
                         aria-current="page"
                         href="/#"
-                        onClick={handleGoToAdmin}
+                        onClick={handleGoToCreate}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
