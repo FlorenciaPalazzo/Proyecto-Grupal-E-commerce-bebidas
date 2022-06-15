@@ -174,7 +174,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return { ...state, products: payload, searchProduct: payload };
 
     case GET_PRODUCT_ID:
-      return { ...state, detail: payload, editProduct: payload};
+      return { ...state, detail: payload, editProduct: payload };
 
     // case GET_BRANDS:
     //   let brandFilter = [];

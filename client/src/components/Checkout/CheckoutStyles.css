@@ -128,7 +128,7 @@
 }
 
 /* From uiverse.io by @Jedi-hongbin */
-/* button {
+.btn-back-cart button {
     display: flex;
     height: 3em;
     width: 100px;
@@ -143,22 +143,22 @@
     background: #fff;
    }
    
-   button > svg {
+  .btn-back-cart button > svg {
     margin-right: 5px;
     margin-left: 5px;
     font-size: 20px;
     transition: all 0.4s ease-in;
    }
    
-   button:hover > svg {
+ .btn-back-cart button:hover > svg {
     font-size: 1.2em;
     transform: translateX(-5px);
    }
    
-   button:hover {
+  .btn-back-cart button:hover {
    
     transform: translateY(-2px);
-   } */
+   } 
 
 @media (max-width: 800px) {
   .checkout-product-delivery {

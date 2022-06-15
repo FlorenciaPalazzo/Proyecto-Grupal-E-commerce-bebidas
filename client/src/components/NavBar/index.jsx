@@ -14,12 +14,21 @@ export default function NavBar({ setCurrentPage }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   function out() {
-    signOut(auth)
+    swal({
+      title: "Cerrando sesion ",
+      type: "success",
+      icon: "success",
+      /*  buttons: false, */
+      timer: 1000,
+    })
       .then(() => {
-        console.log("logout");
-        //dispatch(setLoading(true))
-        dispatch(resetUser());
-        //dispatch(setLoading(false))
+        signOut(auth).then(() => {
+          console.log("logout");
+          dispatch(resetUser());
+        });
+      })
+      .then(()=>{
+        navigate("/")
       })
       .catch((error) => {
         // An error happened.

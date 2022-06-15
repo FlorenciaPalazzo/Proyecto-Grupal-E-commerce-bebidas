@@ -5,8 +5,8 @@ import Loading from "../Loading";
 import AdminProfile from "./adminProfile";
 import UserProfile from "./userProfile";
 import NavBar from "../NavBar";
+import NavBarSec from "../NavBarSec";
 import Footer from "../Footer";
-
 
 function Profile() {
   const user = useSelector((state) => state.currentUser);
@@ -15,13 +15,12 @@ function Profile() {
   const admin = useSelector((state) => state.isAdmin);
 
   useEffect(() => {
-    
     console.log("effect");
     console.log(user);
   }, [user]);
   return (
     <div>
-      <NavBar/>
+      <NavBarSec />
 
       {loading ? (
         <Loading />
@@ -30,7 +29,6 @@ function Profile() {
       ) : (
         <UserProfile />
       )}
-      
     </div>
   );
 }
