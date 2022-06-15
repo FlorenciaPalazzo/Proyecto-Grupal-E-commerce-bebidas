@@ -303,7 +303,7 @@ export const About = () => {
                 </a>{" "}
                 <a
                   class="bi bi-linkedin"
-                  href="https://www.linkedin.com/in/natalia-leiva-033b77186/"
+                  href="https://www.linkedin.com/in/natalia-leiva-dev/"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

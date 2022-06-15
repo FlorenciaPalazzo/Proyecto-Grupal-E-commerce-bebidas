@@ -7,6 +7,7 @@ import Pagination from "../Pagination";
 import AdminPanel from "../AdminPanel";
 import Loading from "../Loading";
 import SearchBar from "../SearchBar";
+import swal from "sweetalert";
 import "./ViewProducts.css";
 
 export default function ViewProducts() {
@@ -36,10 +37,25 @@ export default function ViewProducts() {
   function handleLink(id) {
     navigate(`/admin/products/edit/${id}`);
   }
+
   function handleDelete(id) {
     dispatch(adminDeleteProd(id));
-    dispatch(getProducts());
-    console.log("Se ejecuta el handleDelete");
+    // setTimeout(()=>{
+    //   dispatch(getProducts())
+    // },1000)
+    // console.log("Se ejecuta el handleDelete");
+    swal({
+      title: "Borrando producto ",
+      type: "success",
+      icon: "success",
+      buttons: false,
+      timer: 1000,
+    }).then(
+      () => {
+        dispatch(getProducts());
+      }
+      //window.location.reload();
+    );
   }
 
   useEffect(() => {
@@ -141,7 +157,9 @@ export default function ViewProducts() {
                           </button>
                           <button
                             className="viewproducts-btn"
-                            onClick={() => handleDelete(product.id)}
+                            onClick={() => {
+                              handleDelete(product.id);
+                            }}
                           >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"

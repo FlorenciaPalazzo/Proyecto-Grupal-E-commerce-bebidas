@@ -114,12 +114,12 @@ function Register() {
   console.log(input);
 
   const handleAlertRegister = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     swal({
       title: "Favor de completar todos los campos ",
       icon: "warning",
     });
-  }
+  };
 
   async function errorValidate(error) {
     setError(null);
@@ -254,6 +254,7 @@ function Register() {
                 !emailError &&
                 !birthError &&
                 !celErrror &&
+                !confirmPasswordError &&
                 input.nombre &&
                 input.telefono &&
                 input.apellido &&
