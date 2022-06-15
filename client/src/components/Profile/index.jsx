@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Loading from "../Loading";
 import AdminProfile from "./adminProfile";
 import UserProfile from "./userProfile";
-import NavBar from "../NavBar";
+import NavBarSec from "../NavBarSec";
 import Footer from "../Footer";
 
 
@@ -21,7 +21,7 @@ function Profile() {
   }, [user]);
   return (
     <div>
-      <NavBar/>
+      <NavBarSec/>
 
       {loading ? (
         <Loading />

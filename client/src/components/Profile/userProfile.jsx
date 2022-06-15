@@ -29,11 +29,12 @@ function UserProfile() {
 
   let revs = useSelector((state) => state.allReviews);
   const prodFind = prod.filter((e) => e.id === revs.productoId);
-  console.log(prodFind, "productoId");
+ 
 
   let [bool, setBool] = useState(false);
-  console.log("user", user);
+  console.log("user", user); console.log("dbuser", dbUser);
   let allRevs = revs.filter((e) => user.uid === e.usuarioId);
+  console.log('Reviews', allRevs)
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -61,60 +62,76 @@ function UserProfile() {
     };
   }, [dispatch, endLoading, bool]);
 
-  return (
-    <section class="vh-100">
-      <div class="container py-5 h-75">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col col-lg-6 mb-4 mb-lg-0">
-            <div class="card mb-3">
-              <div class="row g-0">
-                <div class="col-md-4 gradient-custom text-center text-black">
+                  
+
+    return (
+      <div class="container emp-profile"  >
+      <form method="post">
+          <div class="row">
+              <div class="col-md-4">
+                  <div class="profile-img">
                   {dbUser?.image ? (
-                    <img src={dbUser.image} height="100" width="100" />
-                  ) : user.photoURL ? (
-                    <img src={user.photoURL} height="100" width="100" />
-                  ) : (
-                    <img src="./images/default.jpg" height="100" width="100" />
-                  )}
-                  <h5 class="name mt-3  pl-3">{user && user.displayName}</h5>
-                  <p class="idd  pl-3">{user && user.email}</p>
-                  <a href="/profile/edit">
-                    <button class="btn1 btn-dark  pl-3">Editar Perfil</button>
-                  </a>
-                </div>
-                <div class="col-md-8">
-                  {allRevs.length ? (
-                    allRevs.map((r) => {
-                      return (
-                        <div class="card-body p-4" key={r.id} value={r.id}>
-                          <ReviewCar
-                            titulo={r.titulo}
-                            comentario={r.comentario}
-                            puntaje={r.puntaje}
-                            producto={r.productoId}
-                            fecha={r.createdAt}
-                          />
-                          <button
-                            onClick={handleLocalStorage}
-                            value={JSON.stringify(r)}
-                            name={r.id}
-                          >
-                            ✏️
-                          </button>
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <div>No hay reviews!</div>
-                  )}
+                      <img src={dbUser.image} height="90" width="90" />
+                    ) : user.photoURL ? (
+                      <img src={user.photoURL} height="90" width="90" />
+                    ) : (
+                      <img src="./images/default.jpg" height="100" width="100" />
+                    )}
+                  </div>
+              </div>
+            <div className="positionBtn" >
+              <Link to='/profile/edit'>
+                    <button class="profile-edit-btn">Editar Perfil</button>               
+              </Link>
+              </div>
+          </div>
+  
+          <div class="row">
+                <div className="infoposition">
+              <div class="col-md-4">
+                  <div class="profile-work">
+                      <h5>{user && user.displayName}</h5>
+                     <p>{user && user.email}</p>
+                     <p>{dbUser && dbUser.telefono}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+              <div class="col-md-8" className="containerreviews">
+                  <div class="tab-content profile-tab" id="myTabContent">
+                      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                      <h2>Reviews</h2>
+            <div className="user-profile-contenedor">
+          {allRevs.length ? (
+            allRevs.map((r) => {
+              return (
+                <div key={r.id} value={r.id} className='aaaaaaa' >
+                  <ReviewCar
+                    titulo={r.titulo}
+                    comentario={r.comentario}
+                    puntaje={r.puntaje}
+                    producto={r.productoId}
+                    fecha={r.createdAt}
+                  />
+                  <div className="boton-editar-rev">
+                  <button onClick={handleLocalStorage} value={JSON.stringify(r)} name={r.id}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+                  </svg>
+                  </button>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <div>No hay reviews!</div>
+          )}</div>
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
-    </section>
-  );
+      </form>           
+  </div>
+    )
 }
 
 export default UserProfile;
