@@ -16,9 +16,9 @@ export default function NavBar({ setCurrentPage }) {
   function out() {
     swal({
       title: "Cerrando sesion ",
-      type: "success",
+      /*type: "success",*/
       icon: "success",
-      /*  buttons: false, */
+      buttons: false,
       timer: 1000,
     })
       .then(() => {
