@@ -834,3 +834,313 @@
 //        */}
 //   </div>
 // )};
+//--------------------------------------------------
+// return (
+      
+//     <div class="container emp-profile" className="user-profile-contenedor" >
+//     <form method="post">
+//         <div class="row">
+//             <div class="col-md-4">
+//                 <div class="profile-img">
+//                 {dbUser?.image ? (
+//                     <img src={dbUser.image} height="90" width="90" />
+//                   ) : user.photoURL ? (
+//                     <img src={user.photoURL} height="90" width="90" />
+//                   ) : (
+//                     <img src="./images/default.jpg" height="100" width="100" />
+//                   )}
+//                 </div>
+//             </div>
+
+//           <div class="btnpos">
+//             <Link to='/profile/edit'>
+//                   <button class="btn1 btn-dark  pl-3">Editar Perfil</button>               
+//             </Link>
+//             </div>
+//         </div>
+//         <div class="row">
+//             <div class="col-md-4">
+//                 <div class="profile-work">
+//                     <h5>Información</h5>
+//                     <h7>Nombre y Apellido: {user && user.displayName}</h7>
+//                    <p>Email: {user && user.email}</p>
+//                    <p>Telefono: {dbUser && dbUser.telefono}</p>
+//                 </div>
+//             </div>
+//             <div class="col-md-8" className="containerreviews">
+//                 <div class="tab-content profile-tab" id="myTabContent">
+//                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+//                     <h2>Reviews</h2>
+//         {allRevs.length ? (
+//           allRevs.map((r) => {
+//             return (
+//               <div key={r.id} value={r.id} className='aaaaaaa' >
+//                 <ReviewCar
+//                   titulo={r.titulo}
+//                   comentario={r.comentario}
+//                   puntaje={r.puntaje}
+//                   producto={r.productoId}
+//                   fecha={r.createdAt}
+//                 />
+//                 <div className="boton-editar-rev">
+//                 <button onClick={handleLocalStorage} value={JSON.stringify(r)} name={r.id}>
+//                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+//                   <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+//                 </svg>
+//                 </button>
+//                 </div>
+//               </div>
+//             );
+//           })
+//         ) : (
+//           <div>No hay reviews!</div>
+//         )}
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     </form>           
+// </div>
+//   )
+// }
+//---------------------------------------------------------------
+// .emp-profile{
+//     padding: 3%;
+//     margin-top: 3%;
+//     margin-bottom: 3%;
+//     border-radius: 0.5rem;
+//     background: #fff;
+// }
+// .profile-img{
+//     text-align: center;
+// }
+// .profile-img img{
+//     width: 70%;
+//     height: 100%;
+// }
+// .profile-img .file {
+//     position: relative;
+//     overflow: hidden;
+//     margin-top: -20%;
+//     width: 70%;
+//     border: none;
+//     border-radius: 0;
+//     font-size: 15px;
+//     background: #212529b8;
+// }
+// .profile-img .file input {
+//     position: absolute;
+//     opacity: 0;
+//     right: 0;
+//     top: 0;
+// }
+// .profile-head h5{
+//     color: #333;
+// }
+// .profile-head h6{
+//     color: #0062cc;
+// }
+// .btnpos{
+//     display: flex;
+//     position: absolute;
+//     margin-top: 65vh;
+//     left: 12%;
+// }
+
+
+// .profile-edit-btn{
+//     border: none;
+//     border-radius: 1.5rem;
+//     width: 70%;
+//     padding: 2%;
+//     font-weight: 600;
+//     color: #6c757d;
+//     cursor: pointer;
+// }
+// .proile-rating{
+//     font-size: 12px;
+//     color: #818182;
+//     margin-top: 5%;
+// }
+// .proile-rating span{
+//     color: #495057;
+//     font-size: 15px;
+//     font-weight: 600;
+// }
+// .profile-head .nav-tabs{
+//     margin-bottom:5%;
+// }
+// .profile-head .nav-tabs .nav-link{
+//     font-weight:600;
+//     border: none;
+// }
+// .profile-head .nav-tabs .nav-link.active{
+//     border: none;
+//     border-bottom:2px solid #0062cc;
+// }
+// .profile-work{
+//     padding: 14%;
+//     margin-top: -15%;
+// }
+// .profile-work p{
+//     font-size: 12px;
+//     color: #818182;
+//     font-weight: 600;
+//     margin-top: 10%;
+// }
+// .profile-work a{
+//     text-decoration: none;
+//     color: #495057;
+//     font-weight: 600;
+//     font-size: 14px;
+// }
+// .profile-work ul{
+//     list-style: none;
+// }
+// .profile-tab label{
+//     font-weight: 600;
+// }
+// .profile-tab p{
+//     font-weight: 600;
+//     color: #0062cc;
+// }
+//-----------------------------------------------------------
+// return (
+//     <div className="user-profile-contenedor">
+//       <h1>Perfil de usuario</h1>
+//       <h2>{user && user.email}</h2>
+//       <h2>{dbUser && dbUser.nombre} </h2>
+//       <div>
+//         {
+//           /* !user.photoURL && dbUser */ dbUser?.image ? (
+//             <img src={dbUser.image} alt="" />
+//           ) : user.photoURL ? (
+//             <img src={user.photoURL} alt="" />
+//           ) : (
+//             <img src="./images/default.jpg" alt="" />
+//           )
+//         }
+//         <h2>Reviews</h2>
+//         {allRevs.length ? (
+//           allRevs.map((r) => {
+//             return (
+//               <div key={r.id} value={r.id} className='aaaaaaa' >
+//                 <ReviewCar
+//                   titulo={r.titulo}
+//                   comentario={r.comentario}
+//                   puntaje={r.puntaje}
+//                   producto={r.productoId}
+//                   fecha={r.createdAt}
+//                 />
+//                 <div className="boton-editar-rev">
+//                 <button onClick={handleLocalStorage} value={JSON.stringify(r)} name={r.id}>
+//                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+//                   <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+//                 </svg>
+//                 </button>
+//                 </div>
+//               </div>
+//             );
+//           })
+//         ) : (
+//           <div>No hay reviews!</div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// }
+//-------------------------------------------------------
+// .user-profile-contenedor{
+//     /* background-color: blueviolet; */
+//     display: flex;
+//     flex-direction: row;
+//     flex-wrap: wrap;
+//     justify-content: space-between;
+// }
+// .aaaaaaa{
+//     /* background-color: gold; */
+//     display: inline-flex;
+//     /* flex-direction: row; */
+//     flex-wrap: wrap;
+//     justify-content: space-around;
+//     width: 20%;
+//     height: 40%;
+// }
+// .boton-editar-rev{
+//     /* background-color: chartreuse; */
+//     width: 3%;
+//     justify-content:end;
+//     margin-right:auto;
+//     margin-left: 5%;
+//     margin-bottom: 55%;
+//     /* border: rgba(16, 178, 184, 0.918); */
+// }
+//----------------------------------------
+// return (
+//     <div class="container emp-profile"  >
+//     <form method="post">
+//         <div class="row">
+//             <div class="col-md-4">
+//                 <div class="profile-img">
+//                 {dbUser?.image ? (
+//                     <img src={dbUser.image} height="90" width="90" />
+//                   ) : user.photoURL ? (
+//                     <img src={user.photoURL} height="90" width="90" />
+//                   ) : (
+//                     <img src="./images/default.jpg" height="100" width="100" />
+//                   )}
+//                 </div>
+//             </div>
+//           <div className="positionBtn" >
+//             <Link to='/profile/edit'>
+//                   <button class="profile-edit-btn">Editar Perfil</button>               
+//             </Link>
+//             </div>
+//         </div>
+
+//         <div class="row">
+//               <div className="infoposition">
+//             <div class="col-md-4">
+//                 <div class="profile-work">
+//                     <h5>{user && user.displayName}</h5>
+//                    <p>{user && user.email}</p>
+//                    <p>{dbUser && dbUser.telefono}</p>
+//                 </div>
+//               </div>
+//             </div>
+//             <div class="col-md-8" className="containerreviews">
+//                 <div class="tab-content profile-tab" id="myTabContent">
+//                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+//                     <h2>Reviews</h2>
+//           <div className="user-profile-contenedor">
+//         {allRevs.length ? (
+//           allRevs.map((r) => {
+//             return (
+//               <div key={r.id} value={r.id} className='aaaaaaa' >
+//                 <ReviewCar
+//                   titulo={r.titulo}
+//                   comentario={r.comentario}
+//                   puntaje={r.puntaje}
+//                   producto={r.productoId}
+//                   fecha={r.createdAt}
+//                 />
+//                 <div className="boton-editar-rev">
+//                 <button onClick={handleLocalStorage} value={JSON.stringify(r)} name={r.id}>
+//                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+//                   <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+//                 </svg>
+//                 </button>
+//                 </div>
+//               </div>
+//             );
+//           })
+//         ) : (
+//           <div>No hay reviews!</div>
+//         )}</div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     </form>           
+// </div>
+//   )

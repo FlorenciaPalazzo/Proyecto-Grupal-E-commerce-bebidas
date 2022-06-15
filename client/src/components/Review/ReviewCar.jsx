@@ -72,13 +72,13 @@ export const ReviewCar = ({
               <div>
                 <div className="reviewCar-items"><h4>{filt.nombre}</h4></div>
                <div className="reviewCar-items"> <img width="50%" src={filt.imagen} alt="" /></div>
-               <div className="reviewCar-items"><h4>Fecha: {fecha.split("T")[0]}</h4></div>
+               <div className="reviewCar-items"><h4>{fecha.split("T")[0]}</h4></div>
               </div>
             ) : (
               <div>
                 <div className="reviewCar-items"><h3>Review de la página</h3></div>
                 <div className="reviewCar-items"><img width="20%" src="./logo/logo.png" alt="" /></div>
-                <div className="reviewCar-items"><h4>Fecha: {fecha.split("T")[0]}</h4></div>
+                <div className="reviewCar-items"><h4>{fecha.split("T")[0]}</h4></div>
               </div>
             )}
           </div>

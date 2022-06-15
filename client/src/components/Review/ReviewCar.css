@@ -48,10 +48,10 @@
     font-size:5%;   
 } */
 
-@media (max-width: 900px) {
+@media (max-width: 600px) {
    
     .reviewCar-contenedor{
-        width: 50%;
+        width: 100%;
     }
   } 
 
