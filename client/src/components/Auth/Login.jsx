@@ -3,10 +3,21 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../fb";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { isAdmin, setUser, setMessage, createUser } from "../../redux/actions";
+import {
+  isAdmin,
+  setUser,
+  /* setMessage, */ createUser,
+} from "../../redux/actions";
 import Loading from "../Loading";
 import "./Login.css";
 import NavBarSec from "../NavBarSec";
+
+//---------------------------------------------------------- //
+//NOTA!!!! : Varias de las cosas comentadas fueron porque en //
+//la consola del explorador aparecian en amarrillo           //
+//si algo anda mal, revisar. Romper con cuidado.             //
+//----------------------------------------------------------
+
 function Login() {
   const [input, setInput] = useState({
     email: "",
@@ -93,7 +104,7 @@ function Login() {
   //   let foo = params.get("valen");
   //   console.log(foo)
 
-  const user = useSelector((state) => state.currentUser);
+  /* const user = useSelector((state) => state.currentUser); */
   useEffect(() => {
     isLoged && navigate("/");
   }, [isLoged]);
