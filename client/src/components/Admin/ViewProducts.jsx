@@ -132,8 +132,8 @@ export default function ViewProducts() {
                       <td className="viewproducts-display">
                         {product.graduacion}%
                       </td>
-                      <td>{product.stock}</td>
-                      <td>${product.precio}</td>
+                      <td className="viewproducts-detail">{product.stock}</td>
+                      <td className="viewproducts-detail">${product.precio}</td>
                       <td>
                         <div className="viewusers-cont-btn">
                           <button

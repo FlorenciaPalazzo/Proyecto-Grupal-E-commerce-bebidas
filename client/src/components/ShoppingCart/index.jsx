@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import NavBarSec from "../NavBarSec";
-import Footer from '../Footer'
+import Footer from "../Footer";
 import "./ShoppingCart.css";
 
 import {
@@ -51,20 +51,10 @@ const ShoppingCart = () => {
     console.log("stock", productObject.stock);
     productObject.stock === 0
       ? swal({
-          title: "Producto sin stock...",
-          text: "...Subcribete para que te informemos cuando este disponible nuevamente...🛒🛒🛒!",
-          buttons: {
-            cancel: "Seguir navegando",
-            register: {
-              text: "Subcribirse",
-              value: "subcribirse",
-            },
-          },
+          title: "Producto sin stock 🛒",
           icon: "warning",
-        }).then((value) => {
-          if (value === "subcribirse") {
-            navigate("/subcribirse");
-          }
+          buttons: false,
+          timer: 800,
         })
       : dispatch(addCart(productObject));
   };
@@ -94,9 +84,10 @@ const ShoppingCart = () => {
   const handleAlertCarrito = (e) => {
     e.preventDefault();
     swal({
-      title: "El carrito esta vacío",      
+      title: "El carrito esta vacío",
       icon: "warning",
-    })};
+    });
+  };
 
   console.log("object");
   return (
@@ -178,102 +169,110 @@ const ShoppingCart = () => {
     // </div>
     <div>
       <NavBarSec />
-    <div className="shopping-cart">
-      {loading /* revisen esto!! */ ? (
-        <Loading />
-      ) : (
-        <div className="card">
-          <div className="row">
-            <div className="col-md-8 cart">
-              <div className="title">
-                <div className="row">
-                  <div className="col">
-                    <h4>
-                      <b>Carrito</b>
-                    </h4>
+      <div className="shopping-cart">
+        {loading /* revisen esto!! */ ? (
+          <Loading />
+        ) : (
+          <div className="card">
+            <div className="row">
+              <div className="col-md-8 cart">
+                <div className="title">
+                  <div className="row">
+                    <div className="col">
+                      <h4>
+                        <b>Carrito</b>
+                      </h4>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="carrito-main">
-                {productCart &&
-                  productCart.map((e) => {
-                    productArray.push(e);
-                    return (
-                      <div className="row border-top border-bottom" id={e.id}>
-                        <div className="row main align-items-center">
-                          <div className="col-2">
-                            <img
-                              className="img-fluid"
-                              src={e.imagen}
-                              alt="img not found"
-                              width="20%"
-                            />
-                          </div>
-                          <div className="col">
-                            <div className="row">{e.nombre}</div>
-                          </div>
-                          <div className="col d-flex flex-row" >
-                            <button
-                              className="border"
-                              onClick={deleteProduct}
-                              value={e.id}
-                            >
-                              ➖
-                            </button>
-                            <div className="col" >
-                              ${e.precio} x {e.quantity} = $
-                              {e.precio * e.quantity}
+                <div className="carrito-main">
+                  {productCart &&
+                    productCart.map((e) => {
+                      productArray.push(e);
+                      return (
+                        <div className="row border-top border-bottom" id={e.id}>
+                          <div className="row main align-items-center">
+                            <div className="col-2">
+                              <img
+                                className="img-fluid"
+                                src={e.imagen}
+                                alt="img not found"
+                                width="20%"
+                              />
                             </div>
-                            <button
-                              className="border"
-                              onClick={addProduct}
-                              value={e.id}
-                            >
-                              ➕
-                            </button>
+                            <div className="col">
+                              <div className="row">{e.nombre}</div>
+                            </div>
+                            <div className="col d-flex flex-row">
+                              <button
+                                className="border"
+                                onClick={deleteProduct}
+                                value={e.id}
+                              >
+                                ➖
+                              </button>
+                              <div className="col">
+                                ${e.precio} x {e.quantity} = $
+                                {e.precio * e.quantity}
+                              </div>
+                              <button
+                                className="border"
+                                onClick={addProduct}
+                                value={e.id}
+                              >
+                                ➕
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
-              </div>
-              <button className="btn" onClick={cleanAllCart}>
-                Limpiar carrito
-              </button>
-              <div className="back-to-shop">
-                <a href="/">
-                  <span className="text-muted">Volver al home</span>
-                </a>
-              </div>
-            </div>
-            <div className="col-md-4 summary">
-              <div>
-                <h5>
-                  <b>Resumen</b>
-                </h5>
-              </div>
-              <hr />
-              <span>
-                <div className="row">
-                  <div className="col">PRECIO</div>
-                  <div className="col text-right">${total}</div>
-
-                  {
-                    /* verified && !verified.emailVerified && */ !productCart.length? (
-                     <button className="btn bg-success" onClick={handleAlertCarrito}>
-                       PAGAR
-                     </button>
-              ) :   <button className="btn bg-success" onClick={postCarrito}>
-                      PAGAR
-                    </button>
-                  }
+                      );
+                    })}
                 </div>
-              </span>
+                <button className="btn" onClick={cleanAllCart}>
+                  Limpiar carrito
+                </button>
+                <div className="back-to-shop">
+                  <a href="/">
+                    <span className="text-muted">Volver al home</span>
+                  </a>
+                </div>
+              </div>
+              <div className="col-md-4 summary">
+                <div>
+                  <h5>
+                    <b>Resumen</b>
+                  </h5>
+                </div>
+                <hr />
+                <span>
+                  <div className="row">
+                    <div className="col">PRECIO</div>
+                    <div className="col text-right">${total}</div>
+
+                    {
+                      /* verified && !verified.emailVerified && */ !productCart.length ? (
+                        <button
+                          className="btn bg-success"
+                          onClick={handleAlertCarrito}
+                        >
+                          PAGAR
+                        </button>
+                      ) : (
+                        <button
+                          className="btn bg-success"
+                          onClick={postCarrito}
+                        >
+                          PAGAR
+                        </button>
+                      )
+                    }
+                  </div>
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
     </div>
   );
 };
