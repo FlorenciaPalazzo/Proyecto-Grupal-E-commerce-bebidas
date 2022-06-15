@@ -11,7 +11,7 @@ import {
 } from "../../redux/actions";
 import Footer from "../Footer";
 import Loading from "../Loading";
-import Nav from "../Nav";
+
 import NavBarSec from "../NavBarSec";
 import "./CheckoutStyles.css";
 

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import NavBarSec from "../NavBarSec";
+import Footer from '../Footer'
 import "./ShoppingCart.css";
 
 import {
@@ -92,30 +94,9 @@ const ShoppingCart = () => {
   const handleAlertCarrito = (e) => {
     e.preventDefault();
     swal({
-      title: "Debes ingresar con tu usuario Validado",
-      text: "...para poder comprar 🛒🛒🛒!",
-      buttons: {
-        cancel: "Seguir navegando",
-        register: {
-          text: "Registrarse",
-          value: "register",
-        },
-        login: {
-          text: "Iniciar sesion",
-          value: "login",
-        },
-      },
+      title: "El carrito esta vacío",      
       icon: "warning",
-    }).then((value) => {
-      if (value === "register") {
-        navigate("/register");
-      }
-
-      if (value === "login") {
-        navigate("/login");
-      }
-    });
-  };
+    })};
 
   console.log("object");
   return (
@@ -195,7 +176,8 @@ const ShoppingCart = () => {
     //     </div>
     //   )}
     // </div>
-
+    <div>
+      <NavBarSec />
     <div className="shopping-cart">
       {loading /* revisen esto!! */ ? (
         <Loading />
@@ -230,7 +212,7 @@ const ShoppingCart = () => {
                           <div className="col">
                             <div className="row">{e.nombre}</div>
                           </div>
-                          <div className="col">
+                          <div className="col d-flex flex-row" >
                             <button
                               className="border"
                               onClick={deleteProduct}
@@ -238,7 +220,7 @@ const ShoppingCart = () => {
                             >
                               ➖
                             </button>
-                            <div className="col">
+                            <div className="col" >
                               ${e.precio} x {e.quantity} = $
                               {e.precio * e.quantity}
                             </div>
@@ -277,11 +259,11 @@ const ShoppingCart = () => {
                   <div className="col text-right">${total}</div>
 
                   {
-                    /* verified && !verified.emailVerified && productCart.length? (
-                     <button className="button" onClick={handleAlertCarrito}>
+                    /* verified && !verified.emailVerified && */ !productCart.length? (
+                     <button className="btn bg-success" onClick={handleAlertCarrito}>
                        PAGAR
                      </button>
-              ) :  */ <button className="btn bg-success" onClick={postCarrito}>
+              ) :   <button className="btn bg-success" onClick={postCarrito}>
                       PAGAR
                     </button>
                   }
@@ -291,6 +273,7 @@ const ShoppingCart = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };
