@@ -130,6 +130,7 @@ function UserProfile() {
                           />
                           <div className="boton-editar-rev">
                             <button
+                              className="boton-prohibido"
                               onClick={handleLocalStorage}
                               value={JSON.stringify(r)}
                               name={r.id}
@@ -154,8 +155,3 @@ function UserProfile() {
 }
 
 export default UserProfile;
-
-/* 
-data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCAEsAVwDASIAAhEBAxEB/8QAHQAAAAYDAQAAAAAAAAAAAAAAAgMEBQYHAAEICf/EAEwQAAEDAwMCAwQFCQUECQUBAAEAAgMEBREGEiEHMRNBUQgiYXEUMoGRkxUWI0JTkrHR0wkkYqHBFzVScjM0RVRVc4KD4RglQ0Sys//EABwBAAIDAQEBAQAAAAAAAAAAAAABAgMEBQYHCP/EADERAAICAQQABQMDAgcBAAAAAAABAhEDBBIhMQUTQVHwFBWBBmGRItEWIzJCUnGhsf/aAAwDAQACEQMRAD8AxoHZGxgErTWeXqjmR4WcmGMahNZz2KxjTlKY4/MhAAWRZxwlDRxjCxrUa1nwQAFsRJR0cOUayMYCOazlABLYcFHNYh7D6I2OInyQABkXbhHeCEc2LA7IW35IAI8FDbFjyR7Yj3RoiB8kh0Jms+CFt+aVCDCzwECEu35rNoSl0JHYLXhu9EwE+0LTmjHZKPBPmFnhD0SbSASmIY4CKdHg9kuMePJFuaCOQovklF0JhG3zCx0Y8ijjH6BaLCoNDsTuY
-
-*/
