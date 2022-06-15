@@ -64,8 +64,9 @@ export const Favoritos = () => {
             <div className="div-sin-fav" >
            <h2>Aún no has agregado favoritos..</h2>   
 
-
-              {/* <img src="/images/fav.png"width="80%" /> */}
+             <div>
+             <iframe src="https://giphy.com/embed/WQwQnLNj888eaF2wjd" width="480" height="480" frameBorder="0" allowFullScreen></iframe>
+             </div>
             </div>
           ) : (
             elFavorito.map((e) => {

@@ -40,7 +40,8 @@
 .div-fav{
     display: flex;
     flex-direction: column;
-      margin-left: 15%;
+      margin-left: 7%;
+      margin-right: 7%;
       margin-top: 3%;
       
 }
@@ -50,12 +51,14 @@
   
 }
 .div-sin-fav{
-    margin-bottom: 50%;
+    margin-left: 20%;
+    margin-bottom: 5%;
 margin-top: 10%;
 }
 .div-sin-fav h2 {
     font-size: 30px;
     font-style: oblique;
+    margin-bottom: 10%;
 }
 .div-btn-eliminar-fav{
     display: flex;
