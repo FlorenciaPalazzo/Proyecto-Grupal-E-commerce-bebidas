@@ -1,0 +1,250 @@
+/* * {
+  padding: 0;
+  margin: 0;
+}
+
+.carrito-background {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: "Montserrat";
+}
+
+.carrito-main {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.carrito-content {
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 2vh;
+  padding-left: 5px;
+  max-width: 95%;
+  max-height: 10%;
+}
+
+.carrito-product {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  justify-content: space-between;
+  align-content: center;
+  border-top: solid 2px #3c3c3c;
+  box-sizing: border-box;
+  margin: 3%;
+  align-items: center;
+  font-weight: bold;
+  min-width: 100px;
+  font-family: "Montserrat";
+  text-align: justify;
+}
+
+.carrito-resumen {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.carrito-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  width: 40vw;
+}
+
+.carrito-price > .button {
+  margin-right: 5%;
+  margin-left: 5%;
+}
+
+.button-pagar {
+  font-size: 15px;
+  font-weight: bold;
+  font-family: "Montserrat";
+  color: rgb(0, 0, 0);
+  background-color: hsl(128, 100%, 38%);
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-left: 10px;
+  cursor: pointer;
+  text-align: center;
+  padding: 5px 10px;
+  color: white;
+  transition: background-color 0.1s ease-in-out;
+} */
+
+body {
+    font-family: "Montserrat";
+}
+
+.shopping-cart .title {
+    margin-bottom: 5vh;
+}
+
+.shopping-cart .card {
+    margin: auto;
+    max-width: 950px;
+    width: 90%;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1rem;
+    border: transparent;
+}
+
+@media(max-width:767px) {
+    .shopping-cart .card {
+        margin: 3vh auto;
+    }
+}
+
+.shopping-cart .cart {
+    background-color: #fff;
+    padding: 4vh 5vh;
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem;
+}
+
+@media(max-width:767px) {
+    .shopping-cart .cart {
+        padding: 4vh;
+        border-bottom-left-radius: unset;
+        border-top-right-radius: 1rem;
+    }
+}
+
+.shopping-cart .summary {
+    background-color: #ddd;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 4vh;
+    color: rgb(65, 65, 65);
+    
+}
+
+@media(max-width:767px) {
+    .shopping-cart .summary {
+        border-top-right-radius: unset;
+        border-bottom-left-radius: 1rem;
+    }
+}
+
+.shopping-cart .summary .col-2 {
+    padding: 0;
+}
+
+.shopping-cart .summary .col-10 {
+    padding: 0;
+}
+
+.shopping-cart .row {
+    margin: 0;
+}
+
+.shopping-cart .title b {
+    font-size: 1.5rem;
+}
+
+.shopping-cart .main {
+    margin: 0;
+    padding: 2vh 0;
+    width: 100%;
+}
+
+.shopping-cart .col-2,
+.shopping-cart .col {
+    padding: 0 1vh;
+}
+
+.shopping-cart a {
+    padding: 0 1vh;
+}
+
+.shopping-cart .close {
+    margin-left: auto;
+    font-size: 0.7rem;
+}
+
+.shopping-cart img {
+    width: 3.5rem;
+}
+
+.shopping-cart .back-to-shop {
+    margin-top: 4.5rem;
+}
+
+.shopping-cart h5 {
+    margin-top: 4vh;
+}
+
+.shopping-cart hr {
+    margin-top: 1.25rem;
+}
+
+.shopping-cart form {
+    padding: 2vh 0;
+}
+
+.shopping-cart select {
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1.5vh 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+
+.shopping-cart input {
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+
+.shopping-cart input:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+
+.shopping-cart .btn {
+    background-color: #000;
+    border-color: #000;
+    color: white;
+    width: 100%;
+    font-size: 0.7rem;
+    margin-top: 4vh;
+    padding: 1vh;
+    border-radius: 0;
+}
+
+.shopping-cart .btn:focus {
+    box-shadow: none;
+    outline: none;
+    box-shadow: none;
+    color: white;
+    -webkit-box-shadow: none;
+    transition: none;
+}
+
+.shopping-cart .btn:hover {
+    color: white;
+}
+
+.shopping-cart a {
+    color: black;
+}
+
+.shopping-cart a:hover {
+    color: black;
+    text-decoration: none;
+}
+

@@ -1,0 +1,44 @@
+body {
+    font-family: "Montserrat";
+}
+
+.container .card {
+    margin-bottom: 30px;
+}
+
+.container .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid transparent;
+    border-radius: 0;
+}
+
+.container .card .card-subtitle {
+    font-weight: 300;
+    margin-bottom: 10px;
+    color: #8898aa;
+}
+
+.table-product.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f3f8fa !important;
+}
+
+.table-product td {
+    border-top: 0px solid #dee2e6 !important;
+    color: #728299 !important;
+}
+
+.card-group .card {
+    margin: 10px;
+    transition: box-shadow 0.1s ease-in-out;
+}
+
+.card-group .card:hover {
+    box-shadow: 0 0 5px rgb(100, 100, 100);
+    transition: box-shadow 0.1s ease-in-out;
+}

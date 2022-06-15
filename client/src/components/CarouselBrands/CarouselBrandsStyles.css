@@ -1,0 +1,36 @@
+.sliderBrands {
+	width: 72%;
+	margin: auto;
+	overflow: hidden;
+	
+}
+
+.sliderBrands ul {
+	display: flex;
+	padding: 0;
+	width: 300%;
+	
+	animation: cambio 10s infinite alternate linear;
+}
+
+.sliderBrands li {
+	width: 100%;
+	height: 100%;
+	list-style: none;
+}
+
+.sliderBrands img {
+	width: 100%;
+}
+
+
+@keyframes cambio {
+	0% {margin-left: 0;}
+	30% {margin-left: 0;}
+	
+    35% {margin-left: -100%;}
+	65% {margin-left: -100%;}
+	
+    70% {margin-left: -200%;}
+	100% {margin-left: -200%;} 
+}
