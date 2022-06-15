@@ -88,7 +88,9 @@ export default function Detail() {
       }
     });
   };
-  const filterRelacionados = products.filter((e) => e.tipo === product.tipo);
+  const filterRelacionados = products.filter(
+    (e) => e.tipo === product.tipo && e.id !== product.id
+  );
   return (
     <div>
       {loading /* revisen esto!! */ ? (
@@ -219,20 +221,20 @@ export default function Detail() {
                   ? filterRelacionados.slice(0, 4).map((e) => {
                       return (
                         // <div key={e.id} class="card">
-                         <div key={e.id} className="div-key-card">
-                        <Link to={"/bebida/" + e.id}>
-                          <Card
-                            nombre={e.nombre}
-                            imagen={e.imagen}
-                            id={e.id}
-                            marca={e.marca}
-                            ml={e.ml}
-                            graduacion={e.graduacion}
-                            precio={e.precio}
-                            stock={e.stock}
-                          />
-                        </Link>
-                      {/* </div> */}
+                        <div key={e.id} className="div-key-card">
+                          <Link to={"/bebida/" + e.id}>
+                            <Card
+                              nombre={e.nombre}
+                              imagen={e.imagen}
+                              id={e.id}
+                              marca={e.marca}
+                              ml={e.ml}
+                              graduacion={e.graduacion}
+                              precio={e.precio}
+                              stock={e.stock}
+                            />
+                          </Link>
+                          {/* </div> */}
                         </div>
                       );
                     })

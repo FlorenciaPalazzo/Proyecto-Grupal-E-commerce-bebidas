@@ -113,7 +113,7 @@ export default function PostReview() {
       {prod && prod[0] ? (
           <div className="logoFondo">
           {/* <h1>¡Contanos que te parecio {prod[0].nombre}!</h1> */}
-          <img src={prod[0].imagen} width="90%" />
+          <img src={prod[0].imagen} width="50%" />
         </div>
       ) : (
         
@@ -121,7 +121,7 @@ export default function PostReview() {
         {/* <div className="reviewPage">
         <h1>¡Contanos tu opinion sobre nosotros!</h1>
         </div> */}
-        <img  src="/images/logo.png" width="80%" />
+        <img  src="/images/logo.png" width="50%" />
         </div>
       
       )}
