@@ -5,6 +5,7 @@ import { deleteFavorito, getFavorito, getProducts } from "../../redux/actions";
 import Footer from "../Footer";
 import NavBarSec from "../NavBarSec";
 import "./Favoritos.css";
+import swal from "sweetalert";
 
 export const Favoritos = () => {
   const elFavorito = useSelector((state) => state.favProducts);
@@ -37,9 +38,14 @@ export const Favoritos = () => {
     e.preventDefault();
     let idProd = e.target.value;
     let payload = { id_prod: idProd, id_user: user };
-
     dispatch(deleteFavorito(payload)); //↤ No tocar 😈
     //  window.location.reload()
+    swal({
+      title: "Favorito borrado exitosamente",
+      type: "success",
+      buttons: false,
+      timer: 800,
+    });
     setBol(!bol);
   };
   return (
