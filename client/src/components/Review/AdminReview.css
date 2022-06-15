@@ -1,8 +1,71 @@
-.conteiner{
-    display: inline-block;
+.admin-review-madre{
+    /* background-color: brown; */
+    margin-top: 6%;
+    /* display: flex; */
 }
-.titular{
-    display: inline-flex;
+.admin-review-contenedor{
+    /* background-color: rgba(223, 226, 43, 0.555); */
+    display: flex;;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:left;
     
-
+    /* align-content: center; */
+    /* align-content: space-between; */
 }
+/* .mmmmm{ */
+    /* background-color: rgba(9, 255, 0, 0.712); */
+    /* justify-content: space-between; */
+    /* display: inline-flex; */
+    /* width:15%; */
+    /* padding: 1%;
+    margin-top: 5% ;
+    height: 70%; 
+    flex-wrap: wrap; */
+    /* justify-content: space-between; */
+/* } */
+
+.aaaaaaaa{
+    /* background-color: rgba(55, 0, 255, 0.616); */
+    /* display: flex;  */
+    /* flex-direction: row; */
+    /* flex-wrap: wrap; */
+    /* justify-content: left; */
+    /* align-content: space-between; */
+    width: 20%;
+    margin: 2%;
+    word-break: break-all;
+    /* height: 50%; */
+}
+.admin-review-boton{
+    /* background-color: rgba(245, 245, 220, 0.733); */
+    display: flex;
+    width: 5%;
+    height: 5%;
+
+    /* padding: 50%;
+    margin-left: 5px; */
+}
+@media (max-width: 780px) {
+    .aaaaaaaa{
+      margin-left: 6%;
+      display: inline-block;
+      position: relative;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      width: 40%;
+      /* flex-direction: column; */
+    }
+  }
+@media (max-width: 415px) {
+    .aaaaaaaa{
+      margin-left: 20%;
+      display: inline-block;
+      position: relative;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      width: 60%;
+      /* flex-direction: column; */
+    }
+  }
+

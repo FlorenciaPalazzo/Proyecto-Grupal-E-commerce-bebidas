@@ -26,6 +26,7 @@ import ViewProducts from "./components/Admin/ViewProducts";
 import ProductsStats from "./components/Admin/ProductsStats";
 import ViewUsers from "./components/ViewUsers";
 import { About } from "./components/About";
+import CreateProducts from "./components/Admin/CreateProducts";
 
 function App() {
   return (
@@ -33,10 +34,15 @@ function App() {
       <Routes>
         {/* <Route path="/" exact element={<Landing />} /> */}
         <Route path="/" exact element={<Home />} />
-        <Route path="/admin" exact element={<AdminPanel />} />
+        <Route path="/admin" exact element={<ViewProducts />} />
         <Route path="/admin/products/edit/:id" exact element={<EditForm />} />
-        <Route path="/admin/products" exact element={<ViewProducts />} />
+        {/* <Route path="/admin/products" exact element={<ViewProducts />} /> */}
         <Route path="/admin/products/stats" exact element={<ProductsStats />} />
+        <Route
+          path="/admin/products/create"
+          exact
+          element={<CreateProducts />}
+        />
         <Route path="/admin/usuarios" exact element={<ViewUsers />} />
         <Route path="/cart" exact element={<ShoppingCart />} />
         <Route path="/login" exact element={<Login />} />

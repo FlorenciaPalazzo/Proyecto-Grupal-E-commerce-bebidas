@@ -1,41 +1,63 @@
 .reviewCar-body{
-   
-    background-color: rgba(178, 243, 180, 0.692);
+    /* width: 18%;  */
+    /* background-color: rgba(178, 243, 180, 0.692); */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    /* margin-top: 1%; */
+    /* margin-left: 35%; */
+    align-content: center;
+    height: 90%;
+    
+}
+
+.buttonsReview{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .reviewCar-contenedor{
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     flex-direction: column;
-    background-color: aqua;
-    width:60%;
-  padding: 1%;
+    background-color: rgba(243, 243, 243, 0.685);
+    border:1px solid rgba(0, 0, 0, 0.493) ;
+    width: 95%;
+    padding: 5%;
     box-sizing: border-box;
     margin-top: 5%;
+    margin-left: auto;
+    height: 110%;
+    margin-right: auto;
+
 }
 
 .reviewCar-items{
-    background-color: crimson;
+    /* background-color: crimson; */
     text-align: center;
     
 }
 .reviewCar-star{
-    background-color:rgba(0, 38, 255, 0.473);
+    /* background-color:rgba(0, 38, 255, 0.473); */
     text-align: center;
-    padding-left: 36% ;
+    padding-left: 25% ;
     padding-right: auto;
+    /* border:1px solid rgba(0, 0, 0, 0.493) ; */
     
 }
 .reviewCar-x{
-    background-color:rgba(21, 255, 0, 0.473);
-   
-   
+    background-color:rgba(21, 255, 0, 0);   
 }
+/* .reviewCar-titulo{
+    font-size:5%;   
+} */
 
-@media (max-width: 900px) {
+@media (max-width: 600px) {
    
     .reviewCar-contenedor{
-        width: 50%;
+        width: 100%;
     }
   } 
 

@@ -171,25 +171,25 @@ export default function PostReview() {
         {!input.puntaje && (
           <span className="register-span ">¡No te olvides de puntuarnos! </span>
           )}
-        <div>
+        <div className="buttonsReview">
           {!tituloError &&
           !comentarioError &&
           input.puntaje &&
           input.comentario &&
           input.titulo ? (
-            <button className="button" type="submit">
+            <button class="btn btn-dark" type="submit">
               Puntuar
             </button>
           ) : (
             <div>¡Debes llenar todos los campos!</div>
             )}
-        </div>
         <div>
           <Link to="/">
-            <button className="button">Back</button>
+            <button class="btn btn-dark">Back</button>
           </Link>
         </div>
             </div>
+        </div>
       </form>
       </div>
     </div>
