@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { clearState, getReview, getUsersLoged } from "../../redux/actions";
 import ReactStars from "react-rating-stars-component";
 import { ReviewCar } from "./ReviewCar";
-import './adminRevDetail.css'
+import "./adminRevDetail.css";
 
 export const AdminRevDetail = (/* { id } */) => {
   const dispatch = useDispatch();
@@ -64,7 +64,7 @@ export const AdminRevDetail = (/* { id } */) => {
             }
           });
           return (
-            <div key={r.id} value={r.id} className='admin-detail-rev-carta'>
+            <div key={r.id} value={r.id} className="admin-detail-rev-carta">
               <ReviewCar
                 titulo={r.titulo}
                 comentario={r.comentario}

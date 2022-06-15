@@ -1,23 +1,25 @@
-import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../fb";
-import { getProducts, resetUser } from "../../redux/actions";
+import { adminDeleteProd, getProducts, resetUser } from "../../redux/actions";
 import Pagination from "../Pagination";
-import AdminPanel from '../AdminPanel'
+import AdminPanel from "../AdminPanel";
 import Loading from "../Loading";
+import SearchBar from "../SearchBar";
+import swal from "sweetalert";
 import "./ViewProducts.css";
 
 export default function ViewProducts() {
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [bool, setBool] = useState(true);
   const loading = useSelector((state) => state.isLoading);
   const admin = useSelector((state) => state.isAdmin);
-
+  const searchProduct = useSelector((state) => state.searchProduct);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage /*setProductsPerPage*/] = useState(10); //15 productos por pagina
+  const [productsPerPage /* setProductsPerPage*/] = useState(10); //15 productos por pagina
 
   const indexOfLastProduct = currentPage * productsPerPage; // 15
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
@@ -36,23 +38,34 @@ export default function ViewProducts() {
     navigate(`/admin/products/edit/${id}`);
   }
 
-  function out() {
-    signOut(auth)
-      .then(() => {
-        console.log("logout");
-        //dispatch(setLoading(true))
-        dispatch(resetUser());
-        //dispatch(setLoading(false))
-        navigate("/");
-      })
-      .catch((error) => {
-        // An error happened.
-        console.log(error);
-      });
+  function handleDelete(id) {
+    dispatch(adminDeleteProd(id));
+    // setTimeout(()=>{
+    //   dispatch(getProducts())
+    // },1000)
+    // console.log("Se ejecuta el handleDelete");
+    swal({
+      title: "Borrando producto ",
+      type: "success",
+      icon: "success",
+      buttons: false,
+      timer: 1000,
+    }).then(
+      () => {
+        dispatch(getProducts());
+      }
+      //window.location.reload();
+    );
   }
+
   useEffect(() => {
-    !products.length && dispatch(getProducts());
+    if (bool) {
+      dispatch(getProducts());
+    }
+    setBool(false);
+    // !products.length && dispatch(getProducts());
   }, [products]);
+  console.log(products);
   return (
     <div>
       {loading ? (
@@ -60,8 +73,12 @@ export default function ViewProducts() {
       ) : admin ? (
         <div>
           <AdminPanel />
+
           <div class="viewproducts-borde">
             {" "}
+            <div>
+              <SearchBar setCurrentPage={setCurrentPage} />
+            </div>
             <Pagination
               currentPage={currentPage}
               productsPerPage={productsPerPage}
@@ -107,8 +124,9 @@ export default function ViewProducts() {
                       <td>{product.nombre}</td>
                       <td className="viewproducts-display">{product.marca}</td>
                       <td className="viewproducts-display">
-                        {product.tipo.charAt(0).toUpperCase() +
-                          product.tipo.slice(1)}
+                        {product.tipo &&
+                          product.tipo.charAt(0).toUpperCase() +
+                            product.tipo.slice(1)}
                       </td>
                       <td className="viewproducts-display">{product.ml} ml.</td>
                       <td className="viewproducts-display">
@@ -137,7 +155,12 @@ export default function ViewProducts() {
                               />
                             </svg>
                           </button>
-                          <button className="viewproducts-btn">
+                          <button
+                            className="viewproducts-btn"
+                            onClick={() => {
+                              handleDelete(product.id);
+                            }}
+                          >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="25"

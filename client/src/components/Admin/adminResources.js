@@ -11,6 +11,7 @@ export default function validate(
   setStockError
   ) { 
       let regex =  /^[1-9][0-9]*$/
+      console.log(value,name);
     if (name === "nombre") {
         console.log(name, value);
         if(value.length < 7){
@@ -65,7 +66,7 @@ export default function validate(
         else setDescripcionError(null)
     } 
     else if(name === "stock"){
-        if(value < 0 || !value.length ){
+        if(!value || value < 0 || !value.length ){
             setStockError(`El stock del producto no puede ser menor a 0 (cero)`)
         }
         else if(!/^(\d*)$/.test(value)){
@@ -75,7 +76,3 @@ export default function validate(
     } 
 }
 
-
-var producto ={nombre: "cerveza"}
-
-console.log(producto.nombre.charAt(0).toUpperCase() + producto.nombre.slice(1));

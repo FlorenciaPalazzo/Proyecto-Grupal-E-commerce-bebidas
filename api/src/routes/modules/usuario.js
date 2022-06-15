@@ -1,7 +1,14 @@
 const { Router } = require("express");
 const axios = require("axios");
 
-const { Usuario, Carrito, Direcciones } = require("../../db");
+const {
+  Usuario,
+  Carrito,
+  Direcciones,
+  Comprado,
+  Review,
+  Producto,
+} = require("../../db");
 
 const bodyParser = require("body-parser");
 
@@ -96,10 +103,12 @@ router.put("/", async (req, res) => {
     direccion,
     telefono,
     image,
+    isVerified,
   } = req.body.user;
-  console.log(req.body.user);
+  console.log("BODY DE UPDATE DEL USUARIOOOOOOOOOOOOOOOOOOO", req.body.user);
   try {
     const usuarioPut = await Usuario.findOne({ where: { id: id } });
+
     console.log("usuarioPut busqueda", usuarioPut);
     let updated = await usuarioPut.update({
       id: id || usuarioPut.id,
@@ -110,6 +119,7 @@ router.put("/", async (req, res) => {
       direccion: direccion || usuarioPut.direccion,
       telefono: telefono || usuarioPut.telefono,
       image: image || usuarioPut.image,
+      isVerified: isVerified || usuarioPut.isVerified,
     });
     res.json(updated);
   } catch (err) {
@@ -278,21 +288,116 @@ router.delete("/direcciones/:id", async (req, res) => {
   }
 });
 
-router.get("/admin/stats", async (req, res)=>{
+router.get("/admin/stats", async (req, res) => {
   try {
+    let resp = {};
     console.log(Comprado, "holas");
 
-    let ventas = await Comprado.findAll()
-    console.log("ventas", ventas);
+    let compras = await Comprado.findAll();
+    resp.ventas = compras.length;
+    resp.productos = await Producto.count();
+    //resp.usuarios = await Usuario.count()
+    let usuariosArr = await Usuario.findAll();
+    //resp.totalReviews = await Review.count()
+    let reviewsArr = await Review.findAll();
+    resp.totalReviews = reviewsArr.length;
+    resp.usuarios = usuariosArr.length; // cantidad de usuarios
 
-    // let stats = {
-    //   ventas: ventas
-    // }
-    res.status(200).json(ventas)
+    let verifiedUser = [];
+    let noVerifiedUser = [];
+    usuariosArr.map((e) => {
+      if (e.isVerified) {
+        verifiedUser.push(e);
+      } else noVerifiedUser.push(e);
+    });
 
+    resp.verifiedUser = verifiedUser.length;
+    resp.noVerifiedUser = noVerifiedUser.length;
+    let revsProm = 0;
+    let pageReviews = [];
+    let userReviews = [];
+    reviewsArr.map((e) => {
+      revsProm += e.puntaje;
+      if (e.productoId) {
+        userReviews.push(e);
+      } else pageReviews.push(e);
+    });
+    resp.pageProm = revsProm / reviewsArr.length;
+    resp.userReviews = userReviews.length;
+    resp.pageReviews = pageReviews.length;
+    let comprasCount = {};
+    compras.map((e) => {
+      if (comprasCount[e.productoId]) {
+        comprasCount[e.productoId] += e.quantity;
+      } else comprasCount[e.productoId] = e.quantity;
+    });
+    resp.comprasCount = comprasCount;
+    //console.log("resp", resp);
+
+    res.status(200).json(resp);
   } catch (error) {
     console.log(error);
   }
 });
 
+router.post("/admin/stats/products", async (req, res) => {
+  let { top } = req.body;
+  try {
+    let products = await Producto.findAll();
+    let resp = [];
+    products.map((e) => {
+      top &&
+        top.map((t) => {
+          //console.log(t, e.id ,t.includes(e.id) );
+          if (t.includes(e.id)) {
+            resp.push({ ...e.dataValues, buyQuantity: t[1] });
+          }
+        });
+    });
+    //console.log("resp",resp);
+
+    resp = resp.sort((a, b) => {
+      if (a.buyQuantity < b.buyQuantity) {
+        return 1;
+      }
+      if (a.buyQuantity > b.buyQuantity) {
+        return -1;
+      }
+      return 0;
+    });
+
+    res.status(200).json(resp);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.put("/auth/verified", async (req, res) => {
+  const { uid } = req.body;
+  try {
+    let usuario = await Usuario.findOne({
+      where: { id: uid },
+    });
+
+    console.log(usuario);
+  } catch (e) {
+    res.status(400);
+  }
+});
+
 module.exports = router;
+
+/**
+ * 
+{
+  "ventas": #,
+  "productos": #,
+  "ventaPorProd": #, // 
+  "usuarios": #,
+  "usuariosVerificados": #, // isVerified
+  "totalReviews": #,
+  "userReviews": #,
+  "pageReviews": #
+}
+ *
+ */

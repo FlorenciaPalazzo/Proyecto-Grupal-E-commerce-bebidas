@@ -214,18 +214,25 @@ export default function Detail() {
             </div>
             <div>
               <h3>Productos relacionados</h3>
-              <div class="card-group">
+              <div className="card-container">
                 {filterRelacionados
-                  ? filterRelacionados.slice(0, 5).map((e) => {
+                  ? filterRelacionados.slice(0, 4).map((e) => {
                       return (
-                        <div key={e.id} class="card">
-                          <Link to={"/bebida/" + e.id}>
-                            <img src={e.imagen} class="card-img-top" />
-                            <div class="card-body">
-                              <h5 class="card-title">{e.nombre}</h5>
-                              <p class="card-text">${e.precio}</p>
-                            </div>
-                          </Link>
+                        // <div key={e.id} class="card">
+                         <div key={e.id} className="div-key-card">
+                        <Link to={"/bebida/" + e.id}>
+                          <Card
+                            nombre={e.nombre}
+                            imagen={e.imagen}
+                            id={e.id}
+                            marca={e.marca}
+                            ml={e.ml}
+                            graduacion={e.graduacion}
+                            precio={e.precio}
+                            stock={e.stock}
+                          />
+                        </Link>
+                      {/* </div> */}
                         </div>
                       );
                     })

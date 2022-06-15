@@ -98,9 +98,9 @@ router.get("/bebidas", async (req, res, next) => {
 //--------------------BEBIDA-------------------------
 
 router.post("/bebida", async (req, res) => {
-  let = { nombre, imagen, marca, ml, graduacion, descripcion, precio, stock } =
+  let = { nombre, imagen, marca, ml, graduacion, descripcion, precio, stock, tipo } =
     req.body;
-
+  console.log(req.body)
   let [bebidaCreada, created] = await Producto.findOrCreate({
     where: {
       nombre: nombre,
@@ -111,6 +111,7 @@ router.post("/bebida", async (req, res) => {
       graduacion: graduacion,
       precio: precio,
       stock: stock,
+      tipo: tipo,
     },
   });
   res.json(bebidaCreada);
@@ -202,7 +203,7 @@ router.delete("/favoritos", async (req, res) => {
         productoId: id_prod,
       },
     });
-    let favs2 = Favorito.findAll({ where: { usuarioId: id_user } });
+    let favs2 = await Favorito.findAll({ where: { usuarioId: id_user } });
 
     res.json(favs2);
   } catch (err) {
@@ -278,8 +279,9 @@ router.post("/historial", async (req, res) => {
     // console.log(id_prods, "Soy el producto")
     id_prods.forEach(async (e) => {
       console.log(e, "Soy un solo ID");
-      await Comprado.findOrCreate({
-        where: { productoId: e, usuarioId: id_user },
+      await Comprado.create({
+        //where: { productoId: e.id, usuarioId: id_user, quantity: e.quantity },
+         productoId: e.id, usuarioId: id_user, quantity: e.quantity ,
       });
     });
     // let product = await Producto.findByPk(id_prods)
@@ -291,3 +293,35 @@ router.post("/historial", async (req, res) => {
 
 
 module.exports = router;
+
+/**
+ * Cantidas total de usuarios+
+cant Usuarios verificados +
+cant Usuarios no verificados +
+cantidad de ventas +
+(hay que chequear si se puede filtrar por completada, pendiente, incompleta )
+cantidad de productos+
+productos mas vendidos 
+cantidad de reviews totales+
+cantidad de reviews de usuarios+
+cantidad de reviews de la pagina +
+
+
+
+
+
+
+
+
+
+user1
+[{id:prod 1, q: 2}, prod2, prod3 ]
+[q1, q2, q3]
+
+products = {
+  8bac5254-6bc6-4cbb-9e40-2720c6f6e8a2: 3
+  6d46215d-4f89-4fa0-882b-01e44b302277: 5
+}
+
+products[prodId]
+ */

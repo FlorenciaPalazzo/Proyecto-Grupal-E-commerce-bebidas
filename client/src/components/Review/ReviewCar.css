@@ -12,6 +12,12 @@
     
 }
 
+.buttonsReview{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 .reviewCar-contenedor{
     display: flex;
     /* flex-wrap: wrap; */
