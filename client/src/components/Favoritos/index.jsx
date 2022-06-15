@@ -58,21 +58,31 @@ export const Favoritos = () => {
                 <th scope="col">Precio </th>
                 <th scope="col"></th>
               </tr>
-            </thead> </table></div>
+            </thead>{" "}
+          </table>
+        </div>
         <div className="div-fav">
           {elFavorito.length === 0 ? (
-            <div className="div-sin-fav" >
-           <h2>Aún no has agregado favoritos..</h2>   
+            <div className="div-sin-fav">
+              <h2>Aún no has agregado favoritos..</h2>
 
-             <div>
-             <iframe src="https://giphy.com/embed/WQwQnLNj888eaF2wjd" width="480" height="480" frameBorder="0" allowFullScreen></iframe>
-             </div>
+              <div className="fav-gif">
+                <iframe
+                  src="https://i.gifer.com/7JH.gif"
+                  width="250"
+                  height="250"
+                  frameBorder="0"
+                  allowFullScreen
+                ></iframe>
+              </div>
             </div>
           ) : (
             elFavorito.map((e) => {
               return (
                 <div key={e.id} className="card-fav ">
-                 <div className ="fav-imagen"><img src={e.imagen}  width="50%"  /></div> 
+                  <div className="fav-imagen">
+                    <img src={e.imagen} width="50%" />
+                  </div>
                   <span className="item-fav"> {e.nombre}</span>
                   <span className="item-fav"> $ {e.precio}</span>
                   <div className="div-btn-eliminar-fav">
@@ -83,7 +93,8 @@ export const Favoritos = () => {
                       onClick={handleDeleteFav}
                     >
                       Eliminar
-                    </button></div>
+                    </button>
+                  </div>
                   {/* <div className="div-fav"></div> */}
                 </div>
               );

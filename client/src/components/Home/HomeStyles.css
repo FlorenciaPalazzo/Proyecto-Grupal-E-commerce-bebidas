@@ -130,10 +130,19 @@ a:active {
 
 /* 👇👇👇aqui yacen los restos del modo oscuro 👇👇👇*/
 
+
+
+
+
+
+
+
+
+/* 
 html {
     --primary-color: #000000;
     --secondary-color: #ebebeb;
-    --third-color: #000000;
+    
             
 }
 
@@ -145,10 +154,11 @@ html[data-theme="dark"] {
 
 body {
     background-color: var(--secondary-color);
-    /* color: var(--primary-color); */
+    color: var(--primary-color); 
 }
 
 .pagination-button, 
 .pagination-number{
     color: var(--third-color);
-}
+} */
+
