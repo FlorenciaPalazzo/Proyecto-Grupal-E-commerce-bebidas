@@ -28,17 +28,18 @@ import ViewUsers from "./components/ViewUsers";
 import { About } from "./components/About";
 import CreateProducts from "./components/Admin/CreateProducts";
 import MissingRoute from "./components/MissingRoute";
+import { AdminStats } from "./components/Admin/AdminStats";
 
 function App() {
   return (
     <div className="App">
       <Routes>
         {/* <Route path="/" exact element={<Landing />} /> */}
-        <Route path="*" element={<MissingRoute/>}/>
+        <Route path="*" element={<MissingRoute />} />
         <Route path="/" exact element={<Home />} />
-        <Route path="/admin" exact element={<ViewProducts />} />
+
         <Route path="/admin/products/edit/:id" exact element={<EditForm />} />
-        {/* <Route path="/admin/products" exact element={<ViewProducts />} /> */}
+        <Route path="/admin/products" exact element={<ViewProducts />} />
         <Route path="/admin/products/stats" exact element={<ProductsStats />} />
         <Route
           path="/admin/products/create"
@@ -49,7 +50,7 @@ function App() {
         <Route path="/cart" exact element={<ShoppingCart />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/login/reset" exact element={<ResetPassword />} />
-        <Route path="/admin" exact element={<AdminPanel />} />
+        <Route path="/admin" exact element={<AdminStats />} />
         <Route path="/profile" exact element={<Profile />} />
         <Route path="/profile/edit" exact element={<EditProfile />} />
         <Route path="/contact" exact element={<Contact />} />
