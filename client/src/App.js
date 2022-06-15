@@ -27,12 +27,14 @@ import ProductsStats from "./components/Admin/ProductsStats";
 import ViewUsers from "./components/ViewUsers";
 import { About } from "./components/About";
 import CreateProducts from "./components/Admin/CreateProducts";
+import MissingRoute from "./components/MissingRoute";
 
 function App() {
   return (
     <div className="App">
       <Routes>
         {/* <Route path="/" exact element={<Landing />} /> */}
+        <Route path="*" element={<MissingRoute/>}/>
         <Route path="/" exact element={<Home />} />
         <Route path="/admin" exact element={<ViewProducts />} />
         <Route path="/admin/products/edit/:id" exact element={<EditForm />} />

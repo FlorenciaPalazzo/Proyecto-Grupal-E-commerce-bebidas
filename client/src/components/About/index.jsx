@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBarSec from "../NavBarSec";
 /* import Footer from "../Footer"; */
 
 export const About = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
   return (
     <div>
       <NavBarSec />
