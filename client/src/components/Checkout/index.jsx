@@ -191,7 +191,10 @@ export const Checkout = () => {
   };
   const handlePagar = function (e) {
     e.preventDefault();
-    window.location.replace(sandbox);
+    if (sandbox) {
+      // satan si estas viendo esto esperanos hasta pasado mañana
+      window.location.replace(sandbox);
+    }
     // setBoleano(!boleano);
   };
   let subtotal = productCart?.map(
