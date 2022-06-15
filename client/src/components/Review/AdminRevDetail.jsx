@@ -5,6 +5,7 @@ import { clearState, getReview, getUsersLoged } from "../../redux/actions";
 import ReactStars from "react-rating-stars-component";
 import { ReviewCar } from "./ReviewCar";
 import "./adminRevDetail.css";
+import AdminPanel from "../AdminPanel";
 
 export const AdminRevDetail = (/* { id } */) => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ export const AdminRevDetail = (/* { id } */) => {
   }, [dispatch, id]);
   return (
     <div className="admin-detail-rev-madre">
+      <AdminPanel />
       <div>
         <h2>Promedio del producto:</h2>
         {prom ? (
