@@ -1,0 +1,10 @@
+.notFoundImage{
+    background-image: url("../../img/Inexistente.jpg");
+    background-size: cover ;
+    height: 100vh;
+}
+
+.goHome{
+    margin-left: 2%;
+    margin-top: 2%;
+}

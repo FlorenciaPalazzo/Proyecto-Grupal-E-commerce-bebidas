@@ -173,6 +173,23 @@
   color: #fff;
 }
 
+.empty-history{
+  /* background-color: red; */
+  height: 89.2vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.empty-history-image{
+  width: 20vh;
+  height: 20vh;
+  background-color: red;
+  background-image: url("../../img/cerveza.png");
+    background-size: cover;
+}
+
 .trash-icon {
   font-size: 20px;
   color: #212529;

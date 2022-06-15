@@ -40,10 +40,14 @@
 @media (max-width: 850px) {
     .viewproducts-display{
         display: none;
-    }
-    .viewproducts-table{
-       font-size: 15px;
-    }
-  
+    } 
     
+}
+
+@media (max-width:700px) {
+    .viewproducts-detail{
+        width: 20%;
+       
+        
+     }  
 }

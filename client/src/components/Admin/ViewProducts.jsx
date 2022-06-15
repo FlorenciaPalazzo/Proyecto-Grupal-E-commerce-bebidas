@@ -132,8 +132,8 @@ export default function ViewProducts() {
                       <td className="viewproducts-display">
                         {product.graduacion}%
                       </td>
-                      <td>{product.stock}</td>
-                      <td>${product.precio}</td>
+                      <td className="viewproducts-detail">{product.stock}</td>
+                      <td className="viewproducts-detail">${product.precio}</td>
                       <td>
                         <div className="viewusers-cont-btn">
                           <button
@@ -186,13 +186,16 @@ export default function ViewProducts() {
           </div>
         </div>
       ) : (
-        <h1> No eres administrador </h1>
+        <div>
+          <h1> No eres administrador </h1>
+
+          <Link to="/">
+            <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
+              Volver al home
+            </button>
+          </Link>
+        </div>
       )}
-      <Link to="/">
-        <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
-          Volver al home
-        </button>
-      </Link>
     </div>
   );
 }

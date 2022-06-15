@@ -5,6 +5,7 @@ import { auth } from "../../fb";
 import { firebaseUsers, getUsersLoged } from "../../redux/actions";
 import AdminPanel from "../AdminPanel";
 import Loading from "../Loading";
+import NavBarSec from "../NavBarSec";
 import "./ViewUsers.css";
 export default function ViewUsers() {
   const usersLoged = useSelector((state) => state.usersLoged);
@@ -107,13 +108,16 @@ export default function ViewUsers() {
           </div>
         </div>
       ) : (
-        <h1> No eres administrador </h1>
+        <div>
+          {/* <NavBarSec /> */}
+          <h1> No eres administrador </h1>
+          <Link to="/">
+            <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
+              Volver al home
+            </button>
+          </Link>
+        </div>
       )}
-      {/* <Link to="/">
-        <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
-          Volver al home
-        </button>
-      </Link> */}
     </div>
   );
 }
