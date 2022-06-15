@@ -56,7 +56,7 @@ export const Checkout = () => {
   const dispatch = useDispatch();
 
   const [input, setInput] = useState({
-    delivery_type: "",
+    delivery_type:"",
     calle_numero: null,
     localidad: null,
     codigo_postal: 0,
