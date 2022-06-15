@@ -42,7 +42,9 @@ function UserProfile() {
   };
   const handleLocalStorage = (e) => {
     e.preventDefault();
+    console.log("E.TARGET.NAME", e.target.name);
     localStorage.setItem("userputid", e.target.value);
+
     console.log(e.target.value, "soy el console");
     navigate(`/putreview/${e.target.name}`);
   };
@@ -67,9 +69,9 @@ function UserProfile() {
           <div class="col-md-4">
             <div class="profile-img">
               {dbUser?.image ? (
-                <img src={dbUser.image} height="90" width="90" />
+                <img src={dbUser.image} /* height="90" */ width="50%" />
               ) : user.photoURL ? (
-                <img src={user.photoURL} height="90" width="90" />
+                <img src={user.photoURL} /* height="90" */ width="50%" />
               ) : (
                 <img src="./images/default.jpg" height="100" width="100" />
               )}
@@ -132,6 +134,7 @@ function UserProfile() {
                               value={JSON.stringify(r)}
                               name={r.id}
                             >
+                              {" "}
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="16"
