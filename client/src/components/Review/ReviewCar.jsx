@@ -69,66 +69,57 @@ export const ReviewCar = ({
                 </button>
               </div>
             ) : null}
-            <div className="div-key-card">
-              {filt ? (
-                <div>
-                  <div className="reviewCar-items">
-                    <h4>{filt.nombre}</h4>
-                  </div>
-                  <div className="reviewCar-items">
-                    {" "}
-                    <img width="50%" src={filt.imagen} alt="" />
-                  </div>
-                  <div className="reviewCar-items">
-                    <h4>Fecha: {fecha.split("T")[0]}</h4>
-                  </div>
+            {filt ? (
+              <div>
+                <div className="reviewCar-items">
+                  <h4>{filt.nombre}</h4>
                 </div>
-              ) : (
-                <div>
-                  <div className="reviewCar-items">
-                    <h3>Review de la página</h3>
-                  </div>
-                  <div className="reviewCar-items">
-                    <img width="20%" src="./logo/logo.png" alt="" />
-                  </div>
-                  <div className="reviewCar-items">
-                    <h4>Fecha: {fecha.split("T")[0]}</h4>
-                  </div>
+                <div className="reviewCar-items">
+                  {" "}
+                  <img width="50%" src={filt.imagen} alt="" />
                 </div>
-              )}
-            </div>
-            <div>
-              {emailUsuario ? (
-                <Link to={`/adminemail/${usuarioId}`}>
-                  <p>Email del usuario: {emailUsuario}</p>
-                </Link>
-              ) : null}
+                <div className="reviewCar-items">
+                  <h4>{fecha.split("T")[0]}</h4>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div className="reviewCar-items">
+                  <h3>Review de la página</h3>
+                </div>
+                <div className="reviewCar-items">
+                  <img width="20%" src="./logo/logo.png" alt="" />
+                </div>
+                <div className="reviewCar-items">
+                  <h4>{fecha.split("T")[0]}</h4>
+                </div>
+              </div>
+            )}
+          </div>
+          <div>
+            {emailUsuario ? (
+              <Link to={`/adminemail/${usuarioId}`}>
+                <p>Email del usuario: {emailUsuario}</p>
+              </Link>
+            ) : null}
 
-              <div className="reviewCar-items">
-                <p>Titulo: {titulo}</p>
-              </div>
-              <div className="reviewCar-items">
-                <p>Comentario: {comentario}</p>
-              </div>
-              <div className="reviewCar-star">
-                <ReactStars
-                  count={puntaje}
-                  size={24}
-                  isHalf={true}
-                  emptyIcon={<i className="far fa-star"></i>}
-                  halfIcon={<i className="fa fa-star-half-alt"></i>}
-                  fullIcon={<i className="fa fa-star"></i>}
-                  edit={false}
-                  color="#ffd700"
-                />
-                {admin ? (
-                  <button onClick={handleDelete} value={usuarioId}>
-                    ❌
-                  </button>
-                ) : (
-                  <p>No eres admin </p>
-                )}
-              </div>
+            <div className="reviewCar-items">
+              <p>Titulo: {titulo}</p>
+            </div>
+            <div className="reviewCar-items">
+              <p>Comentario: {comentario}</p>
+            </div>
+            <div className="reviewCar-star">
+              <ReactStars
+                count={puntaje}
+                size={24}
+                isHalf={true}
+                emptyIcon={<i className="far fa-star"></i>}
+                halfIcon={<i className="fa fa-star-half-alt"></i>}
+                fullIcon={<i className="fa fa-star"></i>}
+                edit={false}
+                color="#ffd700"
+              />
             </div>
           </div>
         </div>
