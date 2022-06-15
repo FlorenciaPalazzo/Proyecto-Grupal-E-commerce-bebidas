@@ -14,16 +14,7 @@ export default function ViewUsers() {
   const dispatch = useDispatch();
   const [firstReq, setReq] = useState(true);
 
-  function handleDeleteUser(e) {
-    //   getAuth()
-    // .deleteUser(uid)
-    // .then(() => {
-    //   console.log('Successfully deleted user');
-    // })
-    // .catch((error) => {
-    //   console.log('Error deleting user:', error);
-    // });
-  }
+
   function handleDate(date) {
     let d = date.split("-");
     return `${d[2]}/${d[1]}/${d[0]}`;

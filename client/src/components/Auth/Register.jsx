@@ -36,7 +36,7 @@ function Register() {
   const [passwordError, setPasswordError] = useState(null);
   const [confirmPasswordError, setConfirmPasswordError] = useState(null);
   const [celErrror, setCelError] = useState(null);
-  const [error, setError] = useState(null);
+  const [errorr, setError] = useState(null);
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
@@ -60,14 +60,33 @@ function Register() {
     setError(null);
     if (error === "Firebase: Error (auth/email-already-in-use).") {
       setError("Ya existe un usuario con este mail");
+      swal({
+        title: " Ya existe un usuario con este mail",
+        icon: "warning",
+        buttons: false,
+        timer: 5000,
+      });
     } else if (error === "Firebase: Error (auth/user-not-found).") {
       setError("No existe un usuario con este mail");
+      swal({
+        title: "No existe un usuario con este mail",
+        icon: "warning",
+        buttons: false,
+        timer: 5000,
+      });
     } else if (error === "Firebase: Error (auth/wrong-password).") {
       setError("Se ingreso una contraseña incorrecta");
+      swal({
+        title: "Se ingreso una contraseña incorrecta",
+        icon: "warning",
+        buttons: false,
+        timer: 5000,
+      });
     }
   }
   async function handleSubmit(e) {
     e.preventDefault();
+
     setError(null);
     console.log(input);
     try {
@@ -296,8 +315,6 @@ function Register() {
         )}
 
         <div className="registro-error">
-          {error && <span>{error}</span>}
-
           {nameError && <span>{nameError}</span>}
           <br />
           {surnameError && (
