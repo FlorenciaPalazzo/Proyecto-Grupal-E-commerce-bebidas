@@ -11,6 +11,8 @@ import validate from "./profileResources";
 
 export default function EditForm() {
   const user = useSelector((state) => state.currentUser);
+  const dbUser = useSelector((state) => state.dbUser);
+
   const [disabledBtn, setDisabledBtn] = useState(false);
   const [nameError, setNameError] = useState(null);
   const [surnameError, setSurnameError] = useState(null);
@@ -70,8 +72,10 @@ export default function EditForm() {
     navigate("/profile");
   }
   console.log("user selector", user);
+  console.log("imagen", dbUser);
   useEffect(() => {
     if (user) {
+      dispatch(getUserDb(user.uid));
       console.log("seteo input");
       if (user.displayName) {
         let name = user.displayName.split(" ");
@@ -79,11 +83,13 @@ export default function EditForm() {
           nombre: name[0] ? name[0] : "",
           apellido: name[1] ? name[1] : "",
         });
+        setImage(dbUser.image);
       } else {
         setInput({
           nombre: "",
           apellido: "",
         });
+        setImage(dbUser.image);
       }
     }
     return () => {
@@ -106,12 +112,12 @@ export default function EditForm() {
             <div className="base64back">
               <FileBase64
                 type="file"
-                multiple={false}
-                onDone={({ base64 }) => setImage({ img: base64 })}
+                multiple={false} //
+                onDone={({ base64 }) => setImage(base64)}
               />
             </div>
-            {user && (
-              <img src={user.photoURL} class="avatar img-circle" alt="avatar" />
+            {image && (
+              <img src={image} class="avatar img-circle" alt="avatar" />
             )}
           </div>
         </div>
@@ -132,6 +138,7 @@ export default function EditForm() {
                   class="form-control"
                 />
               </div>
+              {nameError && <span>{nameError}</span>}
             </div>
 
             <div class="form-group">
@@ -146,10 +153,11 @@ export default function EditForm() {
                   onChange={handleChange}
                   class="form-control"
                 />
-
+                {surnameError && <span>{surnameError}</span>}
                 <br />
                 <div class="form-group" id="passwordChange">
                   <br />
+
                   <label class="col-lm-3  control-label " htmlFor="password">
                     Cambiar contraseña mediante email:{" "}
                   </label>
@@ -171,19 +179,31 @@ export default function EditForm() {
                   )}
                 </div>
                 <br />
-                <button
-                  class="btn btn-primary"
-                  type="submit"
-                  onClick={handleSubmit}
-                >
-                  Guardar
-                </button>
+                {surnameError || nameError ? (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      alert("Complete todos los campos correctamente")
+                    }
+                  >
+                    Guardar
+                  </button>
+                ) : (
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                    onClick={handleSubmit}
+                  >
+                    Guardar
+                  </button>
+                )}
               </div>
             </div>
 
             <br />
             <br />
           </form>
+          {user && <img src={user.photoURL} style={{ width: "20%" }} />}
         </div>
       </div>
     </div>

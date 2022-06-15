@@ -19,7 +19,6 @@ export default function PutReview() {
   let products = useSelector((state) => state.products);
   //   let [bool, setBool] = useState(false);
   const review = useSelector((state) => state.findreview);
-  console.log(review, "traigo reviews");
 
   let prod = products.filter((e) => e.id === id);
   //   let idUser = localStorage.getItem("user");
