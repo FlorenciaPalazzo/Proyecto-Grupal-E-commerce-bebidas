@@ -1,19 +1,21 @@
-.productform-body {
+.c-body {
   /* background-color: aquamarine; */
   padding-top: 5%;
 }
 
-.productform-body h1 {
+.c-body h1 {
   text-align: center;
   margin-top: 5%;
 }
-.productform-base {
+.c-body h3 {
+  text-align: center;
+  margin-top: 5%;
+}
+.c-base {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-
   background-color: rgba(125, 125, 125, 0.229);
-
   width: 50%;
   padding: 1%;
   margin-left: 25%;
@@ -21,8 +23,8 @@
   margin-bottom: 2%;
   height: 100%;
 }
-.productform-items {
-  background-color: rgb(255, 255, 255);
+.c-items {
+  /* background-color: rgb(255, 255, 255); */
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -42,7 +44,7 @@
   align-items: center;
 }
 
-.productform-form1 {
+.c-form1 {
   display: flex;
   flex-direction: column;
   /* background-color: chartreuse; */
@@ -55,7 +57,7 @@
   margin-bottom: 2%;
 }
 
-.productform-form2 {
+.c-form2 {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -74,7 +76,7 @@
   word-break: break-all;
   font-size: 20px;
 }
-.productform-btn {
+.c-btn {
   background-color: rgb(115, 115, 115);
   width: 50%;
   margin-top: 1%;
@@ -107,11 +109,12 @@
     width: 100%;
   }
 
-  .productform-base {
-    width: 70%;
-    margin-left: 10%;
+  .c-base {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .productform-body h1 {
+  .c-body h1 {
     text-align: center;
     margin-top: 20%;
   }
