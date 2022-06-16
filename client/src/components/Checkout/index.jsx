@@ -90,6 +90,7 @@ export const Checkout = () => {
     provincia: "Retiro por sucursal",
   };
   const handleInputChange = function (e) {
+    e.preventDefault();
     if (e.target.value === "sucursal") {
       setDisabled(true);
       setInput({
@@ -263,7 +264,8 @@ export const Checkout = () => {
 
                       <div className="envio-dir">
                         <button
-                          className="btn bg-success"
+                          className="boton-pagar"
+                          /* className="btn bg-success" */
                           onClick={handlePagar}
                         >
                           PAGAR{" "}
@@ -274,7 +276,8 @@ export const Checkout = () => {
                     //
                     <div className="envio-dir">
                       <button
-                        className="btn bg-success"
+                        className="boton-pagar"
+                        /* className="btn bg-success" */
                         onClick={handleAlertPagar}
                       >
                         {" "}
