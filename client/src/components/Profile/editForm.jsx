@@ -103,6 +103,7 @@ export default function EditForm() {
       if (user && user.isAdmin) {
         window.location.reload("/profile");
         navigate("/profile");
+        window.location.reload();
       }
       console.log("Actualizo y me voy a la mierda");
       dispatch(resetUserDb());
