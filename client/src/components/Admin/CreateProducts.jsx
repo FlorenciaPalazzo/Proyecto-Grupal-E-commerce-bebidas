@@ -12,6 +12,7 @@ import validate from "./adminResources";
 import FileBase64 from "react-file-base64";
 import "./CreateProducts.css";
 import AdminPanel from "../AdminPanel";
+import swal from "sweetalert";
 
 //---------------------------------------------------------- //
 //NOTA!!!! : Varias de las cosas comentadas fueron porque en //
@@ -281,7 +282,14 @@ function CreateProducts() {
             <button
               className="c-btn"
               type="button"
-              onClick={() => alert("Complete todos los campos weon")}
+              onClick={() =>
+                swal({
+                  title: "Complete todos los campos por favor ",
+                  icon: "info",
+                  buttons: false,
+                  timer: 2000,
+                })
+              }
             >
               Crear
             </button>
