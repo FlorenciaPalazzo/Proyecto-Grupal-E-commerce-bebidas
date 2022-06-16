@@ -301,15 +301,18 @@ router.get("/admin/stats", async (req, res) => {
     //resp.totalReviews = await Review.count()
     let reviewsArr = await Review.findAll();
     resp.totalReviews = reviewsArr.length;
-    resp.usuarios = usuariosArr.length; // cantidad de usuarios
-
+    let usuarios = []
     let verifiedUser = [];
     let noVerifiedUser = [];
     usuariosArr.map((e) => {
-      if (e.isVerified) {
-        verifiedUser.push(e);
-      } else noVerifiedUser.push(e);
+      if (!e.isAdmin) {
+        usuarios.push(e)
+        if (e.isVerified) {
+          verifiedUser.push(e);
+        } else noVerifiedUser.push(e);
+      }
     });
+    resp.usuarios = usuarios.length; // cantidad de usuarios
 
     resp.verifiedUser = verifiedUser.length;
     resp.noVerifiedUser = noVerifiedUser.length;
