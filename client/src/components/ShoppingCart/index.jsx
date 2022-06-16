@@ -100,10 +100,11 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     if (!loading) {
-      if (verified && !isAdmin) {
+      if ((verified && !isAdmin )|| !verified) {
         if (!feedBackReducer) dispatch(feedBack());
         localValue();
       } else {
+        console.log("navigate verified");
         navigate("/*");
       }
     }
