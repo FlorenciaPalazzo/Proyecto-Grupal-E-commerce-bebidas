@@ -96,7 +96,7 @@ export const Checkout = () => {
         [e.target.name]: e.target.value,
         id_user: id,
       });
-      setDireccion(direccionSucursal);
+      
     }
     if (e.target.value === "envio") {
       setDisabled(false);
@@ -113,6 +113,29 @@ export const Checkout = () => {
       })
     );
   };
+
+  const handleEntregaSucursal = (e) => {
+    e.preventDefault();
+      setDireccion(direccionSucursal)
+      dispatch(addDirecciones(e.target.value));
+
+   
+     
+      swal({
+        title: "Se recogerá en sucursal ",
+        icon: "success",
+        buttons: false,
+        timer: 900,
+      });
+
+      setBoleano(!boleano);
+    
+      // swal({
+      //   title: "Revisa los campos ingresados",
+      //   type: "warning",
+      //   icon: "warning",
+      // });
+  }
 
   const handleDireccion = function (e) {
     e.preventDefault();
@@ -523,6 +546,9 @@ export const Checkout = () => {
                       Aires
                       <br></br>
                       <br></br>
+                    <button value ="sucursal" onClick={handleEntregaSucursal}>
+                      Confirmar entrega por sucursal
+                    </button>
                     </div>
                   </li>
                 </ul>
