@@ -40,13 +40,7 @@ export default function Card({
 
   const handleAddCarrito = (e) => {
     e.preventDefault();
-    swal({
-      title: "Producto agregado al carrito ",
-      type: "success",
-      icon: "success",
-      buttons: false,
-      timer: 800,
-    });
+  
     console.log("stock", productObject.stock);
     productObject.stock === 0
       ? swal({
@@ -56,6 +50,13 @@ export default function Card({
           timer: 800,
         })
       : dispatch(addCart(productObject));
+        swal({
+      title: "Producto agregado al carrito ",
+      type: "success",
+      icon: "success",
+      buttons: false,
+      timer: 800,
+    });
   };
 
   const handleAddFavorito = (e) => {
