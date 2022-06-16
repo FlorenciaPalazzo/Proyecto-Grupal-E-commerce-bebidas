@@ -90,7 +90,7 @@ export const Checkout = () => {
     provincia: "Retiro por sucursal",
   };
   const handleInputChange = function (e) {
-    e.preventDefault();
+    console.log("e.target.value", e.target.value);
     if (e.target.value === "sucursal") {
       setDisabled(true);
       setInput({
@@ -263,11 +263,7 @@ export const Checkout = () => {
                       </div>
 
                       <div className="envio-dir">
-                        <button
-                          className="boton-pagar"
-                          /* className="btn bg-success" */
-                          onClick={handlePagar}
-                        >
+                        <button className="boton-pagar" onClick={handlePagar}>
                           PAGAR{" "}
                         </button>
                       </div>
@@ -277,7 +273,6 @@ export const Checkout = () => {
                     <div className="envio-dir">
                       <button
                         className="boton-pagar"
-                        /* className="btn bg-success" */
                         onClick={handleAlertPagar}
                       >
                         {" "}
