@@ -86,6 +86,12 @@ function CreateProducts() {
         setStockError
       )
     );
+    swal({
+      title: "Producto creado",
+      icon: "success",
+      buttons: false,
+      timer: 500,
+    });
 
     postHandle();
   }
