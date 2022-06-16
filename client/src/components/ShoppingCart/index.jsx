@@ -51,11 +51,11 @@ const ShoppingCart = () => {
     console.log("stock", productObject.stock);
     productObject.stock === 0
       ? swal({
-          title: "Producto sin stock 🛒",
-          icon: "warning",
-          buttons: false,
-          timer: 800,
-        })
+        title: "Producto sin stock 🛒",
+        icon: "warning",
+        buttons: false,
+        timer: 800,
+      })
       : dispatch(addCart(productObject));
   };
   const deleteProduct = (e) => {
@@ -88,9 +88,18 @@ const ShoppingCart = () => {
         title: "El carrito esta vacío",
         icon: "warning",
       });
-    } else if (!verified) {
+    }
+
+    else if (!verified) {
       swal({
-        title: "No estas registrado!",
+        title: "Debes estar registrado!",
+        icon: "warning",
+      });
+    }
+
+    else if (verified && !verified.emailVerified) {
+      swal({
+        title: "Debes estar verificado!",
         icon: "warning",
       });
     }
@@ -256,23 +265,18 @@ const ShoppingCart = () => {
                     <div className="col">PRECIO</div>
                     <div className="col text-right">${total}</div>
 
-                    {
-                      /*  !verified.emailVerified && */ !verified ||
-                      !productCart.length ? (
-                        <button
-                          className="btn bg-success"
-                          onClick={handleAlertCarrito}
-                        >
-                          PAGAR
-                        </button>
-                      ) : (
-                        <button
-                          className="btn bg-success"
-                          onClick={postCarrito}
-                        >
-                          PAGAR
-                        </button>
-                      )
+                    {!verified || verified && !verified.emailVerified ? (
+                      <button className="button" onClick={handleAlertCarrito}>
+                        PAGAR
+                      </button>
+                    ) : (
+                      <button
+                        className="btn bg-success"
+                        onClick={postCarrito}
+                      >
+                        PAGAR
+                      </button>
+                    )
                     }
                   </div>
                 </span>

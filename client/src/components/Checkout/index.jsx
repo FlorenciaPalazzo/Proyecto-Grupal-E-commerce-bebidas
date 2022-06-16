@@ -90,13 +90,14 @@ export const Checkout = () => {
     provincia: "Retiro por sucursal",
   };
   const handleInputChange = function (e) {
+    console.log("e.target.value", e.target.value);
     if (e.target.value === "sucursal") {
       setDisabled(true);
       setInput({
         [e.target.name]: e.target.value,
         id_user: id,
       });
-      setDireccion(direccionSucursal);
+
     }
     if (e.target.value === "envio") {
       setDisabled(false);
@@ -113,6 +114,29 @@ export const Checkout = () => {
       })
     );
   };
+
+  const handleEntregaSucursal = (e) => {
+    e.preventDefault();
+    setDireccion(direccionSucursal)
+    dispatch(addDirecciones(e.target.value));
+
+
+
+    swal({
+      title: "Se recogerá en sucursal ",
+      icon: "success",
+      buttons: false,
+      timer: 900,
+    });
+
+    setBoleano(!boleano);
+
+    // swal({
+    //   title: "Revisa los campos ingresados",
+    //   type: "warning",
+    //   icon: "warning",
+    // });
+  }
 
   const handleDireccion = function (e) {
     e.preventDefault();
@@ -217,21 +241,21 @@ export const Checkout = () => {
                 <h2>Detalle de compra</h2>
                 {productCart.length
                   ? productCart.map((e) => {
-                      return (
-                        <div className="checkout-product-detail">
-                          <ul className="checkout-ul" key={e.id}>
-                            <img
-                              src={e.imagen}
-                              alt="img not found"
-                              width="70%"
-                            />
-                            <li>{e.nombre}</li>
-                            <li>{e.quantity} unid.</li>
-                            <li>${e.precio},00</li>
-                          </ul>
-                        </div>
-                      );
-                    })
+                    return (
+                      <div className="checkout-product-detail">
+                        <ul className="checkout-ul" key={e.id}>
+                          <img
+                            src={e.imagen}
+                            alt="img not found"
+                            width="70%"
+                          />
+                          <li>{e.nombre}</li>
+                          <li>{e.quantity} unid.</li>
+                          <li>${e.precio},00</li>
+                        </ul>
+                      </div>
+                    );
+                  })
                   : null}
                 <div className="checkout-delivery-info">
                   {direccion.delivery_type === "envio" ? (
@@ -247,8 +271,8 @@ export const Checkout = () => {
                 </div>
                 <div>
                   {direccion.provincia &&
-                  direccion.localidad &&
-                  direccion.calle_numero ? (
+                    direccion.localidad &&
+                    direccion.calle_numero ? (
                     <div>
                       <div className="form-direccion">
                         {direccion.delivery_type === "sucursal" ? (
@@ -262,10 +286,7 @@ export const Checkout = () => {
                       </div>
 
                       <div className="envio-dir">
-                        <button
-                          className="btn bg-success"
-                          onClick={handlePagar}
-                        >
+                        <button className="boton-pagar" onClick={handlePagar}>
                           PAGAR{" "}
                         </button>
                       </div>
@@ -274,7 +295,7 @@ export const Checkout = () => {
                     //
                     <div className="envio-dir">
                       <button
-                        className="btn bg-success"
+                        className="boton-pagar"
                         onClick={handleAlertPagar}
                       >
                         {" "}
@@ -523,6 +544,9 @@ export const Checkout = () => {
                       Aires
                       <br></br>
                       <br></br>
+                      <button value="sucursal" onClick={handleEntregaSucursal}>
+                        Confirmar entrega por sucursal
+                      </button>
                     </div>
                   </li>
                 </ul>
