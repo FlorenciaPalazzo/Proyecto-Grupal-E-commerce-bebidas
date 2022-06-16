@@ -162,33 +162,38 @@ export default function Detail() {
                 </div>
               </div>
 
-              <div></div>
-              <div className="review-detail">
-                {rev.length ? (
-                  rev.map((e) => {
-                    return (
-                      <div className="review-body">
-                        <p>Titulo: {e.titulo}</p>
-                        <p>Comentario: {e.comentario}</p>
-                        <p>
-                          Puntaje:{" "}
-                          <ReactStars
-                            count={e.puntaje}
-                            size={24}
-                            isHalf={true}
-                            emptyIcon={<i className="far fa-star"></i>}
-                            halfIcon={<i className="fa fa-star-half-alt"></i>}
-                            fullIcon={<i className="fa fa-star"></i>}
-                            edit={false}
-                            color="#ffd700"
-                          />
-                        </p>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <div className="review-body mx-3">no hay reviews</div>
-                )}
+              <div className="review-detail-body">
+                <div className="review-detail">
+                  {rev.length ? (
+                    rev.map((e) => {
+                      return (
+                        <div className="review-body">
+                          <p>Titulo: {e.titulo}</p>
+                          <p>Comentario: {e.comentario}</p>
+                          <p>
+                            Puntaje:{" "}
+                            <div>
+                              <ReactStars
+                                count={e.puntaje}
+                                size={24}
+                                isHalf={true}
+                                emptyIcon={<i className="far fa-star"></i>}
+                                halfIcon={
+                                  <i className="fa fa-star-half-alt"></i>
+                                }
+                                fullIcon={<i className="fa fa-star"></i>}
+                                edit={false}
+                                color="#ffd700"
+                              />
+                            </div>
+                          </p>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="review-body mx-3">no hay reviews</div>
+                  )}
+                </div>
                 <div>
                   <div>
                     {prom ? (
@@ -214,7 +219,7 @@ export default function Detail() {
                 </div>
               </div>
             </div>
-            <div>
+            <div className="detail-prod-rel">
               <h3>Productos relacionados</h3>
               <div className="card-container">
                 {filterRelacionados

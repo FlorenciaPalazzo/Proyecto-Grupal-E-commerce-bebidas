@@ -38,6 +38,7 @@ export const Favoritos = () => {
     e.preventDefault();
     let idProd = e.target.value;
     let payload = { id_prod: idProd, id_user: user };
+    dispatch(deleteFavorito(payload)); //↤ No tocar 😈
     swal({
       title: "Producto borrado ",
       icon: "success",
@@ -45,7 +46,6 @@ export const Favoritos = () => {
       timer: 500,
     });
 
-    dispatch(deleteFavorito(payload)); //↤ No tocar 😈
     //  window.location.reload()
     setBol(!bol);
   };

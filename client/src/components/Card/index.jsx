@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { /*  useEffect, */ useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCart, setFavorito } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
@@ -40,23 +40,26 @@ export default function Card({
 
   const handleAddCarrito = (e) => {
     e.preventDefault();
-  
+
+    if (productObject.stock === 0) {
+      swal({
+        title: "Producto sin stock 🛒",
+        icon: "warning",
+        buttons: false,
+        timer: 800,
+      });
+    } else {
+      dispatch(addCart(productObject));
+      swal({
+        title: "Producto agregado al carrito ",
+        type: "success",
+        icon: "success",
+        buttons: false,
+        timer: 800,
+      });
+    }
+
     console.log("stock", productObject.stock);
-    productObject.stock === 0
-      ? swal({
-          title: "Producto sin stock 🛒",
-          icon: "warning",
-          buttons: false,
-          timer: 800,
-        })
-      : dispatch(addCart(productObject));
-        swal({
-      title: "Producto agregado al carrito ",
-      type: "success",
-      icon: "success",
-      buttons: false,
-      timer: 800,
-    });
   };
 
   const handleAddFavorito = (e) => {
@@ -102,7 +105,7 @@ export default function Card({
     });
   };
 
-  const handleAlertCarrito = (e) => {
+  /*  const handleAlertCarrito = (e) => {
     e.preventDefault();
     swal({
       title: "Debes ingresar con tu usuario",
@@ -124,7 +127,7 @@ export default function Card({
         navigate("/login");
       }
     });
-  };
+  }; */
 
   //acá traigo todas las propiedadess
   return (

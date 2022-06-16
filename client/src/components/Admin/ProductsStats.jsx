@@ -58,7 +58,7 @@ export default function ProductsStats() {
                     products.map((e) => (
                       <tr>
                         <td className="">
-                          <img src={e.imagen} width="100" />
+                          <img src={e.imagen} width="100" alt="" />
                         </td>
                         <td>{e.nombre}</td>
                         <td className="ProductsStats-display">{e.marca}</td>
