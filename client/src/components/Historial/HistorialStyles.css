@@ -185,7 +185,6 @@
 .empty-history-image{
   width: 20vh;
   height: 20vh;
-  background-color: red;
   background-image: url("../../img/cerveza.png");
     background-size: cover;
 }
