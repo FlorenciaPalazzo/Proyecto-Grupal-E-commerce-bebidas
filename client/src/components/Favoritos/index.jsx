@@ -46,7 +46,7 @@ export const Favoritos = () => {
       timer: 500,
     });
 
-     //window.location.reload()
+    //window.location.reload()
     setBol(!bol);
   };
   return (
@@ -94,7 +94,7 @@ export const Favoritos = () => {
                   <span className="item-fav"> $ {e.precio}</span>
                   <div className="div-btn-eliminar-fav">
                     <button
-                     // type="button"
+                      // type="button"
                       className="btn-del-favorito"
                       value={e.id}
                       onClick={handleDeleteFav}
