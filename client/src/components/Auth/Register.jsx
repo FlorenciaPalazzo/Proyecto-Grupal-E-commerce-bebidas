@@ -340,9 +340,7 @@ function Register() {
             <br />
             {confirmPasswordError && <span>{confirmPasswordError}</span>}
           </div>
-        ) : (
-          <p>NADA</p>
-        )}
+        ) : null}
       </div>
     </div>
   );
