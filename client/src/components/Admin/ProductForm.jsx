@@ -78,7 +78,7 @@ function ProductForm() {
     e.preventDefault();
     dispatch(updateProduct({ id: id, ...input }));
     dispatch(getProducts());
-    navigate("/admin");
+    navigate("/admin/products");
   }
 
   const handleAlertConfirm = (e) => {
