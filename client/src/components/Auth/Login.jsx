@@ -143,7 +143,7 @@ function Login() {
             </form>
             <div className="Login-card-items">
               <Link to="/login/reset">
-                <p className="Login-text">¿Olvidaste tu constraseña?</p>
+                <p className="Login-text">¿Olvidaste tu contraseña?</p>
               </Link>
             </div>
             <div className="Login-card-items">
