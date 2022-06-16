@@ -64,6 +64,7 @@ export default function EditForm() {
           timer: 500,
         });
       })
+      .then(() => dispatch(getUserDb(user.uid)))
       .catch((error) => {
         swal({
           title: "Ups... hubo un error",

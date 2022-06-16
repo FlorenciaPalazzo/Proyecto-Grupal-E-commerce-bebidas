@@ -40,22 +40,26 @@ export default function Card({
 
   const handleAddCarrito = (e) => {
     e.preventDefault();
-    swal({
-      title: "Producto agregado al carrito ",
-      type: "success",
-      icon: "success",
-      buttons: false,
-      timer: 800,
-    });
+
+    if (productObject.stock === 0) {
+      swal({
+        title: "Producto sin stock 🛒",
+        icon: "warning",
+        buttons: false,
+        timer: 800,
+      });
+    } else {
+      dispatch(addCart(productObject));
+      swal({
+        title: "Producto agregado al carrito ",
+        type: "success",
+        icon: "success",
+        buttons: false,
+        timer: 800,
+      });
+    }
+
     console.log("stock", productObject.stock);
-    productObject.stock === 0
-      ? swal({
-          title: "Producto sin stock 🛒",
-          icon: "warning",
-          buttons: false,
-          timer: 800,
-        })
-      : dispatch(addCart(productObject));
   };
 
   const handleAddFavorito = (e) => {

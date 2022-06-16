@@ -512,15 +512,15 @@ export const Checkout = () => {
                     <span>Gratuito</span>
                     <div>
                       Retirá tu pedido sin costo de envío en nuestra sucursal de
-                      Pilar.
+                      Villa de Mayo.
                       <br></br>
                       <br></br>
                       Disponible Lunes a Miércoles de 11 a 21 hs | Jueves a
                       Sábados de 11 a 00 hs.
                       <br></br>
                       <br></br>
-                      Colectora Este Ramal Pilar 1250, B1669 Del Viso, Provincia
-                      de Buenos Aires
+                      Eva Perón 2978, B1614 Villa de Mayo, Provincia de Buenos
+                      Aires
                       <br></br>
                       <br></br>
                     </div>
