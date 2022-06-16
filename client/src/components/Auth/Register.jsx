@@ -55,7 +55,8 @@ function Register() {
       setCelError
     );
   }
-  async function errorValidate(error) {
+  function errorValidate(error) {
+    console.log("ENTRO AL VALIDATE CON ESTE ERROR: ", error);
     setError(null);
     if (error === "Firebase: Error (auth/email-already-in-use).") {
       setError("Ya existe un usuario con este mail");
@@ -123,7 +124,11 @@ function Register() {
           );
         })
         .then(() => navigate("/"))
-        .catch((err) => errorValidate(err.message));
+        .catch((err) => {
+          console.log("ENTRO AL CATCH");
+          console.log(err);
+          errorValidate(err.message);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -143,15 +148,6 @@ function Register() {
       icon: "warning",
     });
   };
-
-  // async function errorValidate(error) {
-  //   setError(null);
-  //   if (error === "Firebase: Error (auth/user-not-found).") {
-  //     setError("No existe un usuario con este mail");
-  //   } else if (error === "Firebase: Error (auth/wrong-password).") {
-  //     setError("Se ingreso una contraseña incorrecta");
-  //   }
-  // }
 
   async function googleHandleSubmit(e) {
     setError(null);
@@ -178,7 +174,7 @@ function Register() {
         dispatch(setUser(user));
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
         errorValidate(error.message);
       });
   }

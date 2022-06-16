@@ -24,10 +24,11 @@ export default function NavBar({ setCurrentPage }) {
       .then(() => {
         signOut(auth).then(() => {
           console.log("logout");
-          //dispatch(setLoading(true))
           dispatch(resetUser());
-          //dispatch(setLoading(false))
         });
+      })
+      .then(()=>{
+        navigate("/")
       })
       .catch((error) => {
         // An error happened.
