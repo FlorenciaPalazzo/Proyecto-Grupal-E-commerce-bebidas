@@ -311,26 +311,34 @@ function Register() {
             </div>
           </div>
 
-          <div className="registro-error">
-            {nameError && <span>{nameError}</span>}
-            <br />
-            {surnameError && (
-              <span /* className="register-span" */>{surnameError}</span>
-            )}
-            <br />
-            {celErrror && (
-              <span /* className="register-span" */>{celErrror}</span>
-            )}
-            <br />
-            {birthError && <span>{birthError}</span>}
-            <br />
+          {passwordError ||
+          surnameError ||
+          nameError ||
+          emailError ||
+          birthError ||
+          celErrror ||
+          confirmPasswordError ? (
+            <div className="registro-error">
+              {nameError && <span>{nameError}</span>}
+              <br />
+              {surnameError && (
+                <span /* className="register-span" */>{surnameError}</span>
+              )}
+              <br />
+              {celErrror && (
+                <span /* className="register-span" */>{celErrror}</span>
+              )}
+              <br />
+              {birthError && <span>{birthError}</span>}
+              <br />
 
-            {emailError && <span>{emailError}</span>}
-            <br />
-            {passwordError && <span>{passwordError}</span>}
-            <br />
-            {confirmPasswordError && <span>{confirmPasswordError}</span>}
-          </div>
+              {emailError && <span>{emailError}</span>}
+              <br />
+              {passwordError && <span>{passwordError}</span>}
+              <br />
+              {confirmPasswordError && <span>{confirmPasswordError}</span>}
+            </div>
+          ) : null}
         </div>
       )}
     </div>

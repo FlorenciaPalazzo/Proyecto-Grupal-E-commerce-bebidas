@@ -47,7 +47,7 @@ export const Checkout = () => {
   const navigate = useNavigate();
   const sandbox = useSelector((state) => state.mpSandBox);
   const loading = useSelector((state) => state.isLoading);
-  const user = useSelector((state) => state.currentUser)
+  const user = useSelector((state) => state.currentUser);
   const { id } = useParams();
 
   const [boleano, setBoleano] = useState(false);
@@ -64,7 +64,7 @@ export const Checkout = () => {
     provincia: null,
     id_user: id,
   });
-  const direcciones = useSelector((state) => state.direcciones)
+  const direcciones = useSelector((state) => state.direcciones);
   console.log("soy direcciones", direcciones);
   const [errors, setErrors] = useState({});
   const [disabled, setDisabled] = useState(true);
@@ -98,13 +98,13 @@ export const Checkout = () => {
     provincia: "Retiro por sucursal",
   };
   const handleInputChange = function (e) {
+    console.log("e.target.value", e.target.value);
     if (e.target.value === "sucursal") {
       setDisabled(true);
       setInput({
         [e.target.name]: e.target.value,
         id_user: id,
       });
-      setDireccion(direccionSucursal);
     }
     if (e.target.value === "envio") {
       setDisabled(false);
@@ -120,6 +120,27 @@ export const Checkout = () => {
         [e.target.name]: e.target.value,
       })
     );
+  };
+
+  const handleEntregaSucursal = (e) => {
+    e.preventDefault();
+    setDireccion(direccionSucursal);
+    dispatch(addDirecciones(e.target.value));
+
+    swal({
+      title: "Se recogerá en sucursal ",
+      icon: "success",
+      buttons: false,
+      timer: 900,
+    });
+
+    setBoleano(!boleano);
+
+    // swal({
+    //   title: "Revisa los campos ingresados",
+    //   type: "warning",
+    //   icon: "warning",
+    // });
   };
 
   const handleDireccion = function (e) {
@@ -213,7 +234,7 @@ export const Checkout = () => {
   subtotal?.forEach((e) => (total += e));
   return (
     <div>
-      {loading/* revisen esto!! */ ? (
+      {loading /* revisen esto!! */ ? (
         <Loading />
       ) : (
         <div className="checkout-div-main">
@@ -269,20 +290,15 @@ export const Checkout = () => {
                           )}
                         </div>
 
-                        <div className="envio-dir">
-                          <button
-                            className="btn bg-success"
-                            onClick={handlePagar}
-                          >
-                            PAGAR{" "}
-                          </button>
-                        </div>
+                        <button className="boton-pagar" onClick={handlePagar}>
+                          PAGAR{" "}
+                        </button>
                       </div>
                     ) : (
                       //
                       <div className="envio-dir">
                         <button
-                          className="btn bg-success"
+                          className="boton-pagar"
                           onClick={handleAlertPagar}
                         >
                           {" "}
@@ -291,271 +307,277 @@ export const Checkout = () => {
                       </div>
                     )}
                   </div>
-                </div>
 
-                <div className="checkout-delivery">
-                  <h3>Elegir metodo de entrega</h3>
-                  <ul>
-                    <li className="user-direccion-ul">
-                      <label>
-                        {" "}
-                        <input
-                          type="radio"
-                          name="delivery_type"
-                          value="envio"
-                          id="delivery_type_envio"
-                          onClick={(e) => {
-                            handleInputChange(e);
-                          }}
-                        />
-                        Envio a Domicilio estándar Provincia e Interior
-                      </label>
+                  <div className="checkout-delivery">
+                    <h3>Elegir metodo de entrega</h3>
+                    <ul>
+                      <li className="user-direccion-ul">
+                        <label>
+                          {" "}
+                          <input
+                            type="radio"
+                            name="delivery_type"
+                            value="envio"
+                            id="delivery_type_envio"
+                            onClick={(e) => {
+                              handleInputChange(e);
+                            }}
+                          />
+                          Envio a Domicilio estándar Provincia e Interior
+                        </label>
 
-                      <span>$749,00</span>
+                        <span>$749,00</span>
 
-                      <div>
-                        Despachamos tu pedido dentro de las 24 hs. Demora entre
-                        3 a 5 días hábiles.
-                      </div>
-                    </li>
-                    {!disabled ? (
-                      <div>
-                        <div className="user-direccion">
-                          <h2>Enviar al domicilio: </h2>
-                          <ul>
-                            {direcciones?.map((e) => {
-                              return (
-                                <li
-                                  key={e.id_direcciones}
-                                  className="user-direccion-ul"
-                                >
-                                  <label>
-                                    <input
-                                      type="radio"
-                                      name="direcciones"
-                                      id={e.id_direcciones}
-                                      value={e.id_direcciones}
-                                      onClick={(e) => {
-                                        handleDireccion(e);
-                                      }}
-                                    />
-                                    {`  ${e.provincia} , ${e.localidad} , ${e.calle_numero} , CP ${e.codigo_postal} `}
-
-                                    <button
-                                      type="button"
-                                      class="btn btn-outline-light btn-sm text-danger "
-                                      onClick={handleDelDir}
-                                      value={e.id_direcciones}
-                                    >
-                                      Borrar
-                                    </button>
-                                  </label>
-                                </li>
-                              );
-                            })}
-                          </ul>
+                        <div>
+                          Despachamos tu pedido dentro de las 24 hs. Demora
+                          entre 3 a 5 días hábiles.
                         </div>
-                        <div className="form-direccion">
-                          <h2>Ingresar Nueva direccion de envio:</h2>
-                          <label> Calle y número</label>
-                          <input
-                            disabled={disabled}
-                            name="calle_numero"
-                            type="text"
-                            onChange={(e) => {
-                              handleInputChange(e);
-                            }}
-                            placeholder="Ingrese Calle y numero"
-                          />
-                          {errors.calle_numero && (
-                            <span className="form-dir-danger">
-                              {errors.calle_numero}
-                            </span>
-                          )}
-                          <br></br>
-                          <label> Codigo postal</label>
-                          <input
-                            disabled={disabled}
-                            name="codigo_postal"
-                            type="number"
-                            onChange={(e) => {
-                              handleInputChange(e);
-                            }}
-                            placeholder="Codigo postal (4 digitos)"
-                          />
-                          {errors.codigo_postal && (
-                            <span className="form-dir-danger">
-                              {errors.codigo_postal}
-                            </span>
-                          )}
-                          <br></br>
-                          <label> Provincia</label>
-                          <select
-                            name="provincia"
-                            onChange={(e) => {
-                              handleInputChange(e);
-                            }}
-                            id="provincia"
-                            placeholder=" Seleccione una provincia"
-                            className="form-dir-select"
-                          >
-                            <option defaultValue value="">
-                              Seleccionar una Provincia
-                            </option>
-                            <option value="BUENOS AIRES" id="1">
-                              BUENOS AIRES
-                            </option>
-                            <option value="CATAMARCA" id="2">
-                              CATAMARCA
-                            </option>
-                            <option value="CHACO" id="5">
-                              CHACO
-                            </option>
-                            <option value="CHUBUT" id="6">
-                              CHUBUT
-                            </option>
-                            <option value="CIUDAD AUTONOMA DE Bs As" id="50">
-                              CIUDAD AUTONOMA DE Bs As
-                            </option>
-                            <option value="CORDOBA" id="3">
-                              CORDOBA
-                            </option>
-                            <option value="CORRIENTES" id="4">
-                              CORRIENTES
-                            </option>
-                            <option value="ENTRE RIOS" id="7">
-                              ENTRE RIOS
-                            </option>
-                            <option value="FORMOSA" id="8">
-                              FORMOSA
-                            </option>
-                            <option value="JUJUY" id="9">
-                              JUJUY
-                            </option>
-                            <option value="LA PAMPA" id="10">
-                              LA PAMPA
-                            </option>
-                            <option value="LA RIOJA" id="11">
-                              LA RIOJA
-                            </option>
-                            <option value="MENDOZA" id="12">
-                              MENDOZA
-                            </option>
-                            <option value="MISIONES" id="13">
-                              MISIONES
-                            </option>
-                            <option value="NEUQUEN" id="14">
-                              NEUQUEN
-                            </option>
-                            <option value="RIO NEGRO" id="15">
-                              RIO NEGRO
-                            </option>
-                            <option value="SALTA" id="16">
-                              SALTA
-                            </option>
-                            <option value="SAN LUIS" id="17">
-                              SAN LUIS
-                            </option>
-                            <option value="SANTA CRUZ" id="19">
-                              SANTA CRUZ
-                            </option>
-                            <option value="SANTA FE" id="20">
-                              SANTA FE
-                            </option>
-                            <option value="ANTIAGO DEL ESTERO" id="21">
-                              SANTIAGO DEL ESTERO
-                            </option>
-                            <option value="TIERRA DEL FUEGO" id="22">
-                              TIERRA DEL FUEGO
-                            </option>
-                          </select>
-                          {errors.provincia && (
-                            <span className="form-dir-danger">
-                              {errors.provincia}
-                            </span>
-                          )}
+                      </li>
+                      {!disabled ? (
+                        <div>
+                          <div className="user-direccion">
+                            <h2>Enviar al domicilio: </h2>
+                            <ul>
+                              {direcciones?.map((e) => {
+                                return (
+                                  <li
+                                    key={e.id_direcciones}
+                                    className="user-direccion-ul"
+                                  >
+                                    <label>
+                                      <input
+                                        type="radio"
+                                        name="direcciones"
+                                        id={e.id_direcciones}
+                                        value={e.id_direcciones}
+                                        onClick={(e) => {
+                                          handleDireccion(e);
+                                        }}
+                                      />
+                                      {`  ${e.provincia} , ${e.localidad} , ${e.calle_numero} , CP ${e.codigo_postal} `}
 
-                          <label> Localidad</label>
-                          <input
-                            disabled={disabled}
-                            name="localidad"
-                            type="text"
-                            onChange={(e) => {
-                              handleInputChange(e);
-                            }}
-                            placeholder="Ingrese una localidad"
-                          />
-                          {errors.localidad && (
-                            <span className="form-dir-danger">
-                              {errors.localidad}
-                            </span>
-                          )}
-                          <div className="btn-add-direccion">
-                            <button
-                              type="button"
-                              class="btn btn-outline-dark btn-sm text-danger "
-                              onClick={handlesubmitDireccion}
+                                      <button
+                                        type="button"
+                                        class="btn btn-outline-light btn-sm text-danger "
+                                        onClick={handleDelDir}
+                                        value={e.id_direcciones}
+                                      >
+                                        Borrar
+                                      </button>
+                                    </label>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </div>
+                          <div className="form-direccion">
+                            <h2>Ingresar Nueva direccion de envio:</h2>
+                            <label> Calle y número</label>
+                            <input
+                              disabled={disabled}
+                              name="calle_numero"
+                              type="text"
+                              onChange={(e) => {
+                                handleInputChange(e);
+                              }}
+                              placeholder="Ingrese Calle y numero"
+                            />
+                            {errors.calle_numero && (
+                              <span className="form-dir-danger">
+                                {errors.calle_numero}
+                              </span>
+                            )}
+                            <br></br>
+                            <label> Codigo postal</label>
+                            <input
+                              disabled={disabled}
+                              name="codigo_postal"
+                              type="number"
+                              onChange={(e) => {
+                                handleInputChange(e);
+                              }}
+                              placeholder="Codigo postal (4 digitos)"
+                            />
+                            {errors.codigo_postal && (
+                              <span className="form-dir-danger">
+                                {errors.codigo_postal}
+                              </span>
+                            )}
+                            <br></br>
+                            <label> Provincia</label>
+                            <select
+                              name="provincia"
+                              onChange={(e) => {
+                                handleInputChange(e);
+                              }}
+                              id="provincia"
+                              placeholder=" Seleccione una provincia"
+                              className="form-dir-select"
                             >
-                              Agregar direccion
-                            </button>
+                              <option defaultValue value="">
+                                Seleccionar una Provincia
+                              </option>
+                              <option value="BUENOS AIRES" id="1">
+                                BUENOS AIRES
+                              </option>
+                              <option value="CATAMARCA" id="2">
+                                CATAMARCA
+                              </option>
+                              <option value="CHACO" id="5">
+                                CHACO
+                              </option>
+                              <option value="CHUBUT" id="6">
+                                CHUBUT
+                              </option>
+                              <option value="CIUDAD AUTONOMA DE Bs As" id="50">
+                                CIUDAD AUTONOMA DE Bs As
+                              </option>
+                              <option value="CORDOBA" id="3">
+                                CORDOBA
+                              </option>
+                              <option value="CORRIENTES" id="4">
+                                CORRIENTES
+                              </option>
+                              <option value="ENTRE RIOS" id="7">
+                                ENTRE RIOS
+                              </option>
+                              <option value="FORMOSA" id="8">
+                                FORMOSA
+                              </option>
+                              <option value="JUJUY" id="9">
+                                JUJUY
+                              </option>
+                              <option value="LA PAMPA" id="10">
+                                LA PAMPA
+                              </option>
+                              <option value="LA RIOJA" id="11">
+                                LA RIOJA
+                              </option>
+                              <option value="MENDOZA" id="12">
+                                MENDOZA
+                              </option>
+                              <option value="MISIONES" id="13">
+                                MISIONES
+                              </option>
+                              <option value="NEUQUEN" id="14">
+                                NEUQUEN
+                              </option>
+                              <option value="RIO NEGRO" id="15">
+                                RIO NEGRO
+                              </option>
+                              <option value="SALTA" id="16">
+                                SALTA
+                              </option>
+                              <option value="SAN LUIS" id="17">
+                                SAN LUIS
+                              </option>
+                              <option value="SANTA CRUZ" id="19">
+                                SANTA CRUZ
+                              </option>
+                              <option value="SANTA FE" id="20">
+                                SANTA FE
+                              </option>
+                              <option value="ANTIAGO DEL ESTERO" id="21">
+                                SANTIAGO DEL ESTERO
+                              </option>
+                              <option value="TIERRA DEL FUEGO" id="22">
+                                TIERRA DEL FUEGO
+                              </option>
+                            </select>
+                            {errors.provincia && (
+                              <span className="form-dir-danger">
+                                {errors.provincia}
+                              </span>
+                            )}
+
+                            <label> Localidad</label>
+                            <input
+                              disabled={disabled}
+                              name="localidad"
+                              type="text"
+                              onChange={(e) => {
+                                handleInputChange(e);
+                              }}
+                              placeholder="Ingrese una localidad"
+                            />
+                            {errors.localidad && (
+                              <span className="form-dir-danger">
+                                {errors.localidad}
+                              </span>
+                            )}
+                            <div className="btn-add-direccion">
+                              <button
+                                type="button"
+                                class="btn btn-outline-dark btn-sm text-danger "
+                                onClick={handlesubmitDireccion}
+                              >
+                                Agregar direccion
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ) : null}
+                      ) : null}
 
-                    <li className="user-direccion-ul">
-                      <label>
-                        {" "}
-                        <input
-                          type="radio"
-                          name="delivery_type"
-                          value="sucursal"
-                          id="delivery_12"
-                          onClick={(e) => {
-                            handleInputChange(e);
-                          }}
-                        />
-                        Retiro por sucursal Pilar
-                      </label>
-                      <span>Gratuito</span>
-                      <div>
-                        Retirá tu pedido sin costo de envío en nuestra sucursal
-                        de Villa de Mayo.
-                        <br></br>
-                        <br></br>
-                        Disponible Lunes a Miércoles de 11 a 21 hs | Jueves a
-                        Sábados de 11 a 00 hs.
-                        <br></br>
-                        <br></br>
-                        Eva Perón 2978, B1614 Villa de Mayo, Provincia de Buenos
-                        Aires
-                        <br></br>
-                        <br></br>
-                      </div>
-                    </li>
-                  </ul>
+                      <li className="user-direccion-ul">
+                        <label>
+                          {" "}
+                          <input
+                            type="radio"
+                            name="delivery_type"
+                            value="sucursal"
+                            id="delivery_12"
+                            onClick={(e) => {
+                              handleInputChange(e);
+                            }}
+                          />
+                          Retiro por sucursal Pilar
+                        </label>
+                        <span>Gratuito</span>
+                        <div>
+                          Retirá tu pedido sin costo de envío en nuestra
+                          sucursal de Villa de Mayo.
+                          <br></br>
+                          <br></br>
+                          Disponible Lunes a Miércoles de 11 a 21 hs | Jueves a
+                          Sábados de 11 a 00 hs.
+                          <br></br>
+                          <br></br>
+                          Eva Perón 2978, B1614 Villa de Mayo, Provincia de
+                          Buenos Aires
+                          <br></br>
+                          <br></br>
+                          <button
+                            value="sucursal"
+                            onClick={handleEntregaSucursal}
+                          >
+                            Confirmar entrega por sucursal
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="btn-back-cart">
+                  <button>
+                    <svg
+                      height="16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                      version="1.1"
+                      viewBox="0 0 1024 1024"
+                    >
+                      <path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path>
+                    </svg>
+                    <span>
+                      <Link to="/cart">Carrito</Link>
+                    </span>
+                  </button>
                 </div>
               </div>
-            </div>
-
-            <div className="btn-back-cart">
-              <button>
-                <svg
-                  height="16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                  version="1.1"
-                  viewBox="0 0 1024 1024"
-                >
-                  <path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path>
-                </svg>
-                <span>
-                  <Link to="/cart">Carrito</Link>
-                </span>
-              </button>
+              <Footer />
             </div>
           </div>
-          <Footer />
         </div>
       )}
     </div>

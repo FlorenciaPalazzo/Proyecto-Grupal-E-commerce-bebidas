@@ -129,36 +129,35 @@
 
 /* From uiverse.io by @Jedi-hongbin */
 .btn-back-cart button {
-    display: flex;
-    height: 3em;
-    width: 100px;
-    align-items: center;
-    justify-content: center;
-    background-color: #eeeeee4b;
-    border-radius: 3px;
-    letter-spacing: 1px;
-    transition: all 0.2s linear;
-    cursor: pointer;
-    border: solid 1px rgba(0, 0, 0, 0.377);
-    background: rgb(232, 252, 145);
-   }
-   
-  .btn-back-cart button > svg {
-    margin-right: 5px;
-    margin-left: 5px;
-    font-size: 20px;
-    transition: all 0.4s ease-in;
-   }
-   
- .btn-back-cart button:hover > svg {
-    font-size: 1.2em;
-    transform: translateX(-5px);
-   }
-   
-  .btn-back-cart button:hover {
-   
-    transform: translateY(-2px);
-   } 
+  display: flex;
+  height: 3em;
+  width: 100px;
+  align-items: center;
+  justify-content: center;
+  background-color: #eeeeee4b;
+  border-radius: 3px;
+  letter-spacing: 1px;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  border: solid 1px rgba(0, 0, 0, 0.377);
+  background: rgb(232, 252, 145);
+}
+
+.btn-back-cart button > svg {
+  margin-right: 5px;
+  margin-left: 5px;
+  font-size: 20px;
+  transition: all 0.4s ease-in;
+}
+
+.btn-back-cart button:hover > svg {
+  font-size: 1.2em;
+  transform: translateX(-5px);
+}
+
+.btn-back-cart button:hover {
+  transform: translateY(-2px);
+}
 
 @media (max-width: 800px) {
   .checkout-product-delivery {
@@ -199,4 +198,8 @@
   .checkout-delivery h3 {
     font-size: 15px;
   }
+}
+.boton-pagar {
+  background-color: rgb(2, 149, 19);
+  border: transparent;
 }

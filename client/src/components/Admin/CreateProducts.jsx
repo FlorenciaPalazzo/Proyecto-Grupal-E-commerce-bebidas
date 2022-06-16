@@ -13,6 +13,7 @@ import FileBase64 from "react-file-base64";
 import "./CreateProducts.css";
 import AdminPanel from "../AdminPanel";
 import Loading from "../Loading";
+import swal from "sweetalert";
 
 //---------------------------------------------------------- //
 //NOTA!!!! : Varias de las cosas comentadas fueron porque en //
@@ -89,6 +90,12 @@ function CreateProducts() {
         setStockError
       )
     );
+    swal({
+      title: "Producto creado",
+      icon: "success",
+      buttons: false,
+      timer: 500,
+    });
 
     postHandle();
   }
@@ -298,7 +305,14 @@ function CreateProducts() {
                 <button
                   className="c-btn"
                   type="button"
-                  onClick={() => alert("Complete todos los campos weon")}
+                  onClick={() =>
+                    swal({
+                      title: "Complete todos los campos por favor ",
+                      icon: "info",
+                      buttons: false,
+                      timer: 2000,
+                    })
+                  }
                 >
                   Crear
                 </button>
