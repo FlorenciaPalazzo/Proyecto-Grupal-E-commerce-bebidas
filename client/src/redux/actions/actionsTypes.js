@@ -54,3 +54,4 @@ export const GET_STATS = "GET_STATS"
 export const GET_TOP_PRODS = "GET_TOP_PRODS"
 export const ORDER_BY = "ORDER_BY";
 export const CREATE_PRODUCTO = "CREATE_PRODUCTO";
+export const RESET_READY = "RESET_READY";

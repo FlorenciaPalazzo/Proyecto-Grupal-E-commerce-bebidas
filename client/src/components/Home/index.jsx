@@ -52,9 +52,18 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    dispatch(getBrands());
-    if (admin) {
-      navigate("/admin");
+    if (!loading) {
+      if ((verified && !admin) || !verified) {
+        dispatch(getBrands());
+      } else {
+        console.log("entra al navigate");
+        if (admin) {
+          navigate("/admin");
+        } else navigate("/*");
+        // if (admin) {
+        //   navigate("/admin");
+        //}
+      }
     }
   }, [dispatch, product, loading, /*  searchProduct, */ rev, admin]);
   console.log("admin", admin);
@@ -90,7 +99,7 @@ function Home() {
 
   return (
     <div>
-      {loading /* revisen esto!! */ ? (
+      {loading || admin  /* revisen esto!! */ ? (
         <Loading />
       ) : (
         <div className="div-body">
@@ -169,11 +178,9 @@ function Home() {
 
             <div className="home-reviews-render">
               {rev ? (
-
                 rev.slice(0, 4).map((e) => {
-
                   return (
-                    <div key={e.id} className='home-reviews-carta'>
+                    <div key={e.id} className="home-reviews-carta">
                       <p>Titulo: {e.titulo}</p>
                       <p>Comentario: {e.comentario}</p>
                       <div className="home-reviews-star">

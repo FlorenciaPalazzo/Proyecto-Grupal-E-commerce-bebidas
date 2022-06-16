@@ -34,7 +34,7 @@ router.get("/:id", async (req, res) => {
       where: { id },
       include: { model: Direcciones },
     });
-    res.status(200).json(usuario);
+    res.status(200).json({usuario,ready:true});
   } catch (e) {
     res.status(400);
   }
@@ -240,8 +240,8 @@ router.post("/direcciones", async (req, res) => {
       codigo_postal,
       provincia,
     } = req.body;
-    //const usuario = await Usuario.findOne({where:{id:id_user}})
-    // console.log('---------------------------',usuario);
+    const usuario = await Usuario.findOne({where:{id:id_user}})
+    console.log('---------------------------',usuario);
     let direcciones = await Direcciones.findOrCreate({
       where: {
         usuarioId: id_user,
@@ -301,12 +301,12 @@ router.get("/admin/stats", async (req, res) => {
     //resp.totalReviews = await Review.count()
     let reviewsArr = await Review.findAll();
     resp.totalReviews = reviewsArr.length;
-    let usuarios = []
+    let usuarios = [];
     let verifiedUser = [];
     let noVerifiedUser = [];
     usuariosArr.map((e) => {
       if (!e.isAdmin) {
-        usuarios.push(e)
+        usuarios.push(e);
         if (e.isVerified) {
           verifiedUser.push(e);
         } else noVerifiedUser.push(e);

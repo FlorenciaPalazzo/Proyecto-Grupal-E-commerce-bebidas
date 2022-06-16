@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../Loading";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   getAllReviews,
   getProducts,
@@ -16,6 +16,7 @@ import "./AdminReview.css";
 
 export const AdminReview = () => {
   const dispatch = useDispatch(); /////////////////////////////////
+  const navigate = useNavigate(); /////////////////////////////////
 
   let revsPage = useSelector((state) => state.reviewPage);
   let revs = useSelector((state) => state.allReviews);
@@ -23,6 +24,7 @@ export const AdminReview = () => {
   const usersLoged = useSelector((state) => state.usersLoged);
   const loading = useSelector((state) => state.isLoading);
   const admin = useSelector((state) => state.isAdmin);
+  const user = useSelector((state) => state.currentUser);
 
   const [filterReviews, setfilterReviews] = useState([]);
   const products = useSelector((state) => state.products);
@@ -64,48 +66,31 @@ export const AdminReview = () => {
   let prom = 0;
   prom = Math.round(promPage);
 
-  // const handleSelector = (e) => {
-  //   e.preventDefault();
-  //   console.log(e.target.value);
-  //   if (e.target.value === "pagina") {
-  //     setfilterReviews([...revsPage]);
-  //   } else if (e.target.value === "productos") {
-  //     let arr = [];
-  //     revs.forEach((e) => {
-  //       if (e.productoId !== null) {
-  //         arr.push(e);
-  //       }
-  //     });
-  //     setfilterReviews([...arr]);
-  //   } else if(e.target.value === "all") {
-  //     setfilterReviews([...revs]);
-  //   } else {
-  //     setfilterReviews([...revs]);
-  //   }
-  // };
-  // useEffect(() => {
-  //   setfilterReviews([...revs]);
-  // }, []);
-
   const handleSelector = (e) => {
     e.preventDefault();
     dispatch(filterUserReview(e.target.value));
   };
 
   useEffect(() => {
-    dispatch(getProducts());
-    dispatch(getAllReviews());
-    dispatch(getUsersLoged());
-    dispatch(getReviewPage());
-    setfilterReviews([...revs]);
-  }, [dispatch, admin]);
+    if (!loading) {
+      if (user && admin) {
+        dispatch(getProducts());
+        dispatch(getAllReviews());
+        dispatch(getUsersLoged());
+        dispatch(getReviewPage());
+        setfilterReviews([...revs]);
+      } else {
+        navigate("/*");
+      }
+    }
+  }, [dispatch, loading]);
   return (
     <div>
-      <AdminPanel />
       {loading ? (
         <Loading />
-      ) : admin ? (
-        <div>
+        ) :  (
+          <div>
+          <AdminPanel />
           {
             <div className="admin-review-madre">
               <div>
@@ -190,7 +175,8 @@ export const AdminReview = () => {
         <button>Volver al panel del admin</button>
       </Link> */}
         </div>
-      ) : (
+      )} 
+      {/* : (
         <div>
           <h1> No eres administrador </h1>
 
@@ -199,8 +185,8 @@ export const AdminReview = () => {
               Volver al home
             </button>
           </Link>
-        </div>
-      )}
+        </div> */}
+      
     </div>
   );
 };

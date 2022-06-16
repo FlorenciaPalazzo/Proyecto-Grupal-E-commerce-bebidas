@@ -12,6 +12,7 @@ import {
 import validate from "./adminResources";
 import FileBase64 from "react-file-base64";
 import AdminPanel from "../AdminPanel";
+import Loading from "../Loading";
 
 function ProductForm() {
   /** 
@@ -29,6 +30,10 @@ function ProductForm() {
     updatedAt: "2022-06-08T15:54:46.320Z"
   */
   const { id } = useParams();
+
+  const user = useSelector((state) => state.currentUser);
+  const isAdmin = useSelector((state) => state.isAdmin);
+  const isLoading = useSelector((state) => state.isLoading);
   const navigate = useNavigate();
   console.log("ID", id);
   const prod = useSelector((state) => state.editProduct);
@@ -78,7 +83,7 @@ function ProductForm() {
     e.preventDefault();
     dispatch(updateProduct({ id: id, ...input }));
     dispatch(getProducts());
-    navigate("/admin");
+    navigate("/admin/products");
   }
 
   const handleAlertConfirm = (e) => {
@@ -90,25 +95,31 @@ function ProductForm() {
   };
 
   useEffect(() => {
-    if (!prod) {
-      dispatch(getProductById(id));
-    } else {
-      setInput({
-        nombre: prod.nombre,
-        marca: prod.marca,
-        precio: prod.precio,
-        graduacion: prod.graduacion,
-        ml: prod.ml,
-        tipo: prod.tipo,
-        descripcion: prod.descripcion,
-        stock: prod.stock,
-        imagen: prod.imagen,
-      });
-      return () => {
-        dispatch(clearState());
-      };
+    if (!isLoading) {
+      if (user && isAdmin) {
+        if (!prod) {
+          dispatch(getProductById(id));
+        } else {
+          setInput({
+            nombre: prod.nombre,
+            marca: prod.marca,
+            precio: prod.precio,
+            graduacion: prod.graduacion,
+            ml: prod.ml,
+            tipo: prod.tipo,
+            descripcion: prod.descripcion,
+            stock: prod.stock,
+            imagen: prod.imagen,
+          });
+          return () => {
+            dispatch(clearState());
+          };
+        }
+      } else {
+        navigate("/*");
+      }
     }
-  }, [prod]); //aca falta dispatch y id segun la consola amarilla del chrome jaja que decia!
+  }, [prod, isLoading]); //aca falta dispatch y id segun la consola amarilla del chrome jaja que decia!
   prod && console.log(input.tipo);
   console.log({
     nombreError,
@@ -121,198 +132,205 @@ function ProductForm() {
     stockError,
   });
   return (
-    <div className="productform-body">
-      <AdminPanel />
+    <div>
+      {isLoading && !isAdmin ? (
+        <Loading />
+      ) : (
+        <div className="productform-body">
+          <AdminPanel />
+          <h1>ProductForm</h1>
+          <div className="productform-base">
+            <form className="productform-form1">
+              <label htmlFor="nombre" className="productform-items">
+                Nombre:{" "}
+              </label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                value={input.nombre}
+                onChange={handleChange}
+                className="productform-items"
+              />
 
-      <h1>ProductForm</h1>
-      <div className="productform-base">
-        <form className="productform-form1">
-          <label htmlFor="nombre" className="productform-items">
-            Nombre:{" "}
-          </label>
-          <input
-            type="text"
-            id="nombre"
-            name="nombre"
-            value={input.nombre}
-            onChange={handleChange}
-            className="productform-items"
-          />
+              <label htmlFor="marca" className="productform-items">
+                Marca:{" "}
+              </label>
+              <input
+                type="text"
+                id="marca"
+                name="marca"
+                value={input.marca}
+                onChange={handleChange}
+                className="productform-items"
+              />
 
-          <label htmlFor="marca" className="productform-items">
-            Marca:{" "}
-          </label>
-          <input
-            type="text"
-            id="marca"
-            name="marca"
-            value={input.marca}
-            onChange={handleChange}
-            className="productform-items"
-          />
+              <label htmlFor="precio" className="productform-items">
+                Precio: $
+              </label>
+              <input
+                type="float"
+                id="precio"
+                name="precio"
+                value={input.precio}
+                onChange={handleChange}
+                className="productform-items"
+              />
 
-          <label htmlFor="precio" className="productform-items">
-            Precio: $
-          </label>
-          <input
-            type="float"
-            id="precio"
-            name="precio"
-            value={input.precio}
-            onChange={handleChange}
-            className="productform-items"
-          />
+              <label htmlFor="stock" className="productform-items">
+                Stock:{" "}
+              </label>
+              <input
+                type="number"
+                id="stock"
+                name="stock"
+                value={input.stock}
+                onChange={handleChange}
+                className="productform-items"
+              />
 
-          <label htmlFor="stock" className="productform-items">
-            Stock:{" "}
-          </label>
-          <input
-            type="number"
-            id="stock"
-            name="stock"
-            value={input.stock}
-            onChange={handleChange}
-            className="productform-items"
-          />
+              <label htmlFor="graduacion" className="productform-items">
+                Graduacion en %:{" "}
+              </label>
+              <input
+                type="float"
+                id="graduacion"
+                name="graduacion"
+                value={input.graduacion}
+                onChange={handleChange}
+                className="productform-items"
+              />
 
-          <label htmlFor="graduacion" className="productform-items">
-            Graduacion en %:{" "}
-          </label>
-          <input
-            type="float"
-            id="graduacion"
-            name="graduacion"
-            value={input.graduacion}
-            onChange={handleChange}
-            className="productform-items"
-          />
+              <label htmlFor="ml" className="productform-items">
+                Capacidad en ml. :{" "}
+              </label>
+              <input
+                type="number"
+                id="ml"
+                name="ml"
+                value={input.ml}
+                onChange={handleChange}
+                className="productform-items"
+              />
+            </form>
 
-          <label htmlFor="ml" className="productform-items">
-            Capacidad en ml. :{" "}
-          </label>
-          <input
-            type="number"
-            id="ml"
-            name="ml"
-            value={input.ml}
-            onChange={handleChange}
-            className="productform-items"
-          />
-        </form>
-
-        <div className="productform-error">
-          {nombreError && (
-            <div>
-              <span>{nombreError}</span>
+            <div className="productform-error">
+              {nombreError && (
+                <div>
+                  <span>{nombreError}</span>
+                </div>
+              )}
+              {marcaError && (
+                <div>
+                  <span>{marcaError}</span>
+                </div>
+              )}
+              {precioError && (
+                <div>
+                  <span>{precioError}</span>
+                </div>
+              )}
+              {stockError && (
+                <div>
+                  <span>{stockError}</span>
+                </div>
+              )}
+              {graduacionError && (
+                <div>
+                  <span>{graduacionError}</span>
+                </div>
+              )}
+              {mlError && (
+                <div>
+                  <span>{mlError}</span>
+                </div>
+              )}
+              {tipoError && (
+                <div>
+                  <span>{tipoError}</span>
+                </div>
+              )}
             </div>
-          )}
-          {marcaError && (
-            <div>
-              <span>{marcaError}</span>
-            </div>
-          )}
-          {precioError && (
-            <div>
-              <span>{precioError}</span>
-            </div>
-          )}
-          {stockError && (
-            <div>
-              <span>{stockError}</span>
-            </div>
-          )}
-          {graduacionError && (
-            <div>
-              <span>{graduacionError}</span>
-            </div>
-          )}
-          {mlError && (
-            <div>
-              <span>{mlError}</span>
-            </div>
-          )}
-          {tipoError && (
-            <div>
-              <span>{tipoError}</span>
-            </div>
-          )}
-        </div>
-        <form className="productform-form2">
-          <p>Categoria de producto: </p>
-          {prod && input.tipo ? (
-            <div className="productform-cat">
-              <select name="tipo" id="tipo" defaultValue={`${input.tipo}`}>
-                <option value="cerveza">Cerveza</option>
-                <option value="vino">Vino</option>
-                <option value="espumante">Espumante</option>
-                <option value="destilado">Destilado</option>
-              </select>
-            </div>
-          ) : (
-            <span>Cargando...</span>
-          )}
-          <br />
-          <div className="productform-cat">
-            <FileBase64
-              type="file"
-              multiple={false}
-              onDone={({ base64 }) => setInput({ ...input, imagen: base64 })}
-            />
-          </div>
-          {/*<select className="selector" name="tipo" onChange={handleChange} defaultValue="tipos" type="radio">
+            <form className="productform-form2">
+              <p>Categoria de producto: </p>
+              {prod && input.tipo ? (
+                <div className="productform-cat">
+                  <select name="tipo" id="tipo" defaultValue={`${input.tipo}`}>
+                    <option value="cerveza">Cerveza</option>
+                    <option value="vino">Vino</option>
+                    <option value="espumante">Espumante</option>
+                    <option value="destilado">Destilado</option>
+                  </select>
+                </div>
+              ) : (
+                <span>Cargando...</span>
+              )}
+              <br />
+              <div className="productform-cat">
+                <FileBase64
+                  type="file"
+                  multiple={false}
+                  onDone={({ base64 }) =>
+                    setInput({ ...input, imagen: base64 })
+                  }
+                />
+              </div>
+              {/*<select className="selector" name="tipo" onChange={handleChange} defaultValue="tipos" type="radio">
           <option value="cerveza">Cerveza</option>
           <option value="vino">Vino</option>
           <option value="espumante">Espumante</option>
           <option value="destilado">Destilado</option>
         </select>*/}
 
-          {descripcionError && (
-            <div>
-              <span>{descripcionError}</span>
-            </div>
-          )}
-          <div className="productform-cat">
-            <label htmlFor="descripcion">Descripcion: </label>
-            <textarea
-              name="descripcion"
-              id="descripcion"
-              cols="30"
-              rows="10"
-              value={input.descripcion}
-              onChange={handleChange}
-            />
-          </div>
-          <br />
-          <div className="productform-cat">
-            {prod && <img src={input.imagen} alt="" width="30%" />}
-          </div>
+              {descripcionError && (
+                <div>
+                  <span>{descripcionError}</span>
+                </div>
+              )}
+              <div className="productform-cat">
+                <label htmlFor="descripcion">Descripcion: </label>
+                <textarea
+                  name="descripcion"
+                  id="descripcion"
+                  cols="30"
+                  rows="10"
+                  value={input.descripcion}
+                  onChange={handleChange}
+                />
+              </div>
+              <br />
+              <div className="productform-cat">
+                {prod && <img src={input.imagen} alt="" width="30%" />}
+              </div>
 
-          {nombreError ||
-          marcaError ||
-          precioError ||
-          mlError ||
-          graduacionError ||
-          tipoError ||
-          stockError ||
-          descripcionError ? (
-            <button
-              onClick={handleAlertConfirm}
-              type="button"
-              className="productform-btn"
-            >
-              Confirmar
-            </button>
-          ) : (
-            <button
-              type="submit"
-              onClick={handleSubmit}
-              className="productform-btn"
-            >
-              Confirmar
-            </button>
-          )}
-        </form>
-      </div>
+              {nombreError ||
+              marcaError ||
+              precioError ||
+              mlError ||
+              graduacionError ||
+              tipoError ||
+              stockError ||
+              descripcionError ? (
+                <button
+                  onClick={handleAlertConfirm}
+                  type="button"
+                  className="productform-btn"
+                >
+                  Confirmar
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  onClick={handleSubmit}
+                  className="productform-btn"
+                >
+                  Confirmar
+                </button>
+              )}
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

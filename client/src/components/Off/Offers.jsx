@@ -1,13 +1,18 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getProducts} from "../../redux/actions";
+import { Link, useNavigate } from "react-router-dom";
+import { getProducts } from "../../redux/actions";
 import Card from "../Card";
+import Loading from "../Loading";
 import NavBarSec from "../NavBarSec";
-import './Offers.css'
+import "./Offers.css";
 
 export default function Offers() {
   const productsOffers = useSelector((state) => state.products);
+  const user = useSelector((state) => state.currentUser);
+  const isAdmin = useSelector((state) => state.isAdmin);
+  const isLoading = useSelector((state) => state.isLoading);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   console.log("soyproductoffers", productsOffers);
 
@@ -25,36 +30,47 @@ export default function Offers() {
   console.log(arrayOffers);
 
   useEffect(() => {
-    dispatch(getProducts());
-  }, []);
+    if (!isLoading) {
+      if ((user && !isAdmin) || !user) {
+        dispatch(getProducts());
+      } else {
+        navigate("/*");
+      }
+    }
+  }, [isLoading]);
   return (
-    <div >
-      <NavBarSec/>
-      <div className="Offers-titulo">
-      <h2>Ofertas Imperdibles</h2>
-      </div>
-      <div className="Offers-contenedor">
-      {arrayOffers.map((e) => {
-        return (
-          
-          <div key={e.id} className="div-key-card">
-            <Link to={"/bebida/" + e.id}>
-            <div className="Offers-singular" >
-            <Card
-              nombre={e.nombre}
-              imagen={e.imagen}
-              id={e.id}
-              marca={e.marca}
-              ml={e.ml}
-              graduacion={e.graduacion}
-              precio={e.precio}
-            />
-            </div>
-            </Link>
+    <div>
+      {isLoading /* revisen esto!! */ ? (
+        <Loading />
+      ) : (
+        <div>
+          <NavBarSec />
+          <div className="Offers-titulo">
+            <h2>Ofertas Imperdibles</h2>
           </div>
-        );
-      })}
-      </div>
+          <div className="Offers-contenedor">
+            {arrayOffers.map((e) => {
+              return (
+                <div key={e.id} className="div-key-card">
+                  <Link to={"/bebida/" + e.id}>
+                    <div className="Offers-singular">
+                      <Card
+                        nombre={e.nombre}
+                        imagen={e.imagen}
+                        id={e.id}
+                        marca={e.marca}
+                        ml={e.ml}
+                        graduacion={e.graduacion}
+                        precio={e.precio}
+                      />
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

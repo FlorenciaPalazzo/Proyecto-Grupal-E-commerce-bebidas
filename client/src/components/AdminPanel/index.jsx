@@ -85,9 +85,6 @@ export default function AdminPanel() {
 
   return (
     <div>
-      {loading ? (
-        <Loading />
-      ) : admin ? (
         <div>
           <nav class="navbar bg-light fixed-top">
             <div class="container-fluid">
@@ -286,7 +283,6 @@ export default function AdminPanel() {
             </div>
           </nav>
         </div>
-      ) : null}
       {/* <Link to = "/">
         <button class="btn btn-outline-warning  mx-3  bg-white text-dark">
           Volver al home

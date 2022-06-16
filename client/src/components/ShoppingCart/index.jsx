@@ -18,6 +18,7 @@ import {
 import Loading from "../Loading";
 
 const ShoppingCart = () => {
+  const isAdmin = useSelector((state) => state.isAdmin);
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.isLoading);
@@ -32,10 +33,6 @@ const ShoppingCart = () => {
   };
   console.log("productCart", productCart);
   console.log("feedbackReducer", feedBackReducer);
-  useEffect(() => {
-    if (!feedBackReducer) dispatch(feedBack());
-    localValue();
-  }, [dispatch, productReducer, feedBackReducer]);
 
   let productArray = [];
   let subtotal = productCart?.map(
@@ -93,172 +90,115 @@ const ShoppingCart = () => {
         title: "No estas registrado!",
         icon: "warning",
       });
+    } else if (!verified.emailVerified) {
+      swal({
+        title: "Por favor VERIFICÀ tu email!",
+        icon: "warning",
+      });
     }
   };
 
+  useEffect(() => {
+    if (!loading) {
+      if (verified && !isAdmin) {
+        if (!feedBackReducer) dispatch(feedBack());
+        localValue();
+      } else {
+        navigate("/*");
+      }
+    }
+  }, [dispatch, productReducer, feedBackReducer, loading]);
   console.log("object");
   return (
-    // <div className="carrito-container">
-    //   {loading /* revisen esto!! */ ? (
-    //     <Loading />
-    //   ) : (
-    //     <div className="carrito-body">
-    //       <Link to="/">
-    //         <img className="details-logo" src="/logo/logo.png" alt="logo" />
-    //       </Link>
-    //       <div className="carrito-background">
-    //         <h1>Carrito</h1>
-
-    //         <div className="carrito-main">
-    //           {productCart &&
-    //             productCart.map((element) => {
-    //               productArray.push(element);
-
-    //               return (
-    //                 <div className="carrito-content">
-    //                   <div key={element.id} className="carrito-product">
-    //                     <img
-    //                       src={element.imagen}
-    //                       alt="img not found"
-    //                       width="20%"
-    //                     />
-    //                     <h3>{`${element.nombre}`}</h3>
-    //                     <span className="carrito-price">
-    //                       <button
-    //                         className="button"
-    //                         onClick={deleteProduct}
-    //                         value={element.id}
-    //                       >
-    //                         ➖
-    //                       </button>
-    //                       <div>
-    //                         ${element.precio} x {element.quantity} = $
-    //                         {element.precio * element.quantity}
-    //                       </div>
-    //                       <button
-    //                         className="button"
-    //                         onClick={addProduct}
-    //                         value={element.id}
-    //                       >
-    //                         ➕
-    //                       </button>
-    //                     </span>
-    //                   </div>
-    //                 </div>
-    //               );
-    //             })}
-
-    //           <span>
-    //             <div className="carrito-resumen">
-    //               <button className="button" onClick={cleanAllCart}>
-    //                 Limpiar carrito
-    //               </button>
-    //               <h1 className="carrito-total">Precio: ${total}</h1>
-
-    //               {
-    //                 /* verified && !verified.emailVerified ? (
-    //                 <button className="button" onClick={handleAlertCarrito}>
-    //                   PAGAR
-    //                 </button>
-    //               ) :  */ <button
-    //                   className="button-pagar"
-    //                   onClick={postCarrito}
-    //                 >
-    //                   PAGAR
-    //                 </button>
-    //               }
-    //             </div>
-    //           </span>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   )}
-    // </div>
     <div>
-      <NavBarSec />
-      <div className="shopping-cart">
-        {loading /* revisen esto!! */ ? (
-          <Loading />
-        ) : (
-          <div className="card">
-            <div className="row">
-              <div className="col-md-8 cart">
-                <div className="title">
-                  <div className="row">
-                    <div className="col">
-                      <h4>
-                        <b>Carrito</b>
-                      </h4>
+      {loading /* revisen esto!! */ ? (
+        <Loading />
+      ) : (
+        <div>
+          <NavBarSec />
+          <div className="shopping-cart">
+            <div className="card">
+              <div className="row">
+                <div className="col-md-8 cart">
+                  <div className="title">
+                    <div className="row">
+                      <div className="col">
+                        <h4>
+                          <b>Carrito</b>
+                        </h4>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="carrito-main">
-                  {productCart &&
-                    productCart.map((e) => {
-                      productArray.push(e);
-                      return (
-                        <div className="row border-top border-bottom" id={e.id}>
-                          <div className="row main align-items-center">
-                            <div className="col-2">
-                              <img
-                                className="img-fluid"
-                                src={e.imagen}
-                                alt="img not found"
-                                width="20%"
-                              />
-                            </div>
-                            <div className="col">
-                              <div className="row">{e.nombre}</div>
-                            </div>
-                            <div className="col d-flex flex-row">
-                              <button
-                                className="border"
-                                onClick={deleteProduct}
-                                value={e.id}
-                              >
-                                ➖
-                              </button>
-                              <div className="col">
-                                ${e.precio} x {e.quantity} = $
-                                {e.precio * e.quantity}
+                  <div className="carrito-main">
+                    {productCart &&
+                      productCart.map((e) => {
+                        productArray.push(e);
+                        return (
+                          <div
+                            className="row border-top border-bottom"
+                            id={e.id}
+                          >
+                            <div className="row main align-items-center">
+                              <div className="col-2">
+                                <img
+                                  className="img-fluid"
+                                  src={e.imagen}
+                                  alt="img not found"
+                                  width="20%"
+                                />
                               </div>
-                              <button
-                                className="border"
-                                onClick={addProduct}
-                                value={e.id}
-                              >
-                                ➕
-                              </button>
+                              <div className="col">
+                                <div className="row">{e.nombre}</div>
+                              </div>
+                              <div className="col d-flex flex-row">
+                                <button
+                                  className="border"
+                                  onClick={deleteProduct}
+                                  value={e.id}
+                                >
+                                  ➖
+                                </button>
+                                <div className="col">
+                                  ${e.precio} x {e.quantity} = $
+                                  {e.precio * e.quantity}
+                                </div>
+                                <button
+                                  className="border"
+                                  onClick={addProduct}
+                                  value={e.id}
+                                >
+                                  ➕
+                                </button>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+                  </div>
+                  <button className="btn" onClick={cleanAllCart}>
+                    Limpiar carrito
+                  </button>
+                  <div className="back-to-shop">
+                    <a href="/">
+                      <span className="text-muted">Volver al home</span>
+                    </a>
+                  </div>
                 </div>
-                <button className="btn" onClick={cleanAllCart}>
-                  Limpiar carrito
-                </button>
-                <div className="back-to-shop">
-                  <a href="/">
-                    <span className="text-muted">Volver al home</span>
-                  </a>
-                </div>
-              </div>
-              <div className="col-md-4 summary">
-                <div>
-                  <h5>
-                    <b>Resumen</b>
-                  </h5>
-                </div>
-                <hr />
-                <span>
-                  <div className="row">
-                    <div className="col">PRECIO</div>
-                    <div className="col text-right">${total}</div>
+                <div className="col-md-4 summary">
+                  <div>
+                    <h5>
+                      <b>Resumen</b>
+                    </h5>
+                  </div>
+                  <hr />
+                  <span>
+                    <div className="row">
+                      <div className="col">PRECIO</div>
+                      <div className="col text-right">${total}</div>
 
-                    {
-                      /*  !verified.emailVerified && */ !verified ||
-                      !productCart.length ? (
+                      {!verified?.emailVerified ||
+                      !verified ||
+                      !productCart?.length ? (
                         <button
                           className="btn bg-success"
                           onClick={handleAlertCarrito}
@@ -272,15 +212,15 @@ const ShoppingCart = () => {
                         >
                           PAGAR
                         </button>
-                      )
-                    }
-                  </div>
-                </span>
+                      )}
+                    </div>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

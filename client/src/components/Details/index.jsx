@@ -26,7 +26,8 @@ export default function Detail() {
   const product = useSelector((state) => state.detail);
   const rev = useSelector((state) => state.review);
   const products = useSelector((state) => state.products);
-  const loading = useSelector((state) => state.isLoading);
+  const loading = useSelector((state) => state.isLoading);  
+  const isAdmin = useSelector((state) => state.isAdmin);
   console.log(rev, "SOY EL REV");
   let cart = product;
   const handleCart = (e) => {
@@ -52,14 +53,21 @@ export default function Detail() {
   console.log(prom);
 
   useEffect(() => {
-    dispatch(getProductById(id));
-    dispatch(getReview(id));
-    dispatch(getProducts());
+    if (!loading) {
+      if ((verified && !isAdmin) || !verified) {
+        dispatch(getProductById(id));
+        dispatch(getReview(id));
+        dispatch(getProducts());
+      } else {
+          console.log("navigate del coctact container");
+        navigate("/*");
+      }
+    }
     return () => {
       //componen did unmount
       dispatch(clearState()); // limpio el state de details
     };
-  }, [dispatch, id]);
+  }, [dispatch, id, loading]);
 
   const handleAlertReview = (e) => {
     e.preventDefault();

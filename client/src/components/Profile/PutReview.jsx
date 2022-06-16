@@ -10,8 +10,9 @@ import {
   postReview,
   putReview,
 } from "../../redux/actions";
+import Loading from "../Loading";
 import NavBarSec from "../NavBarSec";
-import '../Review/ReviewStyles.css'
+import "../Review/ReviewStyles.css";
 
 function validate({
   value,
@@ -43,42 +44,46 @@ function validate({
 }
 
 export default function PutReview() {
+  const user = useSelector((state) => state.currentUser);
+  const isAdmin = useSelector((state) => state.isAdmin);
+  const isLoading = useSelector((state) => state.isLoading);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
   //   const usuario = useSelector((state) => state.currentUser);
   let products = useSelector((state) => state.products);
-  console.log(products, 'productos del state')
+  console.log(products, "productos del state");
   //   let [bool, setBool] = useState(false);
   const review = useSelector((state) => state.findreview);
-  console.log(review, 'qque review es')
-  
+  console.log(review, "qque review es");
+
   let revsLocal = JSON.parse(localStorage.getItem("userputid"));
   console.log(revsLocal, "AAAAAAAAAAAAAAAAAAAA");
-  let prod = products.filter((e) => e.id === revsLocal.productoId);
-  console.log(prod, 'productos para cuando')
+  let prod = products.filter((e) => e.id === revsLocal?.productoId);
+  console.log(prod, "productos para cuando");
   const [tituloError, setTituloError] = useState(null);
   const [comentarioError, setComentarioError] = useState(null);
   const [puntajeError, setPuntajeError] = useState(null);
   //   let idUser = localStorage.getItem("user");
   //   useEffect(() => {}, [usuario]);
-  let imgLocal 
-   if(revsLocal.length){
-  products.forEach(e => {
-    console.log(e, 'que tiene el forEach')
-    if(e.id === revsLocal.productoId){
-      imgLocal = e.imagen;
-    }
-  })
-}
-console.log(imgLocal, 'imagen local')
+  let imgLocal;
+  if (revsLocal?.length) {
+    products.forEach((e) => {
+      console.log(e, "que tiene el forEach");
+      if (e.id === revsLocal.productoId) {
+        imgLocal = e.imagen;
+      }
+    });
+  }
+  console.log(imgLocal, "imagen local");
   const [input, setInput] = useState({
-    titulo: revsLocal.titulo,
-    comentario: revsLocal.comentario,
+    titulo: revsLocal?.titulo,
+    comentario: revsLocal?.comentario,
     puntaje: "",
-    usuarioId: revsLocal.usuarioId,
-    productoId: revsLocal.productoId,
-    id: revsLocal.id,
+    usuarioId: revsLocal?.usuarioId,
+    productoId: revsLocal?.productoId,
+    id: revsLocal?.id,
   });
 
   const handleOnChange = (e) => {
@@ -130,8 +135,15 @@ console.log(imgLocal, 'imagen local')
     navigate("/profile");
   };
   useEffect(() => {
-    dispatch(getProducts())
-  },[])
+    if (!isLoading) {
+      if (user && !isAdmin) {
+        dispatch(getProducts());
+      } else {
+        console.log("navigate del coctact container");
+        navigate("/*");
+      }
+    }
+  }, [isLoading]);
   useEffect(() => {
     dispatch(findReviewId(id));
     return () => {
@@ -141,90 +153,101 @@ console.log(imgLocal, 'imagen local')
   }, [dispatch]);
   return (
     <div>
-      <NavBarSec />
-      <div className="reviewContainer">
-      {prod && prod[0] ? (
-        <div className="logoFondo">
-          {/* <h1>¡Contanos que te parecio {prod[0].nombre}!</h1> */}
-          <img src={prod[0].imagen } width="50%" />
-        </div>
-      ) : imgLocal && imgLocal ?  (
-        <div className="logoFondo">
-        <img src={imgLocal} width="50%" />
-        </div>
+      {isLoading /* revisen esto!! */ ? (
+        <Loading />
       ) : (
-      <div className="logoFondo">
-      <img  src="/images/logo.png" width="50%" />
-      </div>
-      )}
-      <div class="registration-form" className="reviewForm">
-      <form onSubmit={(e) => handleSubmit(e)}>
         <div>
-          <label className="reviewLabel">Titulo:</label>
-          <div class="form-group">
-          <input
-            type="text"
-            class="form-control item"
-            placeholder={input.titulo}
-            // value={input.titulo}
-            name="titulo"
-            onChange={handleOnChange}
-          />
+          <NavBarSec />
+          <div className="reviewContainer">
+            {prod && prod[0] ? (
+              <div className="logoFondo">
+                {/* <h1>¡Contanos que te parecio {prod[0].nombre}!</h1> */}
+                <img src={prod[0].imagen} width="50%" />
+              </div>
+            ) : imgLocal && imgLocal ? (
+              <div className="logoFondo">
+                <img src={imgLocal} width="50%" />
+              </div>
+            ) : (
+              <div className="logoFondo">
+                <img src="/images/logo.png" width="50%" />
+              </div>
+            )}
+            <div class="registration-form" className="reviewForm">
+              <form onSubmit={(e) => handleSubmit(e)}>
+                <div>
+                  <label className="reviewLabel">Titulo:</label>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control item"
+                      placeholder={input.titulo}
+                      // value={input.titulo}
+                      name="titulo"
+                      onChange={handleOnChange}
+                    />
+                  </div>
+                </div>
+                <div>
+                  {tituloError && (
+                    <span className="register-span ">{tituloError}</span>
+                  )}{" "}
+                </div>
+                <div>
+                  <label className="reviewLabel">Comentario:</label>
+                  <textarea
+                    class="form-control item"
+                    placeholder={input.comentario}
+                    // value={input.comentario}
+                    name="comentario"
+                    onChange={handleOnChange}
+                  />
+                </div>
+                <div>
+                  {comentarioError && (
+                    <span className="register-span ">{comentarioError}</span>
+                  )}
+                </div>
+                <div>
+                  <ReactStars
+                    name="puntaje"
+                    count={5}
+                    onChange={ratingChanged}
+                    size={24}
+                    emptyIcon={<i className="far fa-star"></i>}
+                    halfIcon={<i className="fa fa-star-half-alt"></i>}
+                    fullIcon={<i className="fa fa-star"></i>}
+                    activeColor="#ffd700"
+                  />
+                </div>
+                {!input.puntaje && (
+                  <span className="register-span ">
+                    ¡No te olvides de puntuarnos!{" "}
+                  </span>
+                )}
+                <div className="buttonsReview">
+                  {!tituloError &&
+                  !comentarioError &&
+                  input.puntaje &&
+                  input.comentario &&
+                  input.titulo ? (
+                    <button class="btn btn-dark" type="submit">
+                      Puntuar
+                    </button>
+                  ) : (
+                    <div>¡Debes llenar todos los campos!</div>
+                  )}
+                  <div>
+                    <Link to="/profile">
+                      <button class="btn btn-dark">Atras</button>
+                    </Link>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-        <div>
-          {tituloError && <span className="register-span ">{tituloError}</span>}{" "}
-        </div>
-        <div>
-          <label className="reviewLabel">Comentario:</label>
-          <textarea class="form-control item"
-            placeholder={input.comentario}
-            // value={input.comentario}
-            name="comentario"
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          {comentarioError && (
-            <span className="register-span ">{comentarioError}</span>
-            )}
-        </div>
-        <div>
-          <ReactStars
-            name="puntaje"
-            count={5}
-            onChange={ratingChanged}
-            size={24}
-            emptyIcon={<i className="far fa-star"></i>}
-            halfIcon={<i className="fa fa-star-half-alt"></i>}
-            fullIcon={<i className="fa fa-star"></i>}
-            activeColor="#ffd700"
-          />
-        </div>
-        {!input.puntaje && (
-          <span className="register-span ">¡No te olvides de puntuarnos! </span>
-          )}
-        <div className="buttonsReview">
-          {!tituloError &&
-          !comentarioError &&
-          input.puntaje &&
-          input.comentario &&
-          input.titulo ? (
-            <button class="btn btn-dark" type="submit">
-              Puntuar
-            </button>
-          ) : (
-            <div>¡Debes llenar todos los campos!</div>
-            )}
-        <div>   
-          <Link to="/profile">
-            <button class="btn btn-dark">Atras</button>
-          </Link>
-        </div> 
-        </div>
-      </form>
-      </div>
-      </div>
+      )}
     </div>
   );
 }

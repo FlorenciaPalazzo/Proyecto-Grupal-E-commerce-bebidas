@@ -22,7 +22,7 @@ export const FeedBack = () => {
 
   console.log(user, "Hola, soy el user uid");
 
-  let map = productCart.map((e) => {
+  let map = productCart?.map((e) => {
     
     let obj = {
       id: e.id,
@@ -44,10 +44,11 @@ export const FeedBack = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    productCart.map((e) => dispatch(putProduct(e)));
+    productCart?.map((e) => dispatch(putProduct(e)));
   }, [dispatch, productCart]);
   let foo;
   useEffect(() => {
+    
     let search = window.location.search;
     let params = new URLSearchParams(search);
     foo = params.get("status");

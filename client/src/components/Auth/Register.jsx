@@ -56,7 +56,6 @@ function Register() {
     );
   }
   function errorValidate(error) {
-    console.log("ENTRO AL VALIDATE CON ESTE ERROR: ", error);
     setError(null);
     if (error === "Firebase: Error (auth/email-already-in-use).") {
       setError("Ya existe un usuario con este mail");
@@ -126,7 +125,6 @@ function Register() {
         .then(() => navigate("/"))
         .catch((err) => {
           console.log("ENTRO AL CATCH");
-          console.log(err);
           errorValidate(err.message);
         });
     } catch (error) {
@@ -182,11 +180,11 @@ function Register() {
   return (
     <div>
       <NavBarSec />
-      <div className="registro-body">
-        <div className="registro-img"></div>
-        {loading && !isLoged ? (
-          <Loading />
-        ) : (
+      {loading && !isLoged ? (
+        <Loading />
+      ) : (
+        <div className="registro-body">
+          <div className="registro-img"></div>
           <div className="registro-cont">
             <div className="registro-form">
               <p className="registro-titulo">Registrate</p>
@@ -312,29 +310,29 @@ function Register() {
               </form>
             </div>
           </div>
-        )}
 
-        <div className="registro-error">
-          {nameError && <span>{nameError}</span>}
-          <br />
-          {surnameError && (
-            <span /* className="register-span" */>{surnameError}</span>
-          )}
-          <br />
-          {celErrror && (
-            <span /* className="register-span" */>{celErrror}</span>
-          )}
-          <br />
-          {birthError && <span>{birthError}</span>}
-          <br />
+          <div className="registro-error">
+            {nameError && <span>{nameError}</span>}
+            <br />
+            {surnameError && (
+              <span /* className="register-span" */>{surnameError}</span>
+            )}
+            <br />
+            {celErrror && (
+              <span /* className="register-span" */>{celErrror}</span>
+            )}
+            <br />
+            {birthError && <span>{birthError}</span>}
+            <br />
 
-          {emailError && <span>{emailError}</span>}
-          <br />
-          {passwordError && <span>{passwordError}</span>}
-          <br />
-          {confirmPasswordError && <span>{confirmPasswordError}</span>}
+            {emailError && <span>{emailError}</span>}
+            <br />
+            {passwordError && <span>{passwordError}</span>}
+            <br />
+            {confirmPasswordError && <span>{confirmPasswordError}</span>}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
