@@ -226,7 +226,7 @@ export const AdminStats = () => {
                     <div class="card-body">
                       <div class="d-flex justify-content-between px-md-1">
                         <div>
-                          <h3 class="text-info">423</h3>
+                          <h3 class="text-info">{stat.pageReview ? stat.pageReview : 0}</h3>
                           <p class="mb-0">Review de la página:</p>
                         </div>
                         <div class="align-self-center">
