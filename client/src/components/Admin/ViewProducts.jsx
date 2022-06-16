@@ -88,7 +88,7 @@ export default function ViewProducts() {
               product={products.length}
               pagination={pagination}
             />
-            <div className="viewproducts-cont">Usuarios</div>
+            {/* <div className="viewproducts-cont">Usuarios</div> */}
             <table class="table table-striped">
               <thead>
                 <tr>

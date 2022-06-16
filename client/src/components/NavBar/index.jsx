@@ -11,6 +11,8 @@ import swal from "sweetalert";
 export default function NavBar({ setCurrentPage }) {
   const isLoged = useSelector((state) => state.isLoged);
   const usuarioActual = useSelector((state) => state.currentUser);
+  const carrito = useSelector((state) => state.productCart)
+  console.log(carrito, "<=============  SOY EL CARRITO VACIO")
   const dispatch = useDispatch();
   const navigate = useNavigate();
   function out() {
@@ -24,15 +26,32 @@ export default function NavBar({ setCurrentPage }) {
       .then(() => {
         signOut(auth).then(() => {
           console.log("logout");
-          //dispatch(setLoading(true))
           dispatch(resetUser());
-          //dispatch(setLoading(false))
         });
+      })
+      .then(()=>{
+        navigate("/")
       })
       .catch((error) => {
         // An error happened.
         console.log(error);
       });
+  }
+ 
+
+  const handleGoCarrito = (e) => {
+    e.preventDefault();
+    if (!localStorage.getItem("product") || carrito.length === 0){
+      swal({
+        title: "El carrito esta vacío",
+        icon: "warning",
+        buttons: false,
+        timer: 800,
+      })
+    } 
+else if(localStorage.getItem("product")){
+  navigate("/cart")
+}
   }
 
   return (
@@ -200,7 +219,7 @@ export default function NavBar({ setCurrentPage }) {
                 </ul>
               </li>
 
-              <Link to="/cart">
+              <a  onClick={handleGoCarrito} >
                 <button type="button" class="btn btn-outline-dark  bg-dark ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -213,7 +232,7 @@ export default function NavBar({ setCurrentPage }) {
                     <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
                   </svg>
                 </button>
-              </Link>
+              </a>
             </ul>
           </div>
         </div>

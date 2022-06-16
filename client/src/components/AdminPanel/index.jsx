@@ -51,6 +51,33 @@ export default function AdminPanel() {
         console.log(error);
       });
   }
+  const handleGoToAdmin = (e) => {
+    e.preventDefault();
+    navigate("/admin");
+    window.location.reload();
+  };
+  const handleGoToUsuarios = (e) => {
+    e.preventDefault();
+    navigate("/admin/usuarios");
+    window.location.reload();
+  };
+  const handleGoToMasVotados = (e) => {
+    e.preventDefault();
+    navigate("/admin/products/stats");
+    window.location.reload();
+  };
+
+  const handleGoToCreate = (e) => {
+    e.preventDefault();
+    navigate("/admin/products/create");
+    window.location.reload();
+  };
+
+  const handleGoToProducts = (e) => {
+    e.preventDefault();
+    navigate("/admin/products");
+    window.location.reload();
+  };
 
   useEffect(() => {
     dispatch(getUsersLoged());
@@ -89,34 +116,15 @@ export default function AdminPanel() {
                   </h5>
                 </div>
 
-                {/* -------SEARCH PARA PONERLO DONDE PINTE-------
-               <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close"
-              ></button>
-            </div>
-
-            <form class="d-flex" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form> */}
                 <div class="offcanvas-body">
                   <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                      <Link
-                        to="/admin"
+                      <a
+                        to="/admin/generalstats"
                         class="nav-link active"
                         aria-current="page"
-                        href="#"
+                        href="/#"
+                        onClick={handleGoToAdmin}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -135,12 +143,56 @@ export default function AdminPanel() {
                             d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"
                           />
                         </svg>
-                        Home/Productos
-                      </Link>
+                        Home
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        to="/admin/products"
+                        class="nav-link active"
+                        aria-current="page"
+                        href="/#"
+                        onClick={handleGoToProducts}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="25"
+                          height="25"
+                          fill="currentColor"
+                          class="bi bi-boxes"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434L7.752.066ZM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567L4.25 7.504ZM7.5 9.933l-2.75 1.571v3.134l2.75-1.571V9.933Zm1 3.134 2.75 1.571v-3.134L8.5 9.933v3.134Zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567-2.742 1.567Zm2.242-2.433V3.504L8.5 5.076V8.21l2.75-1.572ZM7.5 8.21V5.076L4.75 3.504v3.134L7.5 8.21ZM5.258 2.643 8 4.21l2.742-1.567L8 1.076 5.258 2.643ZM15 9.933l-2.75 1.571v3.134L15 13.067V9.933ZM3.75 14.638v-3.134L1 9.933v3.134l2.75 1.571Z" />
+                        </svg>
+                        Productos
+                      </a>
                     </li>
 
                     <li class="nav-item">
-                      <Link to="/admin/usuarios" class="nav-link" href="#">
+                      <a
+                        to="/admin/products/create"
+                        class="nav-link active"
+                        aria-current="page"
+                        href="/#"
+                        onClick={handleGoToCreate}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="25"
+                          height="25"
+                          fill="currentColor"
+                          class="bi bi-plus-square"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                        </svg>
+                        {""} Agregar producto
+                      </a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a class="nav-link" href="#" onClick={handleGoToUsuarios}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="25"
@@ -157,14 +209,13 @@ export default function AdminPanel() {
                           <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
                         </svg>{" "}
                         Usuarios
-                      </Link>
+                      </a>
                     </li>
 
                     <li class="nav-item">
                       <a
                         onClick={handleOnClickAdminReview}
                         class="nav-link"
-                        /* href="#" */
                         href="/#"
                       >
                         <svg
@@ -182,11 +233,11 @@ export default function AdminPanel() {
                     </li>
 
                     <li class="nav-item">
-                      <Link
-                        to="/admin/products/stats"
+                      <a
                         class="nav-link active"
                         aria-current="page"
-                        href="#"
+                        href="/#"
+                        onClick={handleGoToMasVotados}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -200,7 +251,7 @@ export default function AdminPanel() {
                           <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                         </svg>
                         {""}Más vendidos
-                      </Link>
+                      </a>
                     </li>
 
                     <li class="nav-item">
