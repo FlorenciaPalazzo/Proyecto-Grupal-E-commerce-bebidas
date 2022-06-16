@@ -93,7 +93,9 @@ export const AdminStats = () => {
                           </svg>
                         </div>
                         <div class="text-end">
-                          <h3>{stat.pageProm ? stat.pageProm : "-"}</h3>
+                          <h3>
+                            {stat.pageProm ? stat.pageProm.toFixed(2) : "-"}
+                          </h3>
                           <p class="mb-0">Promedio de la pagina:</p>
                         </div>
                       </div>
@@ -226,7 +228,7 @@ export const AdminStats = () => {
                     <div class="card-body">
                       <div class="d-flex justify-content-between px-md-1">
                         <div>
-                          <h3 class="text-info">423</h3>
+                          <h3 class="text-info">{stat.pageReviews}</h3>
                           <p class="mb-0">Review de la página:</p>
                         </div>
                         <div class="align-self-center">
