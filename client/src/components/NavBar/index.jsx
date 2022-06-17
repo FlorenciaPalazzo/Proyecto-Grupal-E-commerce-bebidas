@@ -29,7 +29,7 @@ export default function NavBar({ setCurrentPage }) {
           dispatch(resetUser());
         });
       })
-      .then(()=>{
+      .then(() => {
         navigate("/")
       })
       .catch((error) => {
@@ -37,21 +37,21 @@ export default function NavBar({ setCurrentPage }) {
         console.log(error);
       });
   }
- 
+
 
   const handleGoCarrito = (e) => {
     e.preventDefault();
-    if (!localStorage.getItem("product") || carrito.length === 0){
+    if (!localStorage.getItem("product") || carrito.length === 0) {
       swal({
         title: "El carrito esta vacío",
         icon: "warning",
         buttons: false,
         timer: 800,
       })
-    } 
-else if(localStorage.getItem("product")){
-  navigate("/cart")
-}
+    }
+    else if (localStorage.getItem("product")) {
+      navigate("/cart")
+    }
   }
 
   return (
@@ -219,7 +219,7 @@ else if(localStorage.getItem("product")){
                 </ul>
               </li>
 
-              <a  onClick={handleGoCarrito} >
+              <a onClick={handleGoCarrito} >
                 <button type="button" class="btn btn-outline-dark  bg-dark ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
