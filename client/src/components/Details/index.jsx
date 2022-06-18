@@ -55,6 +55,7 @@ export default function Detail() {
   useEffect(() => {
     if (!loading) {
       if ((verified && !isAdmin) || !verified) {
+        window.scrollTo(0, 0);
         dispatch(getProductById(id));
         dispatch(getReview(id));
         dispatch(getProducts());
@@ -152,16 +153,16 @@ export default function Detail() {
                       <table class="table table-striped table-product">
                         <tbody>
                           <tr>
-                            <td width="390">Marca</td>
+                            <td width="390" class="">Marca:</td>
                             <td>{product.marca}</td>
                           </tr>
                           <tr>
-                            <td>Tamaño</td>
-                            <td>{product.ml}</td>
+                            <td>Tamaño:</td>
+                            <td>{product.ml}.ml</td>
                           </tr>
                           <tr>
-                            <td>Graduación</td>
-                            <td>{product.graduacion}</td>
+                            <td>Graduación:</td>
+                            <td>{product.graduacion}%</td>
                           </tr>
                         </tbody>
                       </table>

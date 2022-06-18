@@ -120,9 +120,10 @@ function CreateProducts() {
     descripcionError,
     stockError,
   });
+  console.log("is loading create form",isLoading);
   return (
     <div>
-      {isLoading /* revisen esto!! */ ? (
+      {isLoading   /*|| !user || !isAdmin revisen esto!! */ ? (
         <Loading />
       ) : (
         <div className="c-body">

@@ -117,7 +117,9 @@ function Home() {
               pagination={pagination}
             />
             <div className="card-container">
-              {currentProducts.length > 0 ? (
+              {currentProducts && 
+              // currentProducts.length > 0 ? 
+              (
                 currentProducts.map((e) => {
                   if (e.descripcion !== null) {
                     //TRANSITE CON CUIDADO, CEMENTO FRESCO.-
@@ -139,12 +141,12 @@ function Home() {
                     );
                   }
                 })
-              ) : (
-                <div>
-                  <h1 className="error">No se encontraron productos</h1>
-                </div>
-              )}
-              <div></div>
+              ) 
+              // : (
+              //   <div>
+              //     <h1 className="error">No se encontraron productos</h1>
+              //   </div>
+              }
             </div>
             <Pagination
               currentPage={currentPage}

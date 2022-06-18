@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading";
+import NavBarSec from "../NavBarSec";
 import ContactForm from "./ContactForm";
 
 export default function Contact() {
@@ -14,7 +15,7 @@ export default function Contact() {
       if ((user && !isAdmin) || !user) {
         let a;
       } else {
-          console.log("navigate del coctact container");
+        console.log("navigate del coctact container");
         navigate("/*");
       }
     }
@@ -26,7 +27,12 @@ export default function Contact() {
         <Loading />
       ) : (
         <div>
-          <ContactForm />
+          <div>
+            <NavBarSec />
+          </div>
+          <div>
+            <ContactForm />
+          </div>
         </div>
       )}
     </div>

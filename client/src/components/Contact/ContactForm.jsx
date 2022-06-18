@@ -109,9 +109,6 @@ export default function ContactForm() {
   return (
     <div>
       <div>
-        <NavBarSec/>
-      </div>
-      <div>
         <h1>Formulario de contacto:</h1>
       </div>
       <form ref={form} onSubmit={sendEmail}>

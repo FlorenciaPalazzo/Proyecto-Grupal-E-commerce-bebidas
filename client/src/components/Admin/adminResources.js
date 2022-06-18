@@ -5,7 +5,7 @@ export default function validate(
   setMarcaError,
   setPrecioError,
   setGraduacionError,
-  setTipoError,
+  setTipoError, 
   setDescripcionError,
   setMlError,
   setStockError
