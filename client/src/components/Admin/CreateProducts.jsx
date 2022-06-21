@@ -94,10 +94,10 @@ function CreateProducts() {
       title: "Producto creado",
       icon: "success",
       buttons: false,
-      timer: 500,
-    });
+      timer: 1200,
+    }).then(() => postHandle())
 
-    postHandle();
+    
   }
   useEffect(() => {
     if (!isLoading) {

@@ -166,6 +166,7 @@ export const Checkout = () => {
   };
 
   const handleAlertPagar = (e) => {
+    console.log("handleAlertPagar");
     e.preventDefault();
     swal({
       title: "Favor de confirmar dirección ",
@@ -214,6 +215,7 @@ export const Checkout = () => {
       });
   };
   const handlePagar = function (e) {
+    console.log("handlePagar");
     e.preventDefault();
     if (sandbox) {
       // satan si estas viendo esto esperanos hasta pasado mañana

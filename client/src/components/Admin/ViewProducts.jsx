@@ -73,7 +73,7 @@ export default function ViewProducts() {
     <div>
       {loading ? (
         <Loading />
-      ) : admin ? (
+      ) : !loading && admin ? (
         <div>
           <AdminPanel />
 
