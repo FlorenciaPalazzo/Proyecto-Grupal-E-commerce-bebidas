@@ -96,6 +96,7 @@ export default function EditForm() {
           nombre: "",
           apellido: "",
         });
+
         setImage(dbUser.image);
       }
     }
