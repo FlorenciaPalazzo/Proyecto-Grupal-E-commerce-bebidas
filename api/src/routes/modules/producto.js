@@ -55,7 +55,7 @@ const getDataBase = async () => {
 const getBebidasApi = async () => {
   try {
     const bebidasInfo = await axios.get(`
-      https://bebidas-efc61-default-rtdb.firebaseio.com/results.json`);
+    https://bar-de-toni-default-rtdb.firebaseio.com/results.json`);
     const allBebidas = await bebidasInfo.data.map((e) => {
       return e;
     });

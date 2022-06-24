@@ -108,9 +108,6 @@ export default function ContactForm() {
 
   return (
     <div>
-      <div>
-        <h1>Formulario de contacto:</h1>
-      </div>
       <form ref={form} onSubmit={sendEmail}>
         <input
           type="text"

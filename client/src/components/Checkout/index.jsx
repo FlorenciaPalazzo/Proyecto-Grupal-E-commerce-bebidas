@@ -97,7 +97,6 @@ export const Checkout = () => {
         [e.target.name]: e.target.value,
         id_user: id,
       });
-
     }
     if (e.target.value === "envio") {
       setDisabled(false);
@@ -117,10 +116,8 @@ export const Checkout = () => {
 
   const handleEntregaSucursal = (e) => {
     e.preventDefault();
-    setDireccion(direccionSucursal)
+    setDireccion(direccionSucursal);
     dispatch(addDirecciones(e.target.value));
-
-
 
     swal({
       title: "Se recogerá en sucursal ",
@@ -136,7 +133,7 @@ export const Checkout = () => {
     //   type: "warning",
     //   icon: "warning",
     // });
-  }
+  };
 
   const handleDireccion = function (e) {
     e.preventDefault();
@@ -241,21 +238,21 @@ export const Checkout = () => {
                 <h2>Detalle de compra</h2>
                 {productCart.length
                   ? productCart.map((e) => {
-                    return (
-                      <div className="checkout-product-detail">
-                        <ul className="checkout-ul" key={e.id}>
-                          <img
-                            src={e.imagen}
-                            alt="img not found"
-                            width="70%"
-                          />
-                          <li>{e.nombre}</li>
-                          <li>{e.quantity} unid.</li>
-                          <li>${e.precio},00</li>
-                        </ul>
-                      </div>
-                    );
-                  })
+                      return (
+                        <div className="checkout-product-detail">
+                          <ul className="checkout-ul" key={e.id}>
+                            <img
+                              src={e.imagen}
+                              alt="img not found"
+                              width="70%"
+                            />
+                            <li>{e.nombre}</li>
+                            <li>{e.quantity} unid.</li>
+                            <li>${e.precio},00</li>
+                          </ul>
+                        </div>
+                      );
+                    })
                   : null}
                 <div className="checkout-delivery-info">
                   {direccion.delivery_type === "envio" ? (
@@ -271,8 +268,8 @@ export const Checkout = () => {
                 </div>
                 <div>
                   {direccion.provincia &&
-                    direccion.localidad &&
-                    direccion.calle_numero ? (
+                  direccion.localidad &&
+                  direccion.calle_numero ? (
                     <div>
                       <div className="form-direccion">
                         {direccion.delivery_type === "sucursal" ? (

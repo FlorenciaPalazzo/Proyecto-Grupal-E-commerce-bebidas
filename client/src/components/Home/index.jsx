@@ -99,7 +99,7 @@ function Home() {
 
   return (
     <div>
-      {loading || admin  /* revisen esto!! */ ? (
+      {loading || admin /* revisen esto!! */ ? (
         <Loading />
       ) : (
         <div className="div-body">
@@ -117,35 +117,34 @@ function Home() {
               pagination={pagination}
             />
             <div className="card-container">
-              {currentProducts && 
-              // currentProducts.length > 0 ? 
-              (
-                currentProducts.map((e) => {
-                  if (e.descripcion !== null) {
-                    //TRANSITE CON CUIDADO, CEMENTO FRESCO.-
-                    return (
-                      <div key={e.id} className="div-key-card">
-                        <Link to={"/bebida/" + e.id}>
-                          <Card
-                            nombre={e.nombre}
-                            imagen={e.imagen}
-                            id={e.id}
-                            marca={e.marca}
-                            ml={e.ml}
-                            graduacion={e.graduacion}
-                            precio={e.precio}
-                            stock={e.stock}
-                          />
-                        </Link>
-                      </div>
-                    );
-                  }
-                })
-              ) 
-              // : (
-              //   <div>
-              //     <h1 className="error">No se encontraron productos</h1>
-              //   </div>
+              {
+                currentProducts &&
+                  // currentProducts.length > 0 ?
+                  currentProducts.map((e) => {
+                    if (e.descripcion !== null) {
+                      //TRANSITE CON CUIDADO, CEMENTO FRESCO.-
+                      return (
+                        <div key={e.id} className="div-key-card">
+                          <Link to={"/bebida/" + e.id}>
+                            <Card
+                              nombre={e.nombre}
+                              imagen={e.imagen}
+                              id={e.id}
+                              marca={e.marca}
+                              ml={e.ml}
+                              graduacion={e.graduacion}
+                              precio={e.precio}
+                              stock={e.stock}
+                            />
+                          </Link>
+                        </div>
+                      );
+                    }
+                  })
+                // : (
+                //   <div>
+                //     <h1 className="error">No se encontraron productos</h1>
+                //   </div>
               }
             </div>
             <Pagination
@@ -164,7 +163,7 @@ function Home() {
                   width="100%"
                   height="100%"
                   id="gmap_canvas"
-                  src="https://maps.google.com/maps?q=Distribuidora%20Henry&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                  src="https://maps.google.com/maps?q=Distribuidora%20Henry,%20CLE,%20Eva%20Per%C3%B3n%202978,%20B1614%20Villa%20de%20Mayo,%20Provincia%20de%20Buenos%20Aires&t=&z=13&ie=UTF8&iwloc=&output=embed"
                   frameborder="0"
                   scrolling="no"
                   marginheight="0"
@@ -173,7 +172,7 @@ function Home() {
               </div>
 
               <div className="form-cont">
-                <div className="form-text">Contáctanos</div>
+                <div className="home-form-text">Contáctanos</div>
                 <Contact />
               </div>
             </div>
