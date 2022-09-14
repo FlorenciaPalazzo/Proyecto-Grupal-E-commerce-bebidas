@@ -19,14 +19,10 @@ function Loading() {
   useEffect(() => {
     console.log("effect loading");
     console.log(auth.currentUser);
-    dispatch(getUserDb());
     dispatch(getStats());
     onAuthStateChanged(auth, (currUser) => {
-      console.log("curr userrrrrrrrrrrrrrrrrrrrrrrr", currUser);
       if (currUser && currUser.emailVerified) {
-        console.log(
-          "EL USUARIO ESTA VERIFICADOOOOOOOOOOOOOOOOO DESPACHAO MANITO"
-        );
+        console.log("entro a actulizar el usuario");
         dispatch(
           updateUser({
             id: currUser.uid,
@@ -35,7 +31,7 @@ function Loading() {
         );
       }
       if (currUser) {
-        console.log("el loading enconrtro un usuario activo");
+        dispatch(getUserDb(currUser.uid));
         dispatch(setUser(currUser));
         dispatch(isAdmin(currUser.email));
       } else {

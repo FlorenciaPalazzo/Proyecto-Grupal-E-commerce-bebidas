@@ -54,8 +54,9 @@ const getDataBase = async () => {
 };
 const getBebidasApi = async () => {
   try {
-    const bebidasInfo = await axios.get(`
-      https://bebidas-efc61-default-rtdb.firebaseio.com/results.json`);
+    const bebidasInfo = await axios.get(
+      `https://fb-auth-bebidas-default-rtdb.firebaseio.com/results.json`
+    );
     const allBebidas = await bebidasInfo.data.map((e) => {
       return e;
     });
@@ -65,12 +66,12 @@ const getBebidasApi = async () => {
 
     return allBebidas;
   } catch (error) {
+    console.log("error en getBebidasApi", error);
     next(error);
   }
 };
 
 router.get("/bebidas", async (req, res, next) => {
-
   try {
     let dataInfo = await getDataBase();
     if (dataInfo.length === 0) {
@@ -92,15 +93,25 @@ router.get("/bebidas", async (req, res, next) => {
       res.json(dataInfo);
     }
   } catch (error) {
+    console.log("error en bebidas", error);
     next(error);
   }
 });
 //--------------------BEBIDA-------------------------
 
 router.post("/bebida", async (req, res) => {
-  let = { nombre, imagen, marca, ml, graduacion, descripcion, precio, stock, tipo } =
-    req.body;
-  console.log(req.body)
+  let = {
+    nombre,
+    imagen,
+    marca,
+    ml,
+    graduacion,
+    descripcion,
+    precio,
+    stock,
+    tipo,
+  } = req.body;
+  console.log(req.body);
   let [bebidaCreada, created] = await Producto.findOrCreate({
     where: {
       nombre: nombre,
@@ -128,10 +139,19 @@ router.get("/bebida/:id", async (req, res) => {
 });
 
 router.put("/bebida", async (req, res) => {
-  let { nombre, imagen, marca, ml, graduacion, descripcion, precio, stock, tipo } =
-    req.body;
+  let {
+    nombre,
+    imagen,
+    marca,
+    ml,
+    graduacion,
+    descripcion,
+    precio,
+    stock,
+    tipo,
+  } = req.body;
   let { id } = req.body;
-  console.log(req.body)
+  console.log(req.body);
   try {
     const bebidaPut = await Producto.findOne({ where: { id: id } });
 
@@ -281,7 +301,9 @@ router.post("/historial", async (req, res) => {
       console.log(e, "Soy un solo ID");
       await Comprado.create({
         //where: { productoId: e.id, usuarioId: id_user, quantity: e.quantity },
-         productoId: e.id, usuarioId: id_user, quantity: e.quantity ,
+        productoId: e.id,
+        usuarioId: id_user,
+        quantity: e.quantity,
       });
     });
     // let product = await Producto.findByPk(id_prods)
@@ -290,7 +312,6 @@ router.post("/historial", async (req, res) => {
     console.log(e);
   }
 });
-
 
 module.exports = router;
 

@@ -70,7 +70,7 @@ function UserProfile() {
             <div class="profile-img">
               {dbUser?.image ? (
                 <img src={dbUser.image} /* height="90" */ width="50%" />
-              ) : user.photoURL ? (
+              ) : user?.photoURL ? (
                 <img src={user.photoURL} /* height="90" */ width="50%" />
               ) : (
                 <img src="./images/default.jpg" height="100" width="100" />

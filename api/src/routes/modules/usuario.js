@@ -131,7 +131,7 @@ router.put("/", async (req, res) => {
 
 router.post("/checkout", async (req, res) => {
   let productos = await Carrito.findAll();
-  console.log("productos", productos);
+  // console.log("productos", productos);
   let itemsMapeo = productos.map((e) => {
     return {
       title: e.nombre,
@@ -139,7 +139,7 @@ router.post("/checkout", async (req, res) => {
       quantity: parseInt(e.quantity),
     };
   });
-  console.log("itemsMapeo", itemsMapeo);
+  // console.log("itemsMapeo", itemsMapeo);
   let preference = {
     items: [...itemsMapeo],
     back_urls: {
@@ -153,7 +153,7 @@ router.post("/checkout", async (req, res) => {
   mercadopago.preferences
     .create(preference)
     .then(function (mp) {
-      console.log("Body de mercado pago", mp.body);
+      // console.log("Body de mercado pago", mp.body);
       res.json(mp.body);
     })
     .catch(function (error) {

@@ -99,14 +99,14 @@ export function createUser(user) {
 export function updateUser(user) {
   // { id, nombre, email, nacimiento, direccion, telefono }
   console.log("user", user);
-  let updated = axios
+  return async (dispatch) => {
+  let updated = await axios
     .put("http://localhost:3001/usuario", {
       user,
     })
     .then((res) => res.data)
     .catch((e) => console.log(e));
   console.log("updated", updated);
-  return async (dispatch) => {
     return dispatch({ type: UPDATE_USER, dispatch: updated });
   };
 }

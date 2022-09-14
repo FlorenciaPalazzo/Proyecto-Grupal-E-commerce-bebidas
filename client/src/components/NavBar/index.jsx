@@ -38,7 +38,6 @@ export default function NavBar({ setCurrentPage }) {
       });
   }
 
-
   const handleGoCarrito = (e) => {
     e.preventDefault();
     if (!localStorage.getItem("product") || carrito.length === 0) {

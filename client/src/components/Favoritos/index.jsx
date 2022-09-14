@@ -126,3 +126,6 @@ export const Favoritos = () => {
     </div>
   );
 };
+
+
+// https://sandbox.mercadopago.com.ar/checkout/v1/redirect/3143da92-26f4-414e-8ef9-b64d7d8172c2/express/?preference-id=182593787-47225564-eed2-488e-8aae-c4ec96508d54&p=2713c69ce756a1d134a309ea495075c3
